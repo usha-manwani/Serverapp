@@ -44,6 +44,7 @@
             this.ClassLock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PodiumLock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Timer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 

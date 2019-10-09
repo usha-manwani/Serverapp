@@ -8,5 +8,7 @@ namespace DBAccess
 {
     public class Class1
     {
+
+        string builder; 
     }
 }
