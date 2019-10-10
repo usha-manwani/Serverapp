@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="cresijdatabaseDataSet" targetNamespace="http://tempuri.org/cresijdatabaseDataSet.xsd" xmlns:mstns="http://tempuri.org/cresijdatabaseDataSet.xsd" xmlns="http://tempuri.org/cresijdatabaseDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="cresijdatabaseConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="cresijdatabaseConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.Cresij_Control_Manager.Properties.Settings.GlobalReference.Default.cresijdatabaseConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="camera_detailsTableAdapter" GeneratorDataComponentClassName="camera_detailsTableAdapter" Name="camera_details" UserDataComponentName="camera_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.camera_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `camera_ip`, `id`, `cam_name`, `port`, `user_id`, `password`, `location`, `camera_provider` FROM `camera_details`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="card_registerTableAdapter" GeneratorDataComponentClassName="card_registerTableAdapter" Name="card_register" UserDataComponentName="card_registerTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.card_register" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `cardid`, `sno`, `membername`, `memberid`, `rights`, `location`, `comment`, `state`, `pending_loc`, `locationid` FROM `card_register`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="central_controlTableAdapter" GeneratorDataComponentClassName="central_controlTableAdapter" Name="central_control" UserDataComponentName="central_controlTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.central_control" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `cc_ip`, `location` FROM `central_control`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="class_detailsTableAdapter" GeneratorDataComponentClassName="class_detailsTableAdapter" Name="class_details" UserDataComponentName="class_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.class_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `id`, `class_id`, `class_name`, `grade_id` FROM `class_details`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="current_loggeduserTableAdapter" GeneratorDataComponentClassName="current_loggeduserTableAdapter" Name="current_loggeduser" UserDataComponentName="current_loggeduserTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.current_loggeduser" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `user_id`, `index` FROM `current_loggeduser`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="doc_infoTableAdapter" GeneratorDataComponentClassName="doc_infoTableAdapter" Name="doc_info" UserDataComponentName="doc_infoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.doc_info" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `userid`, `doc_info`, `timeofupload`, `type` FROM `doc_info`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="fault_infoTableAdapter" GeneratorDataComponentClassName="fault_infoTableAdapter" Name="fault_info" UserDataComponentName="fault_infoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.fault_info" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `sno`, `classid`, `ip`, `fault_knowledge`, `priority`, `districtname`, `member_name`, `phone`, `description`, `Time`, `Last updated`, `status` FROM `fault_info`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="fault_taskTableAdapter" GeneratorDataComponentClassName="fault_taskTableAdapter" Name="fault_task" UserDataComponentName="fault_taskTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.fault_task" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `id`, `task`, `timetoreport`, `timetoresolve` FROM `fault_task`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="grade_detailsTableAdapter" GeneratorDataComponentClassName="grade_detailsTableAdapter" Name="grade_details" UserDataComponentName="grade_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.grade_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `id`, `grade_id`, `grade_name`, `insid` FROM `grade_details`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="inspection_logsTableAdapter" GeneratorDataComponentClassName="inspection_logsTableAdapter" Name="inspection_logs" UserDataComponentName="inspection_logsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.inspection_logs" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `sno`, `districtname`, `schoolname`, `buildingname`, `classid`, `membername`, `projectorStat`, `screenstat`, `ccstat`, `computer`, `speaker`, `wireless`, `wired`, `platform`, `phone`, `description`, `time` FROM `inspection_logs`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="institution_detailTableAdapter" GeneratorDataComponentClassName="institution_detailTableAdapter" Name="institution_detail" UserDataComponentName="institution_detailTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.institution_detail" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `id`, `ins_name`, `ins_id` FROM `institution_detail`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="reader_logsTableAdapter" GeneratorDataComponentClassName="reader_logsTableAdapter" Name="reader_logs" UserDataComponentName="reader_logsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.reader_logs" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `locationid`, `cardid`, `date` FROM `reader_logs`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="readerlocationTableAdapter" GeneratorDataComponentClassName="readerlocationTableAdapter" Name="readerlocation" UserDataComponentName="readerlocationTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.readerlocation" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `cardid`, `location` FROM `readerlocation`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="registrationTableAdapter" GeneratorDataComponentClassName="registrationTableAdapter" Name="registration" UserDataComponentName="registrationTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.registration" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `userid`, `username`, `password`, `phone`, `currentstatus`, `roleid` FROM `registration`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="scheduleTableAdapter" GeneratorDataComponentClassName="scheduleTableAdapter" Name="schedule" UserDataComponentName="scheduleTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.schedule" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `id`, `starttime`, `stoptime`, `timer`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`, `location` FROM `schedule`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="temp_cardregisterTableAdapter" GeneratorDataComponentClassName="temp_cardregisterTableAdapter" Name="temp_cardregister" UserDataComponentName="temp_cardregisterTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.temp_cardregister" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `sno`, `memberid`, `memname`, `cardid`, `comment`, `state`, `accessto`, `selectaccess` FROM `temp_cardregister`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="temp_centralcontrolTableAdapter" GeneratorDataComponentClassName="temp_centralcontrolTableAdapter" Name="temp_centralcontrol" UserDataComponentName="temp_centralcontrolTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.temp_centralcontrol" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `ip`, `loc`, `status`, `workstatus`, `pcstatus`, `mediasignal`, `projectorstatus`, `screen`, `curtain`, `light`, `centrallock`, `classlock`, `podiumlock` FROM `temp_centralcontrol`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="temprature_detailsTableAdapter" GeneratorDataComponentClassName="temprature_detailsTableAdapter" Name="temprature_details" UserDataComponentName="temprature_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.temprature_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `location`, `temperature`, `humidity`, `pm25`, `pm10` FROM `temprature_details`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="user_detailsTableAdapter" GeneratorDataComponentClassName="user_detailsTableAdapter" Name="user_details" UserDataComponentName="user_detailsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.user_details" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `user_id`, `user_name`, `password`, `role_id`, `phone` FROM `user_details`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="user_logsTableAdapter" GeneratorDataComponentClassName="user_logsTableAdapter" Name="user_logs" UserDataComponentName="user_logsTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.user_logs" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `userid`, `task`, `time` FROM `user_logs`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="user_rolesTableAdapter" GeneratorDataComponentClassName="user_rolesTableAdapter" Name="user_roles" UserDataComponentName="user_rolesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="cresijdatabase.user_roles" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT `role_id`, `role_name` FROM `user_roles`</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_addNewUser`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_addNewUser" MethodsParameterType="CLR" Modifier="Public" Name="sp_addNewUser" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="sp_addNewUser">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_addNewUser`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="userid" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="username" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="pass" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="roleid" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="ph" Precision="255" ProviderType="VarChar" Scale="255" Size="15" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="result" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_addRoleToUser`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_addRoleToUser" MethodsParameterType="CLR" Modifier="Public" Name="sp_addRoleToUser" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="sp_addRoleToUser">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_addRoleToUser`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="tuserid" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="trole" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_cam`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_cam" MethodsParameterType="CLR" Modifier="Public" Name="sp_cam" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="sp_cam">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_cam`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="camip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="loc" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_camdetails`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_camdetails" MethodsParameterType="CLR" Modifier="Public" Name="sp_camdetails" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="sp_camdetails">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_camdetails`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="camip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="loc" Precision="255" ProviderType="VarChar" Scale="255" Size="10" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_cardLogs`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_cardLogs" MethodsParameterType="CLR" Modifier="Public" Name="sp_cardLogs" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy4" UserSourceName="sp_cardLogs">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_cardLogs`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="classid" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="cardid" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Output" ParameterName="log" Precision="255" ProviderType="VarChar" Scale="255" Size="200" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_cardRegister`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_cardRegister" MethodsParameterType="CLR" Modifier="Public" Name="sp_cardRegister" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy5" UserSourceName="sp_cardRegister">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_cardRegister`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="sno" Precision="255" ProviderType="VarChar" Scale="255" Size="10" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="name" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="memid" Precision="255" ProviderType="VarChar" Scale="255" Size="30" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="card_id" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="rights" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="pending" Precision="255" ProviderType="VarChar" Scale="255" Size="200" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="comment" Precision="255" ProviderType="VarChar" Scale="255" Size="100" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="state" Precision="255" ProviderType="VarChar" Scale="255" Size="15" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="classids" Precision="255" ProviderType="VarChar" Scale="255" Size="200" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="result" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_delCConLocation`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_delCConLocation" MethodsParameterType="CLR" Modifier="Public" Name="sp_delCConLocation" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy6" UserSourceName="sp_delCConLocation">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_delCConLocation`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="ip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="loc" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteCamera`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteCamera" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteCamera" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy7" UserSourceName="sp_deleteCamera">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteCamera`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="loc" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="result" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteCameraonLocation`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteCameraonLocation" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteCameraonLocation" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy8" UserSourceName="sp_deleteCameraonLocation">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteCameraonLocation`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="camip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="loc" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteCentralControl`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteCentralControl" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteCentralControl" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy9" UserSourceName="sp_deleteCentralControl">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteCentralControl`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="loc" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="result" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteClass`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteClass" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteClass" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy10" UserSourceName="sp_deleteClass">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteClass`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="class" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteDocInfo`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteDocInfo" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteDocInfo" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy11" UserSourceName="sp_deleteDocInfo">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteDocInfo`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="doc" Precision="255" ProviderType="VarChar" Scale="255" Size="150" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="userids" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deletegrade`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deletegrade" MethodsParameterType="CLR" Modifier="Public" Name="sp_deletegrade" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy12" UserSourceName="sp_deletegrade">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deletegrade`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="gradeid" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteInstitute`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteInstitute" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteInstitute" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy13" UserSourceName="sp_deleteInstitute">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteInstitute`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="ins" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="r" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteSchedule`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteSchedule" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteSchedule" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy14" UserSourceName="sp_deleteSchedule">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteSchedule`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="classid" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_deleteuser`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_deleteuser" MethodsParameterType="CLR" Modifier="Public" Name="sp_deleteuser" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy15" UserSourceName="sp_deleteuser">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_deleteuser`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="user" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="result" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_getLogsPageWise`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_getLogsPageWise" MethodsParameterType="CLR" Modifier="Public" Name="sp_getLogsPageWise" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy16" UserSourceName="sp_getLogsPageWise">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_getLogsPageWise`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="pageindex" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="pagesize" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="recordcount" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_getSchedule`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_getSchedule" MethodsParameterType="CLR" Modifier="Public" Name="sp_getSchedule" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy17" UserSourceName="sp_getSchedule">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_getSchedule`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="loc" Precision="255" ProviderType="VarChar" Scale="255" Size="10" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_getUserDetails`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_getUserDetails" MethodsParameterType="CLR" Modifier="Public" Name="sp_getUserDetails" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy18" UserSourceName="sp_getUserDetails">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_getUserDetails`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="user" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertCentralControl`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertCentralControl" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertCentralControl" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy19" UserSourceName="sp_insertCentralControl">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertCentralControl`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="ip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="location" Precision="255" ProviderType="VarChar" Scale="255" Size="10" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertClass`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertClass" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertClass" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy20" UserSourceName="sp_insertClass">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertClass`</CommandText>
+                <Parameters>
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="classname" Precision="255" ProviderType="VarChar" Scale="255" Size="50" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="gradeid" Precision="255" ProviderType="VarChar" Scale="255" Size="10" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="String" Direction="Input" ParameterName="ip" Precision="255" ProviderType="VarChar" Scale="255" Size="20" SourceColumnNullMapping="false" SourceVersion="Current" />
+                  <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Output" ParameterName="Ids" Precision="10" ProviderType="Int32" Scale="0" Size="2147483647" SourceColumnNullMapping="false" SourceVersion="Current" />
+                </Parameters>
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertCurrentUser`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertCurrentUser" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertCurrentUser" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy21" UserSourceName="sp_insertCurrentUser">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertCurrentUser`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertGrade`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertGrade" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertGrade" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy22" UserSourceName="sp_insertGrade">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertGrade`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertInstitute`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertInstitute" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertInstitute" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy23" UserSourceName="sp_insertInstitute">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertInstitute`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_InsertSchedule`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_InsertSchedule" MethodsParameterType="CLR" Modifier="Public" Name="sp_InsertSchedule" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy24" UserSourceName="sp_InsertSchedule">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_InsertSchedule`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertTemperature`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertTemperature" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertTemperature" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy25" UserSourceName="sp_insertTemperature">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertTemperature`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_insertUserLogs`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_insertUserLogs" MethodsParameterType="CLR" Modifier="Public" Name="sp_insertUserLogs" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy26" UserSourceName="sp_insertUserLogs">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_insertUserLogs`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_login`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_login" MethodsParameterType="CLR" Modifier="Public" Name="sp_login" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy27" UserSourceName="sp_login">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_login`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_newuserbyadmin`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_newuserbyadmin" MethodsParameterType="CLR" Modifier="Public" Name="sp_newuserbyadmin" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy28" UserSourceName="sp_newuserbyadmin">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_newuserbyadmin`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_registerNewCard`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_registerNewCard" MethodsParameterType="CLR" Modifier="Public" Name="sp_registerNewCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy29" UserSourceName="sp_registerNewCard">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_registerNewCard`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_registration`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_registration" MethodsParameterType="CLR" Modifier="Public" Name="sp_registration" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy30" UserSourceName="sp_registration">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_registration`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_scancard`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_scancard" MethodsParameterType="CLR" Modifier="Public" Name="sp_scancard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy31" UserSourceName="sp_scancard">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_scancard`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_tempCardRegister`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_tempCardRegister" MethodsParameterType="CLR" Modifier="Public" Name="sp_tempCardRegister" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy32" UserSourceName="sp_tempCardRegister">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_tempCardRegister`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateCamera`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateCamera" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateCamera" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy33" UserSourceName="sp_updateCamera">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateCamera`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateCard`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateCard" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateCard" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy34" UserSourceName="sp_updateCard">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateCard`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateCardLocations`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateCardLocations" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateCardLocations" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy35" UserSourceName="sp_updateCardLocations">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateCardLocations`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateCentralControl`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateCentralControl" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateCentralControl" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy36" UserSourceName="sp_updateCentralControl">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateCentralControl`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateClass`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateClass" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateClass" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy37" UserSourceName="sp_updateClass">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateClass`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateGrade`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateGrade" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateGrade" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy38" UserSourceName="sp_updateGrade">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateGrade`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateInstitute`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateInstitute" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateInstitute" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy39" UserSourceName="sp_updateInstitute">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateInstitute`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+          <DbSource ConnectionRef="cresijdatabaseConnectionString (Settings)" DbObjectName="`cresijdatabase`.`sp_updateMachineStatus`" DbObjectType="StoredProcedure" GenerateShortCommands="true" GeneratorSourceName="sp_updateMachineStatus" MethodsParameterType="CLR" Modifier="Public" Name="sp_updateMachineStatus" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy40" UserSourceName="sp_updateMachineStatus">
+            <SelectCommand>
+              <DbCommand CommandType="StoredProcedure" ModifiedByUser="false">
+                <CommandText>`cresijdatabase`.`sp_updateMachineStatus`</CommandText>
+                <Parameters />
+              </DbCommand>
+            </SelectCommand>
+          </DbSource>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="cresijdatabaseDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="cresijdatabaseDataSet" msprop:Generator_UserDSName="cresijdatabaseDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="camera_details" msprop:Generator_TableClassName="camera_detailsDataTable" msprop:Generator_TableVarName="tablecamera_details" msprop:Generator_TablePropName="camera_details" msprop:Generator_RowDeletingName="camera_detailsRowDeleting" msprop:Generator_RowChangingName="camera_detailsRowChanging" msprop:Generator_RowEvHandlerName="camera_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="camera_detailsRowDeleted" msprop:Generator_UserTableName="camera_details" msprop:Generator_RowChangedName="camera_detailsRowChanged" msprop:Generator_RowEvArgName="camera_detailsRowChangeEvent" msprop:Generator_RowClassName="camera_detailsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="card_register" msprop:Generator_TableClassName="card_registerDataTable" msprop:Generator_TableVarName="tablecard_register" msprop:Generator_TablePropName="card_register" msprop:Generator_RowDeletingName="card_registerRowDeleting" msprop:Generator_RowChangingName="card_registerRowChanging" msprop:Generator_RowEvHandlerName="card_registerRowChangeEventHandler" msprop:Generator_RowDeletedName="card_registerRowDeleted" msprop:Generator_UserTableName="card_register" msprop:Generator_RowChangedName="card_registerRowChanged" msprop:Generator_RowEvArgName="card_registerRowChangeEvent" msprop:Generator_RowClassName="card_registerRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="central_control" msprop:Generator_TableClassName="central_controlDataTable" msprop:Generator_TableVarName="tablecentral_control" msprop:Generator_TablePropName="central_control" msprop:Generator_RowDeletingName="central_controlRowDeleting" msprop:Generator_RowChangingName="central_controlRowChanging" msprop:Generator_RowEvHandlerName="central_controlRowChangeEventHandler" msprop:Generator_RowDeletedName="central_controlRowDeleted" msprop:Generator_UserTableName="central_control" msprop:Generator_RowChangedName="central_controlRowChanged" msprop:Generator_RowEvArgName="central_controlRowChangeEvent" msprop:Generator_RowClassName="central_controlRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="class_details" msprop:Generator_TableClassName="class_detailsDataTable" msprop:Generator_TableVarName="tableclass_details" msprop:Generator_TablePropName="class_details" msprop:Generator_RowDeletingName="class_detailsRowDeleting" msprop:Generator_RowChangingName="class_detailsRowChanging" msprop:Generator_RowEvHandlerName="class_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="class_detailsRowDeleted" msprop:Generator_UserTableName="class_details" msprop:Generator_RowChangedName="class_detailsRowChanged" msprop:Generator_RowEvArgName="class_detailsRowChangeEvent" msprop:Generator_RowClassName="class_detailsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="current_loggeduser" msprop:Generator_TableClassName="current_loggeduserDataTable" msprop:Generator_TableVarName="tablecurrent_loggeduser" msprop:Generator_TablePropName="current_loggeduser" msprop:Generator_RowDeletingName="current_loggeduserRowDeleting" msprop:Generator_RowChangingName="current_loggeduserRowChanging" msprop:Generator_RowEvHandlerName="current_loggeduserRowChangeEventHandler" msprop:Generator_RowDeletedName="current_loggeduserRowDeleted" msprop:Generator_UserTableName="current_loggeduser" msprop:Generator_RowChangedName="current_loggeduserRowChanged" msprop:Generator_RowEvArgName="current_loggeduserRowChangeEvent" msprop:Generator_RowClassName="current_loggeduserRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="doc_info" msprop:Generator_TableClassName="doc_infoDataTable" msprop:Generator_TableVarName="tabledoc_info" msprop:Generator_TablePropName="doc_info" msprop:Generator_RowDeletingName="doc_infoRowDeleting" msprop:Generator_RowChangingName="doc_infoRowChanging" msprop:Generator_RowEvHandlerName="doc_infoRowChangeEventHandler" msprop:Generator_RowDeletedName="doc_infoRowDeleted" msprop:Generator_UserTableName="doc_info" msprop:Generator_RowChangedName="doc_infoRowChanged" msprop:Generator_RowEvArgName="doc_infoRowChangeEvent" msprop:Generator_RowClassName="doc_infoRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fault_info" msprop:Generator_TableClassName="fault_infoDataTable" msprop:Generator_TableVarName="tablefault_info" msprop:Generator_TablePropName="fault_info" msprop:Generator_RowDeletingName="fault_infoRowDeleting" msprop:Generator_RowChangingName="fault_infoRowChanging" msprop:Generator_RowEvHandlerName="fault_infoRowChangeEventHandler" msprop:Generator_RowDeletedName="fault_infoRowDeleted" msprop:Generator_UserTableName="fault_info" msprop:Generator_RowChangedName="fault_infoRowChanged" msprop:Generator_RowEvArgName="fault_infoRowChangeEvent" msprop:Generator_RowClassName="fault_infoRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fault_task" msprop:Generator_TableClassName="fault_taskDataTable" msprop:Generator_TableVarName="tablefault_task" msprop:Generator_TablePropName="fault_task" msprop:Generator_RowDeletingName="fault_taskRowDeleting" msprop:Generator_RowChangingName="fault_taskRowChanging" msprop:Generator_RowEvHandlerName="fault_taskRowChangeEventHandler" msprop:Generator_RowDeletedName="fault_taskRowDeleted" msprop:Generator_UserTableName="fault_task" msprop:Generator_RowChangedName="fault_taskRowChanged" msprop:Generator_RowEvArgName="fault_taskRowChangeEvent" msprop:Generator_RowClassName="fault_taskRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="grade_details" msprop:Generator_TableClassName="grade_detailsDataTable" msprop:Generator_TableVarName="tablegrade_details" msprop:Generator_TablePropName="grade_details" msprop:Generator_RowDeletingName="grade_detailsRowDeleting" msprop:Generator_RowChangingName="grade_detailsRowChanging" msprop:Generator_RowEvHandlerName="grade_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="grade_detailsRowDeleted" msprop:Generator_UserTableName="grade_details" msprop:Generator_RowChangedName="grade_detailsRowChanged" msprop:Generator_RowEvArgName="grade_detailsRowChangeEvent" msprop:Generator_RowClassName="grade_detailsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inspection_logs" msprop:Generator_TableClassName="inspection_logsDataTable" msprop:Generator_TableVarName="tableinspection_logs" msprop:Generator_TablePropName="inspection_logs" msprop:Generator_RowDeletingName="inspection_logsRowDeleting" msprop:Generator_RowChangingName="inspection_logsRowChanging" msprop:Generator_RowEvHandlerName="inspection_logsRowChangeEventHandler" msprop:Generator_RowDeletedName="inspection_logsRowDeleted" msprop:Generator_UserTableName="inspection_logs" msprop:Generator_RowChangedName="inspection_logsRowChanged" msprop:Generator_RowEvArgName="inspection_logsRowChangeEvent" msprop:Generator_RowClassName="inspection_logsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="institution_detail" msprop:Generator_TableClassName="institution_detailDataTable" msprop:Generator_TableVarName="tableinstitution_detail" msprop:Generator_TablePropName="institution_detail" msprop:Generator_RowDeletingName="institution_detailRowDeleting" msprop:Generator_RowChangingName="institution_detailRowChanging" msprop:Generator_RowEvHandlerName="institution_detailRowChangeEventHandler" msprop:Generator_RowDeletedName="institution_detailRowDeleted" msprop:Generator_UserTableName="institution_detail" msprop:Generator_RowChangedName="institution_detailRowChanged" msprop:Generator_RowEvArgName="institution_detailRowChangeEvent" msprop:Generator_RowClassName="institution_detailRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="reader_logs" msprop:Generator_TableClassName="reader_logsDataTable" msprop:Generator_TableVarName="tablereader_logs" msprop:Generator_TablePropName="reader_logs" msprop:Generator_RowDeletingName="reader_logsRowDeleting" msprop:Generator_RowChangingName="reader_logsRowChanging" msprop:Generator_RowEvHandlerName="reader_logsRowChangeEventHandler" msprop:Generator_RowDeletedName="reader_logsRowDeleted" msprop:Generator_UserTableName="reader_logs" msprop:Generator_RowChangedName="reader_logsRowChanged" msprop:Generator_RowEvArgName="reader_logsRowChangeEvent" msprop:Generator_RowClassName="reader_logsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="readerlocation" msprop:Generator_TableClassName="readerlocationDataTable" msprop:Generator_TableVarName="tablereaderlocation" msprop:Generator_TablePropName="readerlocation" msprop:Generator_RowDeletingName="readerlocationRowDeleting" msprop:Generator_RowChangingName="readerlocationRowChanging" msprop:Generator_RowEvHandlerName="readerlocationRowChangeEventHandler" msprop:Generator_RowDeletedName="readerlocationRowDeleted" msprop:Generator_UserTableName="readerlocation" msprop:Generator_RowChangedName="readerlocationRowChanged" msprop:Generator_RowEvArgName="readerlocationRowChangeEvent" msprop:Generator_RowClassName="readerlocationRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="registration" msprop:Generator_TableClassName="registrationDataTable" msprop:Generator_TableVarName="tableregistration" msprop:Generator_TablePropName="registration" msprop:Generator_RowDeletingName="registrationRowDeleting" msprop:Generator_RowChangingName="registrationRowChanging" msprop:Generator_RowEvHandlerName="registrationRowChangeEventHandler" msprop:Generator_RowDeletedName="registrationRowDeleted" msprop:Generator_UserTableName="registration" msprop:Generator_RowChangedName="registrationRowChanged" msprop:Generator_RowEvArgName="registrationRowChangeEvent" msprop:Generator_RowClassName="registrationRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="schedule" msprop:Generator_TableClassName="scheduleDataTable" msprop:Generator_TableVarName="tableschedule" msprop:Generator_TablePropName="schedule" msprop:Generator_RowDeletingName="scheduleRowDeleting" msprop:Generator_RowChangingName="scheduleRowChanging" msprop:Generator_RowEvHandlerName="scheduleRowChangeEventHandler" msprop:Generator_RowDeletedName="scheduleRowDeleted" msprop:Generator_UserTableName="schedule" msprop:Generator_RowChangedName="scheduleRowChanged" msprop:Generator_RowEvArgName="scheduleRowChangeEvent" msprop:Generator_RowClassName="scheduleRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="temp_cardregister" msprop:Generator_TableClassName="temp_cardregisterDataTable" msprop:Generator_TableVarName="tabletemp_cardregister" msprop:Generator_TablePropName="temp_cardregister" msprop:Generator_RowDeletingName="temp_cardregisterRowDeleting" msprop:Generator_RowChangingName="temp_cardregisterRowChanging" msprop:Generator_RowEvHandlerName="temp_cardregisterRowChangeEventHandler" msprop:Generator_RowDeletedName="temp_cardregisterRowDeleted" msprop:Generator_UserTableName="temp_cardregister" msprop:Generator_RowChangedName="temp_cardregisterRowChanged" msprop:Generator_RowEvArgName="temp_cardregisterRowChangeEvent" msprop:Generator_RowClassName="temp_cardregisterRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="temp_centralcontrol" msprop:Generator_TableClassName="temp_centralcontrolDataTable" msprop:Generator_TableVarName="tabletemp_centralcontrol" msprop:Generator_TablePropName="temp_centralcontrol" msprop:Generator_RowDeletingName="temp_centralcontrolRowDeleting" msprop:Generator_RowChangingName="temp_centralcontrolRowChanging" msprop:Generator_RowEvHandlerName="temp_centralcontrolRowChangeEventHandler" msprop:Generator_RowDeletedName="temp_centralcontrolRowDeleted" msprop:Generator_UserTableName="temp_centralcontrol" msprop:Generator_RowChangedName="temp_centralcontrolRowChanged" msprop:Generator_RowEvArgName="temp_centralcontrolRowChangeEvent" msprop:Generator_RowClassName="temp_centralcontrolRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="temprature_details" msprop:Generator_TableClassName="temprature_detailsDataTable" msprop:Generator_TableVarName="tabletemprature_details" msprop:Generator_TablePropName="temprature_details" msprop:Generator_RowDeletingName="temprature_detailsRowDeleting" msprop:Generator_RowChangingName="temprature_detailsRowChanging" msprop:Generator_RowEvHandlerName="temprature_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="temprature_detailsRowDeleted" msprop:Generator_UserTableName="temprature_details" msprop:Generator_RowChangedName="temprature_detailsRowChanged" msprop:Generator_RowEvArgName="temprature_detailsRowChangeEvent" msprop:Generator_RowClassName="temprature_detailsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="user_details" msprop:Generator_TableClassName="user_detailsDataTable" msprop:Generator_TableVarName="tableuser_details" msprop:Generator_TablePropName="user_details" msprop:Generator_RowDeletingName="user_detailsRowDeleting" msprop:Generator_RowChangingName="user_detailsRowChanging" msprop:Generator_RowEvHandlerName="user_detailsRowChangeEventHandler" msprop:Generator_RowDeletedName="user_detailsRowDeleted" msprop:Generator_UserTableName="user_details" msprop:Generator_RowChangedName="user_detailsRowChanged" msprop:Generator_RowEvArgName="user_detailsRowChangeEvent" msprop:Generator_RowClassName="user_detailsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="user_logs" msprop:Generator_TableClassName="user_logsDataTable" msprop:Generator_TableVarName="tableuser_logs" msprop:Generator_TablePropName="user_logs" msprop:Generator_RowDeletingName="user_logsRowDeleting" msprop:Generator_RowChangingName="user_logsRowChanging" msprop:Generator_RowEvHandlerName="user_logsRowChangeEventHandler" msprop:Generator_RowDeletedName="user_logsRowDeleted" msprop:Generator_UserTableName="user_logs" msprop:Generator_RowChangedName="user_logsRowChanged" msprop:Generator_RowEvArgName="user_logsRowChangeEvent" msprop:Generator_RowClassName="user_logsRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="user_roles" msprop:Generator_TableClassName="user_rolesDataTable" msprop:Generator_TableVarName="tableuser_roles" msprop:Generator_TablePropName="user_roles" msprop:Generator_RowDeletingName="user_rolesRowDeleting" msprop:Generator_RowChangingName="user_rolesRowChanging" msprop:Generator_RowEvHandlerName="user_rolesRowChangeEventHandler" msprop:Generator_RowDeletedName="user_rolesRowDeleted" msprop:Generator_UserTableName="user_roles" msprop:Generator_RowChangedName="user_rolesRowChanged" msprop:Generator_RowEvArgName="user_rolesRowChangeEvent" msprop:Generator_RowClassName="user_rolesRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.components = new System.ComponentModel.Container();
+            this.ipGrid = new System.Windows.Forms.DataGridView();
             this.ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,16 +45,20 @@
             this.ClassLock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PodiumLock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Timer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cresijdatabaseDataSet = new Cresij_Control_Manager.cresijdatabaseDataSet();
+            this.centralcontrolBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.central_controlTableAdapter = new Cresij_Control_Manager.cresijdatabaseDataSetTableAdapters.central_controlTableAdapter();
+            ((System.ComponentModel.ISupportInitialize)(this.ipGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cresijdatabaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.centralcontrolBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // ipGrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ipGrid.AllowUserToAddRows = false;
+            this.ipGrid.AllowUserToDeleteRows = false;
+            this.ipGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ipGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ip,
             this.Location,
             this.Status,
@@ -69,12 +74,12 @@
             this.ClassLock,
             this.PodiumLock,
             this.Timer});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(1084, 562);
-            this.dataGridView1.TabIndex = 0;
+            this.ipGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ipGrid.Location = new System.Drawing.Point(0, 0);
+            this.ipGrid.Name = "ipGrid";
+            this.ipGrid.RowTemplate.Height = 23;
+            this.ipGrid.Size = new System.Drawing.Size(1084, 562);
+            this.ipGrid.TabIndex = 0;
             // 
             // ip
             // 
@@ -165,22 +170,39 @@
             this.Timer.Name = "Timer";
             this.Timer.Width = 60;
             // 
+            // cresijdatabaseDataSet
+            // 
+            this.cresijdatabaseDataSet.DataSetName = "cresijdatabaseDataSet";
+            this.cresijdatabaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // centralcontrolBindingSource
+            // 
+            this.centralcontrolBindingSource.DataMember = "central_control";
+            this.centralcontrolBindingSource.DataSource = this.cresijdatabaseDataSet;
+            // 
+            // central_controlTableAdapter
+            // 
+            this.central_controlTableAdapter.ClearBeforeFill = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 562);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.ipGrid);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ipGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cresijdatabaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.centralcontrolBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView ipGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn ip;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
@@ -196,6 +218,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ClassLock;
         private System.Windows.Forms.DataGridViewTextBoxColumn PodiumLock;
         private System.Windows.Forms.DataGridViewTextBoxColumn Timer;
+        private cresijdatabaseDataSet cresijdatabaseDataSet;
+        private System.Windows.Forms.BindingSource centralcontrolBindingSource;
+        private cresijdatabaseDataSetTableAdapters.central_controlTableAdapter central_controlTableAdapter;
     }
 }
 

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBHelper;
 
 namespace Cresij_Control_Manager
 {
@@ -17,12 +18,13 @@ namespace Cresij_Control_Manager
     {
         public Form1()
         {
-            InitializeComponent();
-              
+            InitializeComponent();              
         }
        
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Fill IP grid on the form with the initial status
+            FillForm();
             StartListen(IPAddress.Any.ToString(), 1200);
         }
         #region---启用端口，接受下位机连接,监测下位机状态池---
@@ -31,14 +33,12 @@ namespace Cresij_Control_Manager
         List<Pools> Pool_list = new List<Pools>();
         private void StartListen(string _IpAddress, int _Ports)
         {
-
             // 创建负责监听的套接字，注意其中的参数；  
             socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //初始化的时候，让socket可以进行端口复用,防止服务线程卡死
             socketWatch.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // 获得文本框中的IP对象；  
             IPAddress address = IPAddress.Parse(_IpAddress);
-
             // 创建包含ip和端口号的网络节点对象；  
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, _Ports);
             try
@@ -70,14 +70,17 @@ namespace Cresij_Control_Manager
                 IPEndPoint iep = (IPEndPoint)sokConnection.RemoteEndPoint;
                 string _ip = iep.Address.ToString();
                 ClearSocket(_ip);
-                Thread thr = new Thread(RecMsg);
-                thr.IsBackground = true;
+                
+                Thread thr = new Thread(RecMsg)
+                {
+                    IsBackground = true
+                };
+                
                 setControl(sokConnection);//设置心跳包
                 thr.Start(sokConnection);
-                // dictThread.Add(sokConnection.RemoteEndPoint.ToString(), thr);  //  将新建的线程 添加 到线程的集合中去。
+                //dictThread.Add(sokConnection.RemoteEndPoint.ToString(), thr);  //  将新建的线程 添加 到线程的集合中去。
                 Pools pl = new Pools(iep.Address.ToString(), sokConnection, thr, DateTime.Now);
                 UpdatePool(pl);
-
             }
         }
         private void ClearSocket(string _ip)
@@ -102,7 +105,7 @@ namespace Cresij_Control_Manager
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+              //  Console.WriteLine(ex.Message.ToString());
             }
         }
         private void setControl(Socket client)
@@ -118,21 +121,36 @@ namespace Cresij_Control_Manager
         {
             try
             {
-                if (sokConnectionparn == null) return;
-                
+                if (sokConnectionparn == null) return;               
                 Socket sokClient = sokConnectionparn as Socket;
                 IPEndPoint iep = (IPEndPoint)sokClient.RemoteEndPoint;
                 while (true)
-                {
-                    
+                {                    
                     // 定义一个2M的缓存区；  
                     byte[] receiveBytes = new byte[1024];
                     // 将接受到的数据存入到输入  arrMsgRec中；  
                     int length = -1;
                     try
-                    {
-                        
-                        length = sokClient.Receive(receiveBytes); // 接收数据，并返回数据的长度；  
+                    {                        
+                        length = sokClient.Receive(receiveBytes); // 接收数据，并返回数据的长度； 
+                        //MessageBox.Show(length.ToString());
+                        //string data = "";
+                        //for (int j = 0; j < length;)
+                        //{
+                        //    if (receiveBytes[j] == Convert.ToByte(0x8B) && receiveBytes[j + 1] == Convert.ToByte(0xB9))
+                        //    {
+                        //        byte[] datatoDecode = new byte[4 + (256 * receiveBytes[j + 2]) + receiveBytes[j + 3]];
+                        //        for (int k = 0; k < datatoDecode.Length; k++)
+                        //        {
+                        //            datatoDecode[k] = receiveBytes[k + j];
+                        //        }
+                        //        for (int l = 0; l < datatoDecode.Length; l++)
+                        //        {
+                        //            data = data + datatoDecode[l] + ",";
+                        //        }
+                        //    }
+                        //}
+                        //MessageBox.Show(data);
                     }
                     catch (SocketException se)
                     {
@@ -144,30 +162,27 @@ namespace Cresij_Control_Manager
                         RemovePool(iep.Address.ToString());
                         break;
                     }
+                   
+                      
                     //string strMsg = System.Text.Encoding.UTF8.GetString(arrMsgRec, 1, length - 1);// 将接受到的字节数据转化成字符串； 
                     //将Byte数组解析成字符串并添加到历史记录列表
                     //string Command = "";
-
                     //for (int i = 0; i < length; i++)
                     //    Command += arrMsgRec[i].ToString("X2") + " ";
-                    
-                    
                     HandleCommand(iep.Address.ToString(), receiveBytes,length);
                 }
             }
-            catch (System.ObjectDisposedException)
+            catch (ObjectDisposedException)
             {
                 return;//如果主界面已经退出了，那线程也退出好了
             }
         }
-
         /// <summary>
         /// 更新连接池
         /// </summary>
         /// <param name="_pls"></param>
         private void UpdatePool(Pools _pls)
-        {
-            
+        { 
             Pool_list.Add(_pls);
         }
         //移除实例变量
@@ -250,17 +265,33 @@ namespace Cresij_Control_Manager
                     {
                         j++;
                     }
-
                 }
-
             }
             catch (Exception ex)
             {
-                //string msg = con.State.ToString();
-                // Console.WriteLine(ex.Message+"  "+msg);
+                //string msg = con.State.ToString();                
             }
-
         }
         #endregion
+
+        private void FillForm()
+        {
+            GetIPStatus getIPStatus = new GetIPStatus();
+            string query = "select * from temp_centralcontrol";
+            DataTable dt= getIPStatus.ExecuteCmd(query);
+            if (dt.Rows.Count > 0)
+            {
+                foreach(DataRow dataRow in dt.Rows)
+                {
+                    ipGrid.Rows.Add();
+                    for(int i=0; i < ipGrid.Columns.Count; i++)
+                    {
+                        ipGrid.Rows[ipGrid.Rows.Count - 1].Cells[i].Value = dataRow[i].ToString();
+                    }
+                }
+            }
+            //ipGrid.DataSource = dt;
+            //ipGrid.Refresh();
+        }
     }
 }
