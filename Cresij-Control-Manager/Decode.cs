@@ -649,6 +649,18 @@ namespace Cresij_Control_Manager
                                 {
                                     //machine status
                                     MessageArray[2] = "Online";
+                                    //work status
+                                    if (data[8] == Convert.ToByte(0x00))
+                                    {
+                                        MessageArray[3] = "CLOSED";
+                                    }
+                                    else
+                                    {
+                                        MessageArray[3] = "OPEN";
+                                        Status[1] = "On";
+                                    }
+                                    MessageArray[4] = "--";//timer service
+                                    
                                     //pc status
                                     if (data[7] == Convert.ToByte(0x00))
                                     {
@@ -660,33 +672,51 @@ namespace Cresij_Control_Manager
                                         MessageArray[5] = "On";
                                         computer = "On";
                                     }
-
-                                    //work status
-                                    if (data[8] == Convert.ToByte(0x00))
+                                    //projector status
+                                    if (data[13] == Convert.ToByte(0x00))
                                     {
-                                        MessageArray[3] = "CLOSED";
+                                        MessageArray[6] = "Closed";
+                                        projectorStatus = "Closed";
                                     }
                                     else
                                     {
-                                        MessageArray[3] = "OPEN";
-                                        Status[1] = "On";
+                                        MessageArray[6] = "Open";
+                                        projectorStatus = "Open";
                                     }
-                                    //podium lock status
-                                    if (data[9] == Convert.ToByte(0x00))
+                                    MessageArray[7] = "--";//projector hours
+                                    //Curtain Status
+                                    switch (Convert.ToInt32(data[15]))
                                     {
-                                        MessageArray[14] = "Locked";
+                                        case 1:
+                                            MessageArray[8] = "Open";
+                                            break;
+                                        case 2:
+                                            MessageArray[8] = "Close";
+                                            break;
+                                        case 0:
+                                            MessageArray[8] = "Stop";
+                                            break;
+                                    }
+                                    //Screen status
+                                    switch (Convert.ToInt32(data[14]))
+                                    {
+                                        case 1:
+                                            MessageArray[9] = "Up";
+                                            break;
+                                        case 2:
+                                            MessageArray[9] = "Down";
+                                            break;
+                                        case 0:
+                                            MessageArray[9] = "Stop";
+                                            break;
+                                    }
+                                    //light status
+                                    if (data[16] == Convert.ToByte(0x00))
+                                    {
+                                        MessageArray[10] = "Off";
                                     }
                                     else
-                                        MessageArray[14] = "Unlocked";
-
-                                    //class lock status
-                                    if (data[10] == Convert.ToByte(0x00))
-                                    {
-                                        MessageArray[13] = "Locked";
-                                    }
-                                    else
-                                        MessageArray[13] = "Unlocked";
-
+                                        MessageArray[10] = "On";
                                     //media signal
                                     switch (Convert.ToInt32(data[11]))
                                     {
@@ -728,58 +758,24 @@ namespace Cresij_Control_Manager
                                     }
                                     else
                                         MessageArray[12] = "Unlocked";
-                                    //projector status
-                                    if (data[13] == Convert.ToByte(0x00))
+                                    //class lock status
+                                    if (data[10] == Convert.ToByte(0x00))
                                     {
-                                        MessageArray[6] = "Closed";
-                                        projectorStatus = "Closed";
+                                        MessageArray[13] = "Locked";
                                     }
                                     else
+                                        MessageArray[13] = "Unlocked";
+                                    //podium lock status
+                                    if (data[9] == Convert.ToByte(0x00))
                                     {
-                                        MessageArray[6] = "Open";
-                                        projectorStatus = "Open";
-                                    }
-
-                                    //Screen status
-                                    switch (Convert.ToInt32(data[14]))
-                                    {
-                                        case 1:
-                                            MessageArray[9] = "Up";
-                                            break;
-                                        case 2:
-                                            MessageArray[9] = "Down";
-                                            break;
-                                        case 0:
-                                            MessageArray[9] = "Stop";
-                                            break;
-                                    }
-                                    //Curtain Status
-                                    switch (Convert.ToInt32(data[15]))
-                                    {
-                                        case 1:
-                                            MessageArray[8] = "Open";
-                                            break;
-                                        case 2:
-                                            MessageArray[8] = "Close";
-                                            break;
-                                        case 0:
-                                            MessageArray[8] = "Stop";
-                                            break;
-                                    }
-                                    //light status
-                                    if (data[16] == Convert.ToByte(0x00))
-                                    {
-                                        MessageArray[10] = "Off";
+                                        MessageArray[14] = "Locked";
                                     }
                                     else
-                                        MessageArray[10] = "On";
-
+                                        MessageArray[14] = "Unlocked";
                                     MessageArray[15] = "--";
                                     MessageArray[16] = "--";
                                     MessageArray[17] = "--";
-                                    MessageArray[18] = "--";
-                                    MessageArray[4] = "--";
-                                    MessageArray[7] = "--";
+                                    MessageArray[18] = "--";                                    
                                 }
                                 else
                                 {

@@ -11,44 +11,56 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBHelper;
+using Microsoft.AspNet.SignalR.Client;
+
 
 namespace Cresij_Control_Manager
 {
     public partial class Form1 : Form
     {
+         List<Pools> Pool_list = new List<Pools>();
+        private static Dictionary<string, StateObject> Clients = new Dictionary<string, StateObject>();
+        public static Dictionary<string, DateTime> times = new Dictionary<string, DateTime>();
+        public static int connectedClient = 0;
+        private static IHubProxy proxy;
+        private static HubConnection con;
+        private static System.Threading.Timer _timer;
+        private static System.Threading.Timer timer;
+        private static int totalClients = 0;
         public Form1()
         {
-            InitializeComponent();              
+            InitializeComponent();
         }
-       
+      
         private void Form1_Load(object sender, EventArgs e)
         {
             //Fill IP grid on the form with the initial status
             FillForm();
+            ConnectToHub();
             StartListen(IPAddress.Any.ToString(), 1200);
         }
         #region---启用端口，接受下位机连接,监测下位机状态池---
-        Thread threadWatch = null; // 负责监听客户端连接请求的 线程；    
+        Thread threadWatch = null; // 负责监听客户端连接请求的 线程；
         Socket socketWatch = null;
-        List<Pools> Pool_list = new List<Pools>();
+        
         private void StartListen(string _IpAddress, int _Ports)
         {
-            // 创建负责监听的套接字，注意其中的参数；  
+            // 创建负责监听的套接字，注意其中的参数；
             socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //初始化的时候，让socket可以进行端口复用,防止服务线程卡死
             socketWatch.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            // 获得文本框中的IP对象；  
+            // 获得文本框中的IP对象；
             IPAddress address = IPAddress.Parse(_IpAddress);
-            // 创建包含ip和端口号的网络节点对象；  
+            // 创建包含ip和端口号的网络节点对象;
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, _Ports);
             try
             {
                 // 将负责监听的套接字绑定到唯一的ip和端口上；                 
-                socketWatch.Bind(endPoint);
+                 socketWatch.Bind(endPoint);
             }
             catch (SocketException se)
             {
-                MessageBox.Show("异常：" + se.Message);
+                MessageBox.Show("Error: " + se.Message);
                 return;
             }
             // 设置监听队列的长度；  
@@ -74,8 +86,7 @@ namespace Cresij_Control_Manager
                 Thread thr = new Thread(RecMsg)
                 {
                     IsBackground = true
-                };
-                
+                };                
                 setControl(sokConnection);//设置心跳包
                 thr.Start(sokConnection);
                 //dictThread.Add(sokConnection.RemoteEndPoint.ToString(), thr);  //  将新建的线程 添加 到线程的集合中去。
@@ -117,6 +128,7 @@ namespace Cresij_Control_Manager
             client.IOControl(IOControlCode.KeepAliveValues, inOptionValues, null);
         }
 
+        
         void RecMsg(object sokConnectionparn)
         {
             try
@@ -182,7 +194,7 @@ namespace Cresij_Control_Manager
         /// </summary>
         /// <param name="_pls"></param>
         private void UpdatePool(Pools _pls)
-        { 
+        {
             Pool_list.Add(_pls);
         }
         //移除实例变量
@@ -234,7 +246,17 @@ namespace Cresij_Control_Manager
             }
         }
         #endregion
+        private static void Send(Socket workSocket, byte[] data)
+        {
+            try
+            {
+                workSocket.Send(data);               
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
         #region--处理下位机信息--
         private void HandleCommand(string iep, byte[] receiveBytes, int length)
         {
@@ -242,6 +264,7 @@ namespace Cresij_Control_Manager
             {
                 Decode dd = new Decode();
                 string[] final;
+                
                 for (int j = 0; j < length;)
                 {
                     if (receiveBytes[j] == Convert.ToByte(0x8B) && receiveBytes[j + 1] == Convert.ToByte(0xB9))
@@ -252,13 +275,23 @@ namespace Cresij_Control_Manager
                             datatoDecode[k] = receiveBytes[k + j];
                         }
                         final = dd.Decoded(iep, datatoDecode);
+                        for(int i=0; i < ipGrid.Rows.Count; i++)
+                        {
+                            if (ipGrid[0, i].Value.ToString() == iep && final[1]=="Heartbeat")
+                            {
+                                for(int m =2; m< ipGrid.ColumnCount; m++)
+                                {
+                                    ipGrid[m, i].Value = final[m];
+                                }
+                                break;
+                            }
+                        }
                         string data = "";
                         for (int l = 0; l < final.Length; l++)
                         {
                             data = data + final[l] + ",";
-                        }
-                        
-                        //SendMessage(iP, data);
+                        }                        
+                        SendMessage(iep, data);
                         j = j + datatoDecode.Length;
                     }
                     else
@@ -273,7 +306,7 @@ namespace Cresij_Control_Manager
             }
         }
         #endregion
-
+        //Fill Grid from database
         private void FillForm()
         {
             GetIPStatus getIPStatus = new GetIPStatus();
@@ -289,9 +322,318 @@ namespace Cresij_Control_Manager
                         ipGrid.Rows[ipGrid.Rows.Count - 1].Cells[i].Value = dataRow[i].ToString();
                     }
                 }
-            }
-            //ipGrid.DataSource = dt;
-            //ipGrid.Refresh();
+            }            
         }
+
+        #region cnnection to website
+        //connect to website
+        public  void ConnectToHub()
+        {
+            try
+            {
+                con = new HubConnection("http://localhost:17263/");
+                // con.TraceLevel = TraceLevels.All;
+                // con.TraceWriter = Console.Out;                
+                proxy = con.CreateHubProxy("myHub");
+                proxy.On<int>("SendToMachine", i =>
+                {
+                    byte[] data = new byte[] { 0x8B, 0xB9, 0x00, 0x03, 0x05, 0x01, 0x09 };
+                    
+                    //Console.WriteLine("SignalR Hub called Console Application");
+                    //Console.WriteLine();
+                    
+                    try
+                    {
+                        foreach (Pools p in Pool_list)
+                        {
+                            Send(p._sock, data);
+                        }
+                        lock (Clients)
+                        {
+                            if (Clients.Count > 0)
+                            {
+                                foreach (StateObject Client in Clients.Values)
+                                {
+                                    if (isClientConnected(Client.workSocket))
+                                    {
+                                        Send(Client.workSocket, data);
+                                        MessageBox.Show(((IPEndPoint)Client.workSocket.RemoteEndPoint).ToString());
+                                    }
+                                    //.Address.ToString());
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Console.WriteLine(ex.Message);
+                    }
+                });
+                proxy.On<string, string>("SendControl", (ip, data) =>
+                {
+                    //Console.WriteLine("server called SendControl");
+                    //Console.WriteLine(ip + " data for IP "+data);
+                    byte[] dataBytes = HexEncoding.GetBytes(data, out int i);
+                    try
+                    {
+                        lock (Clients)
+                        {
+                            if (Clients.Count > 0)
+                            {
+                                if (Clients.TryGetValue(ip, out StateObject state))
+                                {
+                                    if (isClientConnected(state.workSocket))
+                                    {
+                                        Send(state.workSocket, dataBytes);
+                                        // Console.WriteLine("sent to " + ip);
+                                    }
+                                    else
+                                    {
+                                       // SaveStatus(ip, "Offline");
+                                    }
+                                }
+                                else
+                                {
+                                   // SaveStatus(ip, "Offline");
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Console.WriteLine(ex.Message);
+                    }
+                });
+                proxy.On<string>("RefreshStatus", (ip) =>
+                {
+                    byte[] data = new byte[] { 0x8B, 0xB9, 0x00, 0x03, 0x05, 0x01, 0x09 };
+                    try
+                    {
+                        lock (Clients)
+                        {
+                            if (Clients.Count > 0)
+                            {
+                                if (Clients.TryGetValue(ip, out StateObject state))
+                                {
+                                    if (isClientConnected(state.workSocket))
+                                    {
+                                        Send(state.workSocket, data);
+                                        // Console.WriteLine("sent to " + ip);
+                                    }
+                                    else
+                                    {
+                                       // SaveStatus(ip, "Offline");
+                                    }
+                                }
+                                else
+                                {
+                                   // SaveStatus(ip, "Offline");
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Console.WriteLine(ex.Message);
+                    }
+                });
+
+                proxy.On<int>("Counts", i =>
+                {
+                    SendCounts();
+                });
+                con.Start().ContinueWith(task => {
+                    if (task.IsFaulted)
+                    {
+                        Console.WriteLine("There was an error opening the connection:{0}",
+                                          task.Exception.GetBaseException());
+                    }
+                    //else{MessageBox.Show("Connected");}
+
+                }).Wait();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                con.StateChanged += Con_StateChanged;
+            }
+        }
+
+       
+
+        private static async Task StartCon()
+        {
+            await con.Start();
+        }
+        private static void Con_StateChanged(StateChange obj)
+        {
+            if (obj.OldState == Microsoft.AspNet.SignalR.Client.ConnectionState.Disconnected)
+            {
+                // Console.WriteLine("State changed inside");
+                var current = DateTime.Now.TimeOfDay;
+                SetTimer(current.Add(TimeSpan.FromSeconds(30)), TimeSpan.FromSeconds(10), StartCon);
+                // Console.WriteLine("State changed inside done");
+            }
+            else
+            {
+                // Console.WriteLine("State changed else inside");
+                if (_timer != null)
+                    _timer.Dispose();
+            }
+        }
+
+        private static void Con_Closed()
+        {
+            //Console.WriteLine("connection closed");
+            con.Start().Wait();
+        }
+        private static void StartTimer()
+        {
+            timer = new System.Threading.Timer(new TimerCallback(CheckMachine), null, 60000, 30000);
+        }
+        private static void CheckMachine(object state)
+        {
+            List<string> ips = new List<string>();
+            DateTime now = DateTime.Now;
+            try
+            {
+                if (times.Count > 0)
+                {
+                    foreach (KeyValuePair<string, DateTime> p in times)
+                    {
+                        TimeSpan span = now - p.Value;
+                        if (span.Minutes > 1)
+                        {
+                          //  SaveStatus(p.Key, "Offline");
+                            ips.Add(p.Key);
+                        }
+                        else
+                        {
+                           // SaveStatus(p.Key, "Online");
+                        }
+                    }
+                    if (ips.Count > 0)
+                    {
+                        lock (times)
+                        {
+                            foreach (string s in ips)
+                            {
+                                if (times.ContainsKey(s))
+                                {
+                                    times.Remove(s);
+                                    Decode dr = new Decode();
+                                    string m = dr.offlineMessage();
+                                    SendMessage(s, m);
+                                }
+                            }
+                        }
+                        SendCounts();
+                    }
+                    ips.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private static void SetTimer(TimeSpan starTime, TimeSpan every, Func<Task> action)
+        {
+            var current = DateTime.Now;
+            var timeToGo = starTime - current.TimeOfDay;
+            if (timeToGo < TimeSpan.Zero)
+            {
+                return;
+            }
+            _timer = new System.Threading.Timer(x =>
+            {
+                action.Invoke();
+            }, null, timeToGo, every);
+        }
+
+        public static void RemoveCLient(string ip, Socket handler)
+        {
+            handler.Close();
+            List<string> ips = new List<string>();
+            try
+            {
+                lock (Clients)
+                {
+                    if (Clients.Count > 0)
+                    {
+                        foreach (KeyValuePair<string, StateObject> c in Clients)
+                        {
+                            if (c.Value.workSocket == handler)
+                            {
+                                //SaveStatus(ip, "Offline");
+                                ips.Add(c.Key);
+                                SendCounts();
+
+                                Decode dr = new Decode();
+                                string m = dr.offlineMessage();
+                                SendMessage(ip, m);
+                                break;
+                            }
+                        }
+                        if (ips.Count > 0)
+                        {
+                            foreach (string s in ips)
+                            {
+                                Clients.Remove(s);
+
+                            }
+
+                        }
+                        ips.Clear();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public static bool isClientConnected(Socket handler)
+        {
+            bool status = false;
+            try
+            {
+                status = handler.Connected;
+            }
+            catch (Exception ex)
+            {
+                //SaveStatus(((IPEndPoint)handler.RemoteEndPoint).Address.ToString(), "Offline");
+            }
+            return status;
+        }
+
+        public static void SendMessage(string sender, string message)
+        {
+            try
+            {
+                if (con.State != Microsoft.AspNet.SignalR.Client.ConnectionState.Connected)
+                {
+                    // Console.WriteLine("connecting to server");
+                    con.Start().Wait();
+                    // Console.WriteLine("connected");
+                }
+                proxy.Invoke("SendMessage", sender, message);
+                //Console.WriteLine("Sent to signalR server by" + sender);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //  Console.WriteLine("connecting to server");
+                con.Start().Wait();
+                // Console.WriteLine("connected");
+            }
+        }
+
+        public static void SendCounts()
+        {
+            proxy.Invoke("CountMachines", times.Count);
+        }
+
+        #endregion
     }
 }
