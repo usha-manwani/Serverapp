@@ -20,7 +20,7 @@ namespace DBHelper
             {
                 using (MySqlCommand cmd = new MySqlCommand("sp_insertCurrentUser", con))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;                   
+                    cmd.CommandType = CommandType.StoredProcedure;
                     if (con.State != ConnectionState.Open)
                     {
                         con.Open();
@@ -45,14 +45,14 @@ namespace DBHelper
                             con.Open();
                             da.Fill(dt);
                         }
-                        
+
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 { }
                 finally
-                {con.Close();}
-            } 
+                { con.Close(); }
+            }
             return dt;
         }
         public DataTable FullIptable()
@@ -73,8 +73,31 @@ namespace DBHelper
             dt.Columns.Add("ClassLock");
             dt.Columns.Add("PodiumLock");
             dt.Columns.Add("Timer");
-            
+
             return dt;
+        }
+        public void ExecuteAnyCommand(string query)
+        {
+
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                try
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        if (con.State != ConnectionState.Open)
+                        {
+                            con.Open();
+                        }
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch(Exception ex) { }
+                finally
+                {
+                    con.Close();
+                }
+            }
         }
     }
 }
