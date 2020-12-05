@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0519eb2339d84901a933638089b12cb6" Name="Diagram1">
+        <EntityTypeShape EntityType="organisationdatabaseModel.buildingdetail" Width="1.5" PointX="2" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.classdetail" Width="1.5" PointX="4.375" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.floordetail" Width="1.5" PointX="2" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.schedule" Width="1.5" PointX="6.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.schedulereserve" Width="1.5" PointX="6.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.scheduletransfer" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.sectionsinfo" Width="1.5" PointX="4.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.semesterinfo" Width="1.5" PointX="4" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategyequipment" Width="1.5" PointX="6.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategymanagement" Width="1.5" PointX="7.875" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.systemsetting" Width="1.5" PointX="2.125" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_classbuildingname" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_floorbuilding" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_transferBuildingid" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_classfloor" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_schedulereserveClassid" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_scheduletransferClassid" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_schedulesemno" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_transferIdref" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_reserveSemno" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_SectionSemno" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategydescription" Width="1.5" PointX="8.375" PointY="1.125" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_strategyEquipId" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_strategyIdRef" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -76,6 +76,17 @@ namespace Cresij_Control_Manager
             }
             return hexString;
         }
+
+        public static string ToStringfromHex(byte[] bytes)
+        {
+            List<string> hexString = new List<string>();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hexString.Add(bytes[i].ToString("X2"));
+               // hexString += bytes[i].ToString("X2");
+            }
+            return string.Join(" ",hexString);
+        }
         /// <summary>
         /// Determines if given string is in proper hexadecimal string format
         /// </summary>

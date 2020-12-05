@@ -1,0 +1,2039 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="organisationdatabaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="buildingdetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuildingName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="buildingcode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Queue" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Public" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="classdetails">
+          <Key>
+            <PropertyRef Name="classID" />
+          </Key>
+          <Property Name="classID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClassName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="teachingBuilding" Type="int" Nullable="false" />
+          <Property Name="floor" Type="int" Nullable="false" />
+          <Property Name="Seats" Type="int" Nullable="false" />
+          <Property Name="camipS" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="camipT" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="camSmac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="camTmac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="camport" Type="int" Nullable="false" />
+          <Property Name="camuserid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="campass" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CCEquipIP" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ccmac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="desktopip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="deskmac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="recordingEquip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="recordermac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="callhelpip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="callhelpmac" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="current_loggeduser">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="departmentdetail">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="departmentName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="departmentCode" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="floordetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="floor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="BuildingName" Type="int" Nullable="false" />
+          <Property Name="buildingcode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Queue" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Public" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="machineworkinghours">
+          <Key>
+            <PropertyRef Name="IP" />
+            <PropertyRef Name="location" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="projectorHour" />
+            <PropertyRef Name="pcHour" />
+            <PropertyRef Name="recorderHour" />
+            <PropertyRef Name="ACHour" />
+            <PropertyRef Name="systemHour" />
+          </Key>
+          <Property Name="IP" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="location" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="projectorHour" Type="double" Nullable="false" />
+          <Property Name="pcHour" Type="double" Nullable="false" />
+          <Property Name="recorderHour" Type="double" Nullable="false" />
+          <Property Name="ACHour" Type="double" Nullable="false" />
+          <Property Name="systemHour" Type="double" Nullable="false" />
+          <Property Name="screenHour" Type="double" />
+        </EntityType>
+        <EntityType Name="operationmgmt">
+          <Key>
+            <PropertyRef Name="serialno" />
+          </Key>
+          <Property Name="devicename" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="assetno" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="specification" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="devicetype" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="price" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="factory" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="dateofmanufacture" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateofpurchase" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dateofdelivery" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="warrantytime" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="locationType" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="equipmentstatus" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="serialno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reserveandtransfer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NonWorkingDays" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="AutoReview" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="StartTime" Type="date" Nullable="false" />
+          <Property Name="EndTime" Type="date" Nullable="false" />
+          <Property Name="SemesterNo" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="roledetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rolename" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="sem" Type="int" Nullable="false" />
+          <Property Name="teacherid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="teachername" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="courseid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="classname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="coursename" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="weekstart" Type="int" Nullable="false" />
+          <Property Name="weekend" Type="int" Nullable="false" />
+          <Property Name="dayno" Type="int" Nullable="false" />
+          <Property Name="section" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teachingbuilding" Type="varchar" MaxLength="100" />
+          <Property Name="floor" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="scheduleoriginal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="sem" Type="int" Nullable="false" />
+          <Property Name="teacherid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="teachername" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="courseid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="classname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="coursename" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="weekstart" Type="int" Nullable="false" />
+          <Property Name="weekend" Type="int" Nullable="false" />
+          <Property Name="dayno" Type="int" Nullable="false" />
+          <Property Name="section" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="schedulereserve">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SchoolYear" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Semester" Type="int" Nullable="false" />
+          <Property Name="week" Type="int" Nullable="false" />
+          <Property Name="ReserveDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Section" Type="int" Nullable="false" />
+          <Property Name="Classroom" Type="int" Nullable="false" />
+          <Property Name="BorrowingUnit" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Workphone" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PersonName" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PersonID" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ContactNo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Purpose" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Reason" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ReservationDevices" Type="text" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="scheduletransfer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="classname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="courseid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="newclass" Type="int" Nullable="false" />
+          <Property Name="newweek" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="newteacherid" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="newsection" Type="int" Nullable="false" />
+          <Property Name="newday" Type="int" Nullable="false" />
+          <Property Name="newbuilding" Type="int" Nullable="false" />
+          <Property Name="idref" Type="int" Nullable="false" />
+          <Property Name="reason" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="currentstatus" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sectionsinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SemesterNo" Type="int" Nullable="false" />
+          <Property Name="Section" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="StartTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="StopTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="semesterinfo">
+          <Key>
+            <PropertyRef Name="SemNo" />
+          </Key>
+          <Property Name="SemesterName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="TotalWeeks" Type="int" Nullable="false" />
+          <Property Name="Sunday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Monday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tuesday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Wednesday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Thursday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Friday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Saturday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SemNo" Type="int" Nullable="false" />
+          <Property Name="AutoHoliday" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="strategydescription">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StrategyRefId" Type="int" Nullable="false" />
+          <Property Name="Equipmentid" Type="int" Nullable="false" />
+          <Property Name="Config" Type="text" Nullable="false" />
+          <Property Name="StrategyTimeFrame1" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="strategyTime" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="StrategyTimeFrame2" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="strategyequipments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentsNames" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="strategymanagement">
+          <Key>
+            <PropertyRef Name="strategyId" />
+          </Key>
+          <Property Name="strategyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="strategyname" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="StrategyDesc" Type="text" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="CurrentStatus" Type="tinyint" Nullable="false" />
+          <Property Name="strategyType" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="StrategyLocation" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="studentdata">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="studentname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Dateofbirth" Type="date" />
+          <Property Name="deptcode" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idcard" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="onecard" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="systemsettings">
+          <Key>
+            <PropertyRef Name="SchoolName" />
+          </Key>
+          <Property Name="SchoolName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="SchoolEngName" Type="varchar" MaxLength="200" />
+          <Property Name="LogoLocation" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="teacherdata">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TeacherName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="dateofbirth" Type="date" />
+          <Property Name="faculty" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idcard" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="onecard" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_centralcontrol">
+          <Key>
+            <PropertyRef Name="ip" />
+            <PropertyRef Name="loc" />
+          </Key>
+          <Property Name="ip" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="loc" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="workstatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Timer" Type="varchar" MaxLength="10" />
+          <Property Name="pcstatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="projectorstatus" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ProjHour" Type="varchar" MaxLength="10" />
+          <Property Name="curtain" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="screen" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="light" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="mediasignal" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="centrallock" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="podiumlock" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="classlock" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="temperature" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="humidity" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pm25" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="pm10" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userdetails">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonType" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PersonnelStatus" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="expireDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userlocationaccess">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userserialnum" Type="int" Nullable="false" />
+          <Property Name="locationid" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="authenticatedby" Type="int" />
+          <Property Name="Level" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userlogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Userid" Type="int" />
+          <Property Name="action" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActionTime" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userpermissions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userserialnum" Type="int" Nullable="false" />
+          <Property Name="roleid" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthenticatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="userregistration">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Userid" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="userpassword" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Departmentid" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UserType" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="fk_classbuildingname">
+          <End Role="buildingdetails" Type="Self.buildingdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="classdetails">
+              <PropertyRef Name="teachingBuilding" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_classfloor">
+          <End Role="floordetails" Type="Self.floordetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="floordetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="classdetails">
+              <PropertyRef Name="floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_floorbuilding">
+          <End Role="buildingdetails" Type="Self.buildingdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="floordetails" Type="Self.floordetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="floordetails">
+              <PropertyRef Name="BuildingName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_locationaccessauthenticatedby">
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="0..1" />
+          <End Role="userlocationaccess" Type="Self.userlocationaccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlocationaccess">
+              <PropertyRef Name="authenticatedby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_locationaccessuserid">
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userlocationaccess" Type="Self.userlocationaccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlocationaccess">
+              <PropertyRef Name="userserialnum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LogsUserid">
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="0..1" />
+          <End Role="userlogs" Type="Self.userlogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlogs">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserveSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedulereserve">
+              <PropertyRef Name="Semester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ResSemNo">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="reserveandtransfer" Type="Self.reserveandtransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="reserveandtransfer">
+              <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ScheduleOrgSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="scheduleoriginal" Type="Self.scheduleoriginal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="scheduleoriginal">
+              <PropertyRef Name="sem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedulereserveClassid">
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="schedulereserve">
+              <PropertyRef Name="Classroom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedulesemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="sem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_scheduletransferClassid">
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_scheduletransfernewteacherid">
+          <End Role="teacherdata" Type="Self.teacherdata" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacherdata">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newteacherid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SectionSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="sectionsinfo" Type="Self.sectionsinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="sectionsinfo">
+              <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_strategyEquipId">
+          <End Role="strategyequipments" Type="Self.strategyequipments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategyequipments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="strategydescription">
+              <PropertyRef Name="Equipmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_strategyIdRef">
+          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
+            </Principal>
+            <Dependent Role="strategydescription">
+              <PropertyRef Name="StrategyRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_transferBuildingid">
+          <End Role="buildingdetails" Type="Self.buildingdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newbuilding" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_transferIdref">
+          <End Role="schedule" Type="Self.schedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="idref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_userPermissionAdminId">
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="0..1" />
+          <End Role="userpermissions" Type="Self.userpermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="AuthenticatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_userPermissionroleid">
+          <End Role="roledetails" Type="Self.roledetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userpermissions" Type="Self.userpermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roledetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserPermissionUsernum">
+          <End Role="userdetails" Type="Self.userdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userpermissions" Type="Self.userpermissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="userserialnum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="organisationdatabaseModelStoreContainer">
+          <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="classdetails" EntityType="Self.classdetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="course" EntityType="Self.course" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="departmentdetail" EntityType="Self.departmentdetail" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="floordetails" EntityType="Self.floordetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="operationmgmt" EntityType="Self.operationmgmt" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="reserveandtransfer" EntityType="Self.reserveandtransfer" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="roledetails" EntityType="Self.roledetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="schedule" EntityType="Self.schedule" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="scheduleoriginal" EntityType="Self.scheduleoriginal" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="schedulereserve" EntityType="Self.schedulereserve" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="scheduletransfer" EntityType="Self.scheduletransfer" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="sectionsinfo" EntityType="Self.sectionsinfo" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="semesterinfo" EntityType="Self.semesterinfo" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="strategydescription" EntityType="Self.strategydescription" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="strategyequipments" EntityType="Self.strategyequipments" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="strategymanagement" EntityType="Self.strategymanagement" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="studentdata" EntityType="Self.studentdata" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="systemsettings" EntityType="Self.systemsettings" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="teacherdata" EntityType="Self.teacherdata" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="temp_centralcontrol" EntityType="Self.temp_centralcontrol" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userlocationaccess" EntityType="Self.userlocationaccess" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userlogs" EntityType="Self.userlogs" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userpermissions" EntityType="Self.userpermissions" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userregistration" EntityType="Self.userregistration" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghours" store:Type="Tables" store:Schema="organisationdatabase">
+            <DefiningQuery>SELECT
+`machineworkinghours`.`IP`, 
+`machineworkinghours`.`location`, 
+`machineworkinghours`.`date`, 
+`machineworkinghours`.`projectorHour`, 
+`machineworkinghours`.`pcHour`, 
+`machineworkinghours`.`recorderHour`, 
+`machineworkinghours`.`ACHour`, 
+`machineworkinghours`.`systemHour`, 
+`machineworkinghours`.`screenHour`
+FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="classdetails" EntitySet="classdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_classfloor" Association="Self.fk_classfloor">
+            <End Role="floordetails" EntitySet="floordetails" />
+            <End Role="classdetails" EntitySet="classdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_floorbuilding" Association="Self.fk_floorbuilding">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="floordetails" EntitySet="floordetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlocationaccess" EntitySet="userlocationaccess" />
+          </AssociationSet>
+          <AssociationSet Name="fk_locationaccessuserid" Association="Self.fk_locationaccessuserid">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlocationaccess" EntitySet="userlocationaccess" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LogsUserid" Association="Self.fk_LogsUserid">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlogs" EntitySet="userlogs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserveSemno" Association="Self.fk_reserveSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="schedulereserve" EntitySet="schedulereserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ResSemNo" Association="Self.fk_ResSemNo">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="reserveandtransfer" EntitySet="reserveandtransfer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ScheduleOrgSemno" Association="Self.fk_ScheduleOrgSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="scheduleoriginal" EntitySet="scheduleoriginal" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedulereserveClassid" Association="Self.fk_schedulereserveClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="schedulereserve" EntitySet="schedulereserve" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedulesemno" Association="Self.fk_schedulesemno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="schedule" EntitySet="schedule" />
+          </AssociationSet>
+          <AssociationSet Name="fk_scheduletransferClassid" Association="Self.fk_scheduletransferClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_scheduletransfernewteacherid" Association="Self.fk_scheduletransfernewteacherid">
+            <End Role="teacherdata" EntitySet="teacherdata" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SectionSemno" Association="Self.fk_SectionSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="sectionsinfo" EntitySet="sectionsinfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
+            <End Role="strategyequipments" EntitySet="strategyequipments" />
+            <End Role="strategydescription" EntitySet="strategydescription" />
+          </AssociationSet>
+          <AssociationSet Name="fk_strategyIdRef" Association="Self.fk_strategyIdRef">
+            <End Role="strategymanagement" EntitySet="strategymanagement" />
+            <End Role="strategydescription" EntitySet="strategydescription" />
+          </AssociationSet>
+          <AssociationSet Name="fk_transferBuildingid" Association="Self.fk_transferBuildingid">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_transferIdref" Association="Self.fk_transferIdref">
+            <End Role="schedule" EntitySet="schedule" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfer" />
+          </AssociationSet>
+          <AssociationSet Name="fk_userPermissionAdminId" Association="Self.fk_userPermissionAdminId">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_userPermissionroleid" Association="Self.fk_userPermissionroleid">
+            <End Role="roledetails" EntitySet="roledetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserPermissionUsernum" Association="Self.fk_UserPermissionUsernum">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="organisationdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="buildingdetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuildingName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="buildingcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Queue" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Public" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="classdetails" Relationship="Self.fk_classbuildingname" FromRole="buildingdetails" ToRole="classdetails" />
+          <NavigationProperty Name="floordetails" Relationship="Self.fk_floorbuilding" FromRole="buildingdetails" ToRole="floordetails" />
+          <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_transferBuildingid" FromRole="buildingdetails" ToRole="scheduletransfer" />
+        </EntityType>
+        <EntityType Name="classdetail">
+          <Key>
+            <PropertyRef Name="classID" />
+          </Key>
+          <Property Name="classID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teachingBuilding" Type="Int32" Nullable="false" />
+          <Property Name="floor" Type="Int32" Nullable="false" />
+          <Property Name="Seats" Type="Int32" Nullable="false" />
+          <Property Name="camipS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camipT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camSmac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camTmac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camport" Type="Int32" Nullable="false" />
+          <Property Name="camuserid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="campass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CCEquipIP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ccmac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="desktopip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deskmac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recordingEquip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recordermac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="callhelpip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="callhelpmac" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="buildingdetail" Relationship="Self.fk_classbuildingname" FromRole="classdetails" ToRole="buildingdetails" />
+          <NavigationProperty Name="floordetail" Relationship="Self.fk_classfloor" FromRole="classdetails" ToRole="floordetails" />
+          <NavigationProperty Name="schedulereserves" Relationship="Self.fk_schedulereserveClassid" FromRole="classdetails" ToRole="schedulereserve" />
+          <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_scheduletransferClassid" FromRole="classdetails" ToRole="scheduletransfer" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="current_loggeduser">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="departmentdetail">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="departmentCode" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="floordetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="floor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BuildingName" Type="Int32" Nullable="false" />
+          <Property Name="buildingcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Queue" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Public" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="buildingdetail" Relationship="Self.fk_floorbuilding" FromRole="floordetails" ToRole="buildingdetails" />
+          <NavigationProperty Name="classdetails" Relationship="Self.fk_classfloor" FromRole="floordetails" ToRole="classdetails" />
+        </EntityType>
+        <EntityType Name="operationmgmt">
+          <Key>
+            <PropertyRef Name="serialno" />
+          </Key>
+          <Property Name="devicename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="assetno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="specification" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="devicetype" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="factory" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateofmanufacture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateofpurchase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateofdelivery" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="warrantytime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="locationType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="equipmentstatus" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="serialno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="reserveandtransfer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NonWorkingDays" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AutoReview" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" />
+          <Property Name="SemesterNo" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ResSemNo" FromRole="reserveandtransfer" ToRole="semesterinfo" />
+        </EntityType>
+        <EntityType Name="roledetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rolename" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="userpermissions" Relationship="Self.fk_userPermissionroleid" FromRole="roledetails" ToRole="userpermissions" />
+        </EntityType>
+        <EntityType Name="schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sem" Type="Int32" Nullable="false" />
+          <Property Name="teacherid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teachername" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="courseid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="classname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coursename" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="weekstart" Type="Int32" Nullable="false" />
+          <Property Name="weekend" Type="Int32" Nullable="false" />
+          <Property Name="dayno" Type="Int32" Nullable="false" />
+          <Property Name="section" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teachingbuilding" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="floor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_schedulesemno" FromRole="schedule" ToRole="semesterinfo" />
+          <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_transferIdref" FromRole="schedule" ToRole="scheduletransfer" />
+        </EntityType>
+        <EntityType Name="scheduleoriginal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="year" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sem" Type="Int32" Nullable="false" />
+          <Property Name="teacherid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="teachername" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="courseid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="classname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="coursename" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="weekstart" Type="Int32" Nullable="false" />
+          <Property Name="weekend" Type="Int32" Nullable="false" />
+          <Property Name="dayno" Type="Int32" Nullable="false" />
+          <Property Name="section" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ScheduleOrgSemno" FromRole="scheduleoriginal" ToRole="semesterinfo" />
+        </EntityType>
+        <EntityType Name="schedulereserve">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SchoolYear" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Semester" Type="Int32" Nullable="false" />
+          <Property Name="week" Type="Int32" Nullable="false" />
+          <Property Name="ReserveDate" Type="DateTime" Nullable="false" />
+          <Property Name="Section" Type="Int32" Nullable="false" />
+          <Property Name="Classroom" Type="Int32" Nullable="false" />
+          <Property Name="BorrowingUnit" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Workphone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonID" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReservationDevices" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="classdetail" Relationship="Self.fk_schedulereserveClassid" FromRole="schedulereserve" ToRole="classdetails" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_reserveSemno" FromRole="schedulereserve" ToRole="semesterinfo" />
+        </EntityType>
+        <EntityType Name="scheduletransfer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="classname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="courseid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="newclass" Type="Int32" Nullable="false" />
+          <Property Name="newweek" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="newteacherid" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="newsection" Type="Int32" Nullable="false" />
+          <Property Name="newday" Type="Int32" Nullable="false" />
+          <Property Name="newbuilding" Type="Int32" Nullable="false" />
+          <Property Name="idref" Type="Int32" Nullable="false" />
+          <Property Name="reason" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="currentstatus" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="buildingdetail" Relationship="Self.fk_transferBuildingid" FromRole="scheduletransfer" ToRole="buildingdetails" />
+          <NavigationProperty Name="classdetail" Relationship="Self.fk_scheduletransferClassid" FromRole="scheduletransfer" ToRole="classdetails" />
+          <NavigationProperty Name="schedule" Relationship="Self.fk_transferIdref" FromRole="scheduletransfer" ToRole="schedule" />
+          <NavigationProperty Name="teacherdata" Relationship="Self.fk_scheduletransfernewteacherid" FromRole="scheduletransfer" ToRole="teacherdata" />
+        </EntityType>
+        <EntityType Name="sectionsinfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="SemesterNo" Type="Int32" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartTime" Type="Time" Nullable="false" />
+          <Property Name="StopTime" Type="Time" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_SectionSemno" FromRole="sectionsinfo" ToRole="semesterinfo" />
+        </EntityType>
+        <EntityType Name="semesterinfo">
+          <Key>
+            <PropertyRef Name="SemNo" />
+          </Key>
+          <Property Name="SemesterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="TotalWeeks" Type="Int32" Nullable="false" />
+          <Property Name="Sunday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Monday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tuesday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Wednesday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Thursday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Friday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Saturday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SemNo" Type="Int32" Nullable="false" />
+          <Property Name="AutoHoliday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="reserveandtransfers" Relationship="Self.fk_ResSemNo" FromRole="semesterinfo" ToRole="reserveandtransfer" />
+          <NavigationProperty Name="schedules" Relationship="Self.fk_schedulesemno" FromRole="semesterinfo" ToRole="schedule" />
+          <NavigationProperty Name="scheduleoriginals" Relationship="Self.fk_ScheduleOrgSemno" FromRole="semesterinfo" ToRole="scheduleoriginal" />
+          <NavigationProperty Name="schedulereserves" Relationship="Self.fk_reserveSemno" FromRole="semesterinfo" ToRole="schedulereserve" />
+          <NavigationProperty Name="sectionsinfoes" Relationship="Self.fk_SectionSemno" FromRole="semesterinfo" ToRole="sectionsinfo" />
+        </EntityType>
+        <EntityType Name="strategydescription">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StrategyRefId" Type="Int32" Nullable="false" />
+          <Property Name="Equipmentid" Type="Int32" Nullable="false" />
+          <Property Name="Config" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StrategyTimeFrame1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="strategyTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StrategyTimeFrame2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="strategyequipment" Relationship="Self.fk_strategyEquipId" FromRole="strategydescription" ToRole="strategyequipments" />
+          <NavigationProperty Name="strategymanagement" Relationship="Self.fk_strategyIdRef" FromRole="strategydescription" ToRole="strategymanagement" />
+        </EntityType>
+        <EntityType Name="strategyequipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentsNames" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyEquipId" FromRole="strategyequipments" ToRole="strategydescription" />
+        </EntityType>
+        <EntityType Name="strategymanagement">
+          <Key>
+            <PropertyRef Name="strategyId" />
+          </Key>
+          <Property Name="strategyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="strategyname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StrategyDesc" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="CurrentStatus" Type="SByte" Nullable="false" />
+          <Property Name="strategyType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StrategyLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyIdRef" FromRole="strategymanagement" ToRole="strategydescription" />
+        </EntityType>
+        <EntityType Name="studentdata">
+          <Key>
+            <PropertyRef Name="studentid" />
+          </Key>
+          <Property Name="studentid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="studentname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dateofbirth" Type="DateTime" />
+          <Property Name="deptcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idcard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="onecard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="systemsetting">
+          <Key>
+            <PropertyRef Name="SchoolName" />
+          </Key>
+          <Property Name="SchoolName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SchoolEngName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LogoLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="teacherdata">
+          <Key>
+            <PropertyRef Name="TeacherID" />
+          </Key>
+          <Property Name="TeacherID" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeacherName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateofbirth" Type="DateTime" />
+          <Property Name="faculty" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idcard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="onecard" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_scheduletransfernewteacherid" FromRole="teacherdata" ToRole="scheduletransfer" />
+        </EntityType>
+        <EntityType Name="temp_centralcontrol">
+          <Key>
+            <PropertyRef Name="ip" />
+            <PropertyRef Name="loc" />
+          </Key>
+          <Property Name="ip" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="loc" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="workstatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Timer" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pcstatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="projectorstatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProjHour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="curtain" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="screen" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="light" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mediasignal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="centrallock" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="podiumlock" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="classlock" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="temperature" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="humidity" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pm25" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pm10" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userdetail">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonnelStatus" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" />
+          <Property Name="expireDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="userlocationaccesses" Relationship="Self.fk_locationaccessauthenticatedby" FromRole="userdetails" ToRole="userlocationaccess" />
+          <NavigationProperty Name="userlocationaccesses1" Relationship="Self.fk_locationaccessuserid" FromRole="userdetails" ToRole="userlocationaccess" />
+          <NavigationProperty Name="userlogs" Relationship="Self.fk_LogsUserid" FromRole="userdetails" ToRole="userlogs" />
+          <NavigationProperty Name="userpermissions" Relationship="Self.fk_userPermissionAdminId" FromRole="userdetails" ToRole="userpermissions" />
+          <NavigationProperty Name="userpermissions1" Relationship="Self.fk_UserPermissionUsernum" FromRole="userdetails" ToRole="userpermissions" />
+        </EntityType>
+        <EntityType Name="userlocationaccess">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userserialnum" Type="Int32" Nullable="false" />
+          <Property Name="locationid" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="authenticatedby" Type="Int32" />
+          <Property Name="Level" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="userdetail" Relationship="Self.fk_locationaccessauthenticatedby" FromRole="userlocationaccess" ToRole="userdetails" />
+          <NavigationProperty Name="userdetail1" Relationship="Self.fk_locationaccessuserid" FromRole="userlocationaccess" ToRole="userdetails" />
+        </EntityType>
+        <EntityType Name="userlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Userid" Type="Int32" />
+          <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="userdetail" Relationship="Self.fk_LogsUserid" FromRole="userlogs" ToRole="userdetails" />
+        </EntityType>
+        <EntityType Name="userpermission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userserialnum" Type="Int32" Nullable="false" />
+          <Property Name="roleid" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthenticatedBy" Type="Int32" />
+          <NavigationProperty Name="roledetail" Relationship="Self.fk_userPermissionroleid" FromRole="userpermissions" ToRole="roledetails" />
+          <NavigationProperty Name="userdetail" Relationship="Self.fk_userPermissionAdminId" FromRole="userpermissions" ToRole="userdetails" />
+          <NavigationProperty Name="userdetail1" Relationship="Self.fk_UserPermissionUsernum" FromRole="userpermissions" ToRole="userdetails" />
+        </EntityType>
+        <EntityType Name="userregistration">
+          <Key>
+            <PropertyRef Name="Userid" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Userid" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userpassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Departmentid" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="machineworkinghour">
+          <Key>
+            <PropertyRef Name="IP" />
+            <PropertyRef Name="location" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="projectorHour" />
+            <PropertyRef Name="pcHour" />
+            <PropertyRef Name="recorderHour" />
+            <PropertyRef Name="ACHour" />
+            <PropertyRef Name="systemHour" />
+          </Key>
+          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="location" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="projectorHour" Type="Double" Nullable="false" />
+          <Property Name="pcHour" Type="Double" Nullable="false" />
+          <Property Name="recorderHour" Type="Double" Nullable="false" />
+          <Property Name="ACHour" Type="Double" Nullable="false" />
+          <Property Name="systemHour" Type="Double" Nullable="false" />
+          <Property Name="screenHour" Type="Double" />
+        </EntityType>
+        <Association Name="fk_classbuildingname">
+          <End Role="buildingdetails" Type="Self.buildingdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="classdetails" Type="Self.classdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="classdetails">
+              <PropertyRef Name="teachingBuilding" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_floorbuilding">
+          <End Role="buildingdetails" Type="Self.buildingdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="floordetails" Type="Self.floordetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="floordetails">
+              <PropertyRef Name="BuildingName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_transferBuildingid">
+          <End Role="buildingdetails" Type="Self.buildingdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="buildingdetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newbuilding" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_classfloor">
+          <End Role="floordetails" Type="Self.floordetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="classdetails" Type="Self.classdetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="floordetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="classdetails">
+              <PropertyRef Name="floor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedulereserveClassid">
+          <End Role="classdetails" Type="Self.classdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="schedulereserve">
+              <PropertyRef Name="Classroom" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_scheduletransferClassid">
+          <End Role="classdetails" Type="Self.classdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newclass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ResSemNo">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="reserveandtransfer" Type="Self.reserveandtransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="reserveandtransfer">
+              <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_userPermissionroleid">
+          <End Role="roledetails" Type="Self.roledetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userpermissions" Type="Self.userpermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roledetails">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="roleid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedulesemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="sem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_transferIdref">
+          <End Role="schedule" Type="Self.schedule" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="idref" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ScheduleOrgSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="scheduleoriginal" Type="Self.scheduleoriginal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="scheduleoriginal">
+              <PropertyRef Name="sem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_reserveSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedulereserve">
+              <PropertyRef Name="Semester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_scheduletransfernewteacherid">
+          <End Role="teacherdata" Type="Self.teacherdata" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="scheduletransfer" Type="Self.scheduletransfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="teacherdata">
+              <PropertyRef Name="TeacherID" />
+            </Principal>
+            <Dependent Role="scheduletransfer">
+              <PropertyRef Name="newteacherid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_SectionSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="sectionsinfo" Type="Self.sectionsinfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="sectionsinfo">
+              <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_strategyEquipId">
+          <End Role="strategyequipments" Type="Self.strategyequipment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategyequipments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="strategydescription">
+              <PropertyRef Name="Equipmentid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_strategyIdRef">
+          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
+            </Principal>
+            <Dependent Role="strategydescription">
+              <PropertyRef Name="StrategyRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_locationaccessauthenticatedby">
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="userlocationaccess" Type="Self.userlocationaccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlocationaccess">
+              <PropertyRef Name="authenticatedby" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_locationaccessuserid">
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userlocationaccess" Type="Self.userlocationaccess" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlocationaccess">
+              <PropertyRef Name="userserialnum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LogsUserid">
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="userlogs" Type="Self.userlog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userlogs">
+              <PropertyRef Name="Userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_userPermissionAdminId">
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="0..1" />
+          <End Role="userpermissions" Type="Self.userpermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="AuthenticatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserPermissionUsernum">
+          <End Role="userdetails" Type="Self.userdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userpermissions" Type="Self.userpermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userdetails">
+              <PropertyRef Name="SerialNo" />
+            </Principal>
+            <Dependent Role="userpermissions">
+              <PropertyRef Name="userserialnum" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="organisationdatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="buildingdetails" EntityType="Self.buildingdetail" />
+          <EntitySet Name="classdetails" EntityType="Self.classdetail" />
+          <EntitySet Name="courses" EntityType="Self.course" />
+          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" />
+          <EntitySet Name="departmentdetails" EntityType="Self.departmentdetail" />
+          <EntitySet Name="floordetails" EntityType="Self.floordetail" />
+          <EntitySet Name="operationmgmts" EntityType="Self.operationmgmt" />
+          <EntitySet Name="reserveandtransfers" EntityType="Self.reserveandtransfer" />
+          <EntitySet Name="roledetails" EntityType="Self.roledetail" />
+          <EntitySet Name="schedules" EntityType="Self.schedule" />
+          <EntitySet Name="scheduleoriginals" EntityType="Self.scheduleoriginal" />
+          <EntitySet Name="schedulereserves" EntityType="Self.schedulereserve" />
+          <EntitySet Name="scheduletransfers" EntityType="Self.scheduletransfer" />
+          <EntitySet Name="sectionsinfoes" EntityType="Self.sectionsinfo" />
+          <EntitySet Name="semesterinfoes" EntityType="Self.semesterinfo" />
+          <EntitySet Name="strategydescriptions" EntityType="Self.strategydescription" />
+          <EntitySet Name="strategyequipments" EntityType="Self.strategyequipment" />
+          <EntitySet Name="strategymanagements" EntityType="Self.strategymanagement" />
+          <EntitySet Name="studentdatas" EntityType="Self.studentdata" />
+          <EntitySet Name="systemsettings" EntityType="Self.systemsetting" />
+          <EntitySet Name="teacherdatas" EntityType="Self.teacherdata" />
+          <EntitySet Name="temp_centralcontrol" EntityType="Self.temp_centralcontrol" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetail" />
+          <EntitySet Name="userlocationaccesses" EntityType="Self.userlocationaccess" />
+          <EntitySet Name="userlogs" EntityType="Self.userlog" />
+          <EntitySet Name="userpermissions" EntityType="Self.userpermission" />
+          <EntitySet Name="userregistrations" EntityType="Self.userregistration" />
+          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghour" />
+          <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="classdetails" EntitySet="classdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_floorbuilding" Association="Self.fk_floorbuilding">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="floordetails" EntitySet="floordetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_transferBuildingid" Association="Self.fk_transferBuildingid">
+            <End Role="buildingdetails" EntitySet="buildingdetails" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_classfloor" Association="Self.fk_classfloor">
+            <End Role="floordetails" EntitySet="floordetails" />
+            <End Role="classdetails" EntitySet="classdetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedulereserveClassid" Association="Self.fk_schedulereserveClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="schedulereserve" EntitySet="schedulereserves" />
+          </AssociationSet>
+          <AssociationSet Name="fk_scheduletransferClassid" Association="Self.fk_scheduletransferClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ResSemNo" Association="Self.fk_ResSemNo">
+            <End Role="semesterinfo" EntitySet="semesterinfoes" />
+            <End Role="reserveandtransfer" EntitySet="reserveandtransfers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_userPermissionroleid" Association="Self.fk_userPermissionroleid">
+            <End Role="roledetails" EntitySet="roledetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedulesemno" Association="Self.fk_schedulesemno">
+            <End Role="semesterinfo" EntitySet="semesterinfoes" />
+            <End Role="schedule" EntitySet="schedules" />
+          </AssociationSet>
+          <AssociationSet Name="fk_transferIdref" Association="Self.fk_transferIdref">
+            <End Role="schedule" EntitySet="schedules" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ScheduleOrgSemno" Association="Self.fk_ScheduleOrgSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfoes" />
+            <End Role="scheduleoriginal" EntitySet="scheduleoriginals" />
+          </AssociationSet>
+          <AssociationSet Name="fk_reserveSemno" Association="Self.fk_reserveSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfoes" />
+            <End Role="schedulereserve" EntitySet="schedulereserves" />
+          </AssociationSet>
+          <AssociationSet Name="fk_scheduletransfernewteacherid" Association="Self.fk_scheduletransfernewteacherid">
+            <End Role="teacherdata" EntitySet="teacherdatas" />
+            <End Role="scheduletransfer" EntitySet="scheduletransfers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_SectionSemno" Association="Self.fk_SectionSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfoes" />
+            <End Role="sectionsinfo" EntitySet="sectionsinfoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
+            <End Role="strategyequipments" EntitySet="strategyequipments" />
+            <End Role="strategydescription" EntitySet="strategydescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_strategyIdRef" Association="Self.fk_strategyIdRef">
+            <End Role="strategymanagement" EntitySet="strategymanagements" />
+            <End Role="strategydescription" EntitySet="strategydescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlocationaccess" EntitySet="userlocationaccesses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_locationaccessuserid" Association="Self.fk_locationaccessuserid">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlocationaccess" EntitySet="userlocationaccesses" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LogsUserid" Association="Self.fk_LogsUserid">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userlogs" EntitySet="userlogs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_userPermissionAdminId" Association="Self.fk_userPermissionAdminId">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserPermissionUsernum" Association="Self.fk_UserPermissionUsernum">
+            <End Role="userdetails" EntitySet="userdetails" />
+            <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="organisationdatabaseModelStoreContainer" CdmEntityContainer="organisationdatabaseEntities">
+          <EntitySetMapping Name="buildingdetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.buildingdetail">
+              <MappingFragment StoreEntitySet="buildingdetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="BuildingName" ColumnName="BuildingName" />
+                <ScalarProperty Name="buildingcode" ColumnName="buildingcode" />
+                <ScalarProperty Name="Queue" ColumnName="Queue" />
+                <ScalarProperty Name="Public" ColumnName="Public" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="classdetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.classdetail">
+              <MappingFragment StoreEntitySet="classdetails">
+                <ScalarProperty Name="classID" ColumnName="classID" />
+                <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+                <ScalarProperty Name="teachingBuilding" ColumnName="teachingBuilding" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="Seats" ColumnName="Seats" />
+                <ScalarProperty Name="camipS" ColumnName="camipS" />
+                <ScalarProperty Name="camipT" ColumnName="camipT" />
+                <ScalarProperty Name="camSmac" ColumnName="camSmac" />
+                <ScalarProperty Name="camTmac" ColumnName="camTmac" />
+                <ScalarProperty Name="camport" ColumnName="camport" />
+                <ScalarProperty Name="camuserid" ColumnName="camuserid" />
+                <ScalarProperty Name="campass" ColumnName="campass" />
+                <ScalarProperty Name="CCEquipIP" ColumnName="CCEquipIP" />
+                <ScalarProperty Name="ccmac" ColumnName="ccmac" />
+                <ScalarProperty Name="desktopip" ColumnName="desktopip" />
+                <ScalarProperty Name="deskmac" ColumnName="deskmac" />
+                <ScalarProperty Name="recordingEquip" ColumnName="recordingEquip" />
+                <ScalarProperty Name="recordermac" ColumnName="recordermac" />
+                <ScalarProperty Name="callhelpip" ColumnName="callhelpip" />
+                <ScalarProperty Name="callhelpmac" ColumnName="callhelpmac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="current_loggeduser">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.current_loggeduser">
+              <MappingFragment StoreEntitySet="current_loggeduser">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="index" ColumnName="index" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departmentdetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.departmentdetail">
+              <MappingFragment StoreEntitySet="departmentdetail">
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="floordetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.floordetail">
+              <MappingFragment StoreEntitySet="floordetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="BuildingName" ColumnName="BuildingName" />
+                <ScalarProperty Name="buildingcode" ColumnName="buildingcode" />
+                <ScalarProperty Name="Queue" ColumnName="Queue" />
+                <ScalarProperty Name="Public" ColumnName="Public" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="operationmgmts">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.operationmgmt">
+              <MappingFragment StoreEntitySet="operationmgmt">
+                <ScalarProperty Name="devicename" ColumnName="devicename" />
+                <ScalarProperty Name="assetno" ColumnName="assetno" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="specification" ColumnName="specification" />
+                <ScalarProperty Name="devicetype" ColumnName="devicetype" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="factory" ColumnName="factory" />
+                <ScalarProperty Name="dateofmanufacture" ColumnName="dateofmanufacture" />
+                <ScalarProperty Name="dateofpurchase" ColumnName="dateofpurchase" />
+                <ScalarProperty Name="dateofdelivery" ColumnName="dateofdelivery" />
+                <ScalarProperty Name="warrantytime" ColumnName="warrantytime" />
+                <ScalarProperty Name="locationType" ColumnName="locationType" />
+                <ScalarProperty Name="equipmentstatus" ColumnName="equipmentstatus" />
+                <ScalarProperty Name="serialno" ColumnName="serialno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reserveandtransfers">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.reserveandtransfer">
+              <MappingFragment StoreEntitySet="reserveandtransfer">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="NonWorkingDays" ColumnName="NonWorkingDays" />
+                <ScalarProperty Name="AutoReview" ColumnName="AutoReview" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="SemesterNo" ColumnName="SemesterNo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roledetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.roledetail">
+              <MappingFragment StoreEntitySet="roledetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rolename" ColumnName="rolename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schedules">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.schedule">
+              <MappingFragment StoreEntitySet="schedule">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="sem" ColumnName="sem" />
+                <ScalarProperty Name="teacherid" ColumnName="teacherid" />
+                <ScalarProperty Name="teachername" ColumnName="teachername" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="classname" ColumnName="classname" />
+                <ScalarProperty Name="coursename" ColumnName="coursename" />
+                <ScalarProperty Name="weekstart" ColumnName="weekstart" />
+                <ScalarProperty Name="weekend" ColumnName="weekend" />
+                <ScalarProperty Name="dayno" ColumnName="dayno" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="teachingbuilding" ColumnName="teachingbuilding" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scheduleoriginals">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.scheduleoriginal">
+              <MappingFragment StoreEntitySet="scheduleoriginal">
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="sem" ColumnName="sem" />
+                <ScalarProperty Name="teacherid" ColumnName="teacherid" />
+                <ScalarProperty Name="teachername" ColumnName="teachername" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="classname" ColumnName="classname" />
+                <ScalarProperty Name="coursename" ColumnName="coursename" />
+                <ScalarProperty Name="weekstart" ColumnName="weekstart" />
+                <ScalarProperty Name="weekend" ColumnName="weekend" />
+                <ScalarProperty Name="dayno" ColumnName="dayno" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schedulereserves">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.schedulereserve">
+              <MappingFragment StoreEntitySet="schedulereserve">
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="week" ColumnName="week" />
+                <ScalarProperty Name="ReserveDate" ColumnName="ReserveDate" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Classroom" ColumnName="Classroom" />
+                <ScalarProperty Name="BorrowingUnit" ColumnName="BorrowingUnit" />
+                <ScalarProperty Name="Workphone" ColumnName="Workphone" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="ReservationDevices" ColumnName="ReservationDevices" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scheduletransfers">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.scheduletransfer">
+              <MappingFragment StoreEntitySet="scheduletransfer">
+                <ScalarProperty Name="classname" ColumnName="classname" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="newclass" ColumnName="newclass" />
+                <ScalarProperty Name="newweek" ColumnName="newweek" />
+                <ScalarProperty Name="newteacherid" ColumnName="newteacherid" />
+                <ScalarProperty Name="newsection" ColumnName="newsection" />
+                <ScalarProperty Name="newday" ColumnName="newday" />
+                <ScalarProperty Name="newbuilding" ColumnName="newbuilding" />
+                <ScalarProperty Name="idref" ColumnName="idref" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+                <ScalarProperty Name="currentstatus" ColumnName="currentstatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sectionsinfoes">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.sectionsinfo">
+              <MappingFragment StoreEntitySet="sectionsinfo">
+                <ScalarProperty Name="SemesterNo" ColumnName="SemesterNo" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="semesterinfoes">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.semesterinfo">
+              <MappingFragment StoreEntitySet="semesterinfo">
+                <ScalarProperty Name="SemesterName" ColumnName="SemesterName" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="TotalWeeks" ColumnName="TotalWeeks" />
+                <ScalarProperty Name="Sunday" ColumnName="Sunday" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Saturday" ColumnName="Saturday" />
+                <ScalarProperty Name="SemNo" ColumnName="SemNo" />
+                <ScalarProperty Name="AutoHoliday" ColumnName="AutoHoliday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strategydescriptions">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.strategydescription">
+              <MappingFragment StoreEntitySet="strategydescription">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="StrategyRefId" ColumnName="StrategyRefId" />
+                <ScalarProperty Name="Equipmentid" ColumnName="Equipmentid" />
+                <ScalarProperty Name="Config" ColumnName="Config" />
+                <ScalarProperty Name="StrategyTimeFrame1" ColumnName="StrategyTimeFrame1" />
+                <ScalarProperty Name="strategyTime" ColumnName="strategyTime" />
+                <ScalarProperty Name="StrategyTimeFrame2" ColumnName="StrategyTimeFrame2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strategyequipments">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.strategyequipment">
+              <MappingFragment StoreEntitySet="strategyequipments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="EquipmentsNames" ColumnName="EquipmentsNames" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strategymanagements">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.strategymanagement">
+              <MappingFragment StoreEntitySet="strategymanagement">
+                <ScalarProperty Name="strategyId" ColumnName="strategyId" />
+                <ScalarProperty Name="strategyname" ColumnName="strategyname" />
+                <ScalarProperty Name="StrategyDesc" ColumnName="StrategyDesc" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="strategyType" ColumnName="strategyType" />
+                <ScalarProperty Name="StrategyLocation" ColumnName="StrategyLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studentdatas">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.studentdata">
+              <MappingFragment StoreEntitySet="studentdata">
+                <ScalarProperty Name="studentid" ColumnName="studentid" />
+                <ScalarProperty Name="studentname" ColumnName="studentname" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="Dateofbirth" ColumnName="Dateofbirth" />
+                <ScalarProperty Name="deptcode" ColumnName="deptcode" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="idcard" ColumnName="idcard" />
+                <ScalarProperty Name="onecard" ColumnName="onecard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="systemsettings">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.systemsetting">
+              <MappingFragment StoreEntitySet="systemsettings">
+                <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
+                <ScalarProperty Name="SchoolEngName" ColumnName="SchoolEngName" />
+                <ScalarProperty Name="LogoLocation" ColumnName="LogoLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teacherdatas">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.teacherdata">
+              <MappingFragment StoreEntitySet="teacherdata">
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="dateofbirth" ColumnName="dateofbirth" />
+                <ScalarProperty Name="faculty" ColumnName="faculty" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="idcard" ColumnName="idcard" />
+                <ScalarProperty Name="onecard" ColumnName="onecard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_centralcontrol">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.temp_centralcontrol">
+              <MappingFragment StoreEntitySet="temp_centralcontrol">
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="loc" ColumnName="loc" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="workstatus" ColumnName="workstatus" />
+                <ScalarProperty Name="Timer" ColumnName="Timer" />
+                <ScalarProperty Name="pcstatus" ColumnName="pcstatus" />
+                <ScalarProperty Name="projectorstatus" ColumnName="projectorstatus" />
+                <ScalarProperty Name="ProjHour" ColumnName="ProjHour" />
+                <ScalarProperty Name="curtain" ColumnName="curtain" />
+                <ScalarProperty Name="screen" ColumnName="screen" />
+                <ScalarProperty Name="light" ColumnName="light" />
+                <ScalarProperty Name="mediasignal" ColumnName="mediasignal" />
+                <ScalarProperty Name="centrallock" ColumnName="centrallock" />
+                <ScalarProperty Name="podiumlock" ColumnName="podiumlock" />
+                <ScalarProperty Name="classlock" ColumnName="classlock" />
+                <ScalarProperty Name="temperature" ColumnName="temperature" />
+                <ScalarProperty Name="humidity" ColumnName="humidity" />
+                <ScalarProperty Name="pm25" ColumnName="pm25" />
+                <ScalarProperty Name="pm10" ColumnName="pm10" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userdetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userdetail">
+              <MappingFragment StoreEntitySet="userdetails">
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PersonType" ColumnName="PersonType" />
+                <ScalarProperty Name="PersonnelStatus" ColumnName="PersonnelStatus" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userlocationaccesses">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userlocationaccess">
+              <MappingFragment StoreEntitySet="userlocationaccess">
+                <ScalarProperty Name="userserialnum" ColumnName="userserialnum" />
+                <ScalarProperty Name="locationid" ColumnName="locationid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="authenticatedby" ColumnName="authenticatedby" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userlogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userlog">
+              <MappingFragment StoreEntitySet="userlogs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userpermissions">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userpermission">
+              <MappingFragment StoreEntitySet="userpermissions">
+                <ScalarProperty Name="userserialnum" ColumnName="userserialnum" />
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="AuthenticatedBy" ColumnName="AuthenticatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userregistrations">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userregistration">
+              <MappingFragment StoreEntitySet="userregistration">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Userid" ColumnName="Userid" />
+                <ScalarProperty Name="userpassword" ColumnName="userpassword" />
+                <ScalarProperty Name="Departmentid" ColumnName="Departmentid" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="machineworkinghours">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.machineworkinghour">
+              <MappingFragment StoreEntitySet="machineworkinghours">
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="projectorHour" ColumnName="projectorHour" />
+                <ScalarProperty Name="pcHour" ColumnName="pcHour" />
+                <ScalarProperty Name="recorderHour" ColumnName="recorderHour" />
+                <ScalarProperty Name="ACHour" ColumnName="ACHour" />
+                <ScalarProperty Name="systemHour" ColumnName="systemHour" />
+                <ScalarProperty Name="screenHour" ColumnName="screenHour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

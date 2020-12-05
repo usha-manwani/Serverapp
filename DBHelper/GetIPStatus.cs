@@ -12,7 +12,8 @@ namespace DBHelper
 {
     public class GetIPStatus
     {
-        protected string constr = ConfigurationManager.ConnectionStrings["CresijCamConnectionString"].ConnectionString;
+        //protected string constr = ConfigurationManager.ConnectionStrings["CresijCamConnectionString"].ConnectionString;
+        protected string constr = ConfigurationManager.ConnectionStrings["SchoolConnectionString"].ConnectionString;
         public void LoggedinUser()
         {
             DataTable dtip = new DataTable();
@@ -51,7 +52,9 @@ namespace DBHelper
                 catch (Exception ex)
                 { }
                 finally
-                { con.Close(); }
+                { con.Close();
+                    con.Dispose();
+                }
             }
             return dt;
         }
@@ -95,7 +98,7 @@ namespace DBHelper
                 catch(Exception ex) { }
                 finally
                 {
-                    con.Close();
+                    con.Close(); con.Dispose();
                 }
             }
         }
