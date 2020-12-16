@@ -39,7 +39,7 @@ namespace Cresij_Control_Manager
         private static Dictionary<string, Socket> dynamicip = new Dictionary<string, Socket>();
         Dictionary<string, WorkingHours> workingHours = new Dictionary<string, WorkingHours>();
         delegate void UpdateGridCallback(DataTable dt);
-        private delegate Dictionary<string, string> UpdateGridCallback1(Dictionary<string, string> data, string ip);
+        private delegate Dictionary<string, object> UpdateGridCallback1(Dictionary<string, object> data, string ip);
         delegate void Updatelabel();
         private void OnMinimize()
         {
@@ -90,7 +90,7 @@ namespace Cresij_Control_Manager
             // Set the source name for writing log entries.
             eventLog.Source = "CresijServerLogTest";
             StartListen(IPAddress.Any.ToString(), 1200);
-            StartListenDesktop(IPAddress.Any.ToString(), 10008);
+            //StartListenDesktop(IPAddress.Any.ToString(), 10008);
             ConnectToHub();
             StartTimer();
         }
@@ -160,19 +160,7 @@ namespace Cresij_Control_Manager
                     IPEndPoint iep = (IPEndPoint)sokConnection.RemoteEndPoint;
                     string _ip = iep.Address.ToString();
                     // MessageBox.Show("machine connected " + _ip);
-                    ClearSocket(sokConnection);
-                    //dictThread.Add(sokConnection.RemoteEndPoint.ToString(), thr);  //  将新建的线程 添加 到线程的集合中去.
-                    //if (!Clients.ContainsKey(_ip))
-                    //{
-                    //    Clients.Add(_ip, sokConnection);
-                    //}
-                    bool ipexists;
-                    //string mac = "";
-                    //ipexists = CallGridforMac(_ip);
-
-                    //if (ipexists)
-                    //{
-                    // byte[] d = new byte[] { 0x8B, 0xB9, 0x00, 0x03, 0x05, 0x01, 0x09 }; 
+                    ClearSocket(sokConnection);                                      
                     Log("Socket Connected asking for mac address from ip : " + iep.Address.ToString() + " port: " + iep.Port);
                     Send(sokConnection, "MacAddress");
                     //Send(sokConnection, d);
@@ -185,13 +173,6 @@ namespace Cresij_Control_Manager
                     
                     Pools pl = new Pools(_ip, sokConnection, thr, DateTime.Now);
                     UpdatePool(pl);
-
-                    //if (!workingHours.ContainsKey(_ip))
-                    //{
-                    //    WorkingHours working = new WorkingHours(_ip);
-                    //    workingHours.Add(_ip, working);
-                    //}
-                    // }
                 }
                 catch (Exception ex)
                 {
@@ -437,7 +418,7 @@ namespace Cresij_Control_Manager
                 
                
                 Decode dd = new Decode();
-                Dictionary<string, string> final;
+                Dictionary<string, object> final;
                 string[] status;
                 Dictionary<string, object> re = new Dictionary<string, object>();
                 for (int j = 0; j < length;)
@@ -489,16 +470,17 @@ namespace Cresij_Control_Manager
                             }
 
                             object obj = re["data"];
-                            final = obj as Dictionary<string, string>;
+                            final = obj as Dictionary<string, object>;
 
-                            if (final.ContainsKey("MacAddress"))
+                            if (final["Type"].ToString()=="MacAddress")
                             {
-                                mac = final["MacAddress"];
+                                var x = final["Data"] as Dictionary<string, string>;
+                                mac = x["MacAddress"];
                                 IsMAcAdd(fixedip, final, sock);
                             }
                             if (mac != "")
                             {
-                                if (final["Type"]=="Heartbeat")
+                                if (final["Type"].ToString()=="Heartbeat")
                                 {
                                     final = UpdateipGridOnHeartBeat(final, mac);
                                     lock (times)
@@ -533,12 +515,12 @@ namespace Cresij_Control_Manager
         }
 
         
-        private void IsMAcAdd(Dictionary<string, string> databaseip, Dictionary<string, string> message, Socket sock)
+        private void IsMAcAdd(Dictionary<string, string> databaseip, Dictionary<string, object> message, Socket sock)
         {
-
+            var data = message["Data"] as Dictionary<string, string>;
             try
             {
-                var tt = message["MacAddress"];
+                var tt = data["MacAddress"];
                 lock (times)
                 {
                     if (times.ContainsKey(tt))
@@ -579,7 +561,7 @@ namespace Cresij_Control_Manager
 
         }
 
-        protected Dictionary<string, string> UpdateGridonheartbeat(Dictionary<string, string> final, string mac)
+        protected Dictionary<string, object> UpdateGridonheartbeat(Dictionary<string, object> final1, string mac)
         {
             if (dynamicip.ContainsKey(mac))
             {
@@ -589,18 +571,19 @@ namespace Cresij_Control_Manager
 
                     for (int i = 0; i < ipGrid.Rows.Count; i++)
                     {
-                        if (ipGrid["MacAddress", i].Value.ToString() == mac && final["Type"] == "Heartbeat")
+                        if (ipGrid["MacAddress", i].Value.ToString() == mac && final1["Type"].ToString() == "Heartbeat")
                         {
+                            var final = final1["Data"] as Dictionary<string, string>;
                             ipGrid["Status", i].Value = "在线";//Online
                             ipGrid["WorkStat", i].Value = final["WorkStatus"] == "Open" ? "运行中" : "待机";
                             ipGrid["PCStat", i].Value = final["PcStatus"] == "Off" ? "已关机" : "已开机";
                             ipGrid["ProjectorStat", i].Value = final["ProjectorStatus"] == "Off" ? "已关机" : "已开机";
-                            if (final["CurtainStatus"] == "Up") ipGrid["CurtainStat", i].Value = "升";
-                            else if (final["CurtainStatus"] == "Down") ipGrid["CurtainStat", i].Value = "降";
+                            if (final["Curtain"] == "Up") ipGrid["CurtainStat", i].Value = "升";
+                            else if (final["Curtain"] == "Down") ipGrid["CurtainStat", i].Value = "降";
                             else ipGrid["CurtainStat", i].Value = "停";
 
-                            if (final["ScreenStatus"] == "Open") ipGrid["ScreenStat", i].Value = "升";
-                            else if (final["ScreenStatus"] == "Close") ipGrid["ScreenStat", i].Value = "关";
+                            if (final["Screen"] == "Open") ipGrid["ScreenStat", i].Value = "升";
+                            else if (final["Screen"] == "Close") ipGrid["ScreenStat", i].Value = "关";
                             else ipGrid["ScreenStat", i].Value = "停";
                             ipGrid["LightStat", i].Value = final["LightStatus"] == "On" ? "开" : "关";
                             switch (final["MediaSignal"])
@@ -676,10 +659,10 @@ namespace Cresij_Control_Manager
             //        break;
             //    }
             //}
-            return final;
+            return final1;
         }
 
-        private Dictionary<string, string> UpdateipGridOnHeartBeat(Dictionary<string, string> final, string mac)
+        private Dictionary<string, object> UpdateipGridOnHeartBeat(Dictionary<string, object> final, string mac)
         {
             try
             {
@@ -988,7 +971,7 @@ namespace Cresij_Control_Manager
 
                     if (f.Instruction == "SystemOffS")
                     {
-                        int r = SendToDesktop(f.Deskmac, f.Ccmac, "Shutdown");
+                        int r = AsyncDesktopListener.SendToDesktop(f.Ccmac, f.Deskmac, f.Instruction);
                         if (r == 0)
                         {
                             lock (Pool_list)

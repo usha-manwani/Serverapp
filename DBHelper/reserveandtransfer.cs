@@ -15,8 +15,8 @@ namespace DBHelper
     public partial class reserveandtransfer
     {
         public string Type { get; set; }
-        public string NonWorkingDays { get; set; }
-        public string AutoReview { get; set; }
+        public sbyte NonWorkingDays { get; set; }
+        public sbyte AutoReview { get; set; }
         public System.DateTime StartTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public int SemesterNo { get; set; }

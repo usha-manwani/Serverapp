@@ -17,5 +17,6 @@ namespace DBHelper
         public string SchoolName { get; set; }
         public string SchoolEngName { get; set; }
         public string LogoLocation { get; set; }
+        public int Id { get; set; }
     }
 }

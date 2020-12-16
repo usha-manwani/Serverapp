@@ -19,6 +19,7 @@ namespace DBHelper
         public System.TimeSpan StartTime { get; set; }
         public System.TimeSpan StopTime { get; set; }
         public int id { get; set; }
+        public sbyte Checked { get; set; }
     
         public virtual semesterinfo semesterinfo { get; set; }
     }

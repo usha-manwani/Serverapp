@@ -10,13 +10,11 @@
 namespace DBHelper
 {
     using System;
-    using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
     public partial class organisationdatabaseEntities : DbContext
     {
-      
         public organisationdatabaseEntities()
             : base("name=organisationdatabaseEntities")
         {
@@ -29,9 +27,6 @@ namespace DBHelper
     
         public virtual DbSet<buildingdetail> buildingdetails { get; set; }
         public virtual DbSet<classdetail> classdetails { get; set; }
-        public virtual DbSet<course> courses { get; set; }
-        public virtual DbSet<current_loggeduser> current_loggeduser { get; set; }
-        public virtual DbSet<departmentdetail> departmentdetails { get; set; }
         public virtual DbSet<floordetail> floordetails { get; set; }
         public virtual DbSet<operationmgmt> operationmgmts { get; set; }
         public virtual DbSet<reserveandtransfer> reserveandtransfers { get; set; }
@@ -44,6 +39,7 @@ namespace DBHelper
         public virtual DbSet<semesterinfo> semesterinfoes { get; set; }
         public virtual DbSet<strategydescription> strategydescriptions { get; set; }
         public virtual DbSet<strategyequipment> strategyequipments { get; set; }
+        public virtual DbSet<strategylog> strategylogs { get; set; }
         public virtual DbSet<strategymanagement> strategymanagements { get; set; }
         public virtual DbSet<studentdata> studentdatas { get; set; }
         public virtual DbSet<systemsetting> systemsettings { get; set; }
@@ -54,6 +50,5 @@ namespace DBHelper
         public virtual DbSet<userlog> userlogs { get; set; }
         public virtual DbSet<userpermission> userpermissions { get; set; }
         public virtual DbSet<userregistration> userregistrations { get; set; }
-        public virtual DbSet<machineworkinghour> machineworkinghours { get; set; }
     }
 }

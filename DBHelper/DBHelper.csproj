@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -133,23 +136,11 @@
     <Compile Include="classdetail.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="course.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="current_loggeduser.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="departmentdetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="floordetail.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="GetIPStatus.cs" />
     <Compile Include="GetMacAddress.cs" />
-    <Compile Include="machineworkinghour.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="operationmgmt.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
@@ -201,6 +192,10 @@
     <Compile Include="strategyequipment.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="strategylog.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StrategyLogs.cs" />
     <Compile Include="strategymanagement.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
@@ -244,6 +239,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="OrganisationDatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
@@ -254,9 +252,6 @@
       <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
       <LastGenOutput>OrganisationDatabase.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

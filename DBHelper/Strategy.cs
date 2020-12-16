@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+
 using System.Threading.Tasks;
 
 namespace DBHelper
@@ -62,7 +63,8 @@ namespace DBHelper
                               EquipmentName = e.EquipmentsNames,
                               ServiceConfig = p.Config ?? "",
                               StrategyTime = p.strategyTime.ToString(),
-                              Location = s.StrategyLocation
+                              Location = s.StrategyLocation,
+                              StrategyId=s.strategyId
                           }).AsEnumerable().Select(x => new StrategyDesc
                           {
                               StrategyDescId = x.StrategyDescId,
@@ -72,7 +74,8 @@ namespace DBHelper
                               EquipmentName = x.EquipmentName,
                               ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
                               StrategyTime = x.StrategyTime,
-                              Location = x.Location
+                              Location = x.Location,
+                              StrategyId=x.StrategyId
                           }).ToList();
                     // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
                 }
@@ -133,7 +136,7 @@ namespace DBHelper
         public List<StrategyDesc> GetStrByScheduleorSection(string timeFrameType)
         {
             List<StrategyDesc> st = new List<StrategyDesc>();
-
+           
             using (var context = new organisationdatabaseEntities())
             {
                 st = (from p in context.strategydescriptions
@@ -150,7 +153,8 @@ namespace DBHelper
                           EquipmentName = e.EquipmentsNames,
                           ServiceConfig = p.Config ?? "",
                           StrategyTime = p.strategyTime.ToString(),
-                          Location = s.StrategyLocation
+                          Location = s.StrategyLocation,
+                          StrategyId=s.strategyId
                       }).AsEnumerable().Select(x => new StrategyDesc
                       {
                           StrategyDescId = x.StrategyDescId,
@@ -160,11 +164,14 @@ namespace DBHelper
                           EquipmentName = x.EquipmentName,
                           ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, object>>(x.ServiceConfig),
                           StrategyTime = x.StrategyTime,
-                          Location = x.Location
+                          Location = x.Location,
+                          StrategyId =x.StrategyId
+                          
                       }).ToList();
                 // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
 
             }
+            
             return st;
         }
 
@@ -217,5 +224,6 @@ namespace DBHelper
         public string StrategyTime { get; set; }
         public string StrategyTimeFrame2 { get; set; }
         public string Location { get; set; }
+        public int StrategyId { get; set; }
     }
 }

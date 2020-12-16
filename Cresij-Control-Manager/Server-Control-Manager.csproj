@@ -159,6 +159,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncDesktopServer.cs" />
+    <Compile Include="AsynchronousMachineServer.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="cresijdatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

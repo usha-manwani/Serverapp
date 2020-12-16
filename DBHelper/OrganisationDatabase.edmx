@@ -41,28 +41,6 @@
           <Property Name="callhelpip" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="callhelpmac" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="course">
-          <Key>
-            <PropertyRef Name="CourseID" />
-          </Key>
-          <Property Name="CourseID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CourseName" Type="varchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="current_loggeduser">
-          <Key>
-            <PropertyRef Name="index" />
-          </Key>
-          <Property Name="userid" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="departmentdetail">
-          <Key>
-            <PropertyRef Name="SerialNo" />
-          </Key>
-          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="departmentName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="departmentCode" Type="uint" Nullable="false" />
-        </EntityType>
         <EntityType Name="floordetails">
           <Key>
             <PropertyRef Name="id" />
@@ -74,29 +52,6 @@
           <Property Name="Queue" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Public" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Remarks" Type="varchar" MaxLength="45" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="machineworkinghours">
-          <Key>
-            <PropertyRef Name="IP" />
-            <PropertyRef Name="location" />
-            <PropertyRef Name="date" />
-            <PropertyRef Name="projectorHour" />
-            <PropertyRef Name="pcHour" />
-            <PropertyRef Name="recorderHour" />
-            <PropertyRef Name="ACHour" />
-            <PropertyRef Name="systemHour" />
-          </Key>
-          <Property Name="IP" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="location" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="projectorHour" Type="double" Nullable="false" />
-          <Property Name="pcHour" Type="double" Nullable="false" />
-          <Property Name="recorderHour" Type="double" Nullable="false" />
-          <Property Name="ACHour" Type="double" Nullable="false" />
-          <Property Name="systemHour" Type="double" Nullable="false" />
-          <Property Name="screenHour" Type="double" />
         </EntityType>
         <EntityType Name="operationmgmt">
           <Key>
@@ -122,10 +77,10 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             <PropertyRef Name="id" />
           </Key>
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NonWorkingDays" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="AutoReview" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="StartTime" Type="date" Nullable="false" />
-          <Property Name="EndTime" Type="date" Nullable="false" />
+          <Property Name="NonWorkingDays" Type="tinyint" Nullable="false" />
+          <Property Name="AutoReview" Type="tinyint" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="SemesterNo" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
@@ -152,8 +107,8 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <Property Name="dayno" Type="int" Nullable="false" />
           <Property Name="section" Type="int" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="teachingbuilding" Type="varchar" MaxLength="100" />
-          <Property Name="floor" Type="varchar" MaxLength="20" />
+          <Property Name="teachingbuilding" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="floor" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="scheduleoriginal">
           <Key>
@@ -215,27 +170,29 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             <PropertyRef Name="id" />
           </Key>
           <Property Name="SemesterNo" Type="int" Nullable="false" />
-          <Property Name="Section" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Section" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="StartTime" Type="time" Precision="0" Nullable="false" />
           <Property Name="StopTime" Type="time" Precision="0" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Checked" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="semesterinfo">
           <Key>
             <PropertyRef Name="SemNo" />
           </Key>
           <Property Name="SemesterName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="TotalWeeks" Type="int" Nullable="false" />
-          <Property Name="Sunday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Monday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Tuesday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Wednesday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Thursday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Friday" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Saturday" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Sunday" Type="tinyint" Nullable="false" />
+          <Property Name="Monday" Type="tinyint" Nullable="false" />
+          <Property Name="Tuesday" Type="tinyint" Nullable="false" />
+          <Property Name="Wednesday" Type="tinyint" Nullable="false" />
+          <Property Name="Thursday" Type="tinyint" Nullable="false" />
+          <Property Name="Friday" Type="tinyint" Nullable="false" />
+          <Property Name="Saturday" Type="tinyint" Nullable="false" />
           <Property Name="SemNo" Type="int" Nullable="false" />
-          <Property Name="AutoHoliday" Type="varchar" MaxLength="10" />
+          <Property Name="AutoHoliday" Type="tinyint" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="strategydescription">
           <Key>
@@ -255,6 +212,18 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EquipmentsNames" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="strategylogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StrategyId" Type="int" Nullable="false" />
+          <Property Name="MachineMac" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Instruction" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="StrategyDescId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <EntityType Name="strategymanagement">
           <Key>
@@ -283,11 +252,12 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
         </EntityType>
         <EntityType Name="systemsettings">
           <Key>
-            <PropertyRef Name="SchoolName" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="SchoolName" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="SchoolEngName" Type="varchar" MaxLength="200" />
           <Property Name="LogoLocation" Type="varchar" MaxLength="100" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="teacherdata">
           <Key>
@@ -424,6 +394,34 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_InslogStrategyDescId">
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategylogs" Type="Self.strategylogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategydescription">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="strategylogs">
+              <PropertyRef Name="StrategyDescId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_InslogStrategyId">
+          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategylogs" Type="Self.strategylogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
+            </Principal>
+            <Dependent Role="strategylogs">
+              <PropertyRef Name="StrategyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_locationaccessauthenticatedby">
           <End Role="userdetails" Type="Self.userdetails" Multiplicity="0..1" />
           <End Role="userlocationaccess" Type="Self.userlocationaccess" Multiplicity="*" />
@@ -462,21 +460,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_reserveSemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="semesterinfo">
-              <PropertyRef Name="SemNo" />
-            </Principal>
-            <Dependent Role="schedulereserve">
-              <PropertyRef Name="Semester" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ResSemNo">
+        <Association Name="fk_ReserveTransfer">
           <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -490,7 +474,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ScheduleOrgSemno">
+        <Association Name="fk_ScheduleOriginalsemno">
           <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
           <End Role="scheduleoriginal" Type="Self.scheduleoriginal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -513,20 +497,6 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Principal>
             <Dependent Role="schedulereserve">
               <PropertyRef Name="Classroom" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_schedulesemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="semesterinfo">
-              <PropertyRef Name="SemNo" />
-            </Principal>
-            <Dependent Role="schedule">
-              <PropertyRef Name="sem" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -558,8 +528,10 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SectionSemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+        <Association Name="fk_sectionSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="sectionsinfo" Type="Self.sectionsinfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="semesterinfo">
@@ -567,6 +539,18 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Principal>
             <Dependent Role="sectionsinfo">
               <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_semno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedule">
+              <PropertyRef Name="sem" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -666,12 +650,21 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="sk_scReserveSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+          <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semesterinfo">
+              <PropertyRef Name="SemNo" />
+            </Principal>
+            <Dependent Role="schedulereserve">
+              <PropertyRef Name="Semester" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="organisationdatabaseModelStoreContainer">
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="classdetails" EntityType="Self.classdetails" Schema="organisationdatabase" store:Type="Tables" />
-          <EntitySet Name="course" EntityType="Self.course" Schema="organisationdatabase" store:Type="Tables" />
-          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" Schema="organisationdatabase" store:Type="Tables" />
-          <EntitySet Name="departmentdetail" EntityType="Self.departmentdetail" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="floordetails" EntityType="Self.floordetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="operationmgmt" EntityType="Self.operationmgmt" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="reserveandtransfer" EntityType="Self.reserveandtransfer" Schema="organisationdatabase" store:Type="Tables" />
@@ -684,6 +677,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <EntitySet Name="semesterinfo" EntityType="Self.semesterinfo" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategydescription" EntityType="Self.strategydescription" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategyequipments" EntityType="Self.strategyequipments" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="strategylogs" EntityType="Self.strategylogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategymanagement" EntityType="Self.strategymanagement" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="studentdata" EntityType="Self.studentdata" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="systemsettings" EntityType="Self.systemsettings" Schema="organisationdatabase" store:Type="Tables" />
@@ -694,19 +688,6 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <EntitySet Name="userlogs" EntityType="Self.userlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userpermissions" EntityType="Self.userpermissions" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userregistration" EntityType="Self.userregistration" Schema="organisationdatabase" store:Type="Tables" />
-          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghours" store:Type="Tables" store:Schema="organisationdatabase">
-            <DefiningQuery>SELECT
-`machineworkinghours`.`IP`, 
-`machineworkinghours`.`location`, 
-`machineworkinghours`.`date`, 
-`machineworkinghours`.`projectorHour`, 
-`machineworkinghours`.`pcHour`, 
-`machineworkinghours`.`recorderHour`, 
-`machineworkinghours`.`ACHour`, 
-`machineworkinghours`.`systemHour`, 
-`machineworkinghours`.`screenHour`
-FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="classdetails" EntitySet="classdetails" />
@@ -718,6 +699,14 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <AssociationSet Name="fk_floorbuilding" Association="Self.fk_floorbuilding">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="floordetails" EntitySet="floordetails" />
+          </AssociationSet>
+          <AssociationSet Name="fk_InslogStrategyDescId" Association="Self.fk_InslogStrategyDescId">
+            <End Role="strategydescription" EntitySet="strategydescription" />
+            <End Role="strategylogs" EntitySet="strategylogs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_InslogStrategyId" Association="Self.fk_InslogStrategyId">
+            <End Role="strategymanagement" EntitySet="strategymanagement" />
+            <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
           <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
             <End Role="userdetails" EntitySet="userdetails" />
@@ -731,25 +720,17 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userlogs" EntitySet="userlogs" />
           </AssociationSet>
-          <AssociationSet Name="fk_reserveSemno" Association="Self.fk_reserveSemno">
-            <End Role="semesterinfo" EntitySet="semesterinfo" />
-            <End Role="schedulereserve" EntitySet="schedulereserve" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ResSemNo" Association="Self.fk_ResSemNo">
+          <AssociationSet Name="fk_ReserveTransfer" Association="Self.fk_ReserveTransfer">
             <End Role="semesterinfo" EntitySet="semesterinfo" />
             <End Role="reserveandtransfer" EntitySet="reserveandtransfer" />
           </AssociationSet>
-          <AssociationSet Name="fk_ScheduleOrgSemno" Association="Self.fk_ScheduleOrgSemno">
+          <AssociationSet Name="fk_ScheduleOriginalsemno" Association="Self.fk_ScheduleOriginalsemno">
             <End Role="semesterinfo" EntitySet="semesterinfo" />
             <End Role="scheduleoriginal" EntitySet="scheduleoriginal" />
           </AssociationSet>
           <AssociationSet Name="fk_schedulereserveClassid" Association="Self.fk_schedulereserveClassid">
             <End Role="classdetails" EntitySet="classdetails" />
             <End Role="schedulereserve" EntitySet="schedulereserve" />
-          </AssociationSet>
-          <AssociationSet Name="fk_schedulesemno" Association="Self.fk_schedulesemno">
-            <End Role="semesterinfo" EntitySet="semesterinfo" />
-            <End Role="schedule" EntitySet="schedule" />
           </AssociationSet>
           <AssociationSet Name="fk_scheduletransferClassid" Association="Self.fk_scheduletransferClassid">
             <End Role="classdetails" EntitySet="classdetails" />
@@ -759,9 +740,13 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="teacherdata" EntitySet="teacherdata" />
             <End Role="scheduletransfer" EntitySet="scheduletransfer" />
           </AssociationSet>
-          <AssociationSet Name="fk_SectionSemno" Association="Self.fk_SectionSemno">
+          <AssociationSet Name="fk_sectionSemno" Association="Self.fk_sectionSemno">
             <End Role="semesterinfo" EntitySet="semesterinfo" />
             <End Role="sectionsinfo" EntitySet="sectionsinfo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_semno" Association="Self.fk_semno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="schedule" EntitySet="schedule" />
           </AssociationSet>
           <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
             <End Role="strategyequipments" EntitySet="strategyequipments" />
@@ -790,6 +775,10 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <AssociationSet Name="fk_UserPermissionUsernum" Association="Self.fk_UserPermissionUsernum">
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userpermissions" EntitySet="userpermissions" />
+          </AssociationSet>
+          <AssociationSet Name="sk_scReserveSemno" Association="Self.sk_scReserveSemno">
+            <End Role="semesterinfo" EntitySet="semesterinfo" />
+            <End Role="schedulereserve" EntitySet="schedulereserve" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -840,28 +829,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <NavigationProperty Name="schedulereserves" Relationship="Self.fk_schedulereserveClassid" FromRole="classdetails" ToRole="schedulereserve" />
           <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_scheduletransferClassid" FromRole="classdetails" ToRole="scheduletransfer" />
         </EntityType>
-        <EntityType Name="course">
-          <Key>
-            <PropertyRef Name="CourseID" />
-          </Key>
-          <Property Name="CourseID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CourseName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="current_loggeduser">
-          <Key>
-            <PropertyRef Name="index" />
-          </Key>
-          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="departmentdetail">
-          <Key>
-            <PropertyRef Name="SerialNo" />
-          </Key>
-          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="departmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="departmentCode" Type="Int64" Nullable="false" />
-        </EntityType>
         <EntityType Name="floordetail">
           <Key>
             <PropertyRef Name="id" />
@@ -900,13 +867,13 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NonWorkingDays" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AutoReview" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NonWorkingDays" Type="SByte" Nullable="false" />
+          <Property Name="AutoReview" Type="SByte" Nullable="false" />
           <Property Name="StartTime" Type="DateTime" Nullable="false" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" />
           <Property Name="SemesterNo" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ResSemNo" FromRole="reserveandtransfer" ToRole="semesterinfo" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ReserveTransfer" FromRole="reserveandtransfer" ToRole="semesterinfo" />
         </EntityType>
         <EntityType Name="roledetail">
           <Key>
@@ -932,9 +899,9 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="dayno" Type="Int32" Nullable="false" />
           <Property Name="section" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="teachingbuilding" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="floor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_schedulesemno" FromRole="schedule" ToRole="semesterinfo" />
+          <Property Name="teachingbuilding" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="floor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_semno" FromRole="schedule" ToRole="semesterinfo" />
           <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_transferIdref" FromRole="schedule" ToRole="scheduletransfer" />
         </EntityType>
         <EntityType Name="scheduleoriginal">
@@ -953,7 +920,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="dayno" Type="Int32" Nullable="false" />
           <Property Name="section" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ScheduleOrgSemno" FromRole="scheduleoriginal" ToRole="semesterinfo" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_ScheduleOriginalsemno" FromRole="scheduleoriginal" ToRole="semesterinfo" />
         </EntityType>
         <EntityType Name="schedulereserve">
           <Key>
@@ -976,7 +943,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="Status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="classdetail" Relationship="Self.fk_schedulereserveClassid" FromRole="schedulereserve" ToRole="classdetails" />
-          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_reserveSemno" FromRole="schedulereserve" ToRole="semesterinfo" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.sk_scReserveSemno" FromRole="schedulereserve" ToRole="semesterinfo" />
         </EntityType>
         <EntityType Name="scheduletransfer">
           <Key>
@@ -1004,11 +971,12 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="SemesterNo" Type="Int32" Nullable="false" />
-          <Property Name="Section" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StartTime" Type="Time" Nullable="false" />
           <Property Name="StopTime" Type="Time" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_SectionSemno" FromRole="sectionsinfo" ToRole="semesterinfo" />
+          <Property Name="Checked" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="semesterinfo" Relationship="Self.fk_sectionSemno" FromRole="sectionsinfo" ToRole="semesterinfo" />
         </EntityType>
         <EntityType Name="semesterinfo">
           <Key>
@@ -1017,20 +985,21 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="SemesterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
           <Property Name="TotalWeeks" Type="Int32" Nullable="false" />
-          <Property Name="Sunday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Monday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Tuesday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Wednesday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Thursday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Friday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Saturday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sunday" Type="SByte" Nullable="false" />
+          <Property Name="Monday" Type="SByte" Nullable="false" />
+          <Property Name="Tuesday" Type="SByte" Nullable="false" />
+          <Property Name="Wednesday" Type="SByte" Nullable="false" />
+          <Property Name="Thursday" Type="SByte" Nullable="false" />
+          <Property Name="Friday" Type="SByte" Nullable="false" />
+          <Property Name="Saturday" Type="SByte" Nullable="false" />
           <Property Name="SemNo" Type="Int32" Nullable="false" />
-          <Property Name="AutoHoliday" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="reserveandtransfers" Relationship="Self.fk_ResSemNo" FromRole="semesterinfo" ToRole="reserveandtransfer" />
-          <NavigationProperty Name="schedules" Relationship="Self.fk_schedulesemno" FromRole="semesterinfo" ToRole="schedule" />
-          <NavigationProperty Name="scheduleoriginals" Relationship="Self.fk_ScheduleOrgSemno" FromRole="semesterinfo" ToRole="scheduleoriginal" />
-          <NavigationProperty Name="schedulereserves" Relationship="Self.fk_reserveSemno" FromRole="semesterinfo" ToRole="schedulereserve" />
-          <NavigationProperty Name="sectionsinfoes" Relationship="Self.fk_SectionSemno" FromRole="semesterinfo" ToRole="sectionsinfo" />
+          <Property Name="AutoHoliday" Type="SByte" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="reserveandtransfers" Relationship="Self.fk_ReserveTransfer" FromRole="semesterinfo" ToRole="reserveandtransfer" />
+          <NavigationProperty Name="schedules" Relationship="Self.fk_semno" FromRole="semesterinfo" ToRole="schedule" />
+          <NavigationProperty Name="scheduleoriginals" Relationship="Self.fk_ScheduleOriginalsemno" FromRole="semesterinfo" ToRole="scheduleoriginal" />
+          <NavigationProperty Name="schedulereserves" Relationship="Self.sk_scReserveSemno" FromRole="semesterinfo" ToRole="schedulereserve" />
+          <NavigationProperty Name="sectionsinfoes" Relationship="Self.fk_sectionSemno" FromRole="semesterinfo" ToRole="sectionsinfo" />
         </EntityType>
         <EntityType Name="strategydescription">
           <Key>
@@ -1043,6 +1012,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="StrategyTimeFrame1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="strategyTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StrategyTimeFrame2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="strategylogs" Relationship="Self.fk_InslogStrategyDescId" FromRole="strategydescription" ToRole="strategylogs" />
           <NavigationProperty Name="strategyequipment" Relationship="Self.fk_strategyEquipId" FromRole="strategydescription" ToRole="strategyequipments" />
           <NavigationProperty Name="strategymanagement" Relationship="Self.fk_strategyIdRef" FromRole="strategydescription" ToRole="strategymanagement" />
         </EntityType>
@@ -1053,6 +1023,20 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EquipmentsNames" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyEquipId" FromRole="strategyequipments" ToRole="strategydescription" />
+        </EntityType>
+        <EntityType Name="strategylog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StrategyId" Type="Int32" Nullable="false" />
+          <Property Name="MachineMac" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Instruction" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
+          <Property Name="StrategyDescId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="strategydescription" Relationship="Self.fk_InslogStrategyDescId" FromRole="strategylogs" ToRole="strategydescription" />
+          <NavigationProperty Name="strategymanagement" Relationship="Self.fk_InslogStrategyId" FromRole="strategylogs" ToRole="strategymanagement" />
         </EntityType>
         <EntityType Name="strategymanagement">
           <Key>
@@ -1066,6 +1050,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="strategyType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StrategyLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyIdRef" FromRole="strategymanagement" ToRole="strategydescription" />
+          <NavigationProperty Name="strategylogs" Relationship="Self.fk_InslogStrategyId" FromRole="strategymanagement" ToRole="strategylogs" />
         </EntityType>
         <EntityType Name="studentdata">
           <Key>
@@ -1082,11 +1067,12 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
         </EntityType>
         <EntityType Name="systemsetting">
           <Key>
-            <PropertyRef Name="SchoolName" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="SchoolName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SchoolEngName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="LogoLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="teacherdata">
           <Key>
@@ -1193,27 +1179,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="machineworkinghour">
-          <Key>
-            <PropertyRef Name="IP" />
-            <PropertyRef Name="location" />
-            <PropertyRef Name="date" />
-            <PropertyRef Name="projectorHour" />
-            <PropertyRef Name="pcHour" />
-            <PropertyRef Name="recorderHour" />
-            <PropertyRef Name="ACHour" />
-            <PropertyRef Name="systemHour" />
-          </Key>
-          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="location" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" />
-          <Property Name="projectorHour" Type="Double" Nullable="false" />
-          <Property Name="pcHour" Type="Double" Nullable="false" />
-          <Property Name="recorderHour" Type="Double" Nullable="false" />
-          <Property Name="ACHour" Type="Double" Nullable="false" />
-          <Property Name="systemHour" Type="Double" Nullable="false" />
-          <Property Name="screenHour" Type="Double" />
-        </EntityType>
         <Association Name="fk_classbuildingname">
           <End Role="buildingdetails" Type="Self.buildingdetail" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1298,7 +1263,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ResSemNo">
+        <Association Name="fk_ReserveTransfer">
           <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -1326,10 +1291,8 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_schedulesemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="fk_semno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
           <End Role="schedule" Type="Self.schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="semesterinfo">
@@ -1354,7 +1317,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ScheduleOrgSemno">
+        <Association Name="fk_ScheduleOriginalsemno">
           <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
           <End Role="scheduleoriginal" Type="Self.scheduleoriginal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1366,10 +1329,8 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_reserveSemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="sk_scReserveSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
           <End Role="schedulereserve" Type="Self.schedulereserve" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="semesterinfo">
@@ -1394,8 +1355,10 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_SectionSemno">
-          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1" />
+        <Association Name="fk_sectionSemno">
+          <End Role="semesterinfo" Type="Self.semesterinfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="sectionsinfo" Type="Self.sectionsinfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="semesterinfo">
@@ -1403,6 +1366,20 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Principal>
             <Dependent Role="sectionsinfo">
               <PropertyRef Name="SemesterNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_InslogStrategyDescId">
+          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategylogs" Type="Self.strategylog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategydescription">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="strategylogs">
+              <PropertyRef Name="StrategyDescId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1431,6 +1408,20 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Principal>
             <Dependent Role="strategydescription">
               <PropertyRef Name="StrategyRefId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_InslogStrategyId">
+          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="strategylogs" Type="Self.strategylog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
+            </Principal>
+            <Dependent Role="strategylogs">
+              <PropertyRef Name="StrategyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1501,9 +1492,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
         <EntityContainer Name="organisationdatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetail" />
           <EntitySet Name="classdetails" EntityType="Self.classdetail" />
-          <EntitySet Name="courses" EntityType="Self.course" />
-          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" />
-          <EntitySet Name="departmentdetails" EntityType="Self.departmentdetail" />
           <EntitySet Name="floordetails" EntityType="Self.floordetail" />
           <EntitySet Name="operationmgmts" EntityType="Self.operationmgmt" />
           <EntitySet Name="reserveandtransfers" EntityType="Self.reserveandtransfer" />
@@ -1516,6 +1504,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <EntitySet Name="semesterinfoes" EntityType="Self.semesterinfo" />
           <EntitySet Name="strategydescriptions" EntityType="Self.strategydescription" />
           <EntitySet Name="strategyequipments" EntityType="Self.strategyequipment" />
+          <EntitySet Name="strategylogs" EntityType="Self.strategylog" />
           <EntitySet Name="strategymanagements" EntityType="Self.strategymanagement" />
           <EntitySet Name="studentdatas" EntityType="Self.studentdata" />
           <EntitySet Name="systemsettings" EntityType="Self.systemsetting" />
@@ -1526,7 +1515,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <EntitySet Name="userlogs" EntityType="Self.userlog" />
           <EntitySet Name="userpermissions" EntityType="Self.userpermission" />
           <EntitySet Name="userregistrations" EntityType="Self.userregistration" />
-          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghour" />
           <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="classdetails" EntitySet="classdetails" />
@@ -1551,7 +1539,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="classdetails" EntitySet="classdetails" />
             <End Role="scheduletransfer" EntitySet="scheduletransfers" />
           </AssociationSet>
-          <AssociationSet Name="fk_ResSemNo" Association="Self.fk_ResSemNo">
+          <AssociationSet Name="fk_ReserveTransfer" Association="Self.fk_ReserveTransfer">
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="reserveandtransfer" EntitySet="reserveandtransfers" />
           </AssociationSet>
@@ -1559,7 +1547,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="roledetails" EntitySet="roledetails" />
             <End Role="userpermissions" EntitySet="userpermissions" />
           </AssociationSet>
-          <AssociationSet Name="fk_schedulesemno" Association="Self.fk_schedulesemno">
+          <AssociationSet Name="fk_semno" Association="Self.fk_semno">
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="schedule" EntitySet="schedules" />
           </AssociationSet>
@@ -1567,11 +1555,11 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="schedule" EntitySet="schedules" />
             <End Role="scheduletransfer" EntitySet="scheduletransfers" />
           </AssociationSet>
-          <AssociationSet Name="fk_ScheduleOrgSemno" Association="Self.fk_ScheduleOrgSemno">
+          <AssociationSet Name="fk_ScheduleOriginalsemno" Association="Self.fk_ScheduleOriginalsemno">
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="scheduleoriginal" EntitySet="scheduleoriginals" />
           </AssociationSet>
-          <AssociationSet Name="fk_reserveSemno" Association="Self.fk_reserveSemno">
+          <AssociationSet Name="sk_scReserveSemno" Association="Self.sk_scReserveSemno">
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="schedulereserve" EntitySet="schedulereserves" />
           </AssociationSet>
@@ -1579,9 +1567,13 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="teacherdata" EntitySet="teacherdatas" />
             <End Role="scheduletransfer" EntitySet="scheduletransfers" />
           </AssociationSet>
-          <AssociationSet Name="fk_SectionSemno" Association="Self.fk_SectionSemno">
+          <AssociationSet Name="fk_sectionSemno" Association="Self.fk_sectionSemno">
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="sectionsinfo" EntitySet="sectionsinfoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_InslogStrategyDescId" Association="Self.fk_InslogStrategyDescId">
+            <End Role="strategydescription" EntitySet="strategydescriptions" />
+            <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
           <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
             <End Role="strategyequipments" EntitySet="strategyequipments" />
@@ -1590,6 +1582,10 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <AssociationSet Name="fk_strategyIdRef" Association="Self.fk_strategyIdRef">
             <End Role="strategymanagement" EntitySet="strategymanagements" />
             <End Role="strategydescription" EntitySet="strategydescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="fk_InslogStrategyId" Association="Self.fk_InslogStrategyId">
+            <End Role="strategymanagement" EntitySet="strategymanagements" />
+            <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
           <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
             <End Role="userdetails" EntitySet="userdetails" />
@@ -1653,31 +1649,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="recordermac" ColumnName="recordermac" />
                 <ScalarProperty Name="callhelpip" ColumnName="callhelpip" />
                 <ScalarProperty Name="callhelpmac" ColumnName="callhelpmac" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="courses">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.course">
-              <MappingFragment StoreEntitySet="course">
-                <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="current_loggeduser">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.current_loggeduser">
-              <MappingFragment StoreEntitySet="current_loggeduser">
-                <ScalarProperty Name="userid" ColumnName="userid" />
-                <ScalarProperty Name="index" ColumnName="index" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="departmentdetails">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.departmentdetail">
-              <MappingFragment StoreEntitySet="departmentdetail">
-                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
-                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
-                <ScalarProperty Name="departmentCode" ColumnName="departmentCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1821,6 +1792,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="StopTime" ColumnName="StopTime" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1839,6 +1811,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="Saturday" ColumnName="Saturday" />
                 <ScalarProperty Name="SemNo" ColumnName="SemNo" />
                 <ScalarProperty Name="AutoHoliday" ColumnName="AutoHoliday" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1860,6 +1833,19 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
               <MappingFragment StoreEntitySet="strategyequipments">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="EquipmentsNames" ColumnName="EquipmentsNames" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strategylogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.strategylog">
+              <MappingFragment StoreEntitySet="strategylogs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StrategyId" ColumnName="StrategyId" />
+                <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
+                <ScalarProperty Name="Instruction" ColumnName="Instruction" />
+                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+                <ScalarProperty Name="StrategyDescId" ColumnName="StrategyDescId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1896,6 +1882,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="SchoolName" ColumnName="SchoolName" />
                 <ScalarProperty Name="SchoolEngName" ColumnName="SchoolEngName" />
                 <ScalarProperty Name="LogoLocation" ColumnName="LogoLocation" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1995,21 +1982,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="machineworkinghours">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.machineworkinghour">
-              <MappingFragment StoreEntitySet="machineworkinghours">
-                <ScalarProperty Name="IP" ColumnName="IP" />
-                <ScalarProperty Name="location" ColumnName="location" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="projectorHour" ColumnName="projectorHour" />
-                <ScalarProperty Name="pcHour" ColumnName="pcHour" />
-                <ScalarProperty Name="recorderHour" ColumnName="recorderHour" />
-                <ScalarProperty Name="ACHour" ColumnName="ACHour" />
-                <ScalarProperty Name="systemHour" ColumnName="systemHour" />
-                <ScalarProperty Name="screenHour" ColumnName="screenHour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

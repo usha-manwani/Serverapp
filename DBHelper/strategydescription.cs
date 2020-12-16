@@ -14,6 +14,12 @@ namespace DBHelper
     
     public partial class strategydescription
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public strategydescription()
+        {
+            this.strategylogs = new HashSet<strategylog>();
+        }
+    
         public int id { get; set; }
         public int StrategyRefId { get; set; }
         public int Equipmentid { get; set; }
@@ -22,6 +28,8 @@ namespace DBHelper
         public string strategyTime { get; set; }
         public string StrategyTimeFrame2 { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<strategylog> strategylogs { get; set; }
         public virtual strategyequipment strategyequipment { get; set; }
         public virtual strategymanagement strategymanagement { get; set; }
     }

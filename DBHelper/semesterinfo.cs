@@ -27,15 +27,16 @@ namespace DBHelper
         public string SemesterName { get; set; }
         public System.DateTime StartDate { get; set; }
         public int TotalWeeks { get; set; }
-        public string Sunday { get; set; }
-        public string Monday { get; set; }
-        public string Tuesday { get; set; }
-        public string Wednesday { get; set; }
-        public string Thursday { get; set; }
-        public string Friday { get; set; }
-        public string Saturday { get; set; }
+        public sbyte Sunday { get; set; }
+        public sbyte Monday { get; set; }
+        public sbyte Tuesday { get; set; }
+        public sbyte Wednesday { get; set; }
+        public sbyte Thursday { get; set; }
+        public sbyte Friday { get; set; }
+        public sbyte Saturday { get; set; }
         public int SemNo { get; set; }
-        public string AutoHoliday { get; set; }
+        public sbyte AutoHoliday { get; set; }
+        public int id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<reserveandtransfer> reserveandtransfers { get; set; }
