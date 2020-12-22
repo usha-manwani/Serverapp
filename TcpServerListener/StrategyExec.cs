@@ -39,7 +39,7 @@ namespace TcpServerListener
                                 if (day.Contains(dayOfMonth))
                                 {
 
-                                    inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                     foreach (LocationsMac l in locationsmac)
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode,
@@ -53,7 +53,7 @@ namespace TcpServerListener
                                 var dayno = s.StrategyTimeFrame2.Split(',').Select(int.Parse).ToList();
                                 if (dayno.Contains(dayOfWeek))
                                 {
-                                    inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                     foreach (LocationsMac l in locationsmac)
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode,
@@ -66,7 +66,7 @@ namespace TcpServerListener
                                 }
                                 break;
                             case "Daily":
-                                inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                 foreach (LocationsMac l in locationsmac)
                                 {
                                     ff.Add(new FinalResult { Instruction = inscode,
@@ -87,7 +87,7 @@ namespace TcpServerListener
                                 var tempdate = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
                                 if (tempdate == toDate)
                                 {
-                                    inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                     foreach (LocationsMac l in locationsmac)
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode,
@@ -104,7 +104,7 @@ namespace TcpServerListener
                                 var tempdate1 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
                                 if (tempdate1 == toDate)
                                 {
-                                    inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                     foreach (LocationsMac l in locationsmac)
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode, Ccmac = l.CCMac.ToUpper(), Deskmac = l.DeskMac.ToUpper(),
@@ -119,7 +119,7 @@ namespace TcpServerListener
                                 var tempdate2 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
                                 if (tempdate2 == toDate)
                                 {
-                                    inscode = CheckEquipmentCode1(s.EquipmentId, s.ServiceConfig);
+                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                     foreach (LocationsMac l in locationsmac)
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode,
@@ -158,118 +158,118 @@ namespace TcpServerListener
                 {
                     case 1:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("SystemOn").ToString();
+                            instruction = "SystemOn";
                         else
-                            instruction = ins.GetValues("SystemOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 2:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ProjectorOn").ToString();
+                            instruction = "ProjectorOn";
                         else
-                            instruction = ins.GetValues("ProjectorOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 3:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("CurtainOpen").ToString();
+                            instruction = "CurtainOn";
                         else
-                            instruction = ins.GetValues("CurtainClose").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 4:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ComputerOn").ToString();
+                            instruction = "ComputerOn";
                         else
-                            instruction = ins.GetValues("ComputerOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
-                    case 5:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("SystemLock").ToString();
-                        else
-                            instruction = ins.GetValues("SystemUnlock").ToString();
-                        break;
+                    //case 5:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("SystemLock").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("SystemUnlock").ToString();
+                     //  break;
                     case 6:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ProjectorPowerOn").ToString();
+                            instruction = "PowerOn";
                         else
-                            instruction = ins.GetValues("ProjectorPowerOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 7:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ComputerPowerOn").ToString();
+                            instruction = "PowerOn";
                         else
-                            instruction = ins.GetValues("ComputerPowerOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 8:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("AmplifierPowerOn").ToString();
+                            instruction = "PowerStrategy";
                         else
-                            instruction = ins.GetValues("AmplifierPowerOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
                     case 9:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("OtherPowerOn").ToString();
+                            instruction = "PowerStrategy";
                         else
-                            instruction = ins.GetValues("OtherPowerOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
-                    case 10:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("PodiumLightOn").ToString();
-                        else
-                            instruction = ins.GetValues("PodiumLightOff").ToString();
-                        break;
-                    case 11:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ClassroomLightOn").ToString();
-                        else
-                            instruction = ins.GetValues("ClassroomLightOff").ToString();
-                        break;
-                    case 12:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("PodiumCurtainOn").ToString();
-                        else
-                            instruction = ins.GetValues("PodiumCurtainOff").ToString();
-                        break;
+                    //case 10:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("PodiumLightOn").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("PodiumLightOff").ToString();
+                    //    break;
+                    //case 11:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("ClassroomLightOn").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("ClassroomLightOff").ToString();
+                    //    break;
+                    //case 12:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("PodiumCurtainOn").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("PodiumCurtainOff").ToString();
+                    //    break;
                     case 13:
                         if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ClassroomCurtainOn").ToString();
+                            instruction = "CurtainStrategy";
                         else
-                            instruction = ins.GetValues("ClassroomCurtainOff").ToString();
+                            instruction = "CloseStrategy";
                         break;
-                    case 14:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("ExhaustFanOn").ToString();
-                        else
-                            instruction = ins.GetValues("ExhaustFanOff").ToString();
-                        break;
-                    case 15:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("FreshAirSystemOn").ToString();
-                        else
-                            instruction = ins.GetValues("FreshAirSystemOff").ToString();
-                        break;
-                    case 16:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("Ac1On").ToString();
-                        else
-                            instruction = ins.GetValues("Ac1Off").ToString();
-                        break;
-                    case 17:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("Ac2On").ToString();
-                        else
-                            instruction = ins.GetValues("Ac2Off").ToString();
-                        break;
-                    case 18:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("Ac3On").ToString();
-                        else
-                            instruction = ins.GetValues("Ac3Off").ToString();
-                        break;
-                    case 19:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = ins.GetValues("Ac4On").ToString();
-                        else
-                            instruction = ins.GetValues("Ac4Off").ToString();
-                        break;
+                    //case 14:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("ExhaustFanOn").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("ExhaustFanOff").ToString();
+                    //    break;
+                    //case 15:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("FreshAirSystemOn").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("FreshAirSystemOff").ToString();
+                    //    break;
+                    //case 16:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("Ac1On").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("Ac1Off").ToString();
+                    //    break;
+                    //case 17:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("Ac2On").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("Ac2Off").ToString();
+                    //    break;
+                    //case 18:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("Ac3On").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("Ac3Off").ToString();
+                    //    break;
+                    //case 19:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = ins.GetValues("Ac4On").ToString();
+                    //    else
+                    //        instruction = ins.GetValues("Ac4Off").ToString();
+                    //    break;
                     default:
                         break;
                 }
@@ -440,7 +440,7 @@ namespace TcpServerListener
                             {
                                 var numbers = dec.Location.Split(',').Select(int.Parse).ToList();
                                 List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
-                                string instruction = CheckEquipmentCode1(dec.EquipmentId, dec.ServiceConfig);
+                                string instruction = CheckEquipmentCode(dec.EquipmentId, dec.ServiceConfig);
                                 var pp = (from x in temp
                                           join y in locationsmac on x.ClassId equals y.ClassId
                                           select y).ToList();
@@ -448,7 +448,7 @@ namespace TcpServerListener
                                 {
                                     if (sectiontime == "stop")
                                     {
-                                        if (instruction.Contains("Off"))
+                                        if (instruction.Contains("CloseStrategy"))
                                             ff.Add(new FinalResult() { Ccmac = l.CCMac.ToUpper(),
                                                 Instruction = instruction,
                                                 Deskmac = l.DeskMac.ToUpper(),
@@ -474,7 +474,7 @@ namespace TcpServerListener
             catch(Exception ex)
             {
                 Console.WriteLine("strategy error: "+ex.StackTrace);
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "strategy error: "+ ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: "+ ex.StackTrace);
                 // Log("error in strategy exex : " + ex.StackTrace);
             }
             
@@ -513,12 +513,12 @@ namespace TcpServerListener
                     {
                         var numbers = dec.Location.Split(',').Select(int.Parse).ToList();
                         List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
-                        string instruction = CheckEquipmentCode1(dec.EquipmentId, dec.ServiceConfig);
+                        string instruction = CheckEquipmentCode(dec.EquipmentId, dec.ServiceConfig);
                         foreach (LocationsMac l in locationsmac)
                         {
                             if (sectiontime == "stop")
                             {
-                                if (instruction.Contains("Off"))
+                                if (instruction.Contains("CloseStrategy"))
                                     ff.Add(new FinalResult() {
                                         Ccmac = l.CCMac.ToUpper(),
                                         Instruction = instruction,

@@ -966,7 +966,7 @@ namespace TcpServerListener
                                     }
                                     break;
                                 case 02:
-                                    statdata.Add("Type", "WebPlatform");
+                                    statdata.Add("Type", "ControlExecution");
                                     MessageArray[1] = "PanelKey";
                                     if (data[6] == 23)
                                     {
@@ -982,6 +982,49 @@ namespace TcpServerListener
                                     }
                                     switch (Convert.ToByte(data[7]))
                                     {
+                                        case 16:
+                                            objdata.Add("MediaSignal", "Desktop");
+                                            MessageArray[3] = "Desktop";
+                                            break;
+                                        case 17:
+                                            objdata.Add("MediaSignal", "Laptop");
+                                            MessageArray[3] = "Laptop";
+                                            break;
+                                        case 18:
+                                            //DigitalBooth = DigitalCurtain
+                                            objdata.Add("MediaSignal", "DigitalBooth");
+                                            MessageArray[3] = "DigitalCurtain";
+                                            break;
+                                        case 19:
+                                            // DigitalEquipment=DigitalScreen
+                                            objdata.Add("MediaSignal", "DigitalEquipment");
+                                            MessageArray[3] = "DigitalScreen";
+                                            break;
+                                        case 20:
+                                            objdata.Add("MediaSignal", "DVD");
+                                            MessageArray[3] = "DVD";
+                                            break;
+                                        case 21:
+                                            objdata.Add("MediaSignal", "TV");
+                                            MessageArray[3] = "TV";
+                                            break;
+                                        case 22:
+                                            objdata.Add("MediaSignal", "VideoCamera");
+                                            MessageArray[3] = "VideoCamera";
+                                            break;
+
+                                        case 25:
+                                            objdata.Add("MediaSignal", "RecordingSystem");
+                                            MessageArray[3] = "RecordingSystem";
+                                            break;
+                                        case 26:
+                                            objdata.Add("MediaSignal", "BluRayDVD");
+                                            MessageArray[3] = "Blu-RayDVD";
+                                            break;
+                                        //case 29:
+                                        //    objdata.Add("MediaSignal", "ExternalHD");
+                                        //    MessageArray[3] = "ExternalHD";
+                                        //    break;
                                         case 192:
 
                                             objdata.Add("System", "On");
@@ -1346,7 +1389,7 @@ namespace TcpServerListener
                                                 break;
                                         }
                                     }
-
+                                    
                                     break;
                                 case 08:
                                     statdata.Add("Type", "MacAddress");
@@ -1356,340 +1399,376 @@ namespace TcpServerListener
                                     objdata.Add("MacAddress", macadd);
                                     break;
                                 case 09:
-
-
-                                    statdata.Add("Type", "Strategy");
-                                    MessageArray[1] = "StrategyInstruction";
-                                    switch (Convert.ToByte(data[7]))
                                     {
-                                        case 192:
-                                            objdata.Add("System", "On");
-                                            MessageArray[2] = "SystemON";
-                                            Status[5] = "On";
-                                            break;
-                                        case 193:
-                                            objdata.Add("System", "Off");
-                                            MessageArray[2] = "SystemOff";
-                                            Status[5] = "Off";
-                                            break;
-                                        case 29:
-                                            if (Convert.ToByte(data[8]) == 01)
-                                            {
+                                        //8B B9 00 07 05 09 C4 02 00 4F 2A
+                                        statdata.Add("Type", "Strategy");
+                                        MessageArray[1] = "StrategyInstruction";
+                                        switch (Convert.ToByte(data[7]))
+                                        {
+                                            case 01:
+                                                objdata.Add("StrategyStatus", "Close");
+                                                statdata.Add("Device", "CloseStrategy");
+                                                break;
+                                            case 02:
+                                                objdata.Add("System", "On");
+                                                statdata.Add("Device", "SystemOn");
+                                                break;
+                                            case 03:
+                                                objdata.Add("Projector", "On");
+                                                statdata.Add("Device", "ProjectorOn");
+                                                break;
+                                            case 04:
                                                 objdata.Add("Computer", "On");
-                                                MessageArray[2] = "ComputerOn";
-                                            }
-                                            break;
-                                        case 30:
-                                            if (Convert.ToByte(data[8]) == 01)
-                                            {
-                                                objdata.Add("Computer", "Off");
-                                                MessageArray[2] = "ComputerOff";
-                                            }
-                                            //Status[5] = "Off";
-                                            break;
-                                        case 86:
-                                            objdata.Add("Screen", "Down");
-                                            MessageArray[2] = "DSDown";
-                                            break;
-                                        case 102:
-                                            objdata.Add("Screen", "Stop");
-                                            MessageArray[2] = "DSStop";
-                                            break;
-                                        case 118:
-                                            objdata.Add("Screen", "Up");
-                                            MessageArray[2] = "DSUp";
-                                            break;
-                                        case 44:
-                                            objdata.Add("IsSystemLock", "True");
-                                            MessageArray[2] = "syslock";
-                                            break;
-                                        case 45:
-                                            objdata.Add("IsSystemLock", "False");
-                                            MessageArray[2] = "sysunlock";
-                                            break;
-                                        case 46:
-                                            objdata.Add("IsPodiumLock", "True");
-                                            MessageArray[2] = "podiumlock";
-                                            break;
-                                        case 47:
-                                            objdata.Add("IsPodiumLock", "False");
-                                            MessageArray[2] = "podiumunlock";
-                                            break;
-                                        case 95:
-                                            objdata.Add("IsClassLock", "True");
-                                            MessageArray[2] = "classlock";
-                                            break;
-                                        case 96:
-                                            objdata.Add("IsClassLock", "False");
-                                            MessageArray[2] = "classunlock";
-                                            break;
-                                        case 32:
-                                            objdata.Add("Volume", "Increase");
-                                            MessageArray[2] = "volplus";
-                                            break;
-                                        case 33:
-                                            objdata.Add("Volume", "Decrease");
-                                            MessageArray[2] = "volminus";
-                                            break;
-                                        case 34:
-                                            objdata.Add("Volume", "Mute");
-                                            MessageArray[2] = "mute";
-                                            break;
-                                        case 35:
-                                            objdata.Add("WiredMicVolume", "Increase");
-                                            MessageArray[2] = "wiredvolplus";
-                                            break;
-                                        case 36:
-                                            objdata.Add("WiredMicVolume", "Decrease");
-                                            MessageArray[2] = "wiredvolminus";
-                                            break;
-                                        case 37:
-                                            objdata.Add("WiredMicVolume", "Mute");
-                                            MessageArray[2] = "wiredmute";
-                                            break;
-                                        case 115:
-                                            objdata.Add("WirelessMicVolume", "Increase");
-                                            MessageArray[2] = "wirelessvolplus";
-                                            break;
-                                        case 116:
-                                            objdata.Add("WirelessMicVolume", "Decrease");
-                                            MessageArray[2] = "wirelessvolminus";
-                                            break;
-                                        case 117:
-                                            objdata.Add("WirelessMicVolume", "Mute");
-                                            MessageArray[2] = "wirelessmute";
-                                            break;
-                                        case 146:
-                                            objdata.Add("Recording", "Start");
-                                            MessageArray[2] = "startrec";
-                                            break;
-                                        case 147:
-                                            objdata.Add("Recording", "Stop");
-                                            MessageArray[2] = "stoprec";
-                                            break;
-                                        case 48:
-                                            objdata.Add("DVD", "Play");
-                                            MessageArray[2] = "playdvd";
-                                            break;
-                                        case 49:
-                                            objdata.Add("DVD", "WareHouse");
-                                            MessageArray[2] = "warehousedvd";
-                                            break;
-                                        case 54:
-                                            objdata.Add("DVD", "Power");
-                                            MessageArray[2] = "powerdvd";
-                                            break;
-                                        case 55:
-                                            objdata.Add("DVD", "Pause");
-                                            MessageArray[2] = "pausedvd";
-                                            break;
-                                        case 56:
-                                            objdata.Add("DVD", "Stop");
-                                            MessageArray[2] = "stopdvd";
-                                            break;
-                                        case 50:
-                                            objdata.Add("DVD", "Forward");
-                                            MessageArray[2] = "forwarddvd";
-                                            break;
-                                        case 64:
-                                            objdata.Add("DVD", "Rewind");
-                                            MessageArray[2] = "rewinddvd";
-                                            break;
-                                        case 65:
-                                            objdata.Add("DVD", "Previous");
-                                            MessageArray[2] = "previousdvd";
-                                            break;
-                                        case 66:
-                                            objdata.Add("DVD", "Next");
-                                            MessageArray[2] = "nextdvd";
-                                            break;
-                                        case 160:
-                                            objdata.Add("TV", "Power");
-                                            MessageArray[2] = "powertv";
-                                            break;
-                                        case 161:
-                                            objdata.Add("TV", "");
-                                            MessageArray[2] = "tvsignal";
-                                            break;
-                                        case 162:
-                                            objdata.Add("TV", "ChannelPlus");
-                                            MessageArray[2] = "channelplustv";
-                                            break;
-                                        case 163:
-                                            objdata.Add("TV", "ChannelMinus");
-                                            MessageArray[2] = "channelminustv";
-                                            break;
-                                        case 164:
-                                            objdata.Add("TV", "VolumePlus");
-                                            MessageArray[2] = "volplustv";
-                                            break;
-                                        case 165:
-                                            objdata.Add("TV", "VolumeMinus");
-                                            MessageArray[2] = "volminustv";
-                                            break;
-                                        case 166:
-                                            objdata.Add("TV", "Menu");
-                                            MessageArray[2] = "menutv";
-                                            break;
-                                        case 167:
-                                            objdata.Add("TV", "Ok");
-                                            MessageArray[2] = "oktv";
-                                            break;
-                                        case 168:
-                                            objdata.Add("TV", "Exit");
-                                            MessageArray[2] = "exittv";
-                                            break;
-                                        case 51:
-                                            objdata.Add("Projector", "On");
-                                            MessageArray[2] = "projopen";
-                                            Status[1] = "On";
-                                            break;
-                                        case 67:
-                                            objdata.Add("Projector", "Off");
-                                            MessageArray[2] = "projoff";
-                                            Status[1] = "Off";
-                                            break;
-                                        case 52:
-                                            objdata.Add("Projector", "Hdmi");
-                                            MessageArray[2] = "hdmi";
-                                            break;
-                                        case 53:
-                                            objdata.Add("Projector", "Video");
-                                            MessageArray[2] = "video";
-                                            break;
-                                        case 68:
-                                            objdata.Add("Projector", "Vga");
-                                            MessageArray[2] = "vga";
-                                            break;
-                                        case 69:
-                                            objdata.Add("Projector", "Sleep");
-                                            MessageArray[2] = "sleep";
-                                            break;
-                                        case 119:
-                                            objdata.Add("Curtain1", "Open");
-                                            MessageArray[2] = "curtain1open";
-                                            break;
-                                        case 87:
-                                            objdata.Add("Curtain1", "Close");
-                                            MessageArray[2] = "curtain1close";
-                                            break;
-                                        case 103:
-                                            objdata.Add("Curtain1", "Stop");
-                                            MessageArray[2] = "curtain1stop";
-                                            break;
-                                        case 99:
-                                            objdata.Add("Curtain2", "Open");
-                                            MessageArray[2] = "curtain2open";
-                                            break;
-                                        case 100:
-                                            objdata.Add("Curtain2", "Close");
-                                            MessageArray[2] = "curtain2close";
-                                            break;
-                                        case 101:
-                                            objdata.Add("Curtain2", "Stop");
-                                            MessageArray[2] = "curtain2stop";
-                                            break;
-                                        case 70:
-                                            objdata.Add("Curtain3", "Open");
-                                            MessageArray[2] = "curtain3open";
-                                            break;
-                                        case 71:
-                                            objdata.Add("Curtain3", "Close");
-                                            MessageArray[2] = "curtain3close";
-                                            break;
-                                        case 72:
-                                            objdata.Add("Curtain3", "Stop");
-                                            MessageArray[2] = "curtain3stop";
-                                            break;
-                                        case 73:
-                                            objdata.Add("Curtain4", "Open");
-                                            MessageArray[2] = "curtain4open";
-                                            break;
-                                        case 74:
-                                            objdata.Add("Curtain4", "Close");
-                                            MessageArray[2] = "curtain4close";
-                                            break;
-                                        case 75:
-                                            objdata.Add("Curtain4", "Stop");
-                                            MessageArray[2] = "curtain4stop";
-                                            break;
-                                        case 120:
-                                            objdata.Add("Light", "light1");
-                                            MessageArray[2] = "light1";
-                                            break;
-                                        case 104:
-                                            objdata.Add("Light", "light2");
-                                            MessageArray[2] = "light2";
-                                            break;
-                                        case 88:
-                                            objdata.Add("Light", "light3");
-                                            MessageArray[2] = "light3";
-                                            break;
-                                        case 83:
-                                            objdata.Add("Light", "light4");
-                                            MessageArray[2] = "light4";
-                                            break;
-                                        case 84:
-                                            objdata.Add("Light", "light5");
-                                            MessageArray[2] = "light5";
-                                            break;
-                                        case 85:
-                                            objdata.Add("Light", "light6");
-                                            MessageArray[2] = "light6";
-                                            break;
-                                        case 76:
-                                            objdata.Add("Light", "light7");
-                                            MessageArray[2] = "light7";
-                                            break;
-                                        case 77:
-                                            objdata.Add("Light", "light8");
-                                            MessageArray[2] = "light8";
-                                            break;
-                                        case 176:
-                                            objdata.Add("BlueRayDVD", "Play");
-                                            MessageArray[2] = "playbludvd";
-                                            break;
-                                        case 177:
-                                            objdata.Add("BlueRayDVD", "Warehouse");
-                                            MessageArray[2] = "warehousebludvd";
-                                            break;
-                                        case 178:
-                                            objdata.Add("BlueRayDVD", "Power");
-                                            MessageArray[2] = "powerbludvd";
-                                            break;
-                                        case 179:
-                                            objdata.Add("BlueRayDVD", "Pause");
-                                            MessageArray[2] = "pausebludvd";
-                                            break;
-                                        case 180:
-                                            objdata.Add("BlueRayDVD", "Stop");
-                                            MessageArray[2] = "stopbludvd";
-                                            break;
-                                        case 181:
-                                            objdata.Add("BlueRayDVD", "Forward");
-                                            MessageArray[2] = "forwardbludvd";
-                                            break;
-                                        case 182:
-                                            objdata.Add("BlueRayDVD", "Rewind");
-                                            MessageArray[2] = "rewindbludvd";
-                                            break;
-                                        case 183:
-                                            objdata.Add("BlueRayDVD", "Previous");
-                                            MessageArray[2] = "previousbludvd";
-                                            break;
-                                        case 184:
-                                            objdata.Add("BlueRayDVD", "Next");
-                                            MessageArray[2] = "nextbludvd";
-                                            break;
-                                        default:
-                                            objdata.Add("NoData", "NoData");
-                                            MessageArray[2] = "Nochange";
-                                            break;
+                                                statdata.Add("Device", "ComputerOn");
+                                                break;
+                                            case 05:
+                                                objdata.Add("Sound", "On");
+                                                statdata.Add("Device", "SoundOn");
+                                                break;
+                                            case 06:
+                                                objdata.Add("ElectricPort", "On");
+                                                statdata.Add("Device", "PowerOn");
+                                                break;
+                                            case 07:
+                                                objdata.Add("Curtain", "On");
+                                                statdata.Add("Device", "CurtainOn");
+                                                break;
+                                        }
+                                        int strategyID = (data[8] << 8) | data[9];
+                                        statdata.Add("StrategyDescId", strategyID);
+                                        
                                     }
-
                                     break;
                                 default:
                                     break;
+                                    //switch (Convert.ToByte(data[7]))
+                                    //{
+                                    //    case 192:
+                                    //        objdata.Add("System", "On");
+                                    //        MessageArray[2] = "SystemON";
+                                    //        Status[5] = "On";
+                                    //        break;
+                                    //    case 193:
+                                    //        objdata.Add("System", "Off");
+                                    //        MessageArray[2] = "SystemOff";
+                                    //        Status[5] = "Off";
+                                    //        break;
+                                    //    case 29:
+                                    //        if (Convert.ToByte(data[8]) == 01)
+                                    //        {
+                                    //            objdata.Add("Computer", "On");
+                                    //            MessageArray[2] = "ComputerOn";
+                                    //        }
+                                    //        break;
+                                    //    case 30:
+                                    //        if (Convert.ToByte(data[8]) == 01)
+                                    //        {
+                                    //            objdata.Add("Computer", "Off");
+                                    //            MessageArray[2] = "ComputerOff";
+                                    //        }
+                                    //        //Status[5] = "Off";
+                                    //        break;
+                                    //    case 86:
+                                    //        objdata.Add("Screen", "Down");
+                                    //        MessageArray[2] = "DSDown";
+                                    //        break;
+                                    //    case 102:
+                                    //        objdata.Add("Screen", "Stop");
+                                    //        MessageArray[2] = "DSStop";
+                                    //        break;
+                                    //    case 118:
+                                    //        objdata.Add("Screen", "Up");
+                                    //        MessageArray[2] = "DSUp";
+                                    //        break;
+                                    //    case 44:
+                                    //        objdata.Add("IsSystemLock", "True");
+                                    //        MessageArray[2] = "syslock";
+                                    //        break;
+                                    //    case 45:
+                                    //        objdata.Add("IsSystemLock", "False");
+                                    //        MessageArray[2] = "sysunlock";
+                                    //        break;
+                                    //    case 46:
+                                    //        objdata.Add("IsPodiumLock", "True");
+                                    //        MessageArray[2] = "podiumlock";
+                                    //        break;
+                                    //    case 47:
+                                    //        objdata.Add("IsPodiumLock", "False");
+                                    //        MessageArray[2] = "podiumunlock";
+                                    //        break;
+                                    //    case 95:
+                                    //        objdata.Add("IsClassLock", "True");
+                                    //        MessageArray[2] = "classlock";
+                                    //        break;
+                                    //    case 96:
+                                    //        objdata.Add("IsClassLock", "False");
+                                    //        MessageArray[2] = "classunlock";
+                                    //        break;
+                                    //    case 32:
+                                    //        objdata.Add("Volume", "Increase");
+                                    //        MessageArray[2] = "volplus";
+                                    //        break;
+                                    //    case 33:
+                                    //        objdata.Add("Volume", "Decrease");
+                                    //        MessageArray[2] = "volminus";
+                                    //        break;
+                                    //    case 34:
+                                    //        objdata.Add("Volume", "Mute");
+                                    //        MessageArray[2] = "mute";
+                                    //        break;
+                                    //    case 35:
+                                    //        objdata.Add("WiredMicVolume", "Increase");
+                                    //        MessageArray[2] = "wiredvolplus";
+                                    //        break;
+                                    //    case 36:
+                                    //        objdata.Add("WiredMicVolume", "Decrease");
+                                    //        MessageArray[2] = "wiredvolminus";
+                                    //        break;
+                                    //    case 37:
+                                    //        objdata.Add("WiredMicVolume", "Mute");
+                                    //        MessageArray[2] = "wiredmute";
+                                    //        break;
+                                    //    case 115:
+                                    //        objdata.Add("WirelessMicVolume", "Increase");
+                                    //        MessageArray[2] = "wirelessvolplus";
+                                    //        break;
+                                    //    case 116:
+                                    //        objdata.Add("WirelessMicVolume", "Decrease");
+                                    //        MessageArray[2] = "wirelessvolminus";
+                                    //        break;
+                                    //    case 117:
+                                    //        objdata.Add("WirelessMicVolume", "Mute");
+                                    //        MessageArray[2] = "wirelessmute";
+                                    //        break;
+                                    //    case 146:
+                                    //        objdata.Add("Recording", "Start");
+                                    //        MessageArray[2] = "startrec";
+                                    //        break;
+                                    //    case 147:
+                                    //        objdata.Add("Recording", "Stop");
+                                    //        MessageArray[2] = "stoprec";
+                                    //        break;
+                                    //    case 48:
+                                    //        objdata.Add("DVD", "Play");
+                                    //        MessageArray[2] = "playdvd";
+                                    //        break;
+                                    //    case 49:
+                                    //        objdata.Add("DVD", "WareHouse");
+                                    //        MessageArray[2] = "warehousedvd";
+                                    //        break;
+                                    //    case 54:
+                                    //        objdata.Add("DVD", "Power");
+                                    //        MessageArray[2] = "powerdvd";
+                                    //        break;
+                                    //    case 55:
+                                    //        objdata.Add("DVD", "Pause");
+                                    //        MessageArray[2] = "pausedvd";
+                                    //        break;
+                                    //    case 56:
+                                    //        objdata.Add("DVD", "Stop");
+                                    //        MessageArray[2] = "stopdvd";
+                                    //        break;
+                                    //    case 50:
+                                    //        objdata.Add("DVD", "Forward");
+                                    //        MessageArray[2] = "forwarddvd";
+                                    //        break;
+                                    //    case 64:
+                                    //        objdata.Add("DVD", "Rewind");
+                                    //        MessageArray[2] = "rewinddvd";
+                                    //        break;
+                                    //    case 65:
+                                    //        objdata.Add("DVD", "Previous");
+                                    //        MessageArray[2] = "previousdvd";
+                                    //        break;
+                                    //    case 66:
+                                    //        objdata.Add("DVD", "Next");
+                                    //        MessageArray[2] = "nextdvd";
+                                    //        break;
+                                    //    case 160:
+                                    //        objdata.Add("TV", "Power");
+                                    //        MessageArray[2] = "powertv";
+                                    //        break;
+                                    //    case 161:
+                                    //        objdata.Add("TV", "");
+                                    //        MessageArray[2] = "tvsignal";
+                                    //        break;
+                                    //    case 162:
+                                    //        objdata.Add("TV", "ChannelPlus");
+                                    //        MessageArray[2] = "channelplustv";
+                                    //        break;
+                                    //    case 163:
+                                    //        objdata.Add("TV", "ChannelMinus");
+                                    //        MessageArray[2] = "channelminustv";
+                                    //        break;
+                                    //    case 164:
+                                    //        objdata.Add("TV", "VolumePlus");
+                                    //        MessageArray[2] = "volplustv";
+                                    //        break;
+                                    //    case 165:
+                                    //        objdata.Add("TV", "VolumeMinus");
+                                    //        MessageArray[2] = "volminustv";
+                                    //        break;
+                                    //    case 166:
+                                    //        objdata.Add("TV", "Menu");
+                                    //        MessageArray[2] = "menutv";
+                                    //        break;
+                                    //    case 167:
+                                    //        objdata.Add("TV", "Ok");
+                                    //        MessageArray[2] = "oktv";
+                                    //        break;
+                                    //    case 168:
+                                    //        objdata.Add("TV", "Exit");
+                                    //        MessageArray[2] = "exittv";
+                                    //        break;
+                                    //    case 51:
+                                    //        objdata.Add("Projector", "On");
+                                    //        MessageArray[2] = "projopen";
+                                    //        Status[1] = "On";
+                                    //        break;
+                                    //    case 67:
+                                    //        objdata.Add("Projector", "Off");
+                                    //        MessageArray[2] = "projoff";
+                                    //        Status[1] = "Off";
+                                    //        break;
+                                    //    case 52:
+                                    //        objdata.Add("Projector", "Hdmi");
+                                    //        MessageArray[2] = "hdmi";
+                                    //        break;
+                                    //    case 53:
+                                    //        objdata.Add("Projector", "Video");
+                                    //        MessageArray[2] = "video";
+                                    //        break;
+                                    //    case 68:
+                                    //        objdata.Add("Projector", "Vga");
+                                    //        MessageArray[2] = "vga";
+                                    //        break;
+                                    //    case 69:
+                                    //        objdata.Add("Projector", "Sleep");
+                                    //        MessageArray[2] = "sleep";
+                                    //        break;
+                                    //    case 119:
+                                    //        objdata.Add("Curtain1", "Open");
+                                    //        MessageArray[2] = "curtain1open";
+                                    //        break;
+                                    //    case 87:
+                                    //        objdata.Add("Curtain1", "Close");
+                                    //        MessageArray[2] = "curtain1close";
+                                    //        break;
+                                    //    case 103:
+                                    //        objdata.Add("Curtain1", "Stop");
+                                    //        MessageArray[2] = "curtain1stop";
+                                    //        break;
+                                    //    case 99:
+                                    //        objdata.Add("Curtain2", "Open");
+                                    //        MessageArray[2] = "curtain2open";
+                                    //        break;
+                                    //    case 100:
+                                    //        objdata.Add("Curtain2", "Close");
+                                    //        MessageArray[2] = "curtain2close";
+                                    //        break;
+                                    //    case 101:
+                                    //        objdata.Add("Curtain2", "Stop");
+                                    //        MessageArray[2] = "curtain2stop";
+                                    //        break;
+                                    //    case 70:
+                                    //        objdata.Add("Curtain3", "Open");
+                                    //        MessageArray[2] = "curtain3open";
+                                    //        break;
+                                    //    case 71:
+                                    //        objdata.Add("Curtain3", "Close");
+                                    //        MessageArray[2] = "curtain3close";
+                                    //        break;
+                                    //    case 72:
+                                    //        objdata.Add("Curtain3", "Stop");
+                                    //        MessageArray[2] = "curtain3stop";
+                                    //        break;
+                                    //    case 73:
+                                    //        objdata.Add("Curtain4", "Open");
+                                    //        MessageArray[2] = "curtain4open";
+                                    //        break;
+                                    //    case 74:
+                                    //        objdata.Add("Curtain4", "Close");
+                                    //        MessageArray[2] = "curtain4close";
+                                    //        break;
+                                    //    case 75:
+                                    //        objdata.Add("Curtain4", "Stop");
+                                    //        MessageArray[2] = "curtain4stop";
+                                    //        break;
+                                    //    case 120:
+                                    //        objdata.Add("Light", "light1");
+                                    //        MessageArray[2] = "light1";
+                                    //        break;
+                                    //    case 104:
+                                    //        objdata.Add("Light", "light2");
+                                    //        MessageArray[2] = "light2";
+                                    //        break;
+                                    //    case 88:
+                                    //        objdata.Add("Light", "light3");
+                                    //        MessageArray[2] = "light3";
+                                    //        break;
+                                    //    case 83:
+                                    //        objdata.Add("Light", "light4");
+                                    //        MessageArray[2] = "light4";
+                                    //        break;
+                                    //    case 84:
+                                    //        objdata.Add("Light", "light5");
+                                    //        MessageArray[2] = "light5";
+                                    //        break;
+                                    //    case 85:
+                                    //        objdata.Add("Light", "light6");
+                                    //        MessageArray[2] = "light6";
+                                    //        break;
+                                    //    case 76:
+                                    //        objdata.Add("Light", "light7");
+                                    //        MessageArray[2] = "light7";
+                                    //        break;
+                                    //    case 77:
+                                    //        objdata.Add("Light", "light8");
+                                    //        MessageArray[2] = "light8";
+                                    //        break;
+                                    //    case 176:
+                                    //        objdata.Add("BlueRayDVD", "Play");
+                                    //        MessageArray[2] = "playbludvd";
+                                    //        break;
+                                    //    case 177:
+                                    //        objdata.Add("BlueRayDVD", "Warehouse");
+                                    //        MessageArray[2] = "warehousebludvd";
+                                    //        break;
+                                    //    case 178:
+                                    //        objdata.Add("BlueRayDVD", "Power");
+                                    //        MessageArray[2] = "powerbludvd";
+                                    //        break;
+                                    //    case 179:
+                                    //        objdata.Add("BlueRayDVD", "Pause");
+                                    //        MessageArray[2] = "pausebludvd";
+                                    //        break;
+                                    //    case 180:
+                                    //        objdata.Add("BlueRayDVD", "Stop");
+                                    //        MessageArray[2] = "stopbludvd";
+                                    //        break;
+                                    //    case 181:
+                                    //        objdata.Add("BlueRayDVD", "Forward");
+                                    //        MessageArray[2] = "forwardbludvd";
+                                    //        break;
+                                    //    case 182:
+                                    //        objdata.Add("BlueRayDVD", "Rewind");
+                                    //        MessageArray[2] = "rewindbludvd";
+                                    //        break;
+                                    //    case 183:
+                                    //        objdata.Add("BlueRayDVD", "Previous");
+                                    //        MessageArray[2] = "previousbludvd";
+                                    //        break;
+                                    //    case 184:
+                                    //        objdata.Add("BlueRayDVD", "Next");
+                                    //        MessageArray[2] = "nextbludvd";
+                                    //        break;
+                                    //    default:
+                                    //        objdata.Add("NoData", "NoData");
+                                    //        MessageArray[2] = "Nochange";
+                                    //        break;
+                                    //}
+
+
                             }
                             statdata.Add("Data", objdata);
                         }

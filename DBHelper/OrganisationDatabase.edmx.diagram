@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="organisationdatabaseModel.semesterinfo" Width="1.5" PointX="5.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.strategydescription" Width="1.5" PointX="11" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.strategyequipment" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="13.25" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.strategymanagement" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.studentdata" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.systemsetting" Width="1.5" PointX="2.75" PointY="10" IsExpanded="true" />
@@ -44,15 +43,15 @@
         <AssociationConnector Association="organisationdatabaseModel.sk_scReserveSemno" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_scheduletransfernewteacherid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_sectionSemno" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_strategyEquipId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_strategyIdRef" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_locationaccessauthenticatedby" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_locationaccessuserid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_LogsUserid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_userPermissionAdminId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_UserPermissionUsernum" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="13.25" PointY="2.375" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

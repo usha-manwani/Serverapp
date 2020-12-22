@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="organisationdatabaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="organisationdatabaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="buildingdetails">
           <Key>
             <PropertyRef Name="id" />
@@ -218,7 +218,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StrategyId" Type="int" Nullable="false" />
           <Property Name="MachineMac" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Instruction" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
@@ -405,20 +404,6 @@
             </Principal>
             <Dependent Role="strategylogs">
               <PropertyRef Name="StrategyDescId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_InslogStrategyId">
-          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="strategylogs" Type="Self.strategylogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="strategymanagement">
-              <PropertyRef Name="strategyId" />
-            </Principal>
-            <Dependent Role="strategylogs">
-              <PropertyRef Name="StrategyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -704,10 +689,6 @@
             <End Role="strategydescription" EntitySet="strategydescription" />
             <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
-          <AssociationSet Name="fk_InslogStrategyId" Association="Self.fk_InslogStrategyId">
-            <End Role="strategymanagement" EntitySet="strategymanagement" />
-            <End Role="strategylogs" EntitySet="strategylogs" />
-          </AssociationSet>
           <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userlocationaccess" EntitySet="userlocationaccess" />
@@ -781,8 +762,7 @@
             <End Role="schedulereserve" EntitySet="schedulereserve" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="organisationdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1012,9 +992,9 @@
           <Property Name="StrategyTimeFrame1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="strategyTime" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StrategyTimeFrame2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="strategylogs" Relationship="Self.fk_InslogStrategyDescId" FromRole="strategydescription" ToRole="strategylogs" />
           <NavigationProperty Name="strategyequipment" Relationship="Self.fk_strategyEquipId" FromRole="strategydescription" ToRole="strategyequipments" />
           <NavigationProperty Name="strategymanagement" Relationship="Self.fk_strategyIdRef" FromRole="strategydescription" ToRole="strategymanagement" />
+          <NavigationProperty Name="strategylogs" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategydescription" ToRole="strategylog" />
         </EntityType>
         <EntityType Name="strategyequipment">
           <Key>
@@ -1023,20 +1003,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EquipmentsNames" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyEquipId" FromRole="strategyequipments" ToRole="strategydescription" />
-        </EntityType>
-        <EntityType Name="strategylog">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StrategyId" Type="Int32" Nullable="false" />
-          <Property Name="MachineMac" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Instruction" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
-          <Property Name="StrategyDescId" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="strategydescription" Relationship="Self.fk_InslogStrategyDescId" FromRole="strategylogs" ToRole="strategydescription" />
-          <NavigationProperty Name="strategymanagement" Relationship="Self.fk_InslogStrategyId" FromRole="strategylogs" ToRole="strategymanagement" />
         </EntityType>
         <EntityType Name="strategymanagement">
           <Key>
@@ -1050,7 +1016,6 @@
           <Property Name="strategyType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StrategyLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyIdRef" FromRole="strategymanagement" ToRole="strategydescription" />
-          <NavigationProperty Name="strategylogs" Relationship="Self.fk_InslogStrategyId" FromRole="strategymanagement" ToRole="strategylogs" />
         </EntityType>
         <EntityType Name="studentdata">
           <Key>
@@ -1369,20 +1334,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_InslogStrategyDescId">
-          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="strategylogs" Type="Self.strategylog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="strategydescription">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="strategylogs">
-              <PropertyRef Name="StrategyDescId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_strategyEquipId">
           <End Role="strategyequipments" Type="Self.strategyequipment" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1408,20 +1359,6 @@
             </Principal>
             <Dependent Role="strategydescription">
               <PropertyRef Name="StrategyRefId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_InslogStrategyId">
-          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="strategylogs" Type="Self.strategylog" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="strategymanagement">
-              <PropertyRef Name="strategyId" />
-            </Principal>
-            <Dependent Role="strategylogs">
-              <PropertyRef Name="StrategyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1504,7 +1441,6 @@
           <EntitySet Name="semesterinfoes" EntityType="Self.semesterinfo" />
           <EntitySet Name="strategydescriptions" EntityType="Self.strategydescription" />
           <EntitySet Name="strategyequipments" EntityType="Self.strategyequipment" />
-          <EntitySet Name="strategylogs" EntityType="Self.strategylog" />
           <EntitySet Name="strategymanagements" EntityType="Self.strategymanagement" />
           <EntitySet Name="studentdatas" EntityType="Self.studentdata" />
           <EntitySet Name="systemsettings" EntityType="Self.systemsetting" />
@@ -1571,10 +1507,6 @@
             <End Role="semesterinfo" EntitySet="semesterinfoes" />
             <End Role="sectionsinfo" EntitySet="sectionsinfoes" />
           </AssociationSet>
-          <AssociationSet Name="fk_InslogStrategyDescId" Association="Self.fk_InslogStrategyDescId">
-            <End Role="strategydescription" EntitySet="strategydescriptions" />
-            <End Role="strategylogs" EntitySet="strategylogs" />
-          </AssociationSet>
           <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
             <End Role="strategyequipments" EntitySet="strategyequipments" />
             <End Role="strategydescription" EntitySet="strategydescriptions" />
@@ -1582,10 +1514,6 @@
           <AssociationSet Name="fk_strategyIdRef" Association="Self.fk_strategyIdRef">
             <End Role="strategymanagement" EntitySet="strategymanagements" />
             <End Role="strategydescription" EntitySet="strategydescriptions" />
-          </AssociationSet>
-          <AssociationSet Name="fk_InslogStrategyId" Association="Self.fk_InslogStrategyId">
-            <End Role="strategymanagement" EntitySet="strategymanagements" />
-            <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
           <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
             <End Role="userdetails" EntitySet="userdetails" />
@@ -1607,7 +1535,38 @@
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userpermissions" EntitySet="userpermissions" />
           </AssociationSet>
+          <EntitySet Name="strategylogs" EntityType="organisationdatabaseModel.strategylog" />
+          <AssociationSet Name="fk_InslogStrategyDescId" Association="organisationdatabaseModel.fk_InslogStrategyDescId">
+            <End Role="strategydescription" EntitySet="strategydescriptions" />
+            <End Role="strategylog" EntitySet="strategylogs" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="strategylog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineMac" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Instruction" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
+          <Property Name="StrategyDescId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="strategydescription" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategylog" ToRole="strategydescription" />
+        </EntityType>
+        <Association Name="fk_InslogStrategyDescId">
+          <End Type="organisationdatabaseModel.strategydescription" Role="strategydescription" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="organisationdatabaseModel.strategylog" Role="strategylog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="strategydescription">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="strategylog">
+              <PropertyRef Name="StrategyDescId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1836,19 +1795,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="strategylogs">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.strategylog">
-              <MappingFragment StoreEntitySet="strategylogs">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StrategyId" ColumnName="StrategyId" />
-                <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
-                <ScalarProperty Name="Instruction" ColumnName="Instruction" />
-                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
-                <ScalarProperty Name="StrategyDescId" ColumnName="StrategyDescId" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="strategymanagements">
             <EntityTypeMapping TypeName="organisationdatabaseModel.strategymanagement">
               <MappingFragment StoreEntitySet="strategymanagement">
@@ -1982,6 +1928,18 @@
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="strategylogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.strategylog">
+              <MappingFragment StoreEntitySet="strategylogs">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StrategyDescId" ColumnName="StrategyDescId" />
+                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+                <ScalarProperty Name="Instruction" ColumnName="Instruction" />
+                <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

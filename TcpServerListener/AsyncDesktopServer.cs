@@ -18,6 +18,8 @@ namespace TcpServerListener
         public int Strategyid { get; set; }
         public int StrategyDescId { get; set; }
         public string Command { get; set; }
+        public string Ccmac { get; set; }
+        public byte[] Inst { get; set; }
     }
     public class StateObject
     {
@@ -133,9 +135,9 @@ namespace TcpServerListener
                     }                        
                 }
                 state.workSocket = handler;
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "connected desktop client total : "+connectedClient);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "connected desktop client total : "+connectedClient);
                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + 
-                    DateTime.Now.ToShortTimeString() + "connected desktop client Ip Address : " + ip);
+                    DateTime.Now.ToLongTimeString() + "connected desktop client Ip Address : " + ip);
                 Console.WriteLine(" Total Connected desktop client : " + connectedClient);
                 Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
                 DatatoSend.Add("Type", "Reply");
@@ -202,7 +204,7 @@ namespace TcpServerListener
                                     {
                                         Clients.Remove(c.Key);
                                         connectedClient--;
-                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + " Socket exception, disconnected desktop client  " + c.Value.MacAddress);
+                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " Socket exception, disconnected desktop client  " + c.Value.MacAddress);
                                         Console.WriteLine("Client automatically disconnected");
                                         break;
                                     }
@@ -217,7 +219,7 @@ namespace TcpServerListener
                 }
             }
         }
-        private static int DecodeDataDesktop(Dictionary<string, string> data, Socket sock)
+        private static async Task<int> DecodeDataDesktop(Dictionary<string, string> data, Socket sock)
         {
            
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
@@ -256,11 +258,11 @@ namespace TcpServerListener
                             cc.Value.MacAddress = r.Key.ToUpper();
                         }
                         Console.WriteLine("total clients Desktop CLients: " + Clients.Count());
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "mac from desktop key: " + r.Key + " value: " + r.Value);
+                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from desktop key: " + r.Key + " value: " + r.Value);
                     }
                     else
                     {
-                        File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "mac from database key: " + r.Key + " value: " + r.Value);
+                        File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from database key: " + r.Key + " value: " + r.Value);
                         DatatoSend.Add("Type", "Reply");
                         DatatoSend.Add("Status", "404");
 
@@ -276,11 +278,11 @@ namespace TcpServerListener
                     var code = data["Code"];
                     var ccmac = data["CCmac"].ToUpper();
                     var deskmac = data["Deskmac"].ToUpper();
-                    File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "received " + code + " for machine with mac " + ccmac);
+                    
                     if (code == "Shutdown")
                     {
                         //Instructions ins = new Instructions();
-                        //d = "SystemOffStrategy";
+                        //d = "CloseStrategy";
 
                         try
                         {
@@ -291,25 +293,31 @@ namespace TcpServerListener
                                 {
                                     var stid = d.Strategyid;
                                     var stdescid = d.StrategyDescId;
-                                    AsyncTcpListener.ReceiveMacFromDesktop(ccmac, "SystemOffStrategy", stid, stdescid);
+                                    var instr = d.Inst;
+                                  await  AsyncTcpListener.ReceiveMacFromDesktop(ccmac, "CloseStrategy", stid, stdescid, instr);
                                 }
+                                WaitList.Remove(ccmac);
                             }
+                            
                             DatatoSend.Clear();
                             DatatoSend.Add("Type", "Command");
                             DatatoSend.Add("Code", "ExeShutdown");
                             DatatoSend.Add("CCmac", ccmac.ToUpper());
                             DatatoSend.Add("Deskmac", deskmac.ToUpper());
+                            //DatatoSend.Add("isDev","on");
                             var t = JsonSerializer.Serialize(DatatoSend);
-                            File.AppendAllText(docPath, Environment.NewLine + " " + DateTime.Now.ToShortTimeString() + " data sent to desktop client: " + t);
-                            Console.WriteLine(DateTime.Now.ToShortTimeString() +" data sent to desktop client: " + t);
+                            
                             byte[] b = Encoding.ASCII.GetBytes(t);
                             Send(sock, b);
+                            //Console.WriteLine(DateTime.Now.ToLongTimeString() + " data sent to desktop client: " + t);
+                            //File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "received " + code + " for machine with mac " + ccmac);
+                            //File.AppendAllText(docPath, Environment.NewLine + " " + DateTime.Now.ToLongTimeString() + " data sent to desktop client: " + t);
                         }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
                         catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                         {
-                            File.AppendAllText(docPath, Environment.NewLine + " " + DateTime.Now.ToShortTimeString() + 
+                            File.AppendAllText(docPath, Environment.NewLine + " " + DateTime.Now.ToLongTimeString() + 
                                 " Decode Desktop Data exception under send data to machine " + " " + ex.Message + " " + ex.StackTrace);
                             // Console.WriteLine(ex.Message);
                         }
@@ -321,7 +329,7 @@ namespace TcpServerListener
             catch (Exception ex)
             {
                 //Log("Error in Decode Desktop data: " + ex.StackTrace);
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + " Decode Desktop Data exception 2 " + " " + ex.Message + " " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " Decode Desktop Data exception 2 " + " " + ex.Message + " " + ex.StackTrace);
                 //  ClearSocketDesktop(ip, ((IPEndPoint)sock.RemoteEndPoint).Port);
             }
             return 1;
@@ -335,13 +343,13 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "Error in isCLientConnected Desktop: " + ex.StackTrace);
+               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in isCLientConnected Desktop: " + ex.StackTrace);
                 Console.WriteLine("CLient Connection lost with exception message   " + ex.Message);
             }
             return status;
         }
 
-        public static int SendToDesktop(string ccmac, string deskmac, string instruction,int strategyid,int strategydeskid)
+        public static int SendToDesktop(string ccmac, string deskmac, string instruction,int strategyid,int strategydeskid, byte[] inst)
         {
             int result = 0;
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
@@ -349,6 +357,7 @@ namespace TcpServerListener
             DatatoSend.Add("Code", instruction);
             DatatoSend.Add("CCmac", ccmac.ToUpper());
             DatatoSend.Add("Deskmac", deskmac.ToUpper());
+            //DatatoSend.Add("isDev", "on");
             var s = JsonSerializer.Serialize(DatatoSend);
             Console.WriteLine("data sending to desktop client: " + s);
             try
@@ -362,9 +371,11 @@ namespace TcpServerListener
                     {
                         var w = new WaitListClass()
                         {
-                            StrategyDescId=strategydeskid,
-                            Strategyid=strategyid,TimeofExec=DateTime.Now,
-                            Command=instruction
+                            StrategyDescId = strategydeskid,
+                            Strategyid = strategyid, TimeofExec = DateTime.Now,
+                            Command = instruction,
+                            Ccmac = ccmac.ToUpper(),
+                            Inst=inst
                         };
                         WaitList.Add(ccmac.ToUpper(), w);
                     }
@@ -382,11 +393,13 @@ namespace TcpServerListener
                         StrategyDescId = strategydeskid,
                         Strategyid = strategyid,
                         TimeofExec = DateTime.Now,
-                        Command = instruction
+                        Command = instruction,
+                        Ccmac=ccmac.ToUpper(),
+                        Inst = inst
                     };
                     WaitList.Add(ccmac.ToUpper(), w);
                 }
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "Error in Sendtodesktop: " + ex.StackTrace);
+              //  File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Sendtodesktop: " + ex.StackTrace);
             }
             return result;
         }
@@ -400,7 +413,7 @@ namespace TcpServerListener
             }
             catch (SocketException socex)
             {
-               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "Error in Send Desktop: " + socex.StackTrace);
+               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send Desktop: " + socex.StackTrace);
                 ClearSocketDesktop(handler);
                 Console.WriteLine(socex.Message);
             }
@@ -417,8 +430,8 @@ namespace TcpServerListener
                 {
                     int bytesSent = handler.EndSend(ar);
                     Console.WriteLine("Sent {0} bytes to desktop client.", bytesSent);
-                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
-                        " " + DateTime.Now.ToShortTimeString() + "Bytes sent to client : " + bytesSent);
+                    //File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
+                   //     " " + DateTime.Now.ToLongTimeString() + "Bytes sent to client : " + bytesSent);
                     Clients.Where(x => x.Key == handler).Select(y => y.Value.MacAddress).ToList().ForEach(Console.WriteLine);
                 }
                
@@ -428,7 +441,7 @@ namespace TcpServerListener
             catch (Exception e)
             {
                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
-                          " " + DateTime.Now.ToShortTimeString() + "Error in sending data to desktop client "+ e.StackTrace);
+                          " " + DateTime.Now.ToLongTimeString() + "Error in sending data to desktop client "+ e.StackTrace);
                 Console.WriteLine(e.Message);
             }
         }
@@ -456,13 +469,14 @@ namespace TcpServerListener
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
               //  Log("Error in ClearSocket Desktop: " + ex.StackTrace);
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + " clear socket exception 1 " + " " + ex.Message + " " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " clear socket exception 1 " + " " + ex.Message + " " + ex.StackTrace);
             }
         }
 
         private static async Task CheckShutdownInstruction()
         {
             //List<string> machineMacList = new List<string>();
+            WaitListClass data = null;
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
             try
             {
@@ -473,30 +487,31 @@ namespace TcpServerListener
                     var machineMacList = WaitList.Where(x => DateTime.Now.Subtract(x.Value.TimeofExec).TotalSeconds >= 35).Select(x => x.Key).ToList();
                     foreach (var m in machineMacList)
                     {
-                        var data = WaitList.Where(x => x.Key == m).Select(x=>x.Value).FirstOrDefault();
-                        if (data != null)
-                        {
-                            var stid = data.Strategyid;
-                            var stdescid = data.StrategyDescId;
-                            AsyncTcpListener.ReceiveMacFromDesktop(m, "SystemOffStrategy",stid,stdescid);
-                        }
-                        
+                        data = WaitList.Where(x => x.Key == m).Select(x=>x.Value).FirstOrDefault();
                         WaitList.Remove(m);
                         var deskmac = DesktopList.Where(x => x.Value == m).Select(x => x.Key).FirstOrDefault();
                         DatatoSend.Add("Type", "Command");
-                        DatatoSend.Add("Code", "ExeShutdown");
+                        DatatoSend.Add("Code", "ExeShutdown");//
                         DatatoSend.Add("CCmac", m.ToUpper());
                         DatatoSend.Add("Deskmac", deskmac.ToUpper());
+                        //DatatoSend.Add("isDev", "on");
                         var t = JsonSerializer.Serialize(DatatoSend);
                         byte[] b = Encoding.ASCII.GetBytes(t);
                         var sock = Clients.Where(x => x.Value.MacAddress == deskmac).Select(x => x.Value.workSocket).FirstOrDefault();
                         Send(sock, b);                       
                     }
                 }
+                if (data != null)
+                {
+                    var stid = data.Strategyid;
+                    var stdescid = data.StrategyDescId;
+                    var instr = data.Inst;
+                    await AsyncTcpListener.ReceiveMacFromDesktop(data.Ccmac, "CloseStrategy", stid, stdescid,instr);
+                }
             }
             catch (Exception ex)
             {
-               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToShortTimeString() + "Error in CheckShutdownInstruction() : " + ex.StackTrace);
+               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in CheckShutdownInstruction() : " + ex.StackTrace);
             }
             
         }

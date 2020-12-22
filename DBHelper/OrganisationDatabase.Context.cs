@@ -39,7 +39,6 @@ namespace DBHelper
         public virtual DbSet<semesterinfo> semesterinfoes { get; set; }
         public virtual DbSet<strategydescription> strategydescriptions { get; set; }
         public virtual DbSet<strategyequipment> strategyequipments { get; set; }
-        public virtual DbSet<strategylog> strategylogs { get; set; }
         public virtual DbSet<strategymanagement> strategymanagements { get; set; }
         public virtual DbSet<studentdata> studentdatas { get; set; }
         public virtual DbSet<systemsetting> systemsettings { get; set; }
@@ -50,5 +49,6 @@ namespace DBHelper
         public virtual DbSet<userlog> userlogs { get; set; }
         public virtual DbSet<userpermission> userpermissions { get; set; }
         public virtual DbSet<userregistration> userregistrations { get; set; }
+        public virtual DbSet<strategylog> strategylogs { get; set; }
     }
 }
