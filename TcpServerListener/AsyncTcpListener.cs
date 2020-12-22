@@ -598,7 +598,7 @@ namespace TcpServerListener
         {
             try
             {
-                con = new HubConnection("http://localhost:53552/");
+                con = new HubConnection("http://localhost/");
                 // con.TraceLevel = TraceLevels.All;
                 // con.TraceWriter = Console.Out;
                 proxy = con.CreateHubProxy("myHub");

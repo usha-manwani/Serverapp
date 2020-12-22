@@ -70,12 +70,12 @@ namespace TcpServerListener
             /// Screen and Curtain Controls
             /// </summary>    
 
-            Instruction.Add("ScreenDownWeb", new byte[] { });
-            Instruction.Add("ScreenRiseWeb", new byte[] { });
-            Instruction.Add("ScreenStopWeb", new byte[] { });
-            Instruction.Add("CurtainOpenWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x56, 0x61 });
-            Instruction.Add("CurtainCloseWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x76, 0x81 });
-            Instruction.Add("CurtainStopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x66, 0x71 });
+            Instruction.Add("ScreenDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x56, 0x61 });
+            Instruction.Add("ScreenRiseWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x76, 0x81 });
+            Instruction.Add("ScreenStopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x66, 0x71 });
+            Instruction.Add("CurtainOpenWeb", new byte[] {});
+            Instruction.Add("CurtainCloseWeb", new byte[] { });
+            Instruction.Add("CurtainStopWeb", new byte[] {  });
 
             ///<summary>
             ///power Controls
