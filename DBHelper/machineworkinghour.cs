@@ -12,16 +12,15 @@ namespace DBHelper
     using System;
     using System.Collections.Generic;
     
-    public partial class strategylog
+    public partial class machineworkinghour
     {
-        public int Id { get; set; }
-        public string MachineMac { get; set; }
-        public string Instruction { get; set; }
-        public System.DateTime ExecutionTime { get; set; }
-        public int StrategyDescId { get; set; }
-        public string Status { get; set; }
-        public int EquipmentId { get; set; }
-    
-        public virtual strategymanagement strategymanagement { get; set; }
+        public string IP { get; set; }
+        public System.DateTime date { get; set; }
+        public double projectorHour { get; set; }
+        public double pcHour { get; set; }
+        public double recorderHour { get; set; }
+        public double ACHour { get; set; }
+        public double systemHour { get; set; }
+        public Nullable<double> screenHour { get; set; }
     }
 }

@@ -136,11 +136,20 @@
     <Compile Include="classdetail.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="current_loggeduser.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="floordetail.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="GetIPStatus.cs" />
     <Compile Include="GetMacAddress.cs" />
+    <Compile Include="machineoperationlog.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="machineworkinghour.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="operationmgmt.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
@@ -224,6 +233,12 @@
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="userregistration.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usersessioninfo.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usertasktable.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
   </ItemGroup>

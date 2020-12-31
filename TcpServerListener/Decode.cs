@@ -55,8 +55,7 @@ namespace TcpServerListener
                     for (int i = 0; i < MessageArray.Length; i++)
                     {
                         MessageArray[i] = "--";
-                    }
-                    
+                    }                    
 
                     if (data[4] == Convert.ToByte(0x01))
                     {
@@ -172,7 +171,6 @@ namespace TcpServerListener
                             {
                                 case 04:
                                     statdata.Add("Type", "Panel");
-
                                     MessageArray[1] = "KeyValue";
                                     switch (Convert.ToByte(data[7]))
                                     {
@@ -821,38 +819,39 @@ namespace TcpServerListener
                                             Status[1] = "On";
                                         }
                                         MessageArray[7] = "--";//projector hours
-                                                               //Screen Status
+                                                               //Curtain Status窗帘
                                         switch (Convert.ToInt32(data[15]))
                                         {
                                             case 1:
                                                 MessageArray[8] = "开";//Open
-                                                objdata.Add("Screen", "Open");
+                                                objdata.Add("Curtain", "Open");
                                                 break;
                                             case 2:
-                                                objdata.Add("Screen", "Close");
+                                                objdata.Add("Curtain", "Close");
                                                 MessageArray[8] = "关";//Close
                                                 break;
                                             case 0:
-                                                objdata.Add("Screen", "Stop");
+                                                objdata.Add("Curtain", "Stop");
                                                 MessageArray[8] = "停";//Stop
                                                 break;
                                         }
-                                        //Curtain status
+                                        //Screen status屏幕
                                         switch (Convert.ToInt32(data[14]))
                                         {
                                             case 1:
+                                           
                                                 MessageArray[9] = "升";//Up
-                                                objdata.Add("Curtain", "Up");
+                                                objdata.Add("Screen", "Up");
                                                 Status[6] = "Off";
                                                 break;
                                             case 2:
                                                 MessageArray[9] = "降";//Down
-                                                objdata.Add("Curtain", "Down");
+                                                objdata.Add("Screen", "Down");
                                                 Status[6] = "On";
                                                 break;
                                             case 0:
                                                 MessageArray[9] = "停";//Stop
-                                                objdata.Add("Curtain", "Stop");
+                                                objdata.Add("Screen", "Stop");
                                                 Status[6] = "Off";
                                                 break;
                                         }
@@ -915,37 +914,37 @@ namespace TcpServerListener
                                         //system lock status
                                         if (data[12] == Convert.ToByte(0x00))
                                         {
-                                            objdata.Add("IsSystemLock", "False");
-                                            MessageArray[12] = "解锁";//unlocked
+                                            objdata.Add("IsSystemLock", "True");
+                                            MessageArray[12] = "解锁";//locked
                                         }
                                         else
                                         {
-                                            objdata.Add("IsSystemLock", "True");
-                                            MessageArray[12] = "锁定";//locked
+                                            objdata.Add("IsSystemLock", "False");
+                                            MessageArray[12] = "锁定";//unlocked
                                         }
 
                                         //class lock status
                                         if (data[10] == Convert.ToByte(0x00))
                                         {
-                                            objdata.Add("IsClassLock", "False");
-                                            MessageArray[13] = "解锁";//unlocked
+                                            objdata.Add("IsClassLock", "True");
+                                            MessageArray[13] = "解锁";//locked
                                         }
                                         else
                                         {
-                                            objdata.Add("IsClassLock", "True");
-                                            MessageArray[13] = "锁定";//locked
+                                            objdata.Add("IsClassLock", "False");
+                                            MessageArray[13] = "锁定";//unlocked
                                         }
 
                                         //podium lock status
                                         if (data[9] == Convert.ToByte(0x00))
                                         {
-                                            objdata.Add("IsPodiumLock", "False");
-                                            MessageArray[14] = "解锁";//unlocked
+                                            objdata.Add("IsPodiumLock", "True");
+                                            MessageArray[14] = "解锁";//locked
                                         }
                                         else
                                         {
-                                            objdata.Add("IsPodiumLock", "True");
-                                            MessageArray[14] = "锁定";//locked
+                                            objdata.Add("IsPodiumLock", "False");
+                                            MessageArray[14] = "锁定";//unlocked
 
                                         }
 
@@ -963,6 +962,26 @@ namespace TcpServerListener
                                         objdata.Add("Voltage", data[22].ToString());
                                         MessageArray[21] = (256 * data[24] + data[23]).ToString();
                                         objdata.Add("Power", (256 * data[24] + data[23]).ToString());
+
+                                        var tempbits = Convert.ToString(data[25], 2).PadLeft(4, '0');
+
+                                        if (tempbits[0]== '1')
+                                            objdata.Add("ProjectorPowerStatus", "On");
+                                        else
+                                            objdata.Add("ProjectorPowerStatus", "Off");
+                                        if (Convert.ToByte(tempbits[1]) == '1')
+                                            objdata.Add("ComputerPowerStatus", "On");
+                                        else
+                                            objdata.Add("ComputerPowerStatus", "Off");
+
+                                        if (Convert.ToByte(tempbits[2]) == '1')
+                                            objdata.Add("AmplifierPowerStatus", "On");
+                                        else
+                                            objdata.Add("AmplifierPowerStatus", "Off");
+                                        if (Convert.ToByte(tempbits[3]) == '1')
+                                            objdata.Add("OtherPowerStatus", "On");
+                                        else
+                                            objdata.Add("OtherPowerStatus", "Off");
                                     }
                                     break;
                                 case 02:
@@ -1429,13 +1448,26 @@ namespace TcpServerListener
                                                 objdata.Add("ElectricPort", "On");
                                                 statdata.Add("Device", "PowerOn");
                                                 break;
-                                            case 07:
-                                                objdata.Add("Curtain", "On");
-                                                statdata.Add("Device", "CurtainOn");
+                                            
+                                            case 44:
+                                                objdata.Add("IsSystemLock", "True");
+                                                statdata.Add("Device", "PanelOff");
+                                                break;
+                                            case 45:
+                                                objdata.Add("IsSystemLock", "False");
+                                                statdata.Add("Device", "PanelOn");
+                                                break;
+                                            case 86:
+                                                objdata.Add("Screen", "Down");
+                                                statdata.Add("Device", "ScreenOn");
+                                                break;
+                                            case 118:
+                                                objdata.Add("Screen", "Up");
+                                                statdata.Add("Device", "ScreenOff");
                                                 break;
                                         }
                                         int strategyID = (data[8] << 8) | data[9];
-                                        statdata.Add("StrategyDescId", strategyID);
+                                        statdata.Add("StrategyId", strategyID);
                                         
                                     }
                                     break;
@@ -1774,6 +1806,7 @@ namespace TcpServerListener
                         }
                         else
                         {
+                           
                             statdata.Add("InstructionStatus", "Fail");
                             MessageArray[2] = "离线";//Offline
                                                    // Status[0] = "Offline";

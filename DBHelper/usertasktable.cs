@@ -12,16 +12,9 @@ namespace DBHelper
     using System;
     using System.Collections.Generic;
     
-    public partial class strategylog
+    public partial class usertasktable
     {
-        public int Id { get; set; }
-        public string MachineMac { get; set; }
-        public string Instruction { get; set; }
-        public System.DateTime ExecutionTime { get; set; }
-        public int StrategyDescId { get; set; }
-        public string Status { get; set; }
-        public int EquipmentId { get; set; }
-    
-        public virtual strategymanagement strategymanagement { get; set; }
+        public int id { get; set; }
+        public string Task { get; set; }
     }
 }

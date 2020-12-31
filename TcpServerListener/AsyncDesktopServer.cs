@@ -19,6 +19,7 @@ namespace TcpServerListener
         public int StrategyDescId { get; set; }
         public string Command { get; set; }
         public string Ccmac { get; set; }
+        public int EquipmentId { get; set; }
         public byte[] Inst { get; set; }
     }
     public class StateObject
@@ -294,7 +295,8 @@ namespace TcpServerListener
                                     var stid = d.Strategyid;
                                     var stdescid = d.StrategyDescId;
                                     var instr = d.Inst;
-                                  await  AsyncTcpListener.ReceiveMacFromDesktop(ccmac, "CloseStrategy", stid, stdescid, instr);
+                                    var equipid = d.EquipmentId;
+                                  await  AsyncTcpListener.ReceiveMacFromDesktop(ccmac, "CloseStrategy", stid, stdescid, instr,equipid);
                                 }
                                 WaitList.Remove(ccmac);
                             }
@@ -349,7 +351,7 @@ namespace TcpServerListener
             return status;
         }
 
-        public static int SendToDesktop(string ccmac, string deskmac, string instruction,int strategyid,int strategydeskid, byte[] inst)
+        public static int SendToDesktop(string ccmac, string deskmac, string instruction,int strategyid,int strategydeskid, byte[] inst, int equipid)
         {
             int result = 0;
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
@@ -375,7 +377,8 @@ namespace TcpServerListener
                             Strategyid = strategyid, TimeofExec = DateTime.Now,
                             Command = instruction,
                             Ccmac = ccmac.ToUpper(),
-                            Inst=inst
+                            Inst=inst,
+                            EquipmentId=equipid
                         };
                         WaitList.Add(ccmac.ToUpper(), w);
                     }
@@ -395,7 +398,8 @@ namespace TcpServerListener
                         TimeofExec = DateTime.Now,
                         Command = instruction,
                         Ccmac=ccmac.ToUpper(),
-                        Inst = inst
+                        Inst = inst,
+                        EquipmentId=equipid
                     };
                     WaitList.Add(ccmac.ToUpper(), w);
                 }
@@ -506,7 +510,8 @@ namespace TcpServerListener
                     var stid = data.Strategyid;
                     var stdescid = data.StrategyDescId;
                     var instr = data.Inst;
-                    await AsyncTcpListener.ReceiveMacFromDesktop(data.Ccmac, "CloseStrategy", stid, stdescid,instr);
+                    var equipid = data.EquipmentId;
+                    await AsyncTcpListener.ReceiveMacFromDesktop(data.Ccmac, "CloseStrategy", stid, stdescid,instr,equipid);
                 }
             }
             catch (Exception ex)

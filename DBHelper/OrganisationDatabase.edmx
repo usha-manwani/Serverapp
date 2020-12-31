@@ -41,6 +41,13 @@
           <Property Name="callhelpip" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="callhelpmac" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="current_loggeduser">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="userid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="index" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
         <EntityType Name="floordetails">
           <Key>
             <PropertyRef Name="id" />
@@ -52,6 +59,36 @@
           <Property Name="Queue" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Public" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Remarks" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="machineoperationlogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Operation" Type="text" Nullable="false" />
+          <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Location" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="machineworkinghours">
+          <Key>
+            <PropertyRef Name="IP" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="projectorHour" />
+            <PropertyRef Name="pcHour" />
+            <PropertyRef Name="recorderHour" />
+            <PropertyRef Name="ACHour" />
+            <PropertyRef Name="systemHour" />
+          </Key>
+          <Property Name="IP" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="projectorHour" Type="double" Nullable="false" />
+          <Property Name="pcHour" Type="double" Nullable="false" />
+          <Property Name="recorderHour" Type="double" Nullable="false" />
+          <Property Name="ACHour" Type="double" Nullable="false" />
+          <Property Name="systemHour" Type="double" Nullable="false" />
+          <Property Name="screenHour" Type="double" />
         </EntityType>
         <EntityType Name="operationmgmt">
           <Key>
@@ -223,6 +260,7 @@
           <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="StrategyDescId" Type="int" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="EquipmentId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="strategymanagement">
           <Key>
@@ -351,6 +389,24 @@
           <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="UserType" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="usersessioninfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="LoginID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="SessionId" Type="text" Nullable="false" />
+          <Property Name="SessionStartTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SocketConnectionID" Type="text" />
+          <Property Name="SessionEndTime" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="usertasktable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Task" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <Association Name="fk_classbuildingname">
           <End Role="buildingdetails" Type="Self.buildingdetails" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -394,13 +450,13 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_InslogStrategyDescId">
-          <End Role="strategydescription" Type="Self.strategydescription" Multiplicity="1">
+          <End Role="strategymanagement" Type="Self.strategymanagement" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="strategylogs" Type="Self.strategylogs" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="strategydescription">
-              <PropertyRef Name="id" />
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
             </Principal>
             <Dependent Role="strategylogs">
               <PropertyRef Name="StrategyDescId" />
@@ -539,6 +595,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fk_sessionLoginId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fk_sessionLoginId" />-->
         <Association Name="fk_strategyEquipId">
           <End Role="strategyequipments" Type="Self.strategyequipments" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -650,7 +709,9 @@
         <EntityContainer Name="organisationdatabaseModelStoreContainer">
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="classdetails" EntityType="Self.classdetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="floordetails" EntityType="Self.floordetails" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="machineoperationlogs" EntityType="Self.machineoperationlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="operationmgmt" EntityType="Self.operationmgmt" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="reserveandtransfer" EntityType="Self.reserveandtransfer" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="roledetails" EntityType="Self.roledetails" Schema="organisationdatabase" store:Type="Tables" />
@@ -673,6 +734,20 @@
           <EntitySet Name="userlogs" EntityType="Self.userlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userpermissions" EntityType="Self.userpermissions" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userregistration" EntityType="Self.userregistration" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="usersessioninfo" EntityType="Self.usersessioninfo" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="usertasktable" EntityType="Self.usertasktable" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghours" store:Type="Tables" store:Schema="organisationdatabase">
+            <DefiningQuery>SELECT
+`machineworkinghours`.`IP`, 
+`machineworkinghours`.`date`, 
+`machineworkinghours`.`projectorHour`, 
+`machineworkinghours`.`pcHour`, 
+`machineworkinghours`.`recorderHour`, 
+`machineworkinghours`.`ACHour`, 
+`machineworkinghours`.`systemHour`, 
+`machineworkinghours`.`screenHour`
+FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="classdetails" EntitySet="classdetails" />
@@ -686,7 +761,7 @@
             <End Role="floordetails" EntitySet="floordetails" />
           </AssociationSet>
           <AssociationSet Name="fk_InslogStrategyDescId" Association="Self.fk_InslogStrategyDescId">
-            <End Role="strategydescription" EntitySet="strategydescription" />
+            <End Role="strategymanagement" EntitySet="strategymanagement" />
             <End Role="strategylogs" EntitySet="strategylogs" />
           </AssociationSet>
           <AssociationSet Name="fk_locationaccessauthenticatedby" Association="Self.fk_locationaccessauthenticatedby">
@@ -808,6 +883,13 @@
           <NavigationProperty Name="floordetail" Relationship="Self.fk_classfloor" FromRole="classdetails" ToRole="floordetails" />
           <NavigationProperty Name="schedulereserves" Relationship="Self.fk_schedulereserveClassid" FromRole="classdetails" ToRole="schedulereserve" />
           <NavigationProperty Name="scheduletransfers" Relationship="Self.fk_scheduletransferClassid" FromRole="classdetails" ToRole="scheduletransfer" />
+        </EntityType>
+        <EntityType Name="current_loggeduser">
+          <Key>
+            <PropertyRef Name="index" />
+          </Key>
+          <Property Name="userid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="index" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="floordetail">
           <Key>
@@ -994,7 +1076,6 @@
           <Property Name="StrategyTimeFrame2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategyequipment" Relationship="Self.fk_strategyEquipId" FromRole="strategydescription" ToRole="strategyequipments" />
           <NavigationProperty Name="strategymanagement" Relationship="Self.fk_strategyIdRef" FromRole="strategydescription" ToRole="strategymanagement" />
-          <NavigationProperty Name="strategylogs" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategydescription" ToRole="strategylog" />
         </EntityType>
         <EntityType Name="strategyequipment">
           <Key>
@@ -1016,6 +1097,7 @@
           <Property Name="strategyType" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StrategyLocation" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="strategydescriptions" Relationship="Self.fk_strategyIdRef" FromRole="strategymanagement" ToRole="strategydescription" />
+          <NavigationProperty Name="strategylogs" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategymanagement" ToRole="strategylog" />
         </EntityType>
         <EntityType Name="studentdata">
           <Key>
@@ -1143,6 +1225,43 @@
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UserType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="usersessioninfo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="LoginID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SessionId" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SessionStartTime" Type="DateTime" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SocketConnectionID" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="SessionEndTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="usertasktable">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Task" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="machineworkinghour">
+          <Key>
+            <PropertyRef Name="IP" />
+            <PropertyRef Name="date" />
+            <PropertyRef Name="projectorHour" />
+            <PropertyRef Name="pcHour" />
+            <PropertyRef Name="recorderHour" />
+            <PropertyRef Name="ACHour" />
+            <PropertyRef Name="systemHour" />
+          </Key>
+          <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="projectorHour" Type="Double" Nullable="false" />
+          <Property Name="pcHour" Type="Double" Nullable="false" />
+          <Property Name="recorderHour" Type="Double" Nullable="false" />
+          <Property Name="ACHour" Type="Double" Nullable="false" />
+          <Property Name="systemHour" Type="Double" Nullable="false" />
+          <Property Name="screenHour" Type="Double" />
         </EntityType>
         <Association Name="fk_classbuildingname">
           <End Role="buildingdetails" Type="Self.buildingdetail" Multiplicity="1">
@@ -1429,6 +1548,7 @@
         <EntityContainer Name="organisationdatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetail" />
           <EntitySet Name="classdetails" EntityType="Self.classdetail" />
+          <EntitySet Name="current_loggeduser" EntityType="Self.current_loggeduser" />
           <EntitySet Name="floordetails" EntityType="Self.floordetail" />
           <EntitySet Name="operationmgmts" EntityType="Self.operationmgmt" />
           <EntitySet Name="reserveandtransfers" EntityType="Self.reserveandtransfer" />
@@ -1451,6 +1571,9 @@
           <EntitySet Name="userlogs" EntityType="Self.userlog" />
           <EntitySet Name="userpermissions" EntityType="Self.userpermission" />
           <EntitySet Name="userregistrations" EntityType="Self.userregistration" />
+          <EntitySet Name="usersessioninfoes" EntityType="Self.usersessioninfo" />
+          <EntitySet Name="usertasktables" EntityType="Self.usertasktable" />
+          <EntitySet Name="machineworkinghours" EntityType="Self.machineworkinghour" />
           <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="classdetails" EntitySet="classdetails" />
@@ -1535,12 +1658,22 @@
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userpermissions" EntitySet="userpermissions" />
           </AssociationSet>
+          <EntitySet Name="machineoperationlogs" EntityType="organisationdatabaseModel.machineoperationlog" />
           <EntitySet Name="strategylogs" EntityType="organisationdatabaseModel.strategylog" />
           <AssociationSet Name="fk_InslogStrategyDescId" Association="organisationdatabaseModel.fk_InslogStrategyDescId">
-            <End Role="strategydescription" EntitySet="strategydescriptions" />
+            <End Role="strategymanagement" EntitySet="strategymanagements" />
             <End Role="strategylog" EntitySet="strategylogs" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="machineoperationlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Operation" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
+          <Property Name="Location" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="strategylog">
           <Key>
             <PropertyRef Name="Id" />
@@ -1551,16 +1684,17 @@
           <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
           <Property Name="StrategyDescId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="strategydescription" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategylog" ToRole="strategydescription" />
+          <Property Name="EquipmentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="strategymanagement" Relationship="organisationdatabaseModel.fk_InslogStrategyDescId" FromRole="strategylog" ToRole="strategymanagement" />
         </EntityType>
         <Association Name="fk_InslogStrategyDescId">
-          <End Type="organisationdatabaseModel.strategydescription" Role="strategydescription" Multiplicity="1">
+          <End Type="organisationdatabaseModel.strategymanagement" Role="strategymanagement" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="organisationdatabaseModel.strategylog" Role="strategylog" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="strategydescription">
-              <PropertyRef Name="id" />
+            <Principal Role="strategymanagement">
+              <PropertyRef Name="strategyId" />
             </Principal>
             <Dependent Role="strategylog">
               <PropertyRef Name="StrategyDescId" />
@@ -1608,6 +1742,14 @@
                 <ScalarProperty Name="recordermac" ColumnName="recordermac" />
                 <ScalarProperty Name="callhelpip" ColumnName="callhelpip" />
                 <ScalarProperty Name="callhelpmac" ColumnName="callhelpmac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="current_loggeduser">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.current_loggeduser">
+              <MappingFragment StoreEntitySet="current_loggeduser">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="index" ColumnName="index" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1931,9 +2073,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="usersessioninfoes">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.usersessioninfo">
+              <MappingFragment StoreEntitySet="usersessioninfo">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="SessionStartTime" ColumnName="SessionStartTime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="SocketConnectionID" ColumnName="SocketConnectionID" />
+                <ScalarProperty Name="SessionEndTime" ColumnName="SessionEndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usertasktables">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.usertasktable">
+              <MappingFragment StoreEntitySet="usertasktable">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Task" ColumnName="Task" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="machineworkinghours">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.machineworkinghour">
+              <MappingFragment StoreEntitySet="machineworkinghours">
+                <ScalarProperty Name="IP" ColumnName="IP" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="projectorHour" ColumnName="projectorHour" />
+                <ScalarProperty Name="pcHour" ColumnName="pcHour" />
+                <ScalarProperty Name="recorderHour" ColumnName="recorderHour" />
+                <ScalarProperty Name="ACHour" ColumnName="ACHour" />
+                <ScalarProperty Name="systemHour" ColumnName="systemHour" />
+                <ScalarProperty Name="screenHour" ColumnName="screenHour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="machineoperationlogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.machineoperationlog">
+              <MappingFragment StoreEntitySet="machineoperationlogs">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="strategylogs">
             <EntityTypeMapping TypeName="organisationdatabaseModel.strategylog">
               <MappingFragment StoreEntitySet="strategylogs">
+                <ScalarProperty Name="EquipmentId" ColumnName="EquipmentId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="StrategyDescId" ColumnName="StrategyDescId" />
                 <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />

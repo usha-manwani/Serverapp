@@ -70,9 +70,9 @@ namespace TcpServerListener
             /// Screen and Curtain Controls
             /// </summary>    
 
-            Instruction.Add("ScreenDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x56, 0x61 });
-            Instruction.Add("ScreenRiseWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x76, 0x81 });
-            Instruction.Add("ScreenStopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x66, 0x71 });
+            Instruction.Add("ScreenDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x56, 0x61 }); //屏幕
+            Instruction.Add("ScreenRiseWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x76, 0x81 });// 屏幕
+            Instruction.Add("ScreenStopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x66, 0x71 }); //屏幕
             Instruction.Add("CurtainOpenWeb", new byte[] {});
             Instruction.Add("CurtainCloseWeb", new byte[] { });
             Instruction.Add("CurtainStopWeb", new byte[] {  });
@@ -91,14 +91,18 @@ namespace TcpServerListener
             Instruction.Add("AmplifierPowerOffWeb", new byte[] { 0x8B, 0xB9, 00, 06, 05, 07, 01, 03, 00, 0x16 });
 
             #endregion
-
-            Instruction.Add("SystemOn", new byte[] { 0X8B, 0xB9, 00, 06, 05, 09, 02});
-            Instruction.Add("ComputerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 04});
-            Instruction.Add("ProjectorOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 03});
-            Instruction.Add("CurtainOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 07});
-            Instruction.Add("PowerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 06 });
-            Instruction.Add("SoundOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 05 });
             Instruction.Add("CloseStrategy", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 01 });
+            Instruction.Add("SystemOn", new byte[] { 0X8B, 0xB9, 00, 06, 05, 09, 02});
+            Instruction.Add("ProjectorOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 03 });
+            Instruction.Add("ComputerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 04});
+            Instruction.Add("SoundOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 05 });
+            Instruction.Add("PowerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 06 });
+                    
+            Instruction.Add("PanelOff", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x2c });//lock
+            Instruction.Add("PanelOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x2d });//unlock
+            Instruction.Add("ScreenOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x56 });//down屏幕
+            Instruction.Add("ScreenOff", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x76 });//rise屏幕
+
 
             #region Strategy Instruction
             /// <summary>

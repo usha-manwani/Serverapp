@@ -45,7 +45,9 @@ namespace TcpServerListener
                                         ff.Add(new FinalResult { Instruction = inscode,
                                             Ccmac = l.CCMac.ToUpper(),
                                             Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId =s.StrategyDescId,StrategyId=s.StrategyId });
+                                            StrategyDescId =s.StrategyDescId,StrategyId=s.StrategyId,
+                                            Equipmentid = s.EquipmentId
+                                        });
                                     }
                                 }
                                 break;
@@ -60,7 +62,8 @@ namespace TcpServerListener
                                             Ccmac = l.CCMac.ToUpper(),
                                             Deskmac = l.DeskMac.ToUpper(),
                                             StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId
+                                            StrategyId = s.StrategyId,
+                                            Equipmentid = s.EquipmentId
                                         });
                                     }
                                 }
@@ -73,7 +76,8 @@ namespace TcpServerListener
                                         Ccmac = l.CCMac.ToUpper(),
                                         Deskmac = l.DeskMac.ToUpper(),
                                         StrategyDescId = s.StrategyDescId,
-                                        StrategyId = s.StrategyId
+                                        StrategyId = s.StrategyId,
+                                        Equipmentid = s.EquipmentId
                                     });
                                 }
                                 break;
@@ -94,7 +98,8 @@ namespace TcpServerListener
                                             Ccmac = l.CCMac.ToUpper(),
                                             Deskmac = l.DeskMac.ToUpper(),
                                             StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId
+                                            StrategyId = s.StrategyId,
+                                            Equipmentid = s.EquipmentId
                                         });
                                     }
                                 }
@@ -109,7 +114,8 @@ namespace TcpServerListener
                                     {
                                         ff.Add(new FinalResult { Instruction = inscode, Ccmac = l.CCMac.ToUpper(), Deskmac = l.DeskMac.ToUpper(),
                                             StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId
+                                            StrategyId = s.StrategyId,
+                                            Equipmentid = s.EquipmentId
                                         });
                                     }
                                 }
@@ -126,11 +132,11 @@ namespace TcpServerListener
                                             Ccmac = l.CCMac.ToUpper(),
                                             Deskmac = l.DeskMac.ToUpper(),
                                             StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId
+                                            StrategyId = s.StrategyId,
+                                            Equipmentid = s.EquipmentId
                                         });
                                     }
                                 }
-
                                 break;
                             default:
                                 Console.WriteLine("testc");
@@ -170,9 +176,9 @@ namespace TcpServerListener
                         break;
                     case 3:
                         if (c["Stat"].ToString() == "On")
-                            instruction = "CurtainOn";
+                            instruction = "ScreenOn";
                         else
-                            instruction = "CloseStrategy";
+                            instruction = "ScreenOff";
                         break;
                     case 4:
                         if (c["Stat"].ToString() == "On")
@@ -180,12 +186,12 @@ namespace TcpServerListener
                         else
                             instruction = "CloseStrategy";
                         break;
-                    //case 5:
-                    //    if (c["Stat"].ToString() == "On")
-                    //        instruction = ins.GetValues("SystemLock").ToString();
-                    //    else
-                    //        instruction = ins.GetValues("SystemUnlock").ToString();
-                     //  break;
+                    case 5:
+                        if (c["Stat"].ToString() == "Off")
+                            instruction = "PanelOff";//lock
+                        else
+                            instruction = "PanelOn";//unlock
+                        break;
                     case 6:
                         if (c["Stat"].ToString() == "On")
                             instruction = "PowerOn";
@@ -228,12 +234,12 @@ namespace TcpServerListener
                     //    else
                     //        instruction = ins.GetValues("PodiumCurtainOff").ToString();
                     //    break;
-                    case 13:
-                        if (c["Stat"].ToString() == "On")
-                            instruction = "CurtainStrategy";
-                        else
-                            instruction = "CloseStrategy";
-                        break;
+                    //case 13:
+                    //    if (c["Stat"].ToString() == "On")
+                    //        instruction = "CurtainStrategy";
+                    //    else
+                    //        instruction = "CloseStrategy";
+                    //    break;
                     //case 14:
                     //    if (c["Stat"].ToString() == "On")
                     //        instruction = ins.GetValues("ExhaustFanOn").ToString();
@@ -448,12 +454,13 @@ namespace TcpServerListener
                                 {
                                     if (sectiontime == "stop")
                                     {
-                                        if (instruction.Contains("CloseStrategy"))
+                                        if (instruction.Contains("Off") || instruction.Contains("CloseStrategy"))
                                             ff.Add(new FinalResult() { Ccmac = l.CCMac.ToUpper(),
                                                 Instruction = instruction,
                                                 Deskmac = l.DeskMac.ToUpper(),
                                                 StrategyDescId = dec.StrategyDescId,
-                                                StrategyId = dec.StrategyId
+                                                StrategyId = dec.StrategyId,
+                                                Equipmentid = dec.EquipmentId
                                             });
                                     }
                                     else if (sectiontime == "start")
@@ -462,7 +469,8 @@ namespace TcpServerListener
                                             ff.Add(new FinalResult() { Ccmac = l.CCMac.ToUpper(), Instruction = instruction,
                                                 Deskmac = l.DeskMac.ToUpper(),
                                                 StrategyDescId = dec.StrategyDescId,
-                                                StrategyId = dec.StrategyId
+                                                StrategyId = dec.StrategyId,
+                                                Equipmentid = dec.EquipmentId
                                             });
                                     }
                                 }
@@ -518,13 +526,14 @@ namespace TcpServerListener
                         {
                             if (sectiontime == "stop")
                             {
-                                if (instruction.Contains("CloseStrategy"))
+                                if(instruction.Contains("Off")|| instruction.Contains("CloseStrategy"))
                                     ff.Add(new FinalResult() {
                                         Ccmac = l.CCMac.ToUpper(),
                                         Instruction = instruction,
                                         Deskmac = l.DeskMac.ToUpper(),
                                         StrategyDescId = dec.StrategyDescId,
-                                        StrategyId = dec.StrategyId
+                                        StrategyId = dec.StrategyId,
+                                        Equipmentid = dec.EquipmentId
                                     });
                             }
                             else if (sectiontime == "start")
@@ -535,7 +544,8 @@ namespace TcpServerListener
                                         Instruction = instruction,
                                         Deskmac = l.DeskMac.ToUpper(),
                                         StrategyDescId = dec.StrategyDescId,
-                                        StrategyId = dec.StrategyId
+                                        StrategyId = dec.StrategyId,
+                                        Equipmentid= dec.EquipmentId
                                     });
                             }
                         }
@@ -552,5 +562,6 @@ namespace TcpServerListener
         public string Deskmac { get; set; }
         public int StrategyId { get; set; }
         public int StrategyDescId { get; set; }
+        public int Equipmentid { get; set; }
     }
 }

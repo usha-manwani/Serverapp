@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 
@@ -13,63 +14,95 @@ namespace DBHelper
     {
         static string docPath = "logConsoleServerApp.txt";
         protected string constr = ConfigurationManager.ConnectionStrings["SchoolConnectionString"].ConnectionString;
-        public async Task SaveStrategyLogInfo(string instruction, int descid,string status, string machinemac)
-        {            
+        public async Task SaveStrategyLogInfo(string instruction, int stid, string status, string machinemac,int equipid)
+        {
             try
             {
-                using(var context = new organisationdatabaseEntities())
+                using (var context = new organisationdatabaseEntities())
                 {
+                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
                     var newLog = new strategylog()
                     {
-                        StrategyDescId = descid,
-                        
-                        MachineMac=machinemac,
-                        ExecutionTime=DateTime.Now,
-                        Instruction=instruction,
-                        Status=status                        
+                        StrategyDescId = stid,
+                        MachineMac = classid.ToString(),
+                        ExecutionTime = DateTime.Now,
+                        Instruction = instruction,
+                        Status = status,
+                        EquipmentId=equipid
                     };
-                   context.strategylogs.Add(newLog);
-                   await context.SaveChangesAsync();
+                    context.strategylogs.Add(newLog);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
-                File.WriteAllText(docPath,"exception in stratrgy logs: "+ ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
+                    + " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: "
+                    + ex.StackTrace + " error message " + ex.InnerException);
+
             }
-            
+
         }
-        public async Task<int> UpdateStrategyStatus(string instruction,string machinemac,int descid,string status)
+        public async Task<int> UpdateStrategyStatus(string instruction, string machinemac, int stid, string status)
         {
             int r = 0;
             try
             {
                 using (var context = new organisationdatabaseEntities())
                 {
-                    if(context.strategylogs.Any(x=>x.Instruction==instruction && x.MachineMac==machinemac 
-                    && x.StrategyDescId == descid))
+                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault().ToString();
+                    if (context.strategylogs.Any(x => x.Instruction == instruction && x.MachineMac == classid
+                    && x.StrategyDescId == stid))
                     {
-                        var log = context.strategylogs.Where(x => x.Instruction == instruction && x.MachineMac == machinemac && x.StrategyDescId == descid);
-                        foreach(var l in log)
+                        var log = context.strategylogs.Where(x => x.Instruction == instruction && x.MachineMac == classid && x.StrategyDescId == stid);
+                        foreach (var l in log)
                         {
-                            if (DateTime.Now.Subtract(l.ExecutionTime).TotalSeconds < 20)
+                            if (DateTime.Now.Subtract(l.ExecutionTime).TotalSeconds < 180)
                             {
                                 l.Status = status;
                                 break;
                             }
                         }
                     }
-                  r= await context.SaveChangesAsync();
+                    r = await context.SaveChangesAsync();
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, "exception in stratrgy logs: " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
+                    " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: " +
+                    ex.InnerException + " error message " + ex.Message);
             }
             return r;
         }
-        public async Task SaveMachineLogs()
+        public async Task SaveMachineLogs(Dictionary<string, string> data, string machinemac)
         {
-
+            int r = 0;
+            try
+            {
+                using (var context = new organisationdatabaseEntities())
+                {
+                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
+                    if (classid != 0)
+                    {
+                        var machineop = new machineoperationlog()
+                        {
+                            Operation = JsonSerializer.Serialize(data),
+                            Location = classid,
+                            ExecutionTime = DateTime.Now
+                        };
+                        context.machineoperationlogs.Add(machineop);
+                    }
+                    r = await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
+                    + " " + DateTime.Now.ToLongTimeString() + "exception in recording machine logs: "
+                    + ex.StackTrace + " error message " + ex.InnerException);
+            }
         }
     }
+     
 }

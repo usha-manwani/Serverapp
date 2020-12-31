@@ -18,6 +18,7 @@ namespace DBHelper
         public strategymanagement()
         {
             this.strategydescriptions = new HashSet<strategydescription>();
+            this.strategylogs = new HashSet<strategylog>();
         }
     
         public int strategyId { get; set; }
@@ -30,5 +31,7 @@ namespace DBHelper
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<strategydescription> strategydescriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<strategylog> strategylogs { get; set; }
     }
 }
