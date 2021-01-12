@@ -24,8 +24,8 @@ namespace DBHelper
                     var newLog = new strategylog()
                     {
                         StrategyDescId = stid,
-                        MachineMac = classid.ToString(),
-                        ExecutionTime = DateTime.Now,
+                        MachineMac = classid,
+                        ExecutionTime =Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm")),
                         Instruction = instruction,
                         Status = status,
                         EquipmentId=equipid
@@ -50,7 +50,7 @@ namespace DBHelper
             {
                 using (var context = new organisationdatabaseEntities())
                 {
-                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault().ToString();
+                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
                     if (context.strategylogs.Any(x => x.Instruction == instruction && x.MachineMac == classid
                     && x.StrategyDescId == stid))
                     {
@@ -75,8 +75,8 @@ namespace DBHelper
             }
             return r;
         }
-        public async Task SaveMachineLogs(Dictionary<string, string> data, string machinemac)
-        {
+        public async Task SaveMachineLogs(string type,string data, string machinemac)
+        {            
             int r = 0;
             try
             {
@@ -87,8 +87,9 @@ namespace DBHelper
                     {
                         var machineop = new machineoperationlog()
                         {
-                            Operation = JsonSerializer.Serialize(data),
+                            Operation = data,                  //JsonSerializer.Serialize(data),
                             Location = classid,
+                            Type=type,
                             ExecutionTime = DateTime.Now
                         };
                         context.machineoperationlogs.Add(machineop);

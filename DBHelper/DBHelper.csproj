@@ -220,6 +220,9 @@
     <Compile Include="temp_centralcontrol.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="temp_desktopevents.cs">
+      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="userdetail.cs">
       <DependentUpon>OrganisationDatabase.tt</DependentUpon>
     </Compile>

@@ -68,6 +68,7 @@
           <Property Name="Operation" Type="text" Nullable="false" />
           <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Location" Type="int" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -201,6 +202,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <Property Name="reason" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="currentstatus" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="oldScheduleDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="sectionsinfo">
           <Key>
@@ -255,7 +257,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MachineMac" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="MachineMac" Type="int" Nullable="false" />
           <Property Name="Instruction" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="ExecutionTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="StrategyDescId" Type="int" Nullable="false" />
@@ -334,6 +336,15 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <Property Name="pm25" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="pm10" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="temp_desktopevents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Deskmac" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ActionTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Action" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <EntityType Name="userdetails">
           <Key>
             <PropertyRef Name="SerialNo" />
@@ -367,6 +378,7 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
           <Property Name="Userid" Type="int" />
           <Property Name="action" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ActionTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="ClassID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="userpermissions">
           <Key>
@@ -486,18 +498,6 @@ warning 6002: The table/view 'def.organisationdatabase.machineworkinghours' does
             </Principal>
             <Dependent Role="userlocationaccess">
               <PropertyRef Name="userserialnum" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_LogsUserid">
-          <End Role="userdetails" Type="Self.userdetails" Multiplicity="0..1" />
-          <End Role="userlogs" Type="Self.userlogs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="userdetails">
-              <PropertyRef Name="SerialNo" />
-            </Principal>
-            <Dependent Role="userlogs">
-              <PropertyRef Name="Userid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -729,6 +729,7 @@ warning 6035: The relationship 'fk_sessionLoginId' has columns that are not part
           <EntitySet Name="systemsettings" EntityType="Self.systemsettings" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="teacherdata" EntityType="Self.teacherdata" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="temp_centralcontrol" EntityType="Self.temp_centralcontrol" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="temp_desktopevents" EntityType="Self.temp_desktopevents" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userdetails" EntityType="Self.userdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userlocationaccess" EntityType="Self.userlocationaccess" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="userlogs" EntityType="Self.userlogs" Schema="organisationdatabase" store:Type="Tables" />
@@ -771,10 +772,6 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <AssociationSet Name="fk_locationaccessuserid" Association="Self.fk_locationaccessuserid">
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userlocationaccess" EntitySet="userlocationaccess" />
-          </AssociationSet>
-          <AssociationSet Name="fk_LogsUserid" Association="Self.fk_LogsUserid">
-            <End Role="userdetails" EntitySet="userdetails" />
-            <End Role="userlogs" EntitySet="userlogs" />
           </AssociationSet>
           <AssociationSet Name="fk_ReserveTransfer" Association="Self.fk_ReserveTransfer">
             <End Role="semesterinfo" EntitySet="semesterinfo" />
@@ -1027,6 +1024,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <NavigationProperty Name="classdetail" Relationship="Self.fk_scheduletransferClassid" FromRole="scheduletransfer" ToRole="classdetails" />
           <NavigationProperty Name="schedule" Relationship="Self.fk_transferIdref" FromRole="scheduletransfer" ToRole="schedule" />
           <NavigationProperty Name="teacherdata" Relationship="Self.fk_scheduletransfernewteacherid" FromRole="scheduletransfer" ToRole="teacherdata" />
+          <Property Name="oldScheduleDate" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="sectionsinfo">
           <Key>
@@ -1201,6 +1199,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <Property Name="action" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ActionTime" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="userdetail" Relationship="Self.fk_LogsUserid" FromRole="userlogs" ToRole="userdetails" />
+          <Property Name="ClassID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="userpermission">
           <Key>
@@ -1658,28 +1657,29 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             <End Role="userdetails" EntitySet="userdetails" />
             <End Role="userpermissions" EntitySet="userpermissions" />
           </AssociationSet>
-          <EntitySet Name="machineoperationlogs" EntityType="organisationdatabaseModel.machineoperationlog" />
+          <EntitySet Name="temp_desktopevents" EntityType="organisationdatabaseModel.temp_desktopevents" />
           <EntitySet Name="strategylogs" EntityType="organisationdatabaseModel.strategylog" />
           <AssociationSet Name="fk_InslogStrategyDescId" Association="organisationdatabaseModel.fk_InslogStrategyDescId">
             <End Role="strategymanagement" EntitySet="strategymanagements" />
             <End Role="strategylog" EntitySet="strategylogs" />
           </AssociationSet>
+          <EntitySet Name="machineoperationlogs" EntityType="organisationdatabaseModel.machineoperationlog" />
         </EntityContainer>
-        <EntityType Name="machineoperationlog">
+        <EntityType Name="temp_desktopevents">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Operation" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
-          <Property Name="Location" Type="Int32" Nullable="false" />
+          <Property Name="Deskmac" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="strategylog">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MachineMac" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="MachineMac" Type="Int32" Nullable="false" />
           <Property Name="Instruction" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
           <Property Name="StrategyDescId" Type="Int32" Nullable="false" />
@@ -1701,6 +1701,16 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="machineoperationlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Operation" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="ExecutionTime" Type="DateTime" Nullable="false" />
+          <Property Name="Location" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1870,6 +1880,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <EntitySetMapping Name="scheduletransfers">
             <EntityTypeMapping TypeName="organisationdatabaseModel.scheduletransfer">
               <MappingFragment StoreEntitySet="scheduletransfer">
+                <ScalarProperty Name="oldScheduleDate" ColumnName="oldScheduleDate" />
                 <ScalarProperty Name="classname" ColumnName="classname" />
                 <ScalarProperty Name="courseid" ColumnName="courseid" />
                 <ScalarProperty Name="newclass" ColumnName="newclass" />
@@ -2043,6 +2054,7 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
           <EntitySetMapping Name="userlogs">
             <EntityTypeMapping TypeName="organisationdatabaseModel.userlog">
               <MappingFragment StoreEntitySet="userlogs">
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Userid" ColumnName="Userid" />
                 <ScalarProperty Name="action" ColumnName="action" />
@@ -2107,12 +2119,12 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="machineoperationlogs">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.machineoperationlog">
-              <MappingFragment StoreEntitySet="machineoperationlogs">
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
-                <ScalarProperty Name="Operation" ColumnName="Operation" />
+          <EntitySetMapping Name="temp_desktopevents">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.temp_desktopevents">
+              <MappingFragment StoreEntitySet="temp_desktopevents">
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+                <ScalarProperty Name="Deskmac" ColumnName="Deskmac" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2127,6 +2139,17 @@ FROM `machineworkinghours` AS `machineworkinghours`</DefiningQuery>
                 <ScalarProperty Name="Instruction" ColumnName="Instruction" />
                 <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="machineoperationlogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.machineoperationlog">
+              <MappingFragment StoreEntitySet="machineoperationlogs">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ExecutionTime" ColumnName="ExecutionTime" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

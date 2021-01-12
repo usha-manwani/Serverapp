@@ -194,25 +194,25 @@ namespace TcpServerListener
                         break;
                     case 6:
                         if (c["Stat"].ToString() == "On")
-                            instruction = "PowerOn";
+                            instruction = "PortPowerOn";
                         else
                             instruction = "CloseStrategy";
                         break;
                     case 7:
                         if (c["Stat"].ToString() == "On")
-                            instruction = "PowerOn";
+                            instruction = "PortPowerOn";
                         else
                             instruction = "CloseStrategy";
                         break;
                     case 8:
                         if (c["Stat"].ToString() == "On")
-                            instruction = "PowerStrategy";
+                            instruction = "PortPowerOn";
                         else
                             instruction = "CloseStrategy";
                         break;
                     case 9:
                         if (c["Stat"].ToString() == "On")
-                            instruction = "PowerStrategy";
+                            instruction = "PortPowerOn";
                         else
                             instruction = "CloseStrategy";
                         break;
@@ -554,6 +554,28 @@ namespace TcpServerListener
             }
             return ff;
         }
+
+        public object GetTestTimeData(string time)
+        {
+            var t=Convert.ToDateTime(time).AddMinutes(15).ToString();
+            var starttime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:00");
+            Strategy st = new Strategy();
+            var a = st.GetTestTimeData(t);
+            foreach (var s in a)
+            {
+                var numbers = s.Location.Split(',').Select(int.Parse).ToList();
+                List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
+                if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
+                {
+                    if (s.ServiceConfig["startTime"].ToString() == starttime)
+                    {
+                        var endTime = Convert.ToDateTime(s.ServiceConfig["endtime"]).ToString("yyyy-MM-dd HH:mm:ss");
+                        var startTime = Convert.ToDateTime(s.ServiceConfig["starttime"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                }
+            }
+            return a;
+        }
     }
     public class FinalResult
     {
@@ -563,5 +585,16 @@ namespace TcpServerListener
         public int StrategyId { get; set; }
         public int StrategyDescId { get; set; }
         public int Equipmentid { get; set; }
+    }
+
+    public class TestTimes
+    {
+        public string EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string PublishTitle { get; set; }
+        public string CCmac { get; set; }
+        public string Code { get; set; }
+        public string PublishTest { get; set; }
+        public string Type { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace TcpServerListener
 {
     public class AsyncTcpListener
     {
-        static string docPath = "logConsoleServerApp.txt";
+        static readonly string docPath = "logConsoleServerApp.txt";
         protected Instructions inst = new Instructions();
         private static IHubProxy proxy;
         private static HubConnection con;
@@ -66,7 +66,11 @@ namespace TcpServerListener
             
             StrategyTimer = new Timer(new TimerCallback(RunStrategyTimer), null, delayStart, 60000);           
         }
-        
+        private static void CheckTestModeStrategy()
+        {
+            var tt = DateTime.Now.ToString("HH:mm") + ":00";
+
+        }
         private static void CheckMachine(object state)
         {
             List<string> MachinetoDel = new List<string>();
@@ -74,7 +78,7 @@ namespace TcpServerListener
             {
                 lock (ClientWaitList)
                 {
-                    MachinetoDel = ClientWaitList.Where(x => DateTime.Now.Subtract(x.Value).Minutes > 1).Select(x => x.Key).ToList();
+                    MachinetoDel = ClientWaitList.Where(x => DateTime.Now.Subtract(x.Value).TotalSeconds > 40).Select(x => x.Key).ToList();
                     foreach (var s in MachinetoDel)
                     {
                         if (Machines.Any(x => x.MacAddress == s))
@@ -84,6 +88,10 @@ namespace TcpServerListener
                             {
                                 var sock = temp.workSocket;
                                 sock.Shutdown(SocketShutdown.Both);
+                                Decode dr = new Decode();
+                                Dictionary<string, object> result = dr.OfflineMessage();
+                                SendMessage(temp.MacAddress, result);
+                                Console.WriteLine("Offline message " + JsonSerializer.Serialize(result));
                                 Machines.Remove(temp);
                                 connectedClient--;
                                 ClientWaitList.Remove(s);
@@ -110,11 +118,12 @@ namespace TcpServerListener
                             foreach(var t in itemtoRemove)
                             {
                                 var sock = t.workSocket;
+                                
                                 sock.Shutdown(SocketShutdown.Both);
                                 Machines.Remove(t);
                                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                    DateTime.Now.ToLongTimeString() + "Removed machine because of same mac address : " + s.Mac);
-
+                                    DateTime.Now.ToLongTimeString() + 
+                                    "Removed machine because of same mac address : " + s.Mac);
                             }
                         }
                     }
@@ -158,24 +167,22 @@ namespace TcpServerListener
                         var instruction = new byte[10];
                         try
                         {
-                            
-                            
-                                var tempIns = inst.GetValues(f.Instruction);
-                                var bytes = new byte[2];
-                                bytes[0] = (byte)(f.StrategyId >> 8);
-                                bytes[1] = (byte)f.StrategyId;
-                                instruction = new byte[10];
-                                for (int k = 0; k < 7; k++)
-                                {
-                                    instruction[k] = tempIns[k];
-                                }
+                            var tempIns = inst.GetValues(f.Instruction);
+                            var bytes = new byte[2];
+                            bytes[0] = (byte)(f.StrategyId >> 8);
+                            bytes[1] = (byte)f.StrategyId;
+                            instruction = new byte[10];
+                            for (int k = 0; k < 7; k++)
+                            {
+                                instruction[k] = tempIns[k];
+                            }
 
-                                instruction[7] = bytes[0]; instruction[8] = bytes[1];
-                                var checksum = 0;
-                                for (int i = 2; i < 9; i++)
-                                {
-                                    checksum = checksum + instruction[i];
-                                }
+                            instruction[7] = bytes[0]; instruction[8] = bytes[1];
+                            var checksum = 0;
+                            for (int i = 2; i < 9; i++)
+                            {
+                                checksum = checksum + instruction[i];
+                            }
                             Console.WriteLine("checksum :{0}", checksum);
                             instruction[9] = Convert.ToByte(checksum & 0xff);
 
@@ -183,54 +190,15 @@ namespace TcpServerListener
                             {
                                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " Instruction query  " + HexEncoding.ToStringfromHEx(instruction));
                             }
-                             catch(Exception ex)
+                            catch (Exception ex)
                             {
 
-                            }   
-                            
+                            }
+
                             if (f.Instruction == "CloseStrategy")
-                                {
-                                    int r = AsyncDesktopServer.SendToDesktop(f.Ccmac, f.Deskmac, "Shutdown", f.StrategyDescId, f.StrategyId, instruction,f.Equipmentid);
-                                    if (r == 0)
-                                    {
-                                        Socket t = null;
-                                        lock (Machines)
-                                        {
-                                            if (Machines.Count > 0)
-                                            {
-                                                if (Machines.Any(x => x.MacAddress == f.Ccmac))
-                                                {
-                                                    t = Machines.Where(x => x.MacAddress == f.Ccmac).Select(x => x.workSocket).FirstOrDefault();
-
-                                                }
-                                            }
-                                        }
-                                        if (t != null)
-                                        {
-                                            if (isClientConnected(t))
-                                            {
-
-                                                strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac,f.Equipmentid);
-
-                                                Console.WriteLine("---------------------------- sent bytes  " +
-                                                    HexEncoding.ToStringfromHex(instruction) +
-                                                    "  Instruction to Mac: " + f.Ccmac + " ----------------------------");
-
-                                                Send(t, instruction);
-                                            }
-                                            else
-                                            {
-                                                strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac,f.Equipmentid);
-                                            }
-                                        }
-
-                                        else
-                                        {
-                                            strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac,f.Equipmentid);
-                                        }
-                                    }
-                                }
-                                else
+                            {
+                                int r = AsyncDesktopServer.SendToDesktop(f.Ccmac, f.Deskmac, "Shutdown", f.StrategyDescId, f.StrategyId, instruction, f.Equipmentid);
+                                if (r == 0)
                                 {
                                     Socket t = null;
                                     lock (Machines)
@@ -249,7 +217,7 @@ namespace TcpServerListener
                                         if (isClientConnected(t))
                                         {
 
-                                            strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac,f.Equipmentid);
+                                            strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac, f.Equipmentid);
 
                                             Console.WriteLine("---------------------------- sent bytes  " +
                                                 HexEncoding.ToStringfromHex(instruction) +
@@ -259,18 +227,57 @@ namespace TcpServerListener
                                         }
                                         else
                                         {
-                                            strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac,f.Equipmentid);
+                                            strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac, f.Equipmentid);
                                         }
+                                    }
+
+                                    else
+                                    {
+                                        strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac, f.Equipmentid);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                Socket t = null;
+                                lock (Machines)
+                                {
+                                    if (Machines.Count > 0)
+                                    {
+                                        if (Machines.Any(x => x.MacAddress == f.Ccmac))
+                                        {
+                                            t = Machines.Where(x => x.MacAddress == f.Ccmac).Select(x => x.workSocket).FirstOrDefault();
+
+                                        }
+                                    }
+                                }
+                                if (t != null)
+                                {
+                                    if (isClientConnected(t))
+                                    {
+
+                                        strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac, f.Equipmentid);
+
+                                        Console.WriteLine("---------------------------- sent bytes  " +
+                                            HexEncoding.ToStringfromHex(instruction) +
+                                            "  Instruction to Mac: " + f.Ccmac + " ----------------------------");
+
+                                        Send(t, instruction);
                                     }
                                     else
                                     {
-                                        strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac,f.Equipmentid);
+                                        strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac, f.Equipmentid);
                                     }
                                 }
-                            
-                            
+                                else
+                                {
+                                    strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Fail", f.Ccmac, f.Equipmentid);
+                                }
+                            }
+
+
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
                                     " Strategy Command : " + DateTime.Now.ToLongTimeString() + f.Instruction 
@@ -306,6 +313,7 @@ namespace TcpServerListener
 
         public static void StartListening()
         {
+            Console.WriteLine(Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
             ConnectToHub();
             StartTimer();
             // Establish the local endpoint for the socket.  
@@ -446,6 +454,7 @@ namespace TcpServerListener
                             Decode dr = new Decode();
                             Dictionary<string, object> result = dr.OfflineMessage();
                             SendMessage(temp.MacAddress, result);
+                            Console.WriteLine("Offline message " + JsonSerializer.Serialize(result));
                             Machines.Remove(temp);
                             connectedClient--;
                         }
@@ -458,7 +467,7 @@ namespace TcpServerListener
             }
         }
 
-        private static int DecodeData(Socket sock, byte[] receiveBytes, int length)
+        private static void DecodeData(Socket sock, byte[] receiveBytes, int length)
         {
             var mac = "";
             try
@@ -523,9 +532,7 @@ namespace TcpServerListener
                                     StrategyLogs strategyLogs = new StrategyLogs();
                                     strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac, Convert.ToInt32(final["StrategyId"]),"Success");
                                 }
-                            }
-                            
-                               
+                            } 
                             Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
                                 DateTime.Now.ToLongTimeString() + "Decoded version of Message Received from: " + mac +
                                 " message: " + JsonSerializer.Serialize(final));
@@ -534,23 +541,30 @@ namespace TcpServerListener
                             SendMessage(mac, final);
                             if (final["Type"].ToString() != "Heartbeat")
                             {
-                                var t = final["Data"] as Dictionary<string, string>;
-                                StrategyLogs st = new StrategyLogs();
-                                st.SaveMachineLogs(t, mac);
-                                try
+                                //var t = final["Log"].ToString();
+                                var type = final["Type"].ToString();
+                                if (final.ContainsKey("Log"))
                                 {
-                                  
-                                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                DateTime.Now.ToLongTimeString() + " Message Received from: " + mac +
-                                " message: " + JsonSerializer.Serialize(final));
-                                }
-                                catch (Exception ex)
-                                {
+                                    StrategyLogs st = new StrategyLogs();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                                    st.SaveMachineLogs(type, final["Log"].ToString(), mac);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                                    try
+                                    {
 
-                                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                               DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
-                               " message: " + JsonSerializer.Serialize(final));
+                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                                    DateTime.Now.ToLongTimeString() + " Message Received from: " + mac +
+                                    " message: " + JsonSerializer.Serialize(final));
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                                   DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
+                                   " message: " + JsonSerializer.Serialize(final));
+                                    }
                                 }
+                                
 
                             }
                         }
@@ -573,7 +587,7 @@ namespace TcpServerListener
                  + ex.GetError() + "from mac : " + mac);
                 //string msg = con.State.ToString();
             }
-            return 0;
+            
         }
 
         private static void Send(Socket handler, byte[] byteData)
@@ -609,6 +623,25 @@ namespace TcpServerListener
             }
         }
 
+        private static byte[] CreateInstruction(string keyword, int value)
+        {
+            Instructions ins = new Instructions();
+            var bytes = ins.GetValues(keyword);
+            byte[] data = new byte[9];
+            for(int i=0;i<bytes.Count();i++)
+            {
+                data[i] = bytes[i];
+            }
+           data[7]= Convert.ToByte(value);
+            var checksum = 0;
+            for (int k = 2; k < 9; k++)
+            {
+                checksum = checksum + data[k];
+            }
+            
+            data[8] = Convert.ToByte(checksum & 0xff);
+            return data;
+        }
         #region connection to website
         //connect to website
         public static void ConnectToHub()
@@ -633,25 +666,35 @@ namespace TcpServerListener
                         // Console.WriteLine(ex.Message);
                     }
                 });
-                proxy.On<string, string>("SendControl", (mac, data) =>
+                proxy.On<string, string,string>("SendControl", (mac, data,value) =>
                 {
+                    List<byte> dd = new List<byte>();
                     try
                     {
+                        
                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
                            DateTime.Now.ToLongTimeString() + "---------------------------- from web client :  " +
                                                  data +
                                                  "  Instruction to Mac: " + mac + " ----------------------------");
-                       Instructions inst = new Instructions();
-                        byte[] ins = inst.GetValues(data);
+                        if (data.Contains("Volume"))
+                        {
+                          dd=  CreateInstruction(data, Convert.ToInt32(value)).ToList();
+                        }
+                        else
+                        {
+                            Instructions inst = new Instructions();
+                            dd = inst.GetValues(data).ToList();
+                        }
+                        
                         if (Machines.Any(x => x.MacAddress == mac))
                         {
                             var sock = Machines.Where(x => x.MacAddress == mac).Select(x => x.workSocket).FirstOrDefault();
                             if (isClientConnected(sock))
                             {
                                 Console.WriteLine("---------------------------- sent bytes  " +
-                                                 HexEncoding.ToStringfromHex(inst.GetValues(data)) +
+                                                 HexEncoding.ToStringfromHex(dd.ToArray()) +
                                                  "  Instruction to Mac: " + mac + " ----------------------------");
-                                Send(sock, ins);
+                                Send(sock, dd.ToArray());
                             }
                         }
                     }

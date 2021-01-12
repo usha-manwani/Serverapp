@@ -53,7 +53,8 @@ namespace DBHelper
         public virtual DbSet<usersessioninfo> usersessioninfoes { get; set; }
         public virtual DbSet<usertasktable> usertasktables { get; set; }
         public virtual DbSet<machineworkinghour> machineworkinghours { get; set; }
-        public virtual DbSet<machineoperationlog> machineoperationlogs { get; set; }
+        public virtual DbSet<temp_desktopevents> temp_desktopevents { get; set; }
         public virtual DbSet<strategylog> strategylogs { get; set; }
+        public virtual DbSet<machineoperationlog> machineoperationlogs { get; set; }
     }
 }

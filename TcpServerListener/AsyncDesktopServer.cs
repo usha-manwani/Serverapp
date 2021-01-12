@@ -222,7 +222,7 @@ namespace TcpServerListener
         }
         private static async Task<int> DecodeDataDesktop(Dictionary<string, string> data, Socket sock)
         {
-           
+            GetMacAddress gt = new GetMacAddress();
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
             KeyValuePair<string, string> r = new KeyValuePair<string, string>();
             try
@@ -231,11 +231,11 @@ namespace TcpServerListener
                 {
                     //Log("mac received " + data["value"]);
                     var mac = data["value"].Split(',');
-                    GetMacAddress gt = new GetMacAddress();
+                   
                     r = gt.GetMac(mac);
                     if (r.Key != null)
                     {
-                        Console.WriteLine("mac from database: "+r.Key +"mac : "+ r.Value);
+                        Console.WriteLine("mac from database: "+r.Key +" mac of machine : "+ r.Value);
                         if (!DesktopList.Contains(r))
                         {
                             DesktopList.Add(r.Key, r.Value);
@@ -258,19 +258,24 @@ namespace TcpServerListener
                             var cc = Clients.Where(x => x.Value.workSocket == sock).FirstOrDefault();
                             cc.Value.MacAddress = r.Key.ToUpper();
                         }
+                        DatatoSend.Add("Type", "MacAddress");
+                        DatatoSend.Add("Deskmac", r.Key);
+                        var s = JsonSerializer.Serialize(DatatoSend);
+                        byte[] b = Encoding.ASCII.GetBytes(s);
+                        Send(sock, b);
                         Console.WriteLine("total clients Desktop CLients: " + Clients.Count());
                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from desktop key: " + r.Key + " value: " + r.Value);
                     }
                     else
                     {
-                        File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from database key: " + r.Key + " value: " + r.Value);
                         DatatoSend.Add("Type", "Reply");
                         DatatoSend.Add("Status", "404");
-
                         var s = JsonSerializer.Serialize(DatatoSend);
                         byte[] b = Encoding.ASCII.GetBytes(s);
                         Send(sock, b);
                         ClearSocketDesktop(sock);
+                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from database key: " + r.Key + " value: " + r.Value);
+
                     }
                     //SendToDesktop(r.Key, r.Value, "Shutdown");
                 }
@@ -282,9 +287,6 @@ namespace TcpServerListener
                     
                     if (code == "Shutdown")
                     {
-                        //Instructions ins = new Instructions();
-                        //d = "CloseStrategy";
-
                         try
                         {
                             if (WaitList.ContainsKey(ccmac))
@@ -324,6 +326,13 @@ namespace TcpServerListener
                             // Console.WriteLine(ex.Message);
                         }
                     }
+                }
+
+                if (data["Type"] == "DesktopEvent")
+                {
+                    var deskmac = data["Deskmac"].ToString();
+                    var action = data["Action"].ToString();
+                    int affectedRows= await gt.SaveInactiveDesktopAsync(deskmac, action);
                 }
 
                 Console.WriteLine(JsonSerializer.Serialize(data.ToList()));

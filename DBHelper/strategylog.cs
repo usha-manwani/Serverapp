@@ -15,7 +15,7 @@ namespace DBHelper
     public partial class strategylog
     {
         public int Id { get; set; }
-        public string MachineMac { get; set; }
+        public int MachineMac { get; set; }
         public string Instruction { get; set; }
         public System.DateTime ExecutionTime { get; set; }
         public int StrategyDescId { get; set; }

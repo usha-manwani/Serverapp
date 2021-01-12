@@ -24,10 +24,10 @@ namespace TcpServerListener
             /// <summary>
             /// MediaSignals
             /// </summary>
-            Instruction.Add("DesktopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x10, 0x1B });
-            Instruction.Add("LaptopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x11, 0x1C });
-            Instruction.Add("DigitalBoothWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x12, 0x1D });
-            Instruction.Add("DigitalEquipmentWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x13, 0x1e });
+            Instruction.Add("DesktopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x10, 0x1B });//电脑
+            Instruction.Add("LaptopWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x11, 0x1C });//笔记本-HDMI
+            Instruction.Add("DigitalBoothWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x12, 0x1D });//笔记本-VGA
+            Instruction.Add("DigitalEquipmentWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x13, 0x1e });//数字设备
             Instruction.Add("DvdWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x14, 0x1f });
             Instruction.Add("TVWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x15, 0x20 });
             Instruction.Add("VideoCameraWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x16, 0x21 });
@@ -38,7 +38,7 @@ namespace TcpServerListener
             /// LockControls
             /// </summary> 
             Instruction.Add("SystemLockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x2c, 0x37 });
-            Instruction.Add("SystemUnlockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x2d, 0x36 });
+            Instruction.Add("SystemUnlockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x2d, 0x38 });
             Instruction.Add("PodiumLockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x2e, 0x39 });
             Instruction.Add("PodiumUnlockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x2f, 0x3A });
             Instruction.Add("ClassLockWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x5f, 0x70 });
@@ -46,15 +46,18 @@ namespace TcpServerListener
             /// <summary>
             /// SoundControls
             /// </summary>
-            Instruction.Add("GeneralVolumeDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x21, 0x2C });
-            Instruction.Add("GeneralVolumeUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x20, 0x2B });
-            Instruction.Add("GeneralVolumeMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x22, 0x2D });
-            Instruction.Add("WiredMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x24, 0x2F });
-            Instruction.Add("WiredMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x23, 0x2E });
-            Instruction.Add("WiredMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x25, 0x30 });
-            Instruction.Add("WirelessMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x74, 0x7f });
-            Instruction.Add("WirelessMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x73, 0x7e });
-            Instruction.Add("WirelessMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x75, 0x80 });
+            Instruction.Add("VolumeWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07,06 });
+            Instruction.Add("WiredMicVolumeWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07,07});
+            Instruction.Add("WirelessMicVolumeWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07,08 });
+            //Instruction.Add("GeneralVolumeDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x21, 0x2C });
+            //Instruction.Add("GeneralVolumeUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x20, 0x2B });
+            //Instruction.Add("GeneralVolumeMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x22, 0x2D });
+            //Instruction.Add("WiredMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x24, 0x2F });
+            //Instruction.Add("WiredMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x23, 0x2E });
+            //Instruction.Add("WiredMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x25, 0x30 });
+            //Instruction.Add("WirelessMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x74, 0x7f });
+            //Instruction.Add("WirelessMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x73, 0x7e });
+            //Instruction.Add("WirelessMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x75, 0x80 });
             /// <summary>
             /// Projector Controls
             /// </summary>
@@ -96,13 +99,12 @@ namespace TcpServerListener
             Instruction.Add("ProjectorOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 03 });
             Instruction.Add("ComputerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 04});
             Instruction.Add("SoundOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 05 });
-            Instruction.Add("PowerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 06 });
+            Instruction.Add("PortPowerOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 06 });
                     
             Instruction.Add("PanelOff", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x2c });//lock
             Instruction.Add("PanelOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x2d });//unlock
             Instruction.Add("ScreenOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x56 });//down屏幕
             Instruction.Add("ScreenOff", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x76 });//rise屏幕
-
 
             #region Strategy Instruction
             /// <summary>

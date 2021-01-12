@@ -88,10 +88,61 @@ namespace DBHelper
                     context.Dispose();
                 }
             }
-
             return st;
         }
 
+        public List<StrategyDesc> GetTestTimeData(string time)
+        {
+            List<StrategyDesc> st = new List<StrategyDesc>();
+
+            var dayOfMonth = DateTime.Now.Day;
+            var dayOfWeek = (int)DateTime.Now.DayOfWeek;
+            var toDate = DateTime.Now.Date;
+            using (var context = new organisationdatabaseEntities())
+            {
+                try
+                {
+                    st = (from p in context.strategydescriptions
+                          join e in context.strategyequipments
+                          on p.Equipmentid equals e.id
+                          join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
+                           
+                          where s.CurrentStatus != 0 && p.strategyTime == time && p.Equipmentid==1
+                          && p.StrategyTimeFrame1 =="TestTime"
+                          select new
+                          {
+                              StrategyDescId = p.id,                              
+                              StrategyTimeFrame2 = p.StrategyTimeFrame2,
+                              EquipmentId = e.id,
+                              EquipmentName = e.EquipmentsNames,
+                              ServiceConfig = p.Config ?? "",
+                              StrategyTime = p.strategyTime.ToString(),
+                              Location = s.StrategyLocation,
+                              StrategyId = s.strategyId
+                          }).AsEnumerable().Select(x => new StrategyDesc
+                          {
+                              StrategyDescId = x.StrategyDescId,                          
+                              StrategyTimeFrame2 = x.StrategyTimeFrame2,
+                              EquipmentId = x.EquipmentId,
+                              EquipmentName = x.EquipmentName,
+                              ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
+                              StrategyTime = x.StrategyTime,
+                              Location = x.Location,
+                              StrategyId = x.StrategyId
+                          }).ToList();
+                    // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    context.Dispose();
+                }
+            }
+            return st;
+        }
         public Dictionary<string, object> GetStrategyBySchedule(string time)
         {
             Dictionary<string, object> result = new Dictionary<string, object>();

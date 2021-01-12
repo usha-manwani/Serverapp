@@ -18,6 +18,7 @@ namespace DBHelper
         public Nullable<int> Userid { get; set; }
         public string action { get; set; }
         public System.DateTime ActionTime { get; set; }
+        public int ClassID { get; set; }
     
         public virtual userdetail userdetail { get; set; }
     }

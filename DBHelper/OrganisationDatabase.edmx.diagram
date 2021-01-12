@@ -54,9 +54,10 @@
         <AssociationConnector Association="organisationdatabaseModel.fk_LogsUserid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_userPermissionAdminId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_UserPermissionUsernum" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.machineoperationlog" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="12.875" PointY="3.25" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.temp_desktopevents" Width="1.5" PointX="13.375" PointY="12.75" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="11" PointY="26.5" />
         <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.machineoperationlog" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

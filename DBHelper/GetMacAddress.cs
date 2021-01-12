@@ -40,5 +40,20 @@ namespace DBHelper
             return result;
         }
        
+        public async Task<int> SaveInactiveDesktopAsync(string deskmac,string action)
+        {
+            
+            using(var context = new organisationdatabaseEntities())
+            {
+                temp_desktopevents tmp = new temp_desktopevents() {
+                    Action = action,
+                    ActionTime = DateTime.Now,
+                    Deskmac = deskmac
+                };
+                context.temp_desktopevents.Add(tmp);
+                return await context.SaveChangesAsync();
+            }
+            
+        }
     }
 }

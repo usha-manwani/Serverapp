@@ -18,5 +18,6 @@ namespace DBHelper
         public string Operation { get; set; }
         public System.DateTime ExecutionTime { get; set; }
         public int Location { get; set; }
+        public string Type { get; set; }
     }
 }
