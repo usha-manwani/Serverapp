@@ -313,7 +313,7 @@ namespace TcpServerListener
 
         public static void StartListening()
         {
-            Console.WriteLine(Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
+          
             ConnectToHub();
             StartTimer();
             // Establish the local endpoint for the socket.  
@@ -543,7 +543,7 @@ namespace TcpServerListener
                             {
                                 //var t = final["Log"].ToString();
                                 var type = final["Type"].ToString();
-                                if (final.ContainsKey("Log"))
+                                if (final.ContainsKey("Log") && !string.IsNullOrEmpty(final["Log"].ToString()))
                                 {
                                     StrategyLogs st = new StrategyLogs();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
@@ -642,13 +642,57 @@ namespace TcpServerListener
             data[8] = Convert.ToByte(checksum & 0xff);
             return data;
         }
+        private static byte[] ProjectorConfigInstruction(Dictionary<string,string> data)
+        {
+            StringBuilder bytes = new StringBuilder();
+            bytes.Append("8bb9001E0303");
+            bytes.Append(Convert.ToByte(data["ProjectorOffDelayMinute"]).ToString("X2"));
+
+            bytes.Append(Convert.ToByte(data["ScreenAutoDrop"]).ToString("X2"));
+            
+            bytes.Append(Convert.ToByte(data["ProjectorAutoOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ProjectorAutoOff"]).ToString("X2"));
+
+            bytes.Append(Convert.ToByte(data["ComputerAutoOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ComputerAutoOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ProjectorSwitchAuto"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ScreenLinkageOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ScreenLinkageOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["VolumeMemoryOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["BuzzerOn"]).ToString("X2"));
+
+            bytes.Append(Convert.ToByte(data["IODetectionOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["IODetectionOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["Projector232Signal"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["projector2Infrared"]).ToString("X2"));
+
+            bytes.Append(Convert.ToByte(data["SwipeOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["SwipeOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["FingerPrintOn"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["FingerPrintOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["ProjectorOnDelaySecond"]).ToString("X2"));
+
+            bytes.Append(Convert.ToByte(data["ComputerLinkageOff"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["HdmiAudio"]).ToString("X2"));
+            bytes.Append(Convert.ToByte(data["SystemAlarm"]).ToString("X2"));
+            bytes.Append("00000000"); 
+
+            List<byte> b= HexEncoding.GetBytes(bytes.ToString(), out int discard).ToList();
+            int ch = 0;
+            for(int i = 0; i < b.Count; i++)
+            {
+                ch = ch + b[i];
+            }
+            b.Add(Convert.ToByte(ch & 0xff));
+            return b.ToArray();
+        }
         #region connection to website
         //connect to website
         public static void ConnectToHub()
         {
             try
             {
-                con = new HubConnection("http://localhost:53552/");
+                con = new HubConnection("http://localhost/");
                 // con.TraceLevel = TraceLevels.All;
                 // con.TraceWriter = Console.Out;
                 proxy = con.CreateHubProxy("myHub");
@@ -666,6 +710,23 @@ namespace TcpServerListener
                         // Console.WriteLine(ex.Message);
                     }
                 });
+                proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration", (mac, data) =>
+                {
+                    byte[] inst =ProjectorConfigInstruction(data);
+                    foreach(var m in mac)
+                    {
+                        if (Machines.Any(x => x.MacAddress == m))
+                        {
+                            var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                            if (sock != null && isClientConnected(sock))
+                            {
+                                Send(sock, inst);
+                            }
+                        }
+                    }
+                }
+                
+                );
                 proxy.On<string, string,string>("SendControl", (mac, data,value) =>
                 {
                     List<byte> dd = new List<byte>();
@@ -708,18 +769,32 @@ namespace TcpServerListener
                         // Console.WriteLine(ex.Message);
                     }
                 });
-                proxy.On<string>("RefreshStatus", (mac) =>
+                proxy.On<string>("RefreshStatus", (d) =>
                 {
-                    byte[] data = new byte[] { 0x8B, 0xB9, 0x00, 0x03, 0x05, 0x01, 0x09 };
+                    Instructions inst = new Instructions();
+                    byte[] b = inst.GetValues("Status");
                     try
                     {
-
+                        foreach(var m in Machines)
+                        {
+                            try
+                            {
+                                if (isClientConnected(m.workSocket))
+                                    Send(m.workSocket, b);
+                            }
+                            catch (Exception ex)
+                            {
+                                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                            DateTime.Now.ToLongTimeString() + "Error1 in Sending Status to Machine : ");
+                            }
+                        }
                     }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
                     catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
-                        // Console.WriteLine(ex.Message);
+                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                            DateTime.Now.ToLongTimeString() + "Error2 in Sending Status to Machine : " );
                     }
                 });
                 proxy.On<int>("CountsMachines", i =>

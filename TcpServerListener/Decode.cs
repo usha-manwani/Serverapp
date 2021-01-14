@@ -192,23 +192,23 @@ namespace TcpServerListener
                                             log = "DigitalEquipment";
                                             break;
                                         case 29:
-                                            objdata.Add("Computer", "On");
+                                            objdata.Add("PcStatus", "On");
                                             log = "ComputerOn";
                                             break;
                                         case 30:
 
-                                            objdata.Add("Computer", "Off");
+                                            objdata.Add("PcStatus", "Off");
                                             log = "ComputerOff";
                                             //Status[5] = "Off";
                                             break;
                                         case 192:
-                                            objdata.Add("System", "On");
+                                            objdata.Add("WorkStatus", "Open");
                                             log = "SystemOn";
                                             MessageArray[2] = "SystemOn";
                                             Status[5] = "On";
                                             break;
                                         case 193:
-                                            objdata.Add("System", "Off");
+                                            objdata.Add("WorkStatus", "Close");
                                             log = "SystemOff";
                                             MessageArray[2] = "SystemOff";
                                             Status[5] = "Off";
@@ -385,13 +385,13 @@ namespace TcpServerListener
                                             MessageArray[2] = "exittv";
                                             break;
                                         case 51:
-                                            objdata.Add("Projector", "On");
+                                            objdata.Add("ProjectorStatus", "On");
                                             log = "ProjectorOn";
                                             MessageArray[2] = "projopen";
                                             Status[1] = "On";
                                             break;
                                         case 67:
-                                            objdata.Add("Projector", "Off");
+                                            objdata.Add("ProjectorStatus", "Off");
                                             log = "ProjectorOff";
                                             MessageArray[2] = "projoff";
                                             Status[1] = "Off";
@@ -561,22 +561,22 @@ namespace TcpServerListener
                                     int p = 256 * data[7] + data[8];
                                     if ((p & 256) == 256)
                                     {
-                                        objdata.Add("System", "On");
+                                        objdata.Add("WorkStatus", "Open");
                                         MessageArray[2] = "SystemSwitchOn";
                                     }
                                     else
                                     {
-                                        objdata.Add("System", "Off");
+                                        objdata.Add("WorkStatus", "Closed");
                                         MessageArray[2] = "SystemSwitchOff";
                                     }
                                     if ((p & 128) == 128)
                                     {
-                                        objdata.Add("Computer", "On");
+                                        objdata.Add("PcStatus", "On");
                                         MessageArray[4] = "Computer";
                                     }
                                     else
                                     {
-                                        objdata.Add("Computer", "Off");
+                                        objdata.Add("PcStatus", "Off");
                                         MessageArray[4] = "ComputerOff";
                                     }
                                     // int p = Convert.ToInt32(r); 
@@ -693,6 +693,7 @@ namespace TcpServerListener
                     }
                     else if (data[4] == Convert.ToByte(0x03))
                     {
+                        statdata.Add("Command", "ProjectorConfig");
                         if (data[5] == 64)
                         {
                             if (data[6] == Convert.ToByte(0xc4))
@@ -704,39 +705,65 @@ namespace TcpServerListener
                         }
                         if (data[6] == Convert.ToByte(0xc4))
                         {
+                            statdata.Add("InstructionStatus", "Success");
                             MessageArray[0] = "config";
                             switch (data[5])
                             {
                                 case 1:
                                     break;
                                 case 2:
-                                    MessageArray[1] = data[7].ToString();
-                                    MessageArray[2] = data[8].ToString();
-                                    MessageArray[3] = data[9].ToString();
-                                    MessageArray[4] = data[10].ToString();
-                                    MessageArray[5] = data[11].ToString();
-                                    MessageArray[6] = data[12].ToString();
-                                    MessageArray[7] = data[13].ToString();
-                                    MessageArray[8] = data[14].ToString();
-                                    MessageArray[9] = data[15].ToString();
-                                    MessageArray[10] = data[16].ToString();
-                                    MessageArray[11] = data[17].ToString();
-                                    MessageArray[12] = data[18].ToString();
-                                    MessageArray[13] = data[19].ToString();
-                                    MessageArray[14] = data[20].ToString();
-                                    MessageArray[15] = data[21].ToString();
-                                    MessageArray[16] = data[22].ToString();
-                                    MessageArray[17] = data[23].ToString();
-                                    MessageArray[18] = data[24].ToString();
-                                    MessageArray[19] = data[25].ToString();
-                                    MessageArray[20] = data[26].ToString();
-                                    MessageArray[21] = data[27].ToString();
-                                    MessageArray[22] = data[28].ToString();
-                                    MessageArray[23] = data[29].ToString();
-                                    MessageArray[24] = data[30].ToString();
-                                    MessageArray[25] = data[31].ToString();
-                                    MessageArray[26] = data[32].ToString();
-                                    MessageArray[27] = data[33].ToString();
+                                    statdata.Add("Type", "Panel");
+                                    objdata.Add("ProjectorOffDelayMinute", data[7].ToString().PadLeft(2,'0'));
+                                    objdata.Add("ScreenAutoDrop", data[8].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ProjectorAutoOn", data[9].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ProjectorAutoOff", data[10].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ComputerAutoOn", data[11].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ComputerAutoOff", data[12].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ProjectorSwitchAuto", data[13].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ScreenLinkageOn", data[14].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ScreenLinkageOff", data[15].ToString().PadLeft(2, '0'));
+                                    objdata.Add("VolumeMemoryOn", data[16].ToString().PadLeft(2, '0'));
+                                    objdata.Add("BuzzerOn", data[17].ToString().PadLeft(2, '0'));
+                                    objdata.Add("IODetectionOff", data[18].ToString().PadLeft(2, '0'));
+                                    objdata.Add("IODetectionOn", data[19].ToString().PadLeft(2, '0'));
+                                    objdata.Add("Projector232Signal", data[20].ToString().PadLeft(2, '0'));
+                                    objdata.Add("projector2Infrared", data[21].ToString().PadLeft(2, '0'));
+                                    objdata.Add("SwipeOn", data[22].ToString().PadLeft(2, '0'));
+                                    objdata.Add("SwipeOff", data[23].ToString().PadLeft(2, '0'));
+                                    objdata.Add("FingerPrintOn", data[24].ToString().PadLeft(2, '0'));
+                                    objdata.Add("FingerPrintOff", data[25].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ProjectorOnDelaySecond", data[26].ToString().PadLeft(2, '0'));
+                                    objdata.Add("ComputerLinkageOff", data[27].ToString().PadLeft(2, '0'));
+                                    objdata.Add("HdmiAudio", data[28].ToString().PadLeft(2, '0'));
+                                    objdata.Add("SystemAlarm", data[29].ToString().PadLeft(2, '0'));
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("Log", "SetProjectorConfig");
+                                    //MessageArray[2] = data[8].ToString();
+                                    //MessageArray[3] = data[9].ToString();
+                                    //MessageArray[4] = data[10].ToString();
+                                    //MessageArray[5] = data[11].ToString();
+                                    //MessageArray[6] = data[12].ToString();
+                                    //MessageArray[7] = data[13].ToString();
+                                    //MessageArray[8] = data[14].ToString();
+                                    //MessageArray[9] = data[15].ToString();
+                                    //MessageArray[10] = data[16].ToString();
+                                    //MessageArray[11] = data[17].ToString();
+                                    //MessageArray[12] = data[18].ToString();
+                                    //MessageArray[13] = data[19].ToString();
+                                    //MessageArray[14] = data[20].ToString();
+                                    //MessageArray[15] = data[21].ToString();
+                                    //MessageArray[16] = data[22].ToString();
+                                    //MessageArray[17] = data[23].ToString();
+                                    //MessageArray[18] = data[24].ToString();
+                                    //MessageArray[19] = data[25].ToString();
+                                    //MessageArray[20] = data[26].ToString();
+                                    //MessageArray[21] = data[27].ToString();
+                                    //MessageArray[22] = data[28].ToString();
+                                    //MessageArray[23] = data[29].ToString();
+                                    //MessageArray[24] = data[30].ToString();
+                                    //MessageArray[25] = data[31].ToString();
+                                    //MessageArray[26] = data[32].ToString();
+                                    //MessageArray[27] = data[33].ToString();
                                     break;
                                 case 3:
                                     break;
@@ -1099,28 +1126,28 @@ namespace TcpServerListener
                                         //    break;
                                         case 192:
 
-                                            objdata.Add("System", "On");
+                                            objdata.Add("WorkStatus", "Open");
                                             log = "SystemOn";
                                             MessageArray[2] = "SystemON";
                                             // Status[5] = "On";
 
                                             break;
                                         case 193:
-                                            objdata.Add("System", "Off");
+                                            objdata.Add("WorkStatus", "Closed");
                                                 log="SystemOff";
                                             MessageArray[2] = "SystemOff";
                                             //Status[5] = "Off";
                                             break;
                                         case 29:
                                             
-                                            objdata.Add("Computer", "On");
+                                            objdata.Add("pcStatus", "On");
                                             log = "ComputerOn";
                                             MessageArray[2] = "ComputerOn";
                                             
                                             break;
                                         case 30:
                                             
-                                            objdata.Add("Computer", "Off");
+                                            objdata.Add("PcStatus", "Off");
                                             log = "ComputerOff";
                                             MessageArray[2] = "ComputerOff";
                                             
@@ -1297,34 +1324,34 @@ namespace TcpServerListener
                                             MessageArray[2] = "exittv";
                                             break;
                                         case 51:
-                                            objdata.Add("Projector", "On");
+                                            objdata.Add("ProjectorStatus", "On");
                                             log = "ProjectorOn";
                                             MessageArray[2] = "projopen";
                                             Status[1] = "On";
                                             break;
                                         case 67:
-                                            objdata.Add("Projector", "Off");
+                                            objdata.Add("ProjectorStatus", "Off");
                                             log = "ProjectorOff";
                                             MessageArray[2] = "projoff";
                                             Status[1] = "Off";
                                             break;
                                         case 52:
-                                            objdata.Add("Projector", "Hdmi");
+                                            objdata.Add("ProjectorStatus", "Hdmi");
                                             log = "ProjectorHDMI";
                                             MessageArray[2] = "hdmi";
                                             break;
                                         case 53:
-                                            objdata.Add("Projector", "Video");
+                                            objdata.Add("ProjectorStatus", "Video");
                                             log = "ProjectorVideo";
                                             MessageArray[2] = "video";
                                             break;
                                         case 68:
-                                            statdata.Add("Projector", "Vga");
+                                            statdata.Add("ProjectorStatus", "Vga");
                                             log = "ProjectorVGA";
                                             MessageArray[2] = "vga";
                                             break;
                                         case 69:
-                                            objdata.Add("Projector", "Sleep");
+                                            objdata.Add("ProjectorStatus", "Sleep");
                                             log = "ProjectorSleep";
                                             MessageArray[2] = "sleep";
                                             break;
@@ -1462,7 +1489,7 @@ namespace TcpServerListener
                                     {
                                         case 01:
                                             MessageArray[1] = "PowerSupply";
-                                            statdata.Add("Type", "PowerControl");
+                                            statdata.Add("Type", "ControlExecution");
                                             switch (Convert.ToByte(data[8]))
                                             {
                                                 case 01:
@@ -1553,22 +1580,22 @@ namespace TcpServerListener
                                         switch (Convert.ToByte(data[7]))
                                         {
                                             case 01:
-                                                objdata.Add("StrategyStatus", "Close");
+                                                objdata.Add("WorkStatus", "Closed");
                                                 statdata.Add("Device", "CloseStrategy");
                                                 log = "SystemOff";
                                                 break;
                                             case 02:
-                                                objdata.Add("System", "On");
+                                                objdata.Add("WorkStatus", "Open");
                                                 statdata.Add("Device", "SystemOn");
                                                 log = "SystemOn";
                                                 break;
                                             case 03:
-                                                objdata.Add("Projector", "On");
+                                                objdata.Add("ProjectorStatus", "On");
                                                 statdata.Add("Device", "ProjectorOn");
                                                 log = "projectorOn";
                                                 break;
                                             case 04:
-                                                objdata.Add("Computer", "On");
+                                                objdata.Add("PcStatus", "On");
                                                 statdata.Add("Device", "ComputerOn");
                                                 log = "ComputerOn";
                                                 break;

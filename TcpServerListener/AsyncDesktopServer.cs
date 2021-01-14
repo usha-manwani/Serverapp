@@ -49,7 +49,7 @@ namespace TcpServerListener
         public static Dictionary<string, string> DesktopList = new Dictionary<string, string>();
         //private static System.Timers.Timer IPStatusTimer;
         private static int totalClients = 0;
-
+        private static Timer _testTimer;
         private static Timer _timer;
         private static void SetTimer(TimeSpan starTime, TimeSpan every, Func<Task> action)
         {
@@ -64,6 +64,41 @@ namespace TcpServerListener
                 action.Invoke();
             }, null, timeToGo, every);
         }
+        private static void StartTestTimer()
+        {
+            int delayStart = (60 - DateTime.Now.Second) * 1000;
+
+            _testTimer = new Timer(new TimerCallback(RunTestTimer), null, delayStart, 60000);
+        }
+        private static void RunTestTimer(object state)
+        {
+            StrategyExec se = new StrategyExec();
+            var data =se.GetTestTimeData();
+            Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
+            if (data.Count > 0)
+            {
+                foreach(var s in data)
+                {
+                    DatatoSend.Add("Type", "Command");
+                    DatatoSend.Add("CCmac", s.CCmac.ToUpper());
+                    DatatoSend.Add("Deskmac", s.Deskmac.ToUpper());
+                    DatatoSend.Add("publishTexts", s.PublishText);
+                    DatatoSend.Add("publishTitle", s.PublishTitle);
+                    DatatoSend.Add("startTime", s.StartTime);
+                    DatatoSend.Add("endTime", s.EndTime);
+                    DatatoSend.Add("Code", s.Code);
+                    DatatoSend.Add("Subject", s.Subject);
+                    var da = JsonSerializer.Serialize(DatatoSend);
+                    var sock = Clients.Where(x => x.Value.MacAddress == s.Deskmac.ToUpper())
+                        .Select(x => x.Value.workSocket).FirstOrDefault();
+                    if (sock != null)
+                    {
+                        byte[] bytes = Encoding.ASCII.GetBytes(da);
+                        Send(sock, bytes);
+                    }
+                }
+            }
+        }
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
 
@@ -77,9 +112,9 @@ namespace TcpServerListener
         {
             var current = DateTime.Now.TimeOfDay;
             SetTimer(current.Add(TimeSpan.FromSeconds(30)), TimeSpan.FromSeconds(25), CheckShutdownInstruction);
+            StartTestTimer();
             // Establish the local endpoint for the socket.  
-            // The DNS name of the computer  
-            //// running the listener is "host.contoso.com".                       
+            // The DNS name of the computer                                    
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 10008);
             // Create a TCP/IP socket.  
             Socket listener = new Socket(AddressFamily.InterNetwork,

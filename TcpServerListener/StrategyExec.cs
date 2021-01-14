@@ -16,22 +16,19 @@ namespace TcpServerListener
         {
             List<FinalResult> ff = new List<FinalResult>();
             Strategy st = new Strategy();
-            var inscode = "";
-            
+            var inscode = "";            
             try
             {
                 var dayOfMonth = DateTime.Now.Day;
                 var dayOfWeek = (int)DateTime.Now.DayOfWeek;
-                var toDate = DateTime.Now.Date.ToString("yyyy-MM-dd");
+                var toDate = DateTime.Now.ToString("yyyy-MM-dd");
                 var db = st.GetData(time);
                 foreach (var s in db)
                 {
                     var numbers = s.Location.Split(',').Select(int.Parse).ToList();
                     List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
-
                     if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
                     {
-
                         switch (s.StrategyTimeFrame1)
                         {
                             case "Monthly":
@@ -103,7 +100,6 @@ namespace TcpServerListener
                                         });
                                     }
                                 }
-
                                 break;
                             case "TestTime":
                                 var tempdate1 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
@@ -119,7 +115,6 @@ namespace TcpServerListener
                                         });
                                     }
                                 }
-
                                 break;
                             case "CheckTime":
                                 var tempdate2 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
@@ -149,8 +144,7 @@ namespace TcpServerListener
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message + " Debug " + ex.StackTrace);
-            }
-            
+            }            
             return ff;
         }
 
@@ -283,7 +277,6 @@ namespace TcpServerListener
 
             return instruction;
         }
-
         public string CheckEquipmentCode1(int id, Dictionary<string, object> c)
         {
             var instruction = "";
@@ -554,11 +547,12 @@ namespace TcpServerListener
             }
             return ff;
         }
-
-        public object GetTestTimeData(string time)
+        public List<TestTimes> GetTestTimeData()
         {
-            var t=Convert.ToDateTime(time).AddMinutes(15).ToString();
-            var starttime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:00");
+            List<int> tempid = new List<int>();
+            List<TestTimes> result = new List<TestTimes>();
+            var t= DateTime.Now.AddMinutes(5).ToString("HH:mm:00");
+            var starttime = DateTime.Now.AddMinutes(5).ToString("yyyy-MM-dd HH:mm:00");
             Strategy st = new Strategy();
             var a = st.GetTestTimeData(t);
             foreach (var s in a)
@@ -567,14 +561,34 @@ namespace TcpServerListener
                 List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
                 if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
                 {
-                    if (s.ServiceConfig["startTime"].ToString() == starttime)
-                    {
-                        var endTime = Convert.ToDateTime(s.ServiceConfig["endtime"]).ToString("yyyy-MM-dd HH:mm:ss");
-                        var startTime = Convert.ToDateTime(s.ServiceConfig["starttime"]).ToString("yyyy-MM-dd HH:mm:ss");
+                    if (!tempid.Contains(s.StrategyId))
+                    {                        
+                        if (s.ServiceConfig.ContainsKey("starttime"))
+                        {
+                            tempid.Add(s.StrategyId);
+                            if (s.ServiceConfig["starttime"].ToString() == starttime)
+                            {
+                                foreach (var l in locationsmac)
+                                {
+                                    var testtime = new TestTimes()
+                                    {
+                                        EndTime = s.ServiceConfig["endtime"].ToString(),
+                                        StartTime = s.ServiceConfig["starttime"].ToString(),
+                                        PublishText = s.ServiceConfig["publishText"].ToString(),
+                                        PublishTitle = s.ServiceConfig["publishTitle"].ToString(),
+                                        CCmac = l.CCMac,
+                                        Deskmac = l.DeskMac,
+                                        Subject = s.ServiceConfig["subject"].ToString(),
+                                        Code = "TestStart"
+                                    };
+                                    result.Add(testtime);
+                                }
+                            }
+                        }
                     }
                 }
             }
-            return a;
+            return result;
         }
     }
     public class FinalResult
@@ -594,7 +608,8 @@ namespace TcpServerListener
         public string PublishTitle { get; set; }
         public string CCmac { get; set; }
         public string Code { get; set; }
-        public string PublishTest { get; set; }
-        public string Type { get; set; }
+        public string PublishText { get; set; }        
+        public string Subject { get; set; }
+        public string Deskmac { get; set; }
     }
 }

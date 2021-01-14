@@ -9,7 +9,7 @@ namespace TcpServerListener
     public class Instructions
     {
         Dictionary<string, byte[]> Instruction = new Dictionary<string, byte[]>();
-
+        Dictionary<string, string> projectorConfig = new Dictionary<string, string>();
         public Instructions()
         {
             #region Instruction For Web Platform
@@ -33,7 +33,7 @@ namespace TcpServerListener
             Instruction.Add("VideoCameraWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x16, 0x21 });
             Instruction.Add("RecordingDeviceWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x19, 0x24 });
             Instruction.Add("BlurayDvdWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x1a, 0x25 });
-           // Instruction.Add("ExternalHdWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x1d, 0x28 });
+            //Instruction.Add("ExternalHdWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x1d, 0x28 });
             /// <summary>
             /// LockControls
             /// </summary> 
@@ -94,6 +94,7 @@ namespace TcpServerListener
             Instruction.Add("AmplifierPowerOffWeb", new byte[] { 0x8B, 0xB9, 00, 06, 05, 07, 01, 03, 00, 0x16 });
 
             #endregion
+            #region Strategy Instructions
             Instruction.Add("CloseStrategy", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 01 });
             Instruction.Add("SystemOn", new byte[] { 0X8B, 0xB9, 00, 06, 05, 09, 02});
             Instruction.Add("ProjectorOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 03 });
@@ -105,6 +106,34 @@ namespace TcpServerListener
             Instruction.Add("PanelOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x2d });//unlock
             Instruction.Add("ScreenOn", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x56 });//down屏幕
             Instruction.Add("ScreenOff", new byte[] { 0x8B, 0xB9, 00, 06, 05, 09, 0x76 });//rise屏幕
+
+            #endregion
+
+            #region Projector Configurations
+            projectorConfig.Add("ProjectorAutoOn", "00");
+            projectorConfig.Add("ProjectorAutoOff", "00");
+            projectorConfig.Add("ScreenAutoDrop", "00");
+            projectorConfig.Add("ComputerAutoOn", "00");
+            projectorConfig.Add("ComputerAutoOff", "00");
+            projectorConfig.Add("ProjectorSwitchAuto", "00");
+            projectorConfig.Add("ScreenLinkageOn", "00");
+            projectorConfig.Add("ScreenLinkageOff", "00");
+            projectorConfig.Add("VolumeMemoryOn", "00");
+            projectorConfig.Add("BuzzerOn", "00");
+            projectorConfig.Add("IODetectionOn", "00");
+            projectorConfig.Add("ProjectorOffDelayMinute", "01");
+            projectorConfig.Add("Projector232Signal", "00");
+            projectorConfig.Add("projector2Infrared", "00");
+            projectorConfig.Add("IODetectionOff", "00");
+            projectorConfig.Add("SwipeOn", "00");
+            projectorConfig.Add("SwipeOff", "00");
+            projectorConfig.Add("ProjectorOnDelaySecond", "01");
+            projectorConfig.Add("FingerPrintOn", "00");
+            projectorConfig.Add("FingerPrintOff", "00");
+            projectorConfig.Add("ComputerLinkageOff", "00");
+            projectorConfig.Add("HdmiAudio", "00");
+            projectorConfig.Add("SystemAlarm", "00");
+            #endregion
 
             #region Strategy Instruction
             /// <summary>
