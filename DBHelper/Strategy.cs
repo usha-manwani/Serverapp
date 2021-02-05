@@ -6,9 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 namespace DBHelper
 {
     public class Strategy
@@ -72,7 +72,7 @@ namespace DBHelper
                               StrategyTimeFrame2 = x.StrategyTimeFrame2,
                               EquipmentId = x.EquipmentId,
                               EquipmentName = x.EquipmentName,
-                              ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
+                              ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
                               StrategyTime = x.StrategyTime,
                               Location = x.Location,
                               StrategyId=x.StrategyId
@@ -110,22 +110,23 @@ namespace DBHelper
                           where s.CurrentStatus != 0 && p.strategyTime == time && p.Equipmentid==1
                           && p.StrategyTimeFrame1 =="TestTime"
                           select new
+                        {
+                            StrategyDescId = p.id,
+                          StrategyTimeFrame1 = p.StrategyTimeFrame1,
+                          StrategyTimeFrame2 = p.StrategyTimeFrame2,
+                          EquipmentId = e.id,
+                          EquipmentName = e.EquipmentsNames,
+                          ServiceConfig = p.Config ?? "",
+                          StrategyTime = p.strategyTime.ToString(),
+                          Location = s.StrategyLocation,
+                          StrategyId = s.strategyId
+                        }).AsEnumerable().Select(x => new StrategyDesc
                           {
-                              StrategyDescId = p.id,                              
-                              StrategyTimeFrame2 = p.StrategyTimeFrame2,
-                              EquipmentId = e.id,
-                              EquipmentName = e.EquipmentsNames,
-                              ServiceConfig = p.Config ?? "",
-                              StrategyTime = p.strategyTime.ToString(),
-                              Location = s.StrategyLocation,
-                              StrategyId = s.strategyId
-                          }).AsEnumerable().Select(x => new StrategyDesc
-                          {
-                              StrategyDescId = x.StrategyDescId,                          
+                              StrategyDescId = x.StrategyDescId,                              
                               StrategyTimeFrame2 = x.StrategyTimeFrame2,
                               EquipmentId = x.EquipmentId,
                               EquipmentName = x.EquipmentName,
-                              ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
+                              ServiceConfig = JsonConvert.DeserializeObject(x.ServiceConfig),
                               StrategyTime = x.StrategyTime,
                               Location = x.Location,
                               StrategyId = x.StrategyId
@@ -213,7 +214,7 @@ namespace DBHelper
                           StrategyTimeFrame2 = x.StrategyTimeFrame2,
                           EquipmentId = x.EquipmentId,
                           EquipmentName = x.EquipmentName,
-                          ServiceConfig = JsonSerializer.Deserialize<Dictionary<string, object>>(x.ServiceConfig),
+                          ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(x.ServiceConfig),
                           StrategyTime = x.StrategyTime,
                           Location = x.Location,
                           StrategyId =x.StrategyId
@@ -270,7 +271,7 @@ namespace DBHelper
         public int StrategyDescId { get; set; }
         public int EquipmentId { get; set; }
         public string EquipmentName { get; set; }
-        public Dictionary<string, object> ServiceConfig { get; set; }
+        public dynamic ServiceConfig { get; set; }
         public string StrategyTimeFrame1 { get; set; }
         public string StrategyTime { get; set; }
         public string StrategyTimeFrame2 { get; set; }

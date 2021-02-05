@@ -25,36 +25,16 @@ namespace DBHelper
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<alarmmonitorlog> alarmmonitorlogs { get; set; }
         public virtual DbSet<buildingdetail> buildingdetails { get; set; }
+        public virtual DbSet<cameramonitorinfo> cameramonitorinfoes { get; set; }
         public virtual DbSet<classdetail> classdetails { get; set; }
-        public virtual DbSet<current_loggeduser> current_loggeduser { get; set; }
-        public virtual DbSet<floordetail> floordetails { get; set; }
-        public virtual DbSet<operationmgmt> operationmgmts { get; set; }
-        public virtual DbSet<reserveandtransfer> reserveandtransfers { get; set; }
-        public virtual DbSet<roledetail> roledetails { get; set; }
-        public virtual DbSet<schedule> schedules { get; set; }
-        public virtual DbSet<scheduleoriginal> scheduleoriginals { get; set; }
-        public virtual DbSet<schedulereserve> schedulereserves { get; set; }
-        public virtual DbSet<scheduletransfer> scheduletransfers { get; set; }
-        public virtual DbSet<sectionsinfo> sectionsinfoes { get; set; }
-        public virtual DbSet<semesterinfo> semesterinfoes { get; set; }
+        public virtual DbSet<machineoperationlog> machineoperationlogs { get; set; }
         public virtual DbSet<strategydescription> strategydescriptions { get; set; }
         public virtual DbSet<strategyequipment> strategyequipments { get; set; }
-        public virtual DbSet<strategymanagement> strategymanagements { get; set; }
-        public virtual DbSet<studentdata> studentdatas { get; set; }
-        public virtual DbSet<systemsetting> systemsettings { get; set; }
-        public virtual DbSet<teacherdata> teacherdatas { get; set; }
-        public virtual DbSet<temp_centralcontrol> temp_centralcontrol { get; set; }
-        public virtual DbSet<userdetail> userdetails { get; set; }
-        public virtual DbSet<userlocationaccess> userlocationaccesses { get; set; }
-        public virtual DbSet<userlog> userlogs { get; set; }
-        public virtual DbSet<userpermission> userpermissions { get; set; }
-        public virtual DbSet<userregistration> userregistrations { get; set; }
-        public virtual DbSet<usersessioninfo> usersessioninfoes { get; set; }
-        public virtual DbSet<usertasktable> usertasktables { get; set; }
-        public virtual DbSet<machineworkinghour> machineworkinghours { get; set; }
-        public virtual DbSet<temp_desktopevents> temp_desktopevents { get; set; }
         public virtual DbSet<strategylog> strategylogs { get; set; }
-        public virtual DbSet<machineoperationlog> machineoperationlogs { get; set; }
+        public virtual DbSet<strategymanagement> strategymanagements { get; set; }
+        public virtual DbSet<temp_machinestatus> temp_machinestatus { get; set; }
+        public virtual DbSet<temp_desktopevents> temp_desktopevents { get; set; }
     }
 }

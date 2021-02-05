@@ -18,5 +18,8 @@ namespace DBHelper
         public string Deskmac { get; set; }
         public System.DateTime ActionTime { get; set; }
         public string Action { get; set; }
+        public int classid { get; set; }
+    
+        public virtual classdetail classdetail { get; set; }
     }
 }

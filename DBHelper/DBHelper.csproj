@@ -82,6 +82,9 @@
     <Reference Include="MySql.Data.EntityFramework, Version=8.0.18.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.EntityFramework.8.0.18\lib\net452\MySql.Data.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
@@ -130,129 +133,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="alarmmonitorlog.cs">
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="buildingdetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cameramonitorinfo.cs">
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="classdetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="current_loggeduser.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="floordetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="GetIPStatus.cs" />
     <Compile Include="GetMacAddress.cs" />
     <Compile Include="machineoperationlog.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="machineworkinghour.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="operationmgmt.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="OrganisationDatabase.Context.cs">
+    <Compile Include="organisationdatabase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrganisationDatabase.Context.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrganisationDatabase.cs">
+    <Compile Include="organisationdatabase.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="OrganisationDatabase.Designer.cs">
+    <Compile Include="organisationdatabase.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
+      <DependentUpon>organisationdatabase.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries.cs" />
-    <Compile Include="reserveandtransfer.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="roledetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="schedule.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="scheduleoriginal.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="schedulereserve.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="scheduletransfer.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sectionsinfo.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="semesterinfo.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
     <Compile Include="Strategy.cs" />
     <Compile Include="strategydescription.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="strategyequipment.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="strategylog.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="StrategyLogs.cs" />
     <Compile Include="strategymanagement.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="studentdata.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="systemsetting.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="teacherdata.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="temp_centralcontrol.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="temp_desktopevents.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="userdetail.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userlocationaccess.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userlog.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userpermission.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="userregistration.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="usersessioninfo.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="usertasktable.cs">
-      <DependentUpon>OrganisationDatabase.tt</DependentUpon>
+    <Compile Include="temp_machinestatus.cs">
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EntityDeploy Include="OrganisationDatabase.edmx">
+    <EntityDeploy Include="organisationdatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OrganisationDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>organisationdatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="OrganisationDatabase.edmx.diagram">
-      <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
+    <None Include="organisationdatabase.edmx.diagram">
+      <DependentUpon>organisationdatabase.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -260,15 +203,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OrganisationDatabase.Context.tt">
+    <Content Include="organisationdatabase.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
-      <LastGenOutput>OrganisationDatabase.Context.cs</LastGenOutput>
+      <DependentUpon>organisationdatabase.edmx</DependentUpon>
+      <LastGenOutput>organisationdatabase.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="OrganisationDatabase.tt">
+    <Content Include="organisationdatabase.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>OrganisationDatabase.edmx</DependentUpon>
-      <LastGenOutput>OrganisationDatabase.cs</LastGenOutput>
+      <DependentUpon>organisationdatabase.edmx</DependentUpon>
+      <LastGenOutput>organisationdatabase.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

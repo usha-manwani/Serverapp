@@ -574,8 +574,8 @@ namespace TcpServerListener
                                     {
                                         EndTime = s.ServiceConfig["endtime"].ToString(),
                                         StartTime = s.ServiceConfig["starttime"].ToString(),
-                                        PublishText = s.ServiceConfig["publishText"].ToString(),
-                                        PublishTitle = s.ServiceConfig["publishTitle"].ToString(),
+                                        PublishText = s.ServiceConfig["publishText"].ToObject<int[]>(),
+                                        PublishTitle = s.ServiceConfig["publishTitle"].ToObject<int[]>(),
                                         CCmac = l.CCMac,
                                         Deskmac = l.DeskMac,
                                         Subject = s.ServiceConfig["subject"].ToString(),
@@ -605,10 +605,10 @@ namespace TcpServerListener
     {
         public string EndTime { get; set; }
         public string StartTime { get; set; }
-        public string PublishTitle { get; set; }
+        public int[] PublishTitle { get; set; }
         public string CCmac { get; set; }
         public string Code { get; set; }
-        public string PublishText { get; set; }        
+        public int[] PublishText { get; set; }        
         public string Subject { get; set; }
         public string Deskmac { get; set; }
     }

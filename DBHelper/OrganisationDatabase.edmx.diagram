@@ -4,60 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bcc8f28b96924ac3a5170f01743fb251" Name="Diagram1">
-        <EntityTypeShape EntityType="organisationdatabaseModel.buildingdetail" Width="1.5" PointX="8" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.classdetail" Width="1.5" PointX="8" PointY="34.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.current_loggeduser" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.floordetail" Width="1.5" PointX="5.75" PointY="35.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.operationmgmt" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.reserveandtransfer" Width="1.5" PointX="8" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.roledetail" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.schedule" Width="1.5" PointX="8" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.scheduleoriginal" Width="1.5" PointX="8" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.schedulereserve" Width="1.5" PointX="11" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.scheduletransfer" Width="1.5" PointX="10.25" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.sectionsinfo" Width="1.5" PointX="8" PointY="30.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.semesterinfo" Width="1.5" PointX="5.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategydescription" Width="1.5" PointX="11" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategyequipment" Width="1.5" PointX="8.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategymanagement" Width="1.5" PointX="8.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.studentdata" Width="1.5" PointX="2.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.systemsetting" Width="1.5" PointX="4.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.teacherdata" Width="1.5" PointX="8" PointY="25.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.temp_centralcontrol" Width="1.5" PointX="10.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.userdetail" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.userlocationaccess" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.userlog" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.userpermission" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.userregistration" Width="1.5" PointX="10.75" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.usersessioninfo" Width="1.5" PointX="4.75" PointY="13" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.usertasktable" Width="1.5" PointX="12.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.machineworkinghour" Width="1.5" PointX="12.75" PointY="9" IsExpanded="true" />
+      <Diagram DiagramId="ee588d4e93f843dfb12cffd43609e0b6" Name="Diagram1">
+        <EntityTypeShape EntityType="organisationdatabaseModel.alarmmonitorlog" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.buildingdetail" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.cameramonitorinfo" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.classdetail" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.machineoperationlog" Width="1.5" PointX="2.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategydescription" Width="1.5" PointX="10" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategyequipment" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="10" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.strategymanagement" Width="1.5" PointX="7.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.temp_machinestatus" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_monitoringclassid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_classbuildingname" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_floorbuilding" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_transferBuildingid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_classfloor" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_schedulereserveClassid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_scheduletransferClassid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_ReserveTransfer" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_userPermissionroleid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_semno" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_transferIdref" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_ScheduleOriginalsemno" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.sk_scReserveSemno" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_scheduletransfernewteacherid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_sectionSemno" ManuallyRouted="false" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_machineclassid" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_strategyEquipId" ManuallyRouted="false" />
         <AssociationConnector Association="organisationdatabaseModel.fk_strategyIdRef" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_locationaccessauthenticatedby" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_locationaccessuserid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_LogsUserid" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_userPermissionAdminId" ManuallyRouted="false" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_UserPermissionUsernum" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.temp_desktopevents" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.strategylog" Width="1.5" PointX="11" PointY="26.5" />
-        <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.machineoperationlog" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.temp_desktopevents" Width="1.5" PointX="5.25" PointY="7.25" />
+        <AssociationConnector Association="organisationdatabaseModel.fk_deskeventclassid" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -9,6 +9,7 @@ namespace DBHelper
 {
     public class GetMacAddress
     {
+        static string docPath = "logConsoleServerApp.txt";
         public KeyValuePair<string, string> GetMac(string[] mac)
         {
             KeyValuePair<string, string> result = new KeyValuePair<string, string>();
@@ -41,16 +42,29 @@ namespace DBHelper
         }
        
         public async Task<int> SaveInactiveDesktopAsync(string deskmac,string action)
-        {
-            
+        {            
             using(var context = new organisationdatabaseEntities())
             {
-                temp_desktopevents tmp = new temp_desktopevents() {
-                    Action = action,
-                    ActionTime = DateTime.Now,
-                    Deskmac = deskmac
-                };
-                context.temp_desktopevents.Add(tmp);
+                try
+                {
+                    var id = context.classdetails.Where(x => x.deskmac.ToUpper() == deskmac.ToUpper())
+                                        .Select(x => x.classID).FirstOrDefault();
+                    temp_desktopevents tmp = new temp_desktopevents()
+                    {
+                        Action = action,
+                        ActionTime = DateTime.Now,
+                        Deskmac = deskmac,
+                        classid = id
+                    };
+                    context.temp_desktopevents.Add(tmp);
+                    
+                }
+                catch (Exception ex)
+                {
+                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
+                        + " " + DateTime.Now.ToLongTimeString() + "exception in recording machine logs: "
+                        + ex.StackTrace + " error message " + ex.InnerException);
+                }
                 return await context.SaveChangesAsync();
             }
             

@@ -18,8 +18,6 @@ namespace DBHelper
         public buildingdetail()
         {
             this.classdetails = new HashSet<classdetail>();
-            this.floordetails = new HashSet<floordetail>();
-            this.scheduletransfers = new HashSet<scheduletransfer>();
         }
     
         public int id { get; set; }
@@ -31,9 +29,5 @@ namespace DBHelper
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<classdetail> classdetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<floordetail> floordetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<scheduletransfer> scheduletransfers { get; set; }
     }
 }

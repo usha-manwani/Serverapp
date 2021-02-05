@@ -17,8 +17,8 @@ namespace DBHelper
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public classdetail()
         {
-            this.schedulereserves = new HashSet<schedulereserve>();
-            this.scheduletransfers = new HashSet<scheduletransfer>();
+            this.alarmmonitorlogs = new HashSet<alarmmonitorlog>();
+            this.temp_desktopevents = new HashSet<temp_desktopevents>();
         }
     
         public int classID { get; set; }
@@ -42,11 +42,11 @@ namespace DBHelper
         public string callhelpip { get; set; }
         public string callhelpmac { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<alarmmonitorlog> alarmmonitorlogs { get; set; }
         public virtual buildingdetail buildingdetail { get; set; }
-        public virtual floordetail floordetail { get; set; }
+        public virtual temp_machinestatus temp_machinestatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<schedulereserve> schedulereserves { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<scheduletransfer> scheduletransfers { get; set; }
+        public virtual ICollection<temp_desktopevents> temp_desktopevents { get; set; }
     }
 }

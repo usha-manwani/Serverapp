@@ -58,6 +58,12 @@ namespace TcpServerListener
             //Instruction.Add("WirelessMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x74, 0x7f });
             //Instruction.Add("WirelessMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x73, 0x7e });
             //Instruction.Add("WirelessMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x75, 0x80 });
+
+            ///<summary>
+            ///Camera SOund COntrols
+            /// </summary>
+            Instruction.Add("StudentAudioWeb", new byte[] { 0x8B, 0xB9 ,00, 05, 05, 07, 02, 07, 0x1A });
+            Instruction.Add("TeacherAudioWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07, 02, 08, 0x1B });
             /// <summary>
             /// Projector Controls
             /// </summary>
@@ -121,13 +127,13 @@ namespace TcpServerListener
             projectorConfig.Add("VolumeMemoryOn", "00");
             projectorConfig.Add("BuzzerOn", "00");
             projectorConfig.Add("IODetectionOn", "00");
-            projectorConfig.Add("ProjectorOffDelayMinute", "01");
+            projectorConfig.Add("ProjectorOffDelayMinute", "01"); //1-9
             projectorConfig.Add("Projector232Signal", "00");
             projectorConfig.Add("projector2Infrared", "00");
             projectorConfig.Add("IODetectionOff", "00");
             projectorConfig.Add("SwipeOn", "00");
             projectorConfig.Add("SwipeOff", "00");
-            projectorConfig.Add("ProjectorOnDelaySecond", "01");
+            projectorConfig.Add("ProjectorOnDelaySecond", "01"); //1-20
             projectorConfig.Add("FingerPrintOn", "00");
             projectorConfig.Add("FingerPrintOff", "00");
             projectorConfig.Add("ComputerLinkageOff", "00");

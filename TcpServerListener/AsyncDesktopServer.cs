@@ -1,4 +1,5 @@
 ﻿using DBHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,28 +75,43 @@ namespace TcpServerListener
         {
             StrategyExec se = new StrategyExec();
             var data =se.GetTestTimeData();
-            Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
+            
             if (data.Count > 0)
             {
-                foreach(var s in data)
+                Console.WriteLine("total desktop client connected when test mode is running: " 
+                    + Clients.Count);
+                try
                 {
-                    DatatoSend.Add("Type", "Command");
-                    DatatoSend.Add("CCmac", s.CCmac.ToUpper());
-                    DatatoSend.Add("Deskmac", s.Deskmac.ToUpper());
-                    DatatoSend.Add("publishTexts", s.PublishText);
-                    DatatoSend.Add("publishTitle", s.PublishTitle);
-                    DatatoSend.Add("startTime", s.StartTime);
-                    DatatoSend.Add("endTime", s.EndTime);
-                    DatatoSend.Add("Code", s.Code);
-                    DatatoSend.Add("Subject", s.Subject);
-                    var da = JsonSerializer.Serialize(DatatoSend);
-                    var sock = Clients.Where(x => x.Value.MacAddress == s.Deskmac.ToUpper())
-                        .Select(x => x.Value.workSocket).FirstOrDefault();
-                    if (sock != null)
+                    foreach (var s in data)
                     {
-                        byte[] bytes = Encoding.ASCII.GetBytes(da);
-                        Send(sock, bytes);
+                        Dictionary<string, object> DatatoSend = new Dictionary<string, object>();
+                        DatatoSend.Add("Type", "Command");
+                        DatatoSend.Add("CCmac", s.CCmac.ToUpper());
+                        DatatoSend.Add("Deskmac", s.Deskmac.ToUpper());
+                        DatatoSend.Add("publishTexts", s.PublishText);
+                        DatatoSend.Add("publishTitle", s.PublishTitle);
+                        DatatoSend.Add("startTime", s.StartTime);
+                        DatatoSend.Add("endTime", s.EndTime);
+                        DatatoSend.Add("Code", s.Code);
+                        DatatoSend.Add("Subject", s.Subject);
+                        var da = JsonConvert.SerializeObject(DatatoSend);
+                        var sock = Clients.Where(x => x.Value.MacAddress == s.Deskmac.ToUpper())
+                            .Select(x => x.Value.workSocket).FirstOrDefault();
+                        if (sock != null)
+                        {
+                            byte[] bytes = Encoding.UTF8.GetBytes(da);
+                            Console.WriteLine("deskmac: " + s.Deskmac + " data: " +
+                                da);
+                            Send(sock, bytes);
+                        }
+                        DatatoSend.Clear();
                     }
+                }
+                catch(Exception ex)
+                {
+                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " 
+                        + DateTime.Now.ToLongTimeString() + "Error in test mode sending data to desktop  " 
+                        + ex.Message +" stack trace :"+ex.StackTrace+" Inner exception: "+ ex.InnerException);
                 }
             }
         }
@@ -178,7 +194,7 @@ namespace TcpServerListener
                 Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
                 DatatoSend.Add("Type", "Reply");
                 DatatoSend.Add("Status", "Connected");
-                var s = JsonSerializer.Serialize(DatatoSend);
+                var s = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
                 byte[] b = Encoding.ASCII.GetBytes(s);
                 Send(handler, b);
                 handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -218,7 +234,7 @@ namespace TcpServerListener
                             bytes[i] = state.buffer[i];
                         }
                         var data = Encoding.ASCII.GetString(bytes, 0, bytesRead);
-                        var received = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
+                        var received = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(data);
                         DecodeDataDesktop(received, handler);
                         handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                         new AsyncCallback(ReadCallback), state);
@@ -295,7 +311,7 @@ namespace TcpServerListener
                         }
                         DatatoSend.Add("Type", "MacAddress");
                         DatatoSend.Add("Deskmac", r.Key);
-                        var s = JsonSerializer.Serialize(DatatoSend);
+                        var s = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
                         byte[] b = Encoding.ASCII.GetBytes(s);
                         Send(sock, b);
                         Console.WriteLine("total clients Desktop CLients: " + Clients.Count());
@@ -305,7 +321,7 @@ namespace TcpServerListener
                     {
                         DatatoSend.Add("Type", "Reply");
                         DatatoSend.Add("Status", "404");
-                        var s = JsonSerializer.Serialize(DatatoSend);
+                        var s = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
                         byte[] b = Encoding.ASCII.GetBytes(s);
                         Send(sock, b);
                         ClearSocketDesktop(sock);
@@ -344,7 +360,7 @@ namespace TcpServerListener
                             DatatoSend.Add("CCmac", ccmac.ToUpper());
                             DatatoSend.Add("Deskmac", deskmac.ToUpper());
                             //DatatoSend.Add("isDev","on");
-                            var t = JsonSerializer.Serialize(DatatoSend);
+                            var t = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
                             
                             byte[] b = Encoding.ASCII.GetBytes(t);
                             Send(sock, b);
@@ -370,7 +386,7 @@ namespace TcpServerListener
                     int affectedRows= await gt.SaveInactiveDesktopAsync(deskmac, action);
                 }
 
-                Console.WriteLine(JsonSerializer.Serialize(data.ToList()));
+                Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(data.ToList()));
             }
             catch (Exception ex)
             {
@@ -404,7 +420,7 @@ namespace TcpServerListener
             DatatoSend.Add("CCmac", ccmac.ToUpper());
             DatatoSend.Add("Deskmac", deskmac.ToUpper());
             //DatatoSend.Add("isDev", "on");
-            var s = JsonSerializer.Serialize(DatatoSend);
+            var s = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
             Console.WriteLine("data sending to desktop client: " + s);
             try
             {                
@@ -542,9 +558,8 @@ namespace TcpServerListener
                         DatatoSend.Add("Code", "ExeShutdown");//
                         DatatoSend.Add("CCmac", m.ToUpper());
                         DatatoSend.Add("Deskmac", deskmac.ToUpper());
-                        //DatatoSend.Add("isDev", "on");
-                        var t = JsonSerializer.Serialize(DatatoSend);
-                        byte[] b = Encoding.ASCII.GetBytes(t);
+                        var t = System.Text.Json.JsonSerializer.Serialize(DatatoSend);
+                        byte[] b = Encoding.UTF8.GetBytes(t);
                         var sock = Clients.Where(x => x.Value.MacAddress == deskmac).Select(x => x.Value.workSocket).FirstOrDefault();
                         Send(sock, b);                       
                     }
@@ -560,7 +575,9 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in CheckShutdownInstruction() : " + ex.StackTrace);
+               File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " 
+                   + DateTime.Now.ToLongTimeString() + " Error Message in CheckShutdownInstruction() : " +
+                   ex.Message+"  inner details : "+ex.InnerException+" stack trace: " + ex.StackTrace);
             }
             
         }
