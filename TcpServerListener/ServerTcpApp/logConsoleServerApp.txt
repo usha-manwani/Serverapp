@@ -18286,3 +18286,1656 @@ Monday, February 1, 2021 4:53:00 PMStrategy Timer running at this time
 Monday, February 1, 2021rows from strategy count: 0
 Monday, February 1, 2021 4:54:00 PMStrategy Timer running at this time
 Monday, February 1, 2021rows from strategy count: 0
+Monday, February 1, 2021 5:02:03 PM172.168.11.202 connected
+Monday, February 1, 2021 5:02:03 PMAdded new machine in AcceptCallBack: 
+Monday, February 1, 2021 5:02:33 PMconnected desktop client total : 1
+Monday, February 1, 2021 5:02:33 PMconnected desktop client Ip Address : 127.0.0.1
+Monday, February 1, 2021 5:02:33 PMmac from desktop key: 74 D4 35 7A D7 3D value: 08 06 00 66 80 05
+Monday, February 1, 2021 5:03:00 PMStrategy Timer running at this time
+Monday, February 1, 2021rows from strategy count: 0
+Monday, February 1, 2021 5:04:00 PMStrategy Timer running at this time
+Monday, February 1, 2021rows from strategy count: 0
+Monday, February 1, 2021 5:05:00 PMStrategy Timer running at this time
+Monday, February 1, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:43:04 AM172.168.11.202 connected
+Friday, February 19, 2021 9:43:04 AMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 9:43:24 AMconnected desktop client total : 1
+Friday, February 19, 2021 9:43:24 AMconnected desktop client Ip Address : 127.0.0.1
+Friday, February 19, 2021 9:43:24 AMmac from desktop key: 74 D4 35 7A D7 3D value: 08 06 00 66 80 05
+Friday, February 19, 2021 9:44:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:45:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:46:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:47:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:48:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:48:58 AM Socket exception, disconnected desktop client  74 D4 35 7A D7 3D
+Friday, February 19, 2021 9:49:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:50:00 AMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 9:51:00 AMStrategy Timer running at this time
+Friday, February 19, 2021 9:51:04 AM172.168.11.202 connected
+Friday, February 19, 2021 9:52:00 AMStrategy Timer running at this time
+Friday, February 19, 2021 9:53:00 AMStrategy Timer running at this time
+Friday, February 19, 2021 9:54:00 AMStrategy Timer running at this time
+Friday, February 19, 2021 3:01:53 PM172.168.11.202 connected
+Friday, February 19, 2021 3:01:53 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:02:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:02:02 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 903
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"MacAddress","Data":{"MacAddress":"08 06 00 66 80 05"},"Log":""}
+Friday, February 19, 2021 3:02:10 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 903
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:02:43 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:02:57 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:03:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:03:24 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:03:27 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:03:57 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:04:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:04:35 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 584 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021 3:06:43 PM172.168.11.202 connected
+Friday, February 19, 2021 3:06:43 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:07:43 PM172.168.11.202 connected
+Friday, February 19, 2021 3:07:43 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:08:02 PMStrategy Timer running at this time
+Friday, February 19, 2021 3:08:02 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 594 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Closed","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"90","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"None","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Open","Screen":"Up","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off"},"Log":""}
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:08:35 PM172.168.11.202 connected
+Friday, February 19, 2021 3:08:35 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:09:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:10:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:11:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:12:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:13:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:14:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:14:56 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"WorkStatus":"Open"},"Log":"SystemOn"}
+Friday, February 19, 2021 3:15:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:16:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:18:43 PM172.168.11.202 connected
+Friday, February 19, 2021 3:18:43 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:19:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:20:01 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:20:08 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:18 PM172.168.11.202 connected
+Friday, February 19, 2021 3:21:18 PMAdded new machine in AcceptCallBack: 
+Friday, February 19, 2021 3:21:31 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"90"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:43 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"90"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:47 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"90"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:49 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"80"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:50 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"70"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:51 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"60"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:53 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"50"},"Log":"Volume"}
+Friday, February 19, 2021 3:21:55 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:22:40 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"50"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:42 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"60"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:44 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"70"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:48 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:53 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"70"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:55 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:56 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"70"},"Log":"Volume"}
+Friday, February 19, 2021 3:22:56 PM Message Received from: 08 06 00 66 80 05 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Friday, February 19, 2021 3:23:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:24:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:25:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:26:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:27:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:28:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:29:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:30:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:31:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:32:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:33:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:34:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:35:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:36:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:37:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:38:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:39:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:40:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:41:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:42:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:43:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:44:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:45:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:46:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:47:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:48:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:49:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:50:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:51:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:52:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:53:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:54:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:55:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:56:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:57:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:57:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"218","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 3:58:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:58:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 3:58:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 3:59:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 3:59:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 3:59:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:00:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:00:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:00:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:01:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:01:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:01:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:02:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:02:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:02:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:03:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:03:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:03:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:04:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:04:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:04:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:05:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:05:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:05:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:06:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:06:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:06:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:07:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:07:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:07:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:08:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:08:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:08:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:09:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:09:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:09:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:10:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:10:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:10:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:11:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:11:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:11:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:12:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:12:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:12:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:13:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:13:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:13:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:14:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:14:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:14:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:15:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:15:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:15:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:16:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:16:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:16:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:17:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:17:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:17:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:18:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:18:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"222","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:18:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:19:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:19:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:19:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:20:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:20:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:20:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:21:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:21:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:21:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:22:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:22:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:22:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"219","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:23:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:23:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:23:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:24:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:24:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:24:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:25:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:25:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:25:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:26:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:26:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"0","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:26:35 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"220","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Friday, February 19, 2021 4:27:00 PMStrategy Timer running at this time
+Friday, February 19, 2021rows from strategy count: 0
+Friday, February 19, 2021 4:27:05 PM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 928
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 548 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"WorkStatus":"Open","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","Volume":"70","WiredMicVolume":"50","WirelessMicVolume":"50","MediaSignal":"Desktop","PcStatus":"Off","ProjectorStatus":"Off","Curtain":"Stop","Screen":"Stop","LightStatus":"Off","Temperature":"0","Humidity":"0","Voltage":"221","Power":"0","ProjectorPowerStatus":"On","ComputerPowerStatus":"On","AmplifierPowerStatus":"On","OtherPowerStatus":"On"},"Log":""}
+Monday, February 22, 2021 10:48:53 AM172.168.11.202 connected
+Monday, February 22, 2021 10:48:53 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 10:49:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:50:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:51:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:52:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:53:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:54:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:55:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:56:09 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 10:58:53 AM172.168.11.202 connected
+Monday, February 22, 2021 10:58:53 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 10:59:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:00:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:01:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:02:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:03:06 AM172.168.11.202 connected
+Monday, February 22, 2021 11:03:06 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:04:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:11:32 AM172.168.11.202 connected
+Monday, February 22, 2021 11:11:32 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:12:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:14:33 AM172.168.11.202 connected
+Monday, February 22, 2021 11:14:33 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:15:12 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:16:03 AM172.168.11.202 connected
+Monday, February 22, 2021 11:16:03 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:18:19 AM172.168.11.202 connected
+Monday, February 22, 2021 11:18:19 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:20:00 AM172.168.11.202 connected
+Monday, February 22, 2021 11:20:00 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:24:19 AM172.168.11.202 connected
+Monday, February 22, 2021 11:24:19 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:25:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:26:25 AM172.168.11.202 connected
+Monday, February 22, 2021 11:26:25 AMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 11:27:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:28:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:29:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:30:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:31:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:32:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:33:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:34:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:35:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:36:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:37:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:38:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 11:39:00 AMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:45:55 PM172.168.11.202 connected
+Monday, February 22, 2021 3:45:56 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 3:45:56 PM172.168.11.201 connected
+Monday, February 22, 2021 3:45:56 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 3:46:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:47:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:48:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:49:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:50:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:51:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 3:51:03 PMSocket error in ReadCallBack:    at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at TcpServerListener.AsyncTcpListener.ReadCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 431
+Monday, February 22, 2021 4:04:53 PM172.168.11.201 connected
+Monday, February 22, 2021 4:04:53 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:04:53 PM172.168.11.202 connected
+Monday, February 22, 2021 4:04:53 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:05:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:06:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:07:27 PM172.168.11.202 connected
+Monday, February 22, 2021 4:07:27 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:07:28 PM172.168.11.201 connected
+Monday, February 22, 2021 4:07:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:08:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:17:49 PM172.168.11.202 connected
+Monday, February 22, 2021 4:17:49 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:17:49 PM172.168.11.201 connected
+Monday, February 22, 2021 4:17:49 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:18:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:18:32 PM Message Received from: 08 06 00 66 69 64 message: {"Command":"Reader","Log":"CardRegister","InstructionStatus":"Success","Type":"CardRegister","Data":{"CardValue":"7C8B2548"}}
+Monday, February 22, 2021 4:19:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:20:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:21:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:22:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:23:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:24:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:25:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:26:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:27:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:28:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:29:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:30:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:31:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:32:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:33:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:34:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:35:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:36:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:37:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:38:01 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:43:23 PM172.168.11.202 connected
+Monday, February 22, 2021 4:43:23 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:43:25 PM172.168.10.142 connected
+Monday, February 22, 2021 4:43:25 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:43:25 PM172.168.11.201 connected
+Monday, February 22, 2021 4:43:25 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:43:26 PM172.168.10.142 connected
+Monday, February 22, 2021 4:43:26 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:44:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:44:27 PM172.168.10.142 connected
+Monday, February 22, 2021 4:44:27 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:45:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:45:27 PM172.168.10.142 connected
+Monday, February 22, 2021 4:45:27 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:46:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:46:27 PM172.168.10.142 connected
+Monday, February 22, 2021 4:46:27 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:47:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:47:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:47:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:48:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:48:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:48:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:49:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:49:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:49:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:50:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:50:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:50:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:51:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:51:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:51:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:52:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:52:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:52:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:53:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:53:01 PM Message Received from:  message: {"Command":"Reader","Log":"CardRegister","InstructionStatus":"Success","Type":"ToRegister","Data":{"CardValue":"4F85EF29"}}
+Monday, February 22, 2021 4:53:28 PM172.168.10.142 connected
+Monday, February 22, 2021 4:53:28 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:07 PM172.168.11.202 connected
+Monday, February 22, 2021 4:58:07 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:08 PM172.168.10.142 connected
+Monday, February 22, 2021 4:58:08 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:09 PM172.168.10.142 connected
+Monday, February 22, 2021 4:58:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:09 PMError in AcceptCallBack:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at TcpServerListener.AsyncTcpListener.AcceptCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 388
+Monday, February 22, 2021 4:58:09 PM172.168.11.201 connected
+Monday, February 22, 2021 4:58:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:10 PM172.168.10.142 connected
+Monday, February 22, 2021 4:58:10 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:58:22 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"4F85EF29"}}
+Monday, February 22, 2021 4:58:25 PM172.168.10.142 connected
+Monday, February 22, 2021 4:58:25 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 4:59:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 4:59:12 PM172.168.10.142 connected
+Monday, February 22, 2021 4:59:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:00:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:00:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:00:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:01:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:01:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:01:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:02:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:02:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:02:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:03:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:03:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:03:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:04:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:04:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:04:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:05:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:05:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:05:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:06:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:06:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:06:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:07:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:07:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:07:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:08:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:08:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:08:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:09:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:09:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:09:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:10:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:10:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:10:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:11:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:11:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:11:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:12:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:12:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:12:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:13:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:13:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:13:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:14:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:14:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:14:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:15:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:15:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:15:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:16:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:16:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:16:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:17:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:17:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:17:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:18:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:18:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:18:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:19:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:19:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:19:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:20:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:20:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:20:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:21:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:21:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:21:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:22:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:22:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:22:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:23:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:23:12 PM172.168.10.142 connected
+Monday, February 22, 2021 5:23:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:15 PM172.168.10.142 connected
+Monday, February 22, 2021 5:48:15 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:16 PM172.168.11.202 connected
+Monday, February 22, 2021 5:48:16 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:16 PM172.168.10.142 connected
+Monday, February 22, 2021 5:48:16 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:17 PM172.168.11.201 connected
+Monday, February 22, 2021 5:48:17 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:17 PM172.168.10.142 connected
+Monday, February 22, 2021 5:48:17 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:48:17 PMError in AcceptCallBack:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at TcpServerListener.AsyncTcpListener.AcceptCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 388
+Monday, February 22, 2021 5:49:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:49:06 PM172.168.10.142 connected
+Monday, February 22, 2021 5:49:06 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:49:20 PM172.168.10.142 connected
+Monday, February 22, 2021 5:49:20 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:49:26 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"4054F229"}}
+Monday, February 22, 2021 5:50:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:50:20 PM172.168.10.142 connected
+Monday, February 22, 2021 5:50:20 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:51:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:51:16 PM172.168.11.201 connected
+Monday, February 22, 2021 5:51:16 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:51:47 PM172.168.11.201 connected
+Monday, February 22, 2021 5:51:47 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:52:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:52:20 PM172.168.11.201 connected
+Monday, February 22, 2021 5:52:20 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:52:58 PM172.168.10.142 connected
+Monday, February 22, 2021 5:52:58 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:53:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:53:06 PM172.168.10.142 connected
+Monday, February 22, 2021 5:53:06 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:53:21 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"4F85EF29"}}
+Monday, February 22, 2021 5:54:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:54:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:54:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:55:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:55:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:55:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:56:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:56:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:56:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:57:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:57:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:57:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:58:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:58:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:58:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 5:59:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 5:59:09 PM172.168.10.142 connected
+Monday, February 22, 2021 5:59:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:00:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:00:09 PM172.168.10.142 connected
+Monday, February 22, 2021 6:00:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:01:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:01:09 PM172.168.10.142 connected
+Monday, February 22, 2021 6:01:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:02:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:02:09 PM172.168.10.142 connected
+Monday, February 22, 2021 6:02:09 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:03:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:03:12 PM172.168.10.142 connected
+Monday, February 22, 2021 6:03:12 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:04:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:04:07 PM172.168.10.142 connected
+Monday, February 22, 2021 6:04:07 PMAdded new machine in AcceptCallBack: 
+Monday, February 22, 2021 6:05:00 PMStrategy Timer running at this time
+Monday, February 22, 2021rows from strategy count: 0
+Monday, February 22, 2021 6:05:27 PM172.168.10.142 connected
+Monday, February 22, 2021 6:05:33 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:27:33 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:27:33 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:27:34 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:27:34 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:27:35 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:27:35 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:28:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:28:34 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:28:34 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:29:16 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:29:16 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:29:17 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:29:17 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:29:18 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:29:18 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:30:06 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:30:06 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:30:07 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:30:07 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:30:08 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:30:08 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:30:33 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:30:33 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:31:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:31:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:31:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:32:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:32:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:32:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:33:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:33:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:33:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:34:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:34:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:34:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:35:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:35:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:35:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:36:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:36:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:36:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:37:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:37:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:37:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:38:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:38:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:38:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:39:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:39:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:39:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:40:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:40:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:40:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:41:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:41:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:41:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:42:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:42:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:42:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:43:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:43:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:43:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:44:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:44:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:44:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:45:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:45:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:45:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:46:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:46:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:46:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:47:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:47:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:47:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:48:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:48:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:48:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:49:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:49:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:49:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:50:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:50:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:50:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:51:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:51:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:51:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:52:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:52:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:52:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:53:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:53:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:53:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:54:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:54:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:54:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:55:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:55:40 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:55:41 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:56:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:56:10 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:56:10 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:58:51 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:58:51 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:58:52 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:58:52 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:58:53 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:58:53 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:58:54 AMError in AcceptCallBack:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at TcpServerListener.AsyncTcpListener.AcceptCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 391
+Tuesday, February 23, 2021 9:59:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 9:59:05 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:59:05 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 9:59:56 AM172.168.10.142 connected
+Tuesday, February 23, 2021 9:59:56 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:00:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:00:40 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:00:40 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:00:41 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:00:41 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:00:41 AMError in AcceptCallBack:    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize, Boolean checkHost)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding)
+   at System.IO.File.InternalAppendAllText(String path, String contents, Encoding encoding)
+   at System.IO.File.AppendAllText(String path, String contents)
+   at TcpServerListener.AsyncTcpListener.AcceptCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 392
+Tuesday, February 23, 2021 10:00:42 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:00:42 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:01:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:01:04 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:01:04 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:01:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:01:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:01:56 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:01:56 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:02:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:02:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:02:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:03:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:03:51 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:03:52 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:04:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:04:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:04:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:05:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:05:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:05:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:06:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:06:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:06:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:07:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:07:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:07:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:08:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:08:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:08:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:09:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:09:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:09:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:10:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:10:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:10:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:11:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:11:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:11:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:12:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:12:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:12:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:13:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:13:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:13:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:14:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:14:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:14:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:15:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:15:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:15:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:16:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:16:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:16:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:17:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:17:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:17:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:18:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:18:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:18:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:19:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:19:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:19:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:20:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:20:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:20:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:21:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:21:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:21:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:22:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:22:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:22:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:23:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:23:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:23:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:24:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:24:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:24:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:25:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:25:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:25:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:26:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:26:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:26:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:27:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:27:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:27:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:28:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:28:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:28:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:29:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:29:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:29:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:30:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:30:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:30:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:31:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:31:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:31:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:32:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:32:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:32:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:33:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:33:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:33:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:34:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:34:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:34:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:35:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:35:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:35:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:36:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:36:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:36:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:37:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:37:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:37:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:38:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:38:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:38:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:39:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:39:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:39:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:40:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:40:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:40:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:41:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:41:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:41:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:42:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:42:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:42:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:43:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:43:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:43:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:44:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:44:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:44:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:45:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:45:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:45:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:46:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:46:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:46:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:47:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:47:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:47:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:48:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:48:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:48:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:49:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:49:07 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:49:07 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:49:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:49:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:50:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:50:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:50:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:51:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:51:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:51:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:52:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:52:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:52:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:53:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:53:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:53:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:54:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:54:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:54:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:55:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:55:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:55:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:56:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:56:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:56:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:57:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:57:45 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:57:45 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:58:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:58:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:58:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 10:59:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 10:59:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 10:59:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:00:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:00:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 11:00:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:01:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:01:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 11:01:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:02:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:02:46 AM172.168.10.142 connected
+Tuesday, February 23, 2021 11:02:46 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:03:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:04:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:05:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:06:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:07:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:08:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:09:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:10:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:11:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:12:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:13:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:14:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:15:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:16:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:16:25 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:16:25 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:16:25 AM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 995
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 567 data decoded: {"Command":"NetworkControl","Type":"MacAddress","Data":{"MacAddress":"08 06 00 66 69 8C"},"Log":""}
+Tuesday, February 23, 2021 11:16:26 AMError in ReadCallback:    at System.Net.Http.HttpContent.CheckDisposed()
+   at System.Net.Http.HttpContent.ReadAsStringAsync()
+   at Microsoft.AspNet.SignalR.Client.ErrorExtensions.GetHttpClientException(Exception ex)
+   at Microsoft.AspNet.SignalR.Client.ErrorExtensions.GetError(Exception ex)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 672
+   at TcpServerListener.AsyncTcpListener.ReadCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 442
+Tuesday, February 23, 2021 11:17:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021 11:17:43 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:17:56 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:17:56 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:17:56 AM Error in DecodeData from machine :    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Task.Wait()
+   at TcpServerListener.AsyncTcpListener.SendMessage(String sender, Dictionary`2 message) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 995
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 567 data decoded: {"Command":"NetworkControl","Type":"MacAddress","Data":{"MacAddress":"08 06 00 66 69 8C"},"Log":""}
+Tuesday, February 23, 2021 11:17:56 AMError in ReadCallback:    at System.Net.Http.HttpContent.CheckDisposed()
+   at System.Net.Http.HttpContent.ReadAsStringAsync()
+   at Microsoft.AspNet.SignalR.Client.ErrorExtensions.GetHttpClientException(Exception ex)
+   at Microsoft.AspNet.SignalR.Client.ErrorExtensions.GetError(Exception ex)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 672
+   at TcpServerListener.AsyncTcpListener.ReadCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 442
+Tuesday, February 23, 2021 11:18:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:18:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:18:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:19:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:19:48 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:19:48 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:20:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:20:43 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:20:44 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:20:44 AMError in AcceptCallBack:    at System.Net.Sockets.Socket.BeginReceive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, AsyncCallback callback, Object state)
+   at TcpServerListener.AsyncTcpListener.AcceptCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 400
+Tuesday, February 23, 2021 11:20:47 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:20:47 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:21:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:21:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:21:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:22:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:22:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:22:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:23:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:23:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:23:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:24:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:24:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:24:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:25:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:25:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:25:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:26:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:26:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:26:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:27:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:27:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:27:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:28:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:28:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:28:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:29:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:29:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:31:19 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:32:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:32:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:32:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:33:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:33:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:33:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:34:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:34:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:34:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:35:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:35:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:35:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:36:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:36:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:36:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:37:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:37:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:37:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:38:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:38:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:38:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:39:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:39:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:39:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:40:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:40:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:40:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:41:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:41:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:41:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:42:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:42:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:42:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:43:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:43:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:43:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:44:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:44:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:44:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:45:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:45:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:45:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:46:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:46:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:46:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:47:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:47:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:47:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:48:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:48:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:48:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:49:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:49:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:49:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:50:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:50:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:50:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:51:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:51:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:51:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:52:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:52:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:52:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:53:00 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:53:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:53:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:54:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:54:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:54:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:55:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:55:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:55:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:56:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:56:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:56:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:57:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:57:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:57:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:58:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:58:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:58:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 11:59:01 AMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 11:59:38 AM172.168.10.144 connected
+Tuesday, February 23, 2021 11:59:38 AMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:00:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:00:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:00:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:01:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:01:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:01:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:02:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:02:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:02:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:03:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:03:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:03:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:04:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:04:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:04:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:05:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:05:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:05:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:06:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:06:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:06:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:07:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:07:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:07:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:08:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:08:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:08:38 PMAdded new machine in AcceptCallBack: 
+Tuesday, February 23, 2021 12:09:01 PMStrategy Timer running at this time
+Tuesday, February 23, 2021rows from strategy count: 0
+Tuesday, February 23, 2021 12:09:38 PM172.168.10.144 connected
+Tuesday, February 23, 2021 12:09:38 PMAdded new machine in AcceptCallBack: 

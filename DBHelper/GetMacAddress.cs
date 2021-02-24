@@ -35,9 +35,6 @@ namespace DBHelper
                     context.Dispose();
                 }
             }
-
-
-
             return result;
         }
        
@@ -68,6 +65,71 @@ namespace DBHelper
                 return await context.SaveChangesAsync();
             }
             
+        }
+
+        public int GetClassID(string mac)
+        {
+            int id = 0;
+            using (var context = new organisationdatabaseEntities())
+            {
+                try
+                {
+                    id = context.classdetails.Where(x => x.ccmac.ToUpper() == mac.ToUpper())
+                                        .Select(x => x.classID).FirstOrDefault();                   
+                }
+                catch (Exception ex)
+                {
+                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
+                        + " " + DateTime.Now.ToLongTimeString() + "exception in getting classid from machine mac : "
+                        + ex.StackTrace + " error message " + ex.InnerException);
+                }
+                return id;
+            }
+        }
+         
+        public int UpdateStatCardReg(string stat, string mac,string cid)
+        {
+            int result = 0;
+           
+            using(var context = new organisationdatabaseEntities())
+            {
+                var classid = context.classdetails.Where(x => x.ccmac == mac).Select(x => x.classID).FirstOrDefault();
+                if(context.card_registration.Any(x=>x.calssId==classid && x.OneCardId == cid))
+                {
+                   var row= context.card_registration.Where(x => x.calssId == classid && x.OneCardId == cid)
+                        .Select(x => x).FirstOrDefault();
+                    if (row != null)
+                        row.Status = stat;
+                   result= context.SaveChanges();
+                }
+            }
+            return result;
+        }
+
+        public int SaveReaderLog(string message, string mac, string cardid)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new organisationdatabaseEntities())
+                {
+                    cardlog cardlog = new cardlog()
+                    {
+                        Message = message,
+                        MachineMac = mac,
+                        cardId = cardid,
+                        ActionTime = DateTime.Now
+                    };
+                    context.cardlogs.Add(cardlog);
+                    result = context.SaveChanges();
+
+                }
+            }
+           catch(Exception ex)
+            {
+
+            }
+            return result;
         }
     }
 }

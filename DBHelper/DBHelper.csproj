@@ -142,6 +142,12 @@
     <Compile Include="cameramonitorinfo.cs">
       <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="cardlog.cs">
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="card_registration.cs">
+      <DependentUpon>organisationdatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="classdetail.cs">
       <DependentUpon>organisationdatabase.tt</DependentUpon>
     </Compile>

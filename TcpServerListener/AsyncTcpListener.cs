@@ -62,8 +62,7 @@ namespace TcpServerListener
         private static void StartTimer()
         {
             Machinetimer = new Timer(new TimerCallback(CheckMachine), null, 60000, 60000);
-            int delayStart = (60-DateTime.Now.Second) * 1000;
-            
+            int delayStart = (60-DateTime.Now.Second) * 1000;            
             StrategyTimer = new Timer(new TimerCallback(RunStrategyTimer), null, delayStart, 60000);           
         }
         private static void CheckTestModeStrategy()
@@ -100,15 +99,17 @@ namespace TcpServerListener
                         }
                     }
                 }
-
                 lock (Machines)
                 {
                     var AbsoleteSocket = Machines.Where(x => x.MacAddress == "").ToList();
                     foreach(var s in AbsoleteSocket)
                     {
                         var sock = s.workSocket;
+                        Console.WriteLine("Removed Machine because of Empty MAc Address: " +
+                            ((IPEndPoint)s.workSocket.RemoteEndPoint).Address);                        
                         sock.Shutdown(SocketShutdown.Both);
                         Machines.Remove(s);
+                        connectedClient--;
                     }
                     var SameMac = Machines.GroupBy(x => x.MacAddress).Select(g => new {Mac=g.Key, count=g.Count() });
                     foreach(var s in SameMac)
@@ -316,13 +317,11 @@ namespace TcpServerListener
         }
 
         public static void StartListening()
-        {
-          
+        {          
             ConnectToHub();
             StartTimer();
             // Establish the local endpoint for the socket.  
-            // The DNS name of the computer  
-                                   
+            // The DNS name of the computer                                     
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 1200);
             // Create a TCP/IP socket.  
             Socket listener = new Socket(AddressFamily.InterNetwork,
@@ -419,15 +418,15 @@ namespace TcpServerListener
                 StateObject state = (StateObject)ar.AsyncState;
                 handler = state.workSocket;
 
-            int bytesRead;
-            // Read data from the client socket.   
+                int bytesRead;
+                // Read data from the client socket.   
 
-            int i = 0;
-            //string ip = ((IPEndPoint)handler.RemoteEndPoint).Address.ToString();
-            if (handler!=null && handler.Connected)
-            {
-                //Console.WriteLine("ip   " + ip);
-                
+                int i = 0;
+                //string ip = ((IPEndPoint)handler.RemoteEndPoint).Address.ToString();
+                if (handler != null && handler.Connected)
+                {
+                    //Console.WriteLine("ip   " + ip);
+
                     bytesRead = handler.EndReceive(ar);
                     byte[] bytes = new byte[bytesRead];
                     if (bytesRead > 0)
@@ -440,11 +439,11 @@ namespace TcpServerListener
                         handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                         new AsyncCallback(ReadCallback), state);
                     }
-                }                
+                }
             }
             catch (SocketException se)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Socket error in ReadCallBack: " + se.StackTrace);
+
                 if (se.ErrorCode == 10054 || ((se.ErrorCode != 10004) && (se.ErrorCode != 10053)))
                 {
                     var temp = Machines.Where(x => x.workSocket == handler).FirstOrDefault();
@@ -457,7 +456,7 @@ namespace TcpServerListener
                             Decode dr = new Decode();
                             Dictionary<string, object> result = dr.OfflineMessage();
                             SendMessage(temp.MacAddress, result);
-                            
+
                             Console.WriteLine("Offline message " + JsonSerializer.Serialize(result));
                             Machines.Remove(temp);
                             connectedClient--;
@@ -465,10 +464,18 @@ namespace TcpServerListener
                         }
                     }
                 }
+                try
+                {
+                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + 
+                       DateTime.Now.ToLongTimeString() + "Socket error in ReadCallBack: " + se.StackTrace);
+                }
+                catch (Exception ex)
+                { }
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in ReadCallback: " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                    DateTime.Now.ToLongTimeString() + "Error in ReadCallback: " + ex.StackTrace);
             }
         }
 
@@ -518,11 +525,13 @@ namespace TcpServerListener
                                         var MachineListobj = Machines.Where(x => x.workSocket == sock).Select(x => x).FirstOrDefault();
                                         MachineListobj.MacAddress = temp["MacAddress"];
                                     }
-                                }                               
+                                }
+                                
                             }
                             mac = Machines.Where(x => x.workSocket == sock).Select(x => x.MacAddress).FirstOrDefault();
                             if (mac != "" && mac != null)
                             {
+                               
                                 lock (ClientWaitList)
                                 {
                                     if (!ClientWaitList.ContainsKey(mac))
@@ -535,9 +544,16 @@ namespace TcpServerListener
                                 if (final["Type"].ToString() == "Strategy")
                                 {                                   
                                     StrategyLogs strategyLogs = new StrategyLogs();
-                                    strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac, Convert.ToInt32(final["StrategyId"]),final["InstructionStatus"].ToString());
-
+                                    strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac, 
+                                        Convert.ToInt32(final["StrategyId"]),final["InstructionStatus"].ToString());  
                                     
+                                }
+                                else if (final["Type"].ToString() == "CardRegister")
+                                {
+                                    var temp1 = final["Data"] as Dictionary<string, string>;
+                                    var macobj1 = new GetMacAddress();
+                                    macobj1.UpdateStatCardReg("Registered", mac, temp1["CardValue"].ToString());
+
                                 }
                             } 
                             Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
@@ -546,6 +562,7 @@ namespace TcpServerListener
                             Console.WriteLine("---------------------------");
                             Console.WriteLine();
                             SendMessage(mac, final);
+                            
                             if (final["Type"].ToString() != "Heartbeat")
                             {
                                 //var t = final["Log"].ToString();
@@ -559,6 +576,12 @@ namespace TcpServerListener
                                     {
                                         st.UpdateMachineStatus(mac, final["Log"].ToString());
                                     }
+                                    else if (final["Log"].ToString().Contains("ReaderLog"))
+                                    {
+                                        var temp2 = final["Data"] as Dictionary<string, string>;
+                                        var macobj2 = new GetMacAddress();
+                                        macobj2.SaveReaderLog(final["Log"].ToString(), mac, temp2["CardValue"]);
+                                    }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                                     try
                                     {
@@ -570,13 +593,62 @@ namespace TcpServerListener
                                     catch (Exception ex)
                                     {
 
-                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                                     Console.WriteLine(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
                                    DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
                                    " message: " + JsonSerializer.Serialize(final));
                                     }
                                 }
                             }
-
+                            else if(final["Type"].ToString() == "Heartbeat")
+                            {
+                                int error = 0;
+                                var fnal = final["Data"] as Dictionary<string, string>;
+                                var macobj = new GetMacAddress();
+                                var d = new Dictionary<string, object>();
+                                if (fnal["WorkStatus"].ToString() == "Closed")
+                                {
+                                    if (fnal["ProjectorPowerStatus"].ToString() == "On" ||
+                                        fnal["ComputerPowerStatus"].ToString() == "On" ||
+                                        fnal["AmplifierPowerStatus"].ToString() == "On" ||
+                                        fnal["OtherPowerStatus"].ToString() == "On")
+                                    {
+                                        error = 1;
+                                        d.Add("ErrorCode", error);
+                                    }
+                                    else if (fnal["Screen"].ToString() == "Down")
+                                    {
+                                        error = 2;
+                                        d.Add("ErrorCode", error);
+                                    }
+                                    else if (fnal["ProjectorStatus"].ToString() == "On")
+                                    {
+                                        error = 6;
+                                        d.Add("ErrorCode", error);
+                                    }
+                                }
+                                else if(fnal["WorkStatus"].ToString() == "Open")
+                                {
+                                    if (fnal["Screen"].ToString() == "Up")
+                                    {
+                                        error = 3;
+                                        d.Add("ErrorCode", error);
+                                    }
+                                   
+                                    else if (fnal["Volume"].ToString() == "0")
+                                    {
+                                        error = 4;
+                                        d.Add("ErrorCode", error);
+                                    }
+                                    
+                                }
+                                if (error != 0)
+                                {
+                                    int classid = macobj.GetClassID(mac);
+                                    d.Add("ClassId", classid);
+                                    SendMachineExceptionToWebsocket(classid, d);
+                                }
+                                
+                            }
                         }
                         j = j + datatoDecode.Length;
                     }
@@ -780,6 +852,48 @@ namespace TcpServerListener
                         // Console.WriteLine(ex.Message);
                     }
                 });
+                proxy.On<List<string>, string>("RegisterCard", (macaddress, card) =>                
+                {
+                    var temp =HexEncoding.GetBytes(card, out int discard);
+                    
+                    var length = Convert.ToByte(temp.Length + 3);
+                    var inslength = temp.Length + 7;
+                    var inss = new byte[inslength];
+                    var checksum = length + 01 + 01 ;
+                    string v = "8B B9 00 " + length.ToString().PadLeft(2,'0') + " 01 01 ";
+                    foreach (var s in temp)
+                    {
+                        checksum += s;
+                        v += s.ToString("X2") + " ";
+                    }
+                    v += Convert.ToByte(checksum & 0xff).ToString("X2");
+                    var b = v.Split(' ');
+                    try
+                    {
+                        for (int i = 0; i < inss.Length; i++)
+                        {
+                            inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+
+                    }
+                    //var ins = HexEncoding.GetBytes(v,out int d);
+                    
+                    foreach (var mac in macaddress)
+                    {
+                        foreach(var s in Machines)
+                        {
+                            if (s.MacAddress == mac)
+                            {
+                                Send(s.workSocket, inss);
+                                break;
+                            }                               
+                        }
+                    }
+
+                });
                 proxy.On<string>("RefreshStatus", (d) =>
                 {
                     Instructions inst = new Instructions();
@@ -870,6 +984,56 @@ namespace TcpServerListener
                 proxy.Invoke("SendMessage", sender, d);
                 //Console.WriteLine("Sent to signalR server by" + sender);
                 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //  Console.WriteLine("connecting to server");
+                con.Start().Wait();
+                // Console.WriteLine("connected");
+            }
+        }
+        public static void SendDesktopEventToWebsocket(string sender, Dictionary<string, string> message)
+        {
+           
+            var d = JsonSerializer.Serialize(message);
+            //message1.Add("test", "success");
+            try
+            {
+                if (con.State != ConnectionState.Connected)
+                {
+                    // Console.WriteLine("connecting to server");
+                    con.Start().Wait();
+                    // Console.WriteLine("connected");
+                }
+                proxy.Invoke("ReceiveDesktopEvent", sender, d);
+                //Console.WriteLine("Sent to signalR server by" + sender);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //  Console.WriteLine("connecting to server");
+                con.Start().Wait();
+                // Console.WriteLine("connected");
+            }
+        }
+
+        public static void SendMachineExceptionToWebsocket(int sender, Dictionary<string, object> errorno)
+        {
+
+            var d = JsonSerializer.Serialize(errorno);
+            try
+            {
+                if (con.State != ConnectionState.Connected)
+                {
+                    // Console.WriteLine("connecting to server");
+                    con.Start().Wait();
+                    // Console.WriteLine("connected");
+                }
+                proxy.Invoke("ReceiveMachineException", sender, d);
+                //Console.WriteLine("Sent to signalR server by" + sender);
+
             }
             catch (Exception ex)
             {

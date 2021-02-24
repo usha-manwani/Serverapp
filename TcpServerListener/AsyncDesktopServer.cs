@@ -315,7 +315,12 @@ namespace TcpServerListener
                         byte[] b = Encoding.ASCII.GetBytes(s);
                         Send(sock, b);
                         Console.WriteLine("total clients Desktop CLients: " + Clients.Count());
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from desktop key: " + r.Key + " value: " + r.Value);
+                        try
+                        {
+                            File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                            DateTime.Now.ToLongTimeString() + "mac from desktop key: " + r.Key + " value: " + r.Value);
+                        }
+                        catch (Exception) { }
                     }
                     else
                     {
@@ -325,8 +330,13 @@ namespace TcpServerListener
                         byte[] b = Encoding.ASCII.GetBytes(s);
                         Send(sock, b);
                         ClearSocketDesktop(sock);
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "mac from database key: " + r.Key + " value: " + r.Value);
-
+                        try
+                        {
+                            File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                            DateTime.Now.ToLongTimeString() + " desktop mac from database key: " + 
+                            r.Key + " value: " + r.Value);
+                        }
+                        catch (Exception) { }
                     }
                     //SendToDesktop(r.Key, r.Value, "Shutdown");
                 }
@@ -384,8 +394,12 @@ namespace TcpServerListener
                     var deskmac = data["Deskmac"].ToString();
                     var action = data["Action"].ToString();
                     int affectedRows= await gt.SaveInactiveDesktopAsync(deskmac, action);
+                    var mes = new Dictionary<string, string>
+                    {
+                        { "Action", action },{ "Type","DesktopEvent"}
+                    };
+                    AsyncTcpListener.SendDesktopEventToWebsocket(deskmac,mes);
                 }
-
                 Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(data.ToList()));
             }
             catch (Exception ex)

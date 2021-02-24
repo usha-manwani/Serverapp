@@ -36,6 +36,26 @@
           <Property Name="exectime" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="Classid" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="card_registration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="calssId" Type="int" Nullable="false" />
+          <Property Name="OneCardId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cardlogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cardId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="MachineMac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ActionTime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <EntityType Name="classdetails">
           <Key>
             <PropertyRef Name="classID" />
@@ -233,6 +253,8 @@
           <EntitySet Name="alarmmonitorlogs" EntityType="Self.alarmmonitorlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="cameramonitorinfo" EntityType="Self.cameramonitorinfo" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="card_registration" EntityType="Self.card_registration" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="cardlogs" EntityType="Self.cardlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="classdetails" EntityType="Self.classdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="machineoperationlogs" EntityType="Self.machineoperationlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategydescription" EntityType="Self.strategydescription" Schema="organisationdatabase" store:Type="Tables" />
@@ -527,6 +549,8 @@
             <End Role="classdetail" EntitySet="classdetails" />
             <End Role="temp_desktopevents" EntitySet="temp_desktopevents" />
           </AssociationSet>
+          <EntitySet Name="card_registration" EntityType="organisationdatabaseModel.card_registration" />
+          <EntitySet Name="cardlogs" EntityType="organisationdatabaseModel.cardlog" />
         </EntityContainer>
         <EntityType Name="temp_desktopevents">
           <Key>
@@ -553,6 +577,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="card_registration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="calssId" Type="Int32" Nullable="false" />
+          <Property Name="OneCardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cardlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MachineMac" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -692,6 +736,28 @@
                 <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
                 <ScalarProperty Name="Deskmac" ColumnName="Deskmac" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="card_registration">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.card_registration">
+              <MappingFragment StoreEntitySet="card_registration">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OneCardId" ColumnName="OneCardId" />
+                <ScalarProperty Name="calssId" ColumnName="calssId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cardlogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.cardlog">
+              <MappingFragment StoreEntitySet="cardlogs">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+                <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
+                <ScalarProperty Name="cardId" ColumnName="cardId" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

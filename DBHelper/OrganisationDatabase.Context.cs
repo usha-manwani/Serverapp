@@ -36,5 +36,7 @@ namespace DBHelper
         public virtual DbSet<strategymanagement> strategymanagements { get; set; }
         public virtual DbSet<temp_machinestatus> temp_machinestatus { get; set; }
         public virtual DbSet<temp_desktopevents> temp_desktopevents { get; set; }
+        public virtual DbSet<card_registration> card_registration { get; set; }
+        public virtual DbSet<cardlog> cardlogs { get; set; }
     }
 }

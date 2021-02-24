@@ -65,11 +65,12 @@ namespace TcpServerListener
                         MessageArray[0] = "Reader";
                         if (data[6] == Convert.ToByte(0xc4))
                         {
+                            
                             statdata.Add("InstructionStatus", "Success");
                             switch (data[5])
                             {
                                 case 1:
-                                    statdata.Add("Type", "Registered");
+                                    statdata.Add("Type", "CardRegisterOnMachine");
 
                                     MessageArray[1] = "registered";
                                     MessageArray[2] = data[7].ToString();
@@ -80,7 +81,7 @@ namespace TcpServerListener
                                         //MessageArray[2] = MessageArray[2] +" "+ data[i];
                                     }
                                     objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes));
-
+                                    statdata.Add("Log", "CardRegisterOnMachine");
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes);
 
                                     break;
@@ -89,7 +90,7 @@ namespace TcpServerListener
                                 case 3:
                                     break;
                                 case 4:
-                                    statdata.Add("Type", "ToRegister");
+                                    statdata.Add("Type", "NewCardRegister");
 
                                     MessageArray[1] = "Toregister";
                                     MessageArray[2] = data[7].ToString();
@@ -101,7 +102,7 @@ namespace TcpServerListener
                                     }
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes1);
                                     objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes1));
-
+                                    statdata.Add("Log", "NewCardRegister");
                                     break;
                                 case 5:
                                     break;
@@ -126,7 +127,7 @@ namespace TcpServerListener
                                     }
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes3);
                                     objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes3));
-
+                                    statdata.Add("Log", "ReaderLogOn");
                                     break;
                                 case 12:
                                     statdata.Add("Type", "ReaderLogOff");
@@ -139,7 +140,7 @@ namespace TcpServerListener
                                     }
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes4);
                                     objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes4));
-
+                                    statdata.Add("Log", "ReaderLogOff");
                                     break;
                                 case 13:
                                     break;
