@@ -91,6 +91,30 @@
           <Property Name="Location" Type="int" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="machineusagelogs_minute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="classid" Type="int" Nullable="false" />
+          <Property Name="recordtime" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="value" Type="int" Nullable="false" />
+          <Property Name="attribute" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="projectorconfiginfo">
+          <Key>
+            <PropertyRef Name="configid" />
+          </Key>
+          <Property Name="configid" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Classid" Type="int" Nullable="false" />
+          <Property Name="BrandName" Type="text" Nullable="false" />
+          <Property Name="Model" Type="text" Nullable="false" />
+          <Property Name="Baudrate" Type="int" Nullable="false" />
+          <Property Name="parity" Type="smallint" Nullable="false" />
+          <Property Name="OpenCode" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="CloseCode" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
         <EntityType Name="strategydescription">
           <Key>
             <PropertyRef Name="id" />
@@ -207,6 +231,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_machineusageClassid">
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="machineusagelogs_minute" Type="Self.machineusagelogs_minute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="machineusagelogs_minute">
+              <PropertyRef Name="classid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_monitoringclassid">
           <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -217,6 +255,20 @@
               <PropertyRef Name="classID" />
             </Principal>
             <Dependent Role="alarmmonitorlogs">
+              <PropertyRef Name="Classid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_projectorclass">
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="projectorconfiginfo" Type="Self.projectorconfiginfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="projectorconfiginfo">
               <PropertyRef Name="Classid" />
             </Dependent>
           </ReferentialConstraint>
@@ -257,6 +309,8 @@
           <EntitySet Name="cardlogs" EntityType="Self.cardlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="classdetails" EntityType="Self.classdetails" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="machineoperationlogs" EntityType="Self.machineoperationlogs" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="machineusagelogs_minute" EntityType="Self.machineusagelogs_minute" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="projectorconfiginfo" EntityType="Self.projectorconfiginfo" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategydescription" EntityType="Self.strategydescription" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategyequipments" EntityType="Self.strategyequipments" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="strategylogs" EntityType="Self.strategylogs" Schema="organisationdatabase" store:Type="Tables" />
@@ -279,9 +333,17 @@
             <End Role="classdetails" EntitySet="classdetails" />
             <End Role="temp_machinestatus" EntitySet="temp_machinestatus" />
           </AssociationSet>
+          <AssociationSet Name="fk_machineusageClassid" Association="Self.fk_machineusageClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="machineusagelogs_minute" EntitySet="machineusagelogs_minute" />
+          </AssociationSet>
           <AssociationSet Name="fk_monitoringclassid" Association="Self.fk_monitoringclassid">
             <End Role="classdetails" EntitySet="classdetails" />
             <End Role="alarmmonitorlogs" EntitySet="alarmmonitorlogs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_projectorclass" Association="Self.fk_projectorclass">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="projectorconfiginfo" EntitySet="projectorconfiginfo" />
           </AssociationSet>
           <AssociationSet Name="fk_strategyEquipId" Association="Self.fk_strategyEquipId">
             <End Role="strategyequipments" EntitySet="strategyequipments" />
@@ -357,6 +419,8 @@
           <NavigationProperty Name="buildingdetail" Relationship="Self.fk_classbuildingname" FromRole="classdetails" ToRole="buildingdetails" />
           <NavigationProperty Name="temp_machinestatus" Relationship="Self.fk_machineclassid" FromRole="classdetails" ToRole="temp_machinestatus" />
           <NavigationProperty Name="temp_desktopevents" Relationship="organisationdatabaseModel.fk_deskeventclassid" FromRole="classdetail" ToRole="temp_desktopevents" />
+          <NavigationProperty Name="machineusagelogs_minute" Relationship="organisationdatabaseModel.fk_machineusageClassid" FromRole="classdetail" ToRole="machineusagelogs_minute" />
+          <NavigationProperty Name="projectorconfiginfoes" Relationship="organisationdatabaseModel.fk_projectorclass" FromRole="classdetail" ToRole="projectorconfiginfo" />
         </EntityType>
         <EntityType Name="machineoperationlog">
           <Key>
@@ -551,6 +615,16 @@
           </AssociationSet>
           <EntitySet Name="card_registration" EntityType="organisationdatabaseModel.card_registration" />
           <EntitySet Name="cardlogs" EntityType="organisationdatabaseModel.cardlog" />
+          <EntitySet Name="machineusagelogs_minute" EntityType="organisationdatabaseModel.machineusagelogs_minute" />
+          <AssociationSet Name="fk_machineusageClassid" Association="organisationdatabaseModel.fk_machineusageClassid">
+            <End Role="classdetail" EntitySet="classdetails" />
+            <End Role="machineusagelogs_minute" EntitySet="machineusagelogs_minute" />
+          </AssociationSet>
+          <EntitySet Name="projectorconfiginfoes" EntityType="organisationdatabaseModel.projectorconfiginfo" />
+          <AssociationSet Name="fk_projectorclass" Association="organisationdatabaseModel.fk_projectorclass">
+            <End Role="classdetail" EntitySet="classdetails" />
+            <End Role="projectorconfiginfo" EntitySet="projectorconfiginfoes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="temp_desktopevents">
           <Key>
@@ -597,6 +671,60 @@
           <Property Name="ActionTime" Type="DateTime" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="machineusagelogs_minute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="classid" Type="Int32" Nullable="false" />
+          <Property Name="recordtime" Type="DateTime" Nullable="false" />
+          <Property Name="value" Type="Int32" Nullable="false" />
+          <Property Name="attribute" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="classdetail" Relationship="organisationdatabaseModel.fk_machineusageClassid" FromRole="machineusagelogs_minute" ToRole="classdetail" />
+        </EntityType>
+        <Association Name="fk_machineusageClassid">
+          <End Type="organisationdatabaseModel.classdetail" Role="classdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="organisationdatabaseModel.machineusagelogs_minute" Role="machineusagelogs_minute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetail">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="machineusagelogs_minute">
+              <PropertyRef Name="classid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="projectorconfiginfo">
+          <Key>
+            <PropertyRef Name="configid" />
+          </Key>
+          <Property Name="configid" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Classid" Type="Int32" Nullable="false" />
+          <Property Name="BrandName" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Baudrate" Type="Int32" Nullable="false" />
+          <Property Name="parity" Type="Int16" Nullable="false" />
+          <Property Name="OpenCode" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CloseCode" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="classdetail" Relationship="organisationdatabaseModel.fk_projectorclass" FromRole="projectorconfiginfo" ToRole="classdetail" />
+        </EntityType>
+        <Association Name="fk_projectorclass">
+          <End Type="organisationdatabaseModel.classdetail" Role="classdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="organisationdatabaseModel.projectorconfiginfo" Role="projectorconfiginfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetail">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="projectorconfiginfo">
+              <PropertyRef Name="Classid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -759,6 +887,32 @@
                 <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
                 <ScalarProperty Name="cardId" ColumnName="cardId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="machineusagelogs_minute">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.machineusagelogs_minute">
+              <MappingFragment StoreEntitySet="machineusagelogs_minute">
+                <ScalarProperty Name="attribute" ColumnName="attribute" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="recordtime" ColumnName="recordtime" />
+                <ScalarProperty Name="classid" ColumnName="classid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projectorconfiginfoes">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.projectorconfiginfo">
+              <MappingFragment StoreEntitySet="projectorconfiginfo">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="CloseCode" ColumnName="CloseCode" />
+                <ScalarProperty Name="OpenCode" ColumnName="OpenCode" />
+                <ScalarProperty Name="parity" ColumnName="parity" />
+                <ScalarProperty Name="Baudrate" ColumnName="Baudrate" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="Classid" ColumnName="Classid" />
+                <ScalarProperty Name="configid" ColumnName="configid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

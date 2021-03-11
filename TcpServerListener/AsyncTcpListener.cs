@@ -19,10 +19,10 @@ namespace TcpServerListener
         protected Instructions inst = new Instructions();
         private static IHubProxy proxy;
         private static HubConnection con;
-       
+
         public static List<StateObject> Machines = new List<StateObject>();
         public static int connectedClient = 0;
-       // private static int totalClients = 0;
+        // private static int totalClients = 0;
         private static Timer _timer;
         //private static Timer ValidMachines;
         private static Timer Machinetimer;
@@ -30,40 +30,40 @@ namespace TcpServerListener
         private static Dictionary<string, DateTime> ClientWaitList = new Dictionary<string, DateTime>();
         // Thread signal.  
         public static ManualResetEvent allDone = new ManualResetEvent(false);
-        public static async Task ReceiveMacFromDesktop(string ccmac, string instruction,int stid,int stdescid,byte[] instruction1,int equipid)
+        public static async Task ReceiveMacFromDesktop(string ccmac, string instruction, int stid, int stdescid, byte[] instruction1, int equipid)
         {
             try
             {
                 if (Machines.Any(x => x.MacAddress == ccmac))
                 {
-                    var temp = Machines.Where(x => x.MacAddress == ccmac).FirstOrDefault();                   
+                    var temp = Machines.Where(x => x.MacAddress == ccmac).FirstOrDefault();
                     StrategyLogs stlogs = new StrategyLogs();
                     if (temp.workSocket.Connected)
-                    {                       
+                    {
                         Console.WriteLine("---------------------------- sent bytes  " +
                                          HexEncoding.ToStringfromHex(instruction1) +
                                          "  Instruction to Mac: " + ccmac + " ----------------------------");
                         Send(temp.workSocket, instruction1);
-                        await stlogs.SaveStrategyLogInfo(instruction, stid, "Pending", ccmac,equipid);
+                        await stlogs.SaveStrategyLogInfo(instruction, stid, "Pending", ccmac, equipid);
                         File.AppendAllText(docPath, Environment.NewLine + "---------------------------- sent bytes  " +
                                           HexEncoding.ToStringfromHex(instruction1) +
                                           "  Instruction to Mac: " + ccmac + " ----------------------------");
                     }
                     else
-                        await stlogs.SaveStrategyLogInfo(instruction, stid, "Fail", ccmac,equipid);
+                        await stlogs.SaveStrategyLogInfo(instruction, stid, "Fail", ccmac, equipid);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "ReceiveMacFromDesktop : " + ex.StackTrace);
             }
-           
+
         }
         private static void StartTimer()
         {
             Machinetimer = new Timer(new TimerCallback(CheckMachine), null, 60000, 60000);
-            int delayStart = (60-DateTime.Now.Second) * 1000;            
-            StrategyTimer = new Timer(new TimerCallback(RunStrategyTimer), null, delayStart, 60000);           
+            int delayStart = (60 - DateTime.Now.Second) * 1000;
+            StrategyTimer = new Timer(new TimerCallback(RunStrategyTimer), null, delayStart, 60000);
         }
         private static void CheckTestModeStrategy()
         {
@@ -102,29 +102,29 @@ namespace TcpServerListener
                 lock (Machines)
                 {
                     var AbsoleteSocket = Machines.Where(x => x.MacAddress == "").ToList();
-                    foreach(var s in AbsoleteSocket)
+                    foreach (var s in AbsoleteSocket)
                     {
                         var sock = s.workSocket;
                         Console.WriteLine("Removed Machine because of Empty MAc Address: " +
-                            ((IPEndPoint)s.workSocket.RemoteEndPoint).Address);                        
+                            ((IPEndPoint)s.workSocket.RemoteEndPoint).Address);
                         sock.Shutdown(SocketShutdown.Both);
                         Machines.Remove(s);
                         connectedClient--;
                     }
-                    var SameMac = Machines.GroupBy(x => x.MacAddress).Select(g => new {Mac=g.Key, count=g.Count() });
-                    foreach(var s in SameMac)
+                    var SameMac = Machines.GroupBy(x => x.MacAddress).Select(g => new { Mac = g.Key, count = g.Count() });
+                    foreach (var s in SameMac)
                     {
                         if (s.count > 1)
                         {
                             var itemtoRemove = Machines.Where(x => x.MacAddress == s.Mac);
-                            foreach(var t in itemtoRemove)
+                            foreach (var t in itemtoRemove)
                             {
                                 var sock = t.workSocket;
-                                
+
                                 sock.Shutdown(SocketShutdown.Both);
                                 Machines.Remove(t);
                                 File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                    DateTime.Now.ToLongTimeString() + 
+                                    DateTime.Now.ToLongTimeString() +
                                     "Removed machine because of same mac address : " + s.Mac);
                             }
                         }
@@ -133,8 +133,8 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString()+" "+
-                    DateTime.Now.ToLongTimeString() +" Error in Checkmachine : " + ex.StackTrace+ " Error Message "+
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                    DateTime.Now.ToLongTimeString() + " Error in Checkmachine : " + ex.StackTrace + " Error Message " +
                     ex.Message);
                 Console.WriteLine(ex.Message);
             }
@@ -317,7 +317,7 @@ namespace TcpServerListener
         }
 
         public static void StartListening()
-        {          
+        {
             ConnectToHub();
             StartTimer();
             // Establish the local endpoint for the socket.  
@@ -344,10 +344,10 @@ namespace TcpServerListener
                     allDone.WaitOne();
                 }
             }
-            
+
             catch (Exception e)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ".............Error in TCP Listerner start : " + e.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ".............Error in TCP Listerner start : " + e.StackTrace);
                 Console.WriteLine(e.ToString());
             }
             Console.WriteLine("\nPress ENTER to continue...");
@@ -362,11 +362,11 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in is client conencted : " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in is client conencted : " + ex.StackTrace);
                 Console.WriteLine("CLient Connection lost with exception message   " + ex.Message);
             }
             return status;
-        }       
+        }
 
         public static void AcceptCallback(IAsyncResult ar)
         {
@@ -385,24 +385,24 @@ namespace TcpServerListener
                 // Create the state object.  
                 StateObject state = new StateObject();
                 state.buffer = new byte[StateObject.BufferSize];
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ip +" connected");
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ip + " connected");
                 Console.WriteLine(" Total Connected Machine client : " + connectedClient);
                 state.workSocket = handler;
                 if (!Machines.Contains(state))
                 {
                     Machines.Add(state);
                 }
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Added new machine in AcceptCallBack: ");
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Added new machine in AcceptCallBack: ");
                 handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
                 Instructions inst = new Instructions();
                 var insdata = inst.GetValues("MacAddress");
                 Send(handler, insdata);
             }
-            
+
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in AcceptCallBack: " + ex.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in AcceptCallBack: " + ex.StackTrace);
                 Console.WriteLine(ex.Message);
             }
         }
@@ -466,7 +466,7 @@ namespace TcpServerListener
                 }
                 try
                 {
-                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + 
+                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
                        DateTime.Now.ToLongTimeString() + "Socket error in ReadCallBack: " + se.StackTrace);
                 }
                 catch (Exception ex)
@@ -486,16 +486,16 @@ namespace TcpServerListener
             Dictionary<string, object> final = new Dictionary<string, object>();
             var mac = "";
             try
-            {                
+            {
                 string[] status;
-                
+
                 for (int j = 0; j < length;)
                 {
                     if (receiveBytes[j] == Convert.ToByte(0x8B) && receiveBytes[j + 1] == Convert.ToByte(0xB9))
                     {
-                        int len = 4+ (256 * receiveBytes[j + 2]) + receiveBytes[j + 3];
+                        int len = 4 + (256 * receiveBytes[j + 2]) + receiveBytes[j + 3];
                         byte[] datatoDecode = receiveBytes.Skip(j).Take(len).ToArray();
-                        
+
                         status = new string[7];
 
                         status[0] = mac;
@@ -505,11 +505,11 @@ namespace TcpServerListener
                         }
                         //}
                         re = dd.Decoded("", datatoDecode, status);
-                         
-                            Console.WriteLine("------------------" + DateTime.Now.ToLongDateString() + " " +
-                                   DateTime.Now.ToLongTimeString() + "bytes Received from: " + mac +
-                                   " message: " + HexEncoding.ToStringfromHex(datatoDecode));
-                            Console.WriteLine();                        
+
+                        Console.WriteLine("------------------" + DateTime.Now.ToLongDateString() + " " +
+                               DateTime.Now.ToLongTimeString() + "bytes Received from: " + mac +
+                               " message: " + HexEncoding.ToStringfromHex(datatoDecode));
+                        Console.WriteLine();
                         // dd = null;
                         if (re.Count == 2)
                         {
@@ -526,12 +526,10 @@ namespace TcpServerListener
                                         MachineListobj.MacAddress = temp["MacAddress"];
                                     }
                                 }
-                                
                             }
                             mac = Machines.Where(x => x.workSocket == sock).Select(x => x.MacAddress).FirstOrDefault();
                             if (mac != "" && mac != null)
                             {
-                               
                                 lock (ClientWaitList)
                                 {
                                     if (!ClientWaitList.ContainsKey(mac))
@@ -542,29 +540,31 @@ namespace TcpServerListener
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
                                 if (final["Type"].ToString() == "Strategy")
-                                {                                   
+                                {
                                     StrategyLogs strategyLogs = new StrategyLogs();
-                                    strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac, 
-                                        Convert.ToInt32(final["StrategyId"]),final["InstructionStatus"].ToString());  
-                                    
+                                    strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac,
+                                    Convert.ToInt32(final["StrategyId"]), final["InstructionStatus"].ToString());
                                 }
                                 else if (final["Type"].ToString() == "CardRegister")
                                 {
-                                    var temp1 = final["Data"] as Dictionary<string, string>;
-                                    var macobj1 = new GetMacAddress();
-                                    macobj1.UpdateStatCardReg("Registered", mac, temp1["CardValue"].ToString());
-
+                                    
+                                        var temp1 = final["Data"] as Dictionary<string, string>;
+                                        var macobj1 = new GetMacAddress();
+                                        var cardvalues = temp1.Where(x => x.Key.Contains("CardValue")).Select(x=>x.Value);
+                                        foreach(var s in cardvalues)
+                                        macobj1.UpdateStatCardReg("Registered", mac, s);
+                                       
                                 }
-                            } 
+                            }
                             Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
-                                DateTime.Now.ToLongTimeString() + "Decoded version of Message Received from: " + mac +
-                                " message: " + JsonSerializer.Serialize(final));
+                            DateTime.Now.ToLongTimeString() + "Decoded version of Message Received from: " + mac +
+                            " message: " + JsonSerializer.Serialize(final));
                             Console.WriteLine("---------------------------");
                             Console.WriteLine();
                             SendMessage(mac, final);
-                            
                             if (final["Type"].ToString() != "Heartbeat")
                             {
+                                var macobj2 = new GetMacAddress();
                                 //var t = final["Log"].ToString();
                                 var type = final["Type"].ToString();
                                 if (final.ContainsKey("Log") && !string.IsNullOrEmpty(final["Log"].ToString()))
@@ -579,27 +579,39 @@ namespace TcpServerListener
                                     else if (final["Log"].ToString().Contains("ReaderLog"))
                                     {
                                         var temp2 = final["Data"] as Dictionary<string, string>;
-                                        var macobj2 = new GetMacAddress();
+                                        
                                         macobj2.SaveReaderLog(final["Log"].ToString(), mac, temp2["CardValue"]);
+                                    }
+
+                                    var temp3 = final["Data"] as Dictionary<string, string>;
+                                    if(temp3.ContainsKey("ProjectorOnCode") || temp3.ContainsKey("ProjectorOffCode") 
+                                        || temp3.ContainsKey("SetBaudRate"))
+                                    {
+                                        var d = "False";
+                                        if (temp3.ContainsKey("ProjectorOnCode"))
+                                            d = temp3["ProjectorOnCode"];
+                                        else if (temp3.ContainsKey("ProjectorOffCode"))
+                                            d = temp3["ProjectorOffCode"];
+                                        else if (temp3.ContainsKey("SetBaudRate"))
+                                            d = temp3["SetBaudRate"];
+                                        macobj2.UpdateProjectorConfig(mac, d);
                                     }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                                     try
                                     {
-
                                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                    DateTime.Now.ToLongTimeString() + " Message Received from: " + mac +
-                                    " message: " + JsonSerializer.Serialize(final));
+                                        DateTime.Now.ToLongTimeString() + " Message Received from: " + mac +
+                                        " message: " + JsonSerializer.Serialize(final));
                                     }
                                     catch (Exception ex)
                                     {
-
-                                     Console.WriteLine(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                   DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
-                                   " message: " + JsonSerializer.Serialize(final));
+                                        Console.WriteLine(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                                        DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
+                                        " message: " + JsonSerializer.Serialize(final));
                                     }
                                 }
                             }
-                            else if(final["Type"].ToString() == "Heartbeat")
+                            else if (final["Type"].ToString() == "Heartbeat")
                             {
                                 int error = 0;
                                 var fnal = final["Data"] as Dictionary<string, string>;
@@ -626,20 +638,20 @@ namespace TcpServerListener
                                         d.Add("ErrorCode", error);
                                     }
                                 }
-                                else if(fnal["WorkStatus"].ToString() == "Open")
+                                else if (fnal["WorkStatus"].ToString() == "Open")
                                 {
                                     if (fnal["Screen"].ToString() == "Up")
                                     {
                                         error = 3;
                                         d.Add("ErrorCode", error);
                                     }
-                                   
+
                                     else if (fnal["Volume"].ToString() == "0")
                                     {
                                         error = 4;
                                         d.Add("ErrorCode", error);
                                     }
-                                    
+
                                 }
                                 if (error != 0)
                                 {
@@ -647,7 +659,16 @@ namespace TcpServerListener
                                     d.Add("ClassId", classid);
                                     SendMachineExceptionToWebsocket(classid, d);
                                 }
-                                
+                                if (fnal.ContainsKey("Power"))
+                                {
+                                    if (Convert.ToInt32(fnal["Power"]) > 0)
+                                    {
+                                        macobj.SavePowerUsageInfo(Convert.ToInt32(fnal["Power"]), mac, "Power");
+
+                                    }
+
+                                }
+                                //fnal["Power"] = macobj.GetPowerUsageInfo(mac, "Power");
                             }
                         }
                         j = j + datatoDecode.Length;
@@ -663,27 +684,28 @@ namespace TcpServerListener
             catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() +
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
                     " " + DateTime.Now.ToLongTimeString() + " Error in DecodeData from machine : " + ex.StackTrace
-                    +" data decoded: " + JsonSerializer.Serialize(final));
+                    + " data decoded: " + JsonSerializer.Serialize(final));
                 Console.WriteLine(DateTime.Now.ToLongTimeString() + "  " + DateTime.Now.ToLongDateString() + "  exception in Handle message  " + ex.Message + " stack trace " + ex.StackTrace + " "
                  + ex.GetError() + "from mac : " + mac);
                 //string msg = con.State.ToString();
-            }            
+            }
         }
 
         private static void Send(Socket handler, byte[] byteData)
         {
             try
             {
-                Console.WriteLine("machine instruction sent to machine ip : " + ((IPEndPoint)handler.RemoteEndPoint).Address.ToString() );
+                Console.WriteLine("machine instruction sent to machine ip : " + ((IPEndPoint)handler.RemoteEndPoint).Address.ToString());
                 // Begin sending the data to the remote device.  
                 handler.BeginSend(byteData, 0, byteData.Length, 0,
                     new AsyncCallback(SendCallback), handler);
+                Console.WriteLine("instructions send : "+HexEncoding.ToStringfromHex(byteData));
             }
             catch (SocketException socex)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send: " + socex.StackTrace); 
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send: " + socex.StackTrace);
             }
         }
 
@@ -694,14 +716,14 @@ namespace TcpServerListener
                 // Retrieve the socket from the state object.  
                 Socket handler = (Socket)ar.AsyncState;
                 // Complete sending the data to the remote device.  
-                 
+
                 int bytesSent = handler.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-              
+
             }
             catch (Exception e)
             {
-                File.AppendAllText(docPath, Environment.NewLine+ DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
             }
         }
 
@@ -710,31 +732,28 @@ namespace TcpServerListener
             Instructions ins = new Instructions();
             var bytes = ins.GetValues(keyword);
             byte[] data = new byte[9];
-            for(int i=0;i<bytes.Count();i++)
+            for (int i = 0; i < bytes.Count(); i++)
             {
                 data[i] = bytes[i];
             }
-           data[7]= Convert.ToByte(value);
+            data[7] = Convert.ToByte(value);
             var checksum = 0;
             for (int k = 2; k < 9; k++)
             {
                 checksum = checksum + data[k];
             }
-            
+
             data[8] = Convert.ToByte(checksum & 0xff);
             return data;
         }
-        private static byte[] ProjectorConfigInstruction(Dictionary<string,string> data)
+        private static byte[] ProjectorConfigInstruction(Dictionary<string, string> data)
         {
             StringBuilder bytes = new StringBuilder();
             bytes.Append("8bb9001E0303");
             bytes.Append(Convert.ToByte(data["ProjectorOffDelayMinute"]).ToString("X2"));
-
             bytes.Append(Convert.ToByte(data["ScreenAutoDrop"]).ToString("X2"));
-            
             bytes.Append(Convert.ToByte(data["ProjectorAutoOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["ProjectorAutoOff"]).ToString("X2"));
-
             bytes.Append(Convert.ToByte(data["ComputerAutoOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["ComputerAutoOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["ProjectorSwitchAuto"]).ToString("X2"));
@@ -742,26 +761,23 @@ namespace TcpServerListener
             bytes.Append(Convert.ToByte(data["ScreenLinkageOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["VolumeMemoryOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["BuzzerOn"]).ToString("X2"));
-
             bytes.Append(Convert.ToByte(data["IODetectionOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["IODetectionOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["Projector232Signal"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["projector2Infrared"]).ToString("X2"));
-
             bytes.Append(Convert.ToByte(data["SwipeOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["SwipeOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["FingerPrintOn"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["FingerPrintOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["ProjectorOnDelaySecond"]).ToString("X2"));
-
             bytes.Append(Convert.ToByte(data["ComputerLinkageOff"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["HdmiAudio"]).ToString("X2"));
             bytes.Append(Convert.ToByte(data["SystemAlarm"]).ToString("X2"));
-            bytes.Append("00000000"); 
+            bytes.Append("00000000");
 
-            List<byte> b= HexEncoding.GetBytes(bytes.ToString(), out int discard).ToList();
+            List<byte> b = HexEncoding.GetBytes(bytes.ToString(), out int discard).ToList();
             int ch = 0;
-            for(int i = 2; i < b.Count; i++)
+            for (int i = 2; i < b.Count; i++)
             {
                 ch = ch + b[i];
             }
@@ -774,7 +790,7 @@ namespace TcpServerListener
         {
             try
             {
-                con = new HubConnection("http://localhost:53552/");
+                con = new HubConnection("http://localhost/");
                 // con.TraceLevel = TraceLevels.All;
                 // con.TraceWriter = Console.Out;
                 proxy = con.CreateHubProxy("myHub");
@@ -794,9 +810,9 @@ namespace TcpServerListener
                 });
                 proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration", (mac, data) =>
                 {
-                    byte[] inst =ProjectorConfigInstruction(data);
-                    Console.WriteLine("bytes send "+HexEncoding.ToStringfromHex(inst));
-                    foreach(var m in mac)
+                    byte[] inst = ProjectorConfigInstruction(data);
+                    Console.WriteLine("bytes send " + HexEncoding.ToStringfromHex(inst));
+                    foreach (var m in mac)
                     {
                         if (Machines.Any(x => x.MacAddress == m))
                         {
@@ -808,59 +824,202 @@ namespace TcpServerListener
                         }
                     }
                 }
-                
+
                 );
-                proxy.On<string, string,string>("SendControl", (mac, data,value) =>
-                {
-                    List<byte> dd = new List<byte>();
-                    try
+                proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration1", (mac, data) => {                    
+                    var ins = new Instructions();
+                    
+                    if (data.ContainsKey("ProjectorOnCode"))
                     {
+                        var temp = HexEncoding.GetBytes(data["ProjectorOnCode"], out int discard);
+                        var length = Convert.ToByte(temp.Length + 3);
+                        var inslength = temp.Length + 7;
+                        var inss = new byte[inslength];
                         
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                           DateTime.Now.ToLongTimeString() + "---------------------------- from web client :  " +
-                                                 data +
-                                                 "  Instruction to Mac: " + mac + " ----------------------------");
-                        if (data.Contains("Volume"))
+                        var v = "8B B9 00 " + length.ToString("X2").PadLeft(2, '0') + " 03 11 " + data["ProjectorOnCode"];
+                        List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
+                        int ch = 0;
+                        for (int i = 2; i < b.Count; i++)
                         {
-                          dd=  CreateInstruction(data, Convert.ToInt32(value)).ToList();
+                            ch = ch + b[i];
                         }
-                        else
-                        {
-                            Instructions inst = new Instructions();
-                            dd = inst.GetValues(data).ToList();
-                        }
+                        b.Add(Convert.ToByte(ch & 0xff));
+                        var instruction = b.ToArray();
                         
-                        if (Machines.Any(x => x.MacAddress == mac))
+                        
+                        foreach (var m in mac)
                         {
-                            var sock = Machines.Where(x => x.MacAddress == mac).Select(x => x.workSocket).FirstOrDefault();
-                            if (isClientConnected(sock))
+                            if (Machines.Any(x => x.MacAddress == m))
                             {
-                                Console.WriteLine("---------------------------- sent bytes  " +
-                                                 HexEncoding.ToStringfromHex(dd.ToArray()) +
-                                                 "  Instruction to Mac: " + mac + " ----------------------------");
-                                Send(sock, dd.ToArray());
+                                var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                                if (sock != null && isClientConnected(sock))
+                                {
+                                    Send(sock, instruction);
+                                }
                             }
                         }
                     }
+                    if (data.ContainsKey("ProjectorOffCode"))
+                    {
+                        var temp = HexEncoding.GetBytes(data["ProjectorOffCode"], out int discard);
+                        var length = Convert.ToByte(temp.Length + 3);
+                        var inslength = temp.Length + 7;
+                        var inss = new byte[inslength];
+                        
+                        var v = "8B B9 00 "+length.ToString("X2").PadLeft(2, '0') + " 03 12 " + data["ProjectorOffCode"];
+                        List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
+                        int ch = 0;
+                        for (int i = 2; i < b.Count; i++)
+                        {
+                            ch = ch + b[i];
+                        }
+                        b.Add(Convert.ToByte(ch & 0xff));
+                        var instruction = b.ToArray();
+
+                        foreach (var m in mac)
+                        {
+                            if (Machines.Any(x => x.MacAddress == m))
+                            {
+                                var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                                if (sock != null && isClientConnected(sock))
+                                {
+                                    Send(sock, instruction);
+                                }
+                            }
+                        }
+                    }
+
+                    byte[] b1 = HexEncoding.GetBytes("8B B9 00 04 03 13 00 1A", out int discard1);
+                    foreach (var m in mac)
+                    {
+                        if (Machines.Any(x => x.MacAddress == m))
+                        {
+                            var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                            if (sock != null && isClientConnected(sock))
+                            {
+                                Send(sock, b1);
+                            }
+                        }
+                    }
+                    var b2 = HexEncoding.GetBytes("8B B9 00 04 03 14 00 1B", out int discard2);
+                    foreach (var m in mac)
+                    {
+                        if (Machines.Any(x => x.MacAddress == m))
+                        {
+                            var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                            if (sock != null && isClientConnected(sock))
+                            {
+                                Send(sock, b2);
+                            }
+                        }
+                    }
+                    var b3 = HexEncoding.GetBytes("8B B9 00 04 03 15 00 1C", out int discard3);
+                    foreach (var m in mac)
+                    {
+                        if (Machines.Any(x => x.MacAddress == m))
+                        {
+                            var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                            if (sock != null && isClientConnected(sock))
+                            {
+                                Send(sock, b3);
+                            }
+                        }
+                    }
+                    var b4 = HexEncoding.GetBytes("8B B9 00 04 03 16 00 1D", out int discard4);
+                    foreach (var m in mac)
+                    {
+                        if (Machines.Any(x => x.MacAddress == m))
+                        {
+                            var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                            if (sock != null && isClientConnected(sock))
+                            {
+                                Send(sock, b4);
+                            }
+                        }
+                    }
+                    if (data.ContainsKey("BaudRate"))
+                    {
+                        string parity = "";
+                        string baud = ins.GetBaud(Convert.ToInt32(data["BaudRate"]));
+                        if (data.ContainsKey("Parity"))
+                        {
+                            parity = data["Parity"];
+                        }
+                        var tempstring = "8B B9 00 05 03 17 " + baud + " " + parity.PadLeft(2, '0');
+                        List<byte> b = HexEncoding.GetBytes(tempstring, out int discard).ToList();
+                        int ch = 0;
+                        for (int i = 2; i < b.Count; i++)
+                        {
+                            ch = ch + b[i];
+                        }
+                        b.Add(Convert.ToByte(ch & 0xff));
+                        var instruction = b.ToArray();
+
+                        foreach (var m in mac)
+                        {
+                            if (Machines.Any(x => x.MacAddress == m))
+                            {
+                                var sock = Machines.Where(x => x.MacAddress == m).Select(x => x.workSocket).FirstOrDefault();
+                                if (sock != null && isClientConnected(sock))
+                                {
+                                    Send(sock, instruction);
+                                }
+                            }
+                        }
+
+                    }
+                });
+                proxy.On<string, string, string>("SendControl", (mac, data, value) =>
+                 {
+                     List<byte> dd = new List<byte>();
+                     try
+                     {
+
+                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                            DateTime.Now.ToLongTimeString() + "---------------------------- from web client :  " +
+                                                  data +
+                                                  "  Instruction to Mac: " + mac + " ----------------------------");
+                         if (data.Contains("Volume"))
+                         {
+                             dd = CreateInstruction(data, Convert.ToInt32(value)).ToList();
+                         }
+                         else
+                         {
+                             Instructions inst = new Instructions();
+                             dd = inst.GetValues(data).ToList();
+                         }
+
+                         if (Machines.Any(x => x.MacAddress == mac))
+                         {
+                             var sock = Machines.Where(x => x.MacAddress == mac).Select(x => x.workSocket).FirstOrDefault();
+                             if (isClientConnected(sock))
+                             {
+                                 Console.WriteLine("---------------------------- sent bytes  " +
+                                                  HexEncoding.ToStringfromHex(dd.ToArray()) +
+                                                  "  Instruction to Mac: " + mac + " ----------------------------");
+                                 Send(sock, dd.ToArray());
+                             }
+                         }
+                     }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
                     catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + 
-                            DateTime.Now.ToLongTimeString() + "Error in SendControl to Machine : " + 
-                            ex.StackTrace+ " data from website "+data+" to mac: "+mac);
+                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                             DateTime.Now.ToLongTimeString() + "Error in SendControl to Machine : " +
+                             ex.StackTrace + " data from website " + data + " to mac: " + mac);
                         // Console.WriteLine(ex.Message);
                     }
-                });
-                proxy.On<List<string>, string>("RegisterCard", (macaddress, card) =>                
+                 });
+                proxy.On<List<string>, string>("RegisterCard", (macaddress, card) =>
                 {
-                    var temp =HexEncoding.GetBytes(card, out int discard);
-                    
+                    var temp = HexEncoding.GetBytes(card, out int discard);
+
                     var length = Convert.ToByte(temp.Length + 3);
                     var inslength = temp.Length + 7;
                     var inss = new byte[inslength];
-                    var checksum = length + 01 + 01 ;
-                    string v = "8B B9 00 " + length.ToString().PadLeft(2,'0') + " 01 01 ";
+                    var checksum = length + 01 + 01;
+                    string v = "8B B9 00 " + length.ToString("x2").PadLeft(2, '0') + " 01 01 ";
                     foreach (var s in temp)
                     {
                         checksum += s;
@@ -875,24 +1034,81 @@ namespace TcpServerListener
                             inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                     }
                     //var ins = HexEncoding.GetBytes(v,out int d);
-                    
+
                     foreach (var mac in macaddress)
                     {
-                        foreach(var s in Machines)
+                        foreach (var s in Machines)
                         {
                             if (s.MacAddress == mac)
                             {
                                 Send(s.workSocket, inss);
                                 break;
-                            }                               
+                            }
                         }
                     }
 
+                });
+
+                proxy.On<List<string>,List<string>>("RegisterMultipleCard", (macaddress, cardids) =>
+                {
+                    //for (int a = 0; a <= cardids.Count;)
+                    //{
+                        var cardbytes = new List<byte>();
+                        string bytestoencode = "";
+                        for (int c = 0; c < cardids.Count; c++)
+                        {
+                            if (c < cardids.Count)
+                            {
+                                bytestoencode += cardids[c];
+                            }
+                            else break;
+                        }
+                        var temp = HexEncoding.GetBytes(bytestoencode, out int dis);
+                        cardbytes.AddRange(temp);
+                        var length = cardbytes.Count + 3;
+                        var inslength = cardbytes.Count + 7;
+                        var inss = new byte[inslength];
+                        var checksum = length + 01 + 01;
+                        string v = "8B B9 00 " + length.ToString("X").PadLeft(2, '0') + " 01 01 ";
+                        foreach (var s in cardbytes)
+                        {
+                            checksum += s;
+                            v += s.ToString("X2") + " ";
+                        }
+                        v += Convert.ToByte(checksum & 0xff).ToString("X2");
+                        var b = v.Split(' ');
+                        try
+                        {
+                            for (int i = 0; i < inss.Length; i++)
+                            {
+                                inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
+                            }
+                            foreach (var mac in macaddress)
+                            {
+                                foreach (var s in Machines)
+                                {
+                                    if (s.MacAddress == mac)
+                                    {
+                                        //Console.WriteLine("bytes sending: " + HexEncoding.ToStringfromHex(inss));
+                                        Send(s.workSocket, inss);
+                                        break;
+                                    }
+                                }
+                            }
+                            Thread.Sleep(100);//wait for machine's response before sending more instructions
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        //a = a + 5;
+                   // }
+                    
                 });
                 proxy.On<string>("RefreshStatus", (d) =>
                 {
@@ -900,7 +1116,7 @@ namespace TcpServerListener
                     byte[] b = inst.GetValues("Status");
                     try
                     {
-                        foreach(var m in Machines)
+                        foreach (var m in Machines)
                         {
                             try
                             {
@@ -919,7 +1135,7 @@ namespace TcpServerListener
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                            DateTime.Now.ToLongTimeString() + "Error2 in Sending Status to Machine : " );
+                            DateTime.Now.ToLongTimeString() + "Error2 in Sending Status to Machine : ");
                     }
                 });
                 proxy.On<int>("CountsMachines", i =>
@@ -971,7 +1187,7 @@ namespace TcpServerListener
         public static void SendMessage(string sender, Dictionary<string, object> message)
         {
             Dictionary<string, object> message1 = new Dictionary<string, object>();
-            var d= JsonSerializer.Serialize(message);
+            var d = JsonSerializer.Serialize(message);
             //message1.Add("test", "success");
             try
             {
@@ -983,7 +1199,7 @@ namespace TcpServerListener
                 }
                 proxy.Invoke("SendMessage", sender, d);
                 //Console.WriteLine("Sent to signalR server by" + sender);
-                
+
             }
             catch (Exception ex)
             {
@@ -995,7 +1211,7 @@ namespace TcpServerListener
         }
         public static void SendDesktopEventToWebsocket(string sender, Dictionary<string, string> message)
         {
-           
+
             var d = JsonSerializer.Serialize(message);
             //message1.Add("test", "success");
             try
@@ -1070,9 +1286,11 @@ namespace TcpServerListener
         }
         public static void SendCounts()
         {
-            proxy.Invoke("CountMachines", Machines.Count);
+            GetMacAddress getMac = new GetMacAddress();
+            int count= getMac.MachineCount( Machines.Select(x => x.MacAddress).ToList());
+            proxy.Invoke("CountMachines", count);
         }
         #endregion
-      
-    } 
+
+    }
 }

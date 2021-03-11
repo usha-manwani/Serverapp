@@ -38,5 +38,7 @@ namespace DBHelper
         public virtual DbSet<temp_desktopevents> temp_desktopevents { get; set; }
         public virtual DbSet<card_registration> card_registration { get; set; }
         public virtual DbSet<cardlog> cardlogs { get; set; }
+        public virtual DbSet<machineusagelogs_minute> machineusagelogs_minute { get; set; }
+        public virtual DbSet<projectorconfiginfo> projectorconfiginfoes { get; set; }
     }
 }

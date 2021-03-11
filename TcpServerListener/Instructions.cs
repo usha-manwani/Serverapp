@@ -8,8 +8,9 @@ namespace TcpServerListener
 {
     public class Instructions
     {
-        Dictionary<string, byte[]> Instruction = new Dictionary<string, byte[]>();
-        Dictionary<string, string> projectorConfig = new Dictionary<string, string>();
+        readonly Dictionary<string, byte[]> Instruction = new Dictionary<string, byte[]>();
+        readonly Dictionary<string, string> projectorConfig = new Dictionary<string, string>();
+        readonly Dictionary<int, string> BaudRateHex = new Dictionary<int, string>();
         public Instructions()
         {
             #region Instruction For Web Platform
@@ -244,11 +245,28 @@ namespace TcpServerListener
             //Instruction.Add("Ac4OnStrategy", new byte[] { });
             //Instruction.Add("Ac4OffStrategy", new byte[] { });
             #endregion
+
+            #region BaurRate
+            BaudRateHex.Add(4800, "00");
+            BaudRateHex.Add(9600, "01");
+            BaudRateHex.Add(19200, "02");
+            BaudRateHex.Add(38400, "03");
+            BaudRateHex.Add(57600, "04");
+            BaudRateHex.Add(76800, "05");
+            BaudRateHex.Add(115200, "06");
+            BaudRateHex.Add(1200, "07");
+            BaudRateHex.Add(2400, "08");
+            #endregion
         }
 
         public byte[] GetValues(string key)
         {
             return Instruction[key];
+        }
+
+        public string GetBaud(int key)
+        {
+            return BaudRateHex[key];
         }
     }
 }

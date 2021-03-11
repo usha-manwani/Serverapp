@@ -90,19 +90,22 @@ namespace DBHelper
         public int UpdateStatCardReg(string stat, string mac,string cid)
         {
             int result = 0;
-           
+            
             using(var context = new organisationdatabaseEntities())
             {
                 var classid = context.classdetails.Where(x => x.ccmac == mac).Select(x => x.classID).FirstOrDefault();
                 if(context.card_registration.Any(x=>x.calssId==classid && x.OneCardId == cid))
                 {
-                   var row= context.card_registration.Where(x => x.calssId == classid && x.OneCardId == cid)
+                    
+                    var row= context.card_registration.Where(x => x.calssId == classid && x.OneCardId == cid)
                         .Select(x => x).FirstOrDefault();
                     if (row != null)
                         row.Status = stat;
                    result= context.SaveChanges();
                 }
+               
             }
+           
             return result;
         }
 
@@ -130,6 +133,102 @@ namespace DBHelper
 
             }
             return result;
+        }
+        
+        public int SavePowerUsageInfo(int pow, string mac,string typ)
+        {
+            int r = 0;
+            try
+            {
+                using (var context = new organisationdatabaseEntities())
+                {
+                    var cid = context.classdetails.Where(x => x.ccmac == mac)
+                        .Select(x => x.classID).FirstOrDefault();
+                    if (cid > 0)
+                    {
+                        machineusagelogs_minute m = new machineusagelogs_minute()
+                        {
+                            classid = cid,
+                            value = pow,
+                            attribute=typ,
+                            recordtime = DateTime.Now
+                        };
+                        context.machineusagelogs_minute.Add(m);
+                        r = context.SaveChanges();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return r;
+        }
+        public string GetPowerUsageInfo(string mac, string typ)
+        {
+            int r = 0;
+            var data = "";
+            try
+            {
+                using (var context = new organisationdatabaseEntities())
+                {
+                    var cid = context.classdetails.Where(x => x.ccmac == mac)
+                        .Select(x => x.classID).FirstOrDefault();
+                    if (cid > 0)
+                    {
+                       data=  context.Database.ExecuteSqlCommand("SELECT sum(value) as " +
+                           "value from organisationdatabase.machineusagelogs_minute WHERE " +
+                            "date(recordtime)= date(now())  and attribute = 'Power'" +
+                            " and classid ="+ cid).ToString();
+                       
+                        r = context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return data;
+        }
+
+        public int MachineCount(List<string> machinemac)
+        {
+            int r = 0;
+            var data = "";
+            try
+            {
+                using (var context = new organisationdatabaseEntities())
+                {
+                    r = context.classdetails.Where(x => machinemac.Contains(x.ccmac)).Count();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return r;
+        }
+
+        public int UpdateProjectorConfig(string mac, string val)
+        {
+            int r = 0; string stat = "";
+            if (val == "True")
+            {
+                stat = "Registered";
+            }
+            else stat = "Pending";
+            using(var context = new organisationdatabaseEntities())
+            {
+                var classid = context.classdetails.Where(x => x.ccmac == mac).Select(x => x.classID).FirstOrDefault();
+                var d = context.projectorconfiginfoes.Where(x => x.Classid == classid).Select(x => x).FirstOrDefault();
+                if (d != null)
+                {
+                    d.status = stat;
+                }
+                r=context.SaveChanges();
+            }
+            return r;
         }
     }
 }

@@ -70,18 +70,29 @@ namespace TcpServerListener
                             switch (data[5])
                             {
                                 case 1:
-                                    statdata.Add("Type", "CardRegisterOnMachine");
+                                    statdata.Add("Type", "CardRegister");
 
                                     MessageArray[1] = "registered";
                                     MessageArray[2] = data[7].ToString();
                                     byte[] cardbytes = new byte[4];
-                                    for (int i = 7; i <= 10; i++)
+                                    int count = 0;
+                                    for(int k=7; k< data.Length - 1;)
                                     {
-                                        cardbytes[i - 7] = data[i];
-                                        //MessageArray[2] = MessageArray[2] +" "+ data[i];
+                                        count += 1;
+                                        cardbytes[0] = data[k];
+                                        cardbytes[1] = data[k + 1];
+                                        cardbytes[2] = data[k + 2];
+                                        cardbytes[3] = data[k + 3];
+                                        objdata.Add("CardValue" + count, HexEncoding.ToStringfromHEx(cardbytes));
+                                        k += 4;
                                     }
-                                    objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes));
-                                    statdata.Add("Log", "CardRegisterOnMachine");
+                                    //for (int i = 7; i <= 10; i++)
+                                    //{
+                                    //    cardbytes[i - 7] = data[i];
+                                    //    //MessageArray[2] = MessageArray[2] +" "+ data[i];
+                                    //}
+                                    //objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes));
+                                    statdata.Add("Log", "CardRegister");
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes);
 
                                     break;
@@ -796,7 +807,130 @@ namespace TcpServerListener
                                 break;
                             case 7:
                                 break;
+                            case 17:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjectorOnCode", "True");
+                                    statdata.Add("Data", objdata);
 
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjectorOnCode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+                                
+                                break;
+                            case 18:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjectorOffCode", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjectorOffCode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+                                break;
+                            case 19:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjComCode", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjComCode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+                                
+                                break;
+                            case 20:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjVideoCode", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjVideoCode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+
+                                break;
+                            case 21:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjHDMICode", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjHDMICode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+
+                                break;
+                            case 22:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("ProjSleepCode", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("ProjSleepCode", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+
+                                break;
+                            case 23:
+                                statdata.Add("Type", "SetConfig");
+                                statdata.Add("Log", "SetProjectorConfig");
+                                if (data[6] == Convert.ToByte(0xc4))
+                                {
+                                    statdata.Add("InstructionStatus", "Success");
+                                    objdata.Add("SetBaudRate", "True");
+                                    statdata.Add("Data", objdata);
+
+                                }
+                                else
+                                {
+                                    objdata.Add("SetBaudRate", "False");
+                                    statdata.Add("Data", objdata);
+                                    statdata.Add("InstructionStatus", "Fail");
+                                }
+                                break;
                             default:
                                 break;
                         }
