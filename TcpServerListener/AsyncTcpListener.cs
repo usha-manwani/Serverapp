@@ -545,15 +545,17 @@ namespace TcpServerListener
                                     strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac,
                                     Convert.ToInt32(final["StrategyId"]), final["InstructionStatus"].ToString());
                                 }
-                                else if (final["Type"].ToString() == "CardRegister")
+                                else if (final["Type"].ToString() == "CardRegister" && final["InstructionStatus"].ToString()=="Success")
                                 {
                                     
                                         var temp1 = final["Data"] as Dictionary<string, string>;
                                         var macobj1 = new GetMacAddress();
                                         var cardvalues = temp1.Where(x => x.Key.Contains("CardValue")).Select(x=>x.Value);
                                         foreach(var s in cardvalues)
+                                    {
                                         macobj1.UpdateStatCardReg("Registered", mac, s);
-                                       
+                                    }
+                                                                       
                                 }
                             }
                             Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
@@ -569,18 +571,18 @@ namespace TcpServerListener
                                 var type = final["Type"].ToString();
                                 if (final.ContainsKey("Log") && !string.IsNullOrEmpty(final["Log"].ToString()))
                                 {
-                                    StrategyLogs st = new StrategyLogs();
+                                    StrategyLogs st = new StrategyLogs();                                    
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                                     st.SaveMachineLogs(type, final["Log"].ToString(), mac);
                                     if (final["Log"].ToString() == "SystemOn" || final["Log"].ToString() == "SystemOff")
                                     {
                                         st.UpdateMachineStatus(mac, final["Log"].ToString());
                                     }
-                                    else if (final["Log"].ToString().Contains("ReaderLog"))
+                                    else if (final["Type"].ToString().Contains("ReaderLog"))
                                     {
                                         var temp2 = final["Data"] as Dictionary<string, string>;
                                         
-                                        macobj2.SaveReaderLog(final["Log"].ToString(), mac, temp2["CardValue"]);
+                                        macobj2.SaveReaderLog(final["Type"].ToString(), mac, temp2["CardValue"]);
                                     }
 
                                     var temp3 = final["Data"] as Dictionary<string, string>;
@@ -716,14 +718,13 @@ namespace TcpServerListener
                 // Retrieve the socket from the state object.  
                 Socket handler = (Socket)ar.AsyncState;
                 // Complete sending the data to the remote device.  
-
                 int bytesSent = handler.EndSend(ar);
                 Console.WriteLine("Sent {0} bytes to client.", bytesSent);
-
             }
             catch (Exception e)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
+                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() 
+                    + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
             }
         }
 
@@ -835,8 +836,10 @@ namespace TcpServerListener
                         var length = Convert.ToByte(temp.Length + 3);
                         var inslength = temp.Length + 7;
                         var inss = new byte[inslength];
-                        
-                        var v = "8B B9 00 " + length.ToString("X2").PadLeft(2, '0') + " 03 11 " + data["ProjectorOnCode"];
+                        var templen = length.ToString("X").PadLeft(4, '0');
+                        var l1 = templen.Substring(0, 2);
+                        var l2 = templen.Substring(2, 2);
+                        var v = "8B B9 00 " + l1+" "+l2 + " 03 11 " + data["ProjectorOnCode"];
                         List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
                         int ch = 0;
                         for (int i = 2; i < b.Count; i++)
@@ -865,8 +868,10 @@ namespace TcpServerListener
                         var length = Convert.ToByte(temp.Length + 3);
                         var inslength = temp.Length + 7;
                         var inss = new byte[inslength];
-                        
-                        var v = "8B B9 00 "+length.ToString("X2").PadLeft(2, '0') + " 03 12 " + data["ProjectorOffCode"];
+                        var templen = length.ToString("X").PadLeft(4, '0');
+                        var l1 = templen.Substring(0, 2);
+                        var l2 = templen.Substring(2, 2);
+                        var v = "8B B9 00 "+ l1 + " " + l2 + " 03 12 " + data["ProjectorOffCode"];
                         List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
                         int ch = 0;
                         for (int i = 2; i < b.Count; i++)
@@ -1013,7 +1018,7 @@ namespace TcpServerListener
                  });
                 proxy.On<List<string>, string>("RegisterCard", (macaddress, card) =>
                 {
-                    var temp = HexEncoding.GetBytes(card, out int discard);
+                    var temp = HexEncoding.GetBytesReverse(card, out int discard);
 
                     var length = Convert.ToByte(temp.Length + 3);
                     var inslength = temp.Length + 7;
@@ -1046,6 +1051,7 @@ namespace TcpServerListener
                         {
                             if (s.MacAddress == mac)
                             {
+                                Console.WriteLine("instruc: " + HexEncoding.ToStringfromHex(inss));
                                 Send(s.workSocket, inss);
                                 break;
                             }
@@ -1054,62 +1060,77 @@ namespace TcpServerListener
 
                 });
 
-                proxy.On<List<string>,List<string>>("RegisterMultipleCard", (macaddress, cardids) =>
-                {
-                    //for (int a = 0; a <= cardids.Count;)
-                    //{
-                        var cardbytes = new List<byte>();
-                        string bytestoencode = "";
-                        for (int c = 0; c < cardids.Count; c++)
-                        {
-                            if (c < cardids.Count)
-                            {
-                                bytestoencode += cardids[c];
-                            }
-                            else break;
-                        }
-                        var temp = HexEncoding.GetBytes(bytestoencode, out int dis);
-                        cardbytes.AddRange(temp);
-                        var length = cardbytes.Count + 3;
-                        var inslength = cardbytes.Count + 7;
-                        var inss = new byte[inslength];
-                        var checksum = length + 01 + 01;
-                        string v = "8B B9 00 " + length.ToString("X").PadLeft(2, '0') + " 01 01 ";
-                        foreach (var s in cardbytes)
-                        {
-                            checksum += s;
-                            v += s.ToString("X2") + " ";
-                        }
-                        v += Convert.ToByte(checksum & 0xff).ToString("X2");
-                        var b = v.Split(' ');
-                        try
-                        {
-                            for (int i = 0; i < inss.Length; i++)
-                            {
-                                inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
-                            }
-                            foreach (var mac in macaddress)
-                            {
-                                foreach (var s in Machines)
-                                {
-                                    if (s.MacAddress == mac)
-                                    {
-                                        //Console.WriteLine("bytes sending: " + HexEncoding.ToStringfromHex(inss));
-                                        Send(s.workSocket, inss);
-                                        break;
-                                    }
-                                }
-                            }
-                            Thread.Sleep(100);//wait for machine's response before sending more instructions
-                        }
-                        catch (Exception ex)
-                        {
+                proxy.On<List<string>, List<string>>("RegisterMultipleCard", (macaddress, cardids) =>
+                 {
+                     //for (int a = 0; a <= cardids.Count;)
+                     //{
+                     var cardbytes = new List<byte>();
+                     string bytestoencode = "";
+                     for (int c = 0; c < cardids.Count; c++)
+                     {
+                         if (c < cardids.Count)
+                         {
+                             bytestoencode += cardids[c];
+                         }
+                         else break;
+                     }
+                     var temp = HexEncoding.GetBytesReverse(bytestoencode, out int dis);
+                     cardbytes.AddRange(temp);
+                     var length = cardbytes.Count + 3;
+                     var inslength = cardbytes.Count + 7;
+                     var inss = new byte[inslength];
+                     //var checksum = length + 01 + 01;
+                     var templen = length.ToString("X").PadLeft(4, '0');
+                     var l1 = templen.Substring(0, 2);
+                     var l2 = templen.Substring(2, 2);
+                     int checksum = 0;
+                     // var checksum = byte.Parse(l1, System.Globalization.NumberStyles.HexNumber) +
+                     //byte.Parse(l2, System.Globalization.NumberStyles.HexNumber) + 01 + 01;
+                     string v = "8B B9 " + l1 + " " + l2 + " 01 01 ";
+                     cardbytes.ForEach(s => v += s.ToString("X2") + " ");
+                     //foreach (var s in cardbytes)
+                     //{
+                     //    checksum += s;
+                     //    v += s.ToString("X2") + " ";
+                     //}
+                     //v += Convert.ToByte(checksum & 0xff).ToString("X2");
+                     var b = v.Split(' ');
+                     try
+                     {
+                         for (int i = 0; i < inss.Length-1; i++)
+                         {
+                             inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
+                             if (i > 1)
+                                 checksum += inss[i];
+                         }
+                         //for(int j = 2; j < inss.Length; j++)
+                         // {
+                         //     checksum += j;
+                         // }
+                         var btcheck = Convert.ToByte(checksum & 0xff);
+                         inss[inss.Length - 1] = Convert.ToByte(checksum & 0xff);
+                         foreach (var mac in macaddress)
+                         {
+                             foreach (var s in Machines)
+                             {
+                                 if (s.MacAddress == mac)
+                                 {
+                                     Console.WriteLine("instruc: " + HexEncoding.ToStringfromHex(inss));
+                                     //Console.WriteLine("bytes sending: " + HexEncoding.ToStringfromHex(inss));
+                                     Send(s.workSocket, inss);
+                                     break;
+                                 }
+                             }
+                         }
+                         Thread.Sleep(100);//wait for machine's response before sending more instructions
+                     }
+                     catch (Exception ex)
+                     {
 
-                        }
-                        //a = a + 5;
-                   // }
-                    
-                });
+                     }
+                     //a = a + 5;
+                     // }
+                 });
                 proxy.On<string>("RefreshStatus", (d) =>
                 {
                     Instructions inst = new Instructions();

@@ -14,6 +14,7 @@ namespace DBHelper
     public class Strategy
     {
         protected string constr = ConfigurationManager.ConnectionStrings["SchoolConnectionString"].ConnectionString;
+
         public DataTable ExecuteCmd(string query)
         {
             DataTable dt = new DataTable();
@@ -270,7 +271,7 @@ namespace DBHelper
     {
         public int StrategyDescId { get; set; }
         public int EquipmentId { get; set; }
-        public string EquipmentName { get; set; }
+             public string EquipmentName { get; set; }
         public dynamic ServiceConfig { get; set; }
         public string StrategyTimeFrame1 { get; set; }
         public string StrategyTime { get; set; }

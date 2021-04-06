@@ -7,7 +7,7 @@
       <Diagram DiagramId="ee588d4e93f843dfb12cffd43609e0b6" Name="Diagram1">
         <EntityTypeShape EntityType="organisationdatabaseModel.alarmmonitorlog" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.buildingdetail" Width="1.5" PointX="1" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.cameramonitorinfo" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.cameramonitorinfo" Width="1.5" PointX="1.125" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.classdetail" Width="1.5" PointX="3" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.machineoperationlog" Width="1.5" PointX="6.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="organisationdatabaseModel.strategydescription" Width="1.5" PointX="8.875" PointY="0.5" IsExpanded="true" />
@@ -23,12 +23,13 @@
         <AssociationConnector Association="organisationdatabaseModel.fk_InslogStrategyDescId" ManuallyRouted="false" />
         <EntityTypeShape EntityType="organisationdatabaseModel.temp_desktopevents" Width="1.5" PointX="5" PointY="4.625" />
         <AssociationConnector Association="organisationdatabaseModel.fk_deskeventclassid" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.card_registration" Width="1.5" PointX="0.875" PointY="3.125" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.cardlog" Width="1.5" PointX="4.375" PointY="7.25" />
         <EntityTypeShape EntityType="organisationdatabaseModel.machineusagelogs_minute" Width="1.5" PointX="6.875" PointY="7.625" />
         <AssociationConnector Association="organisationdatabaseModel.fk_machineusageClassid" />
-        <EntityTypeShape EntityType="organisationdatabaseModel.projectorconfiginfo" Width="1.5" PointX="1.125" PointY="8" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.projectorconfiginfo" Width="1.5" PointX="1.75" PointY="8" />
         <AssociationConnector Association="organisationdatabaseModel.fk_projectorclass" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.card_registration" Width="1.5" PointX="1" PointY="3" />
+        <AssociationConnector Association="organisationdatabaseModel.fkCardClassid" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.cardlog" Width="1.5" PointX="9.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

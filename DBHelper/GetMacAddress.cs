@@ -99,13 +99,17 @@ namespace DBHelper
                     
                     var row= context.card_registration.Where(x => x.calssId == classid && x.OneCardId == cid)
                         .Select(x => x).FirstOrDefault();
+                    
                     if (row != null)
+                    {
+                        Console.WriteLine("status: "+ row.Status);
                         row.Status = stat;
+                        row.UpdateTime = DateTime.Now;
+                    }
                    result= context.SaveChanges();
                 }
-               
-            }
-           
+                Console.WriteLine("UpdatedRows:"+ result);
+            }           
             return result;
         }
 
@@ -116,15 +120,20 @@ namespace DBHelper
             {
                 using (var context = new organisationdatabaseEntities())
                 {
-                    cardlog cardlog = new cardlog()
+                    var classid = context.classdetails.Where(x => x.ccmac == mac).Select(x => x.classID).FirstOrDefault();
+                    if (classid != 0)
                     {
-                        Message = message,
-                        MachineMac = mac,
-                        cardId = cardid,
-                        ActionTime = DateTime.Now
-                    };
-                    context.cardlogs.Add(cardlog);
-                    result = context.SaveChanges();
+                        cardlog cardlog = new cardlog()
+                        {
+                            Message = message,
+                            ClassId = classid,
+                            cardId = cardid,
+                            ActionTime = DateTime.Now
+                        };
+                        context.cardlogs.Add(cardlog);
+                        result = context.SaveChanges();
+                    }
+                    
 
                 }
             }

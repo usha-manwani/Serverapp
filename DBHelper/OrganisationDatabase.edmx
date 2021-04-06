@@ -45,6 +45,7 @@
           <Property Name="calssId" Type="int" Nullable="false" />
           <Property Name="OneCardId" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="UpdateTime" Type="datetime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="cardlogs">
           <Key>
@@ -52,7 +53,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="cardId" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="MachineMac" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ClassId" Type="int" Nullable="false" />
           <Property Name="ActionTime" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="Message" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
@@ -301,6 +302,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fkCardClassid">
+          <End Role="classdetails" Type="Self.classdetails" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="card_registration" Type="Self.card_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetails">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="card_registration">
+              <PropertyRef Name="calssId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="organisationdatabaseModelStoreContainer">
           <EntitySet Name="alarmmonitorlogs" EntityType="Self.alarmmonitorlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
@@ -352,6 +367,10 @@
           <AssociationSet Name="fk_strategyIdRef" Association="Self.fk_strategyIdRef">
             <End Role="strategymanagement" EntitySet="strategymanagement" />
             <End Role="strategydescription" EntitySet="strategydescription" />
+          </AssociationSet>
+          <AssociationSet Name="fkCardClassid" Association="Self.fkCardClassid">
+            <End Role="classdetails" EntitySet="classdetails" />
+            <End Role="card_registration" EntitySet="card_registration" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -421,6 +440,7 @@
           <NavigationProperty Name="temp_desktopevents" Relationship="organisationdatabaseModel.fk_deskeventclassid" FromRole="classdetail" ToRole="temp_desktopevents" />
           <NavigationProperty Name="machineusagelogs_minute" Relationship="organisationdatabaseModel.fk_machineusageClassid" FromRole="classdetail" ToRole="machineusagelogs_minute" />
           <NavigationProperty Name="projectorconfiginfoes" Relationship="organisationdatabaseModel.fk_projectorclass" FromRole="classdetail" ToRole="projectorconfiginfo" />
+          <NavigationProperty Name="card_registration" Relationship="organisationdatabaseModel.fkCardClassid" FromRole="classdetail" ToRole="card_registration" />
         </EntityType>
         <EntityType Name="machineoperationlog">
           <Key>
@@ -613,8 +633,6 @@
             <End Role="classdetail" EntitySet="classdetails" />
             <End Role="temp_desktopevents" EntitySet="temp_desktopevents" />
           </AssociationSet>
-          <EntitySet Name="card_registration" EntityType="organisationdatabaseModel.card_registration" />
-          <EntitySet Name="cardlogs" EntityType="organisationdatabaseModel.cardlog" />
           <EntitySet Name="machineusagelogs_minute" EntityType="organisationdatabaseModel.machineusagelogs_minute" />
           <AssociationSet Name="fk_machineusageClassid" Association="organisationdatabaseModel.fk_machineusageClassid">
             <End Role="classdetail" EntitySet="classdetails" />
@@ -625,6 +643,12 @@
             <End Role="classdetail" EntitySet="classdetails" />
             <End Role="projectorconfiginfo" EntitySet="projectorconfiginfoes" />
           </AssociationSet>
+          <EntitySet Name="card_registration" EntityType="organisationdatabaseModel.card_registration" />
+          <AssociationSet Name="fkCardClassid" Association="organisationdatabaseModel.fkCardClassid">
+            <End Role="classdetail" EntitySet="classdetails" />
+            <End Role="card_registration" EntitySet="card_registration" />
+          </AssociationSet>
+          <EntitySet Name="cardlogs" EntityType="organisationdatabaseModel.cardlog" />
         </EntityContainer>
         <EntityType Name="temp_desktopevents">
           <Key>
@@ -651,26 +675,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="card_registration">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TeacherId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="calssId" Type="Int32" Nullable="false" />
-          <Property Name="OneCardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="cardlog">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="MachineMac" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="machineusagelogs_minute">
           <Key>
             <PropertyRef Name="id" />
@@ -725,6 +729,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="card_registration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="calssId" Type="Int32" Nullable="false" />
+          <Property Name="OneCardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="classdetail" Relationship="organisationdatabaseModel.fkCardClassid" FromRole="card_registration" ToRole="classdetail" />
+        </EntityType>
+        <Association Name="fkCardClassid">
+          <End Type="organisationdatabaseModel.classdetail" Role="classdetail" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="organisationdatabaseModel.card_registration" Role="card_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="classdetail">
+              <PropertyRef Name="classID" />
+            </Principal>
+            <Dependent Role="card_registration">
+              <PropertyRef Name="calssId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="cardlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cardId" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="ActionTime" Type="DateTime" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -868,28 +908,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="card_registration">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.card_registration">
-              <MappingFragment StoreEntitySet="card_registration">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OneCardId" ColumnName="OneCardId" />
-                <ScalarProperty Name="calssId" ColumnName="calssId" />
-                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cardlogs">
-            <EntityTypeMapping TypeName="organisationdatabaseModel.cardlog">
-              <MappingFragment StoreEntitySet="cardlogs">
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
-                <ScalarProperty Name="MachineMac" ColumnName="MachineMac" />
-                <ScalarProperty Name="cardId" ColumnName="cardId" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="machineusagelogs_minute">
             <EntityTypeMapping TypeName="organisationdatabaseModel.machineusagelogs_minute">
               <MappingFragment StoreEntitySet="machineusagelogs_minute">
@@ -913,6 +931,29 @@
                 <ScalarProperty Name="BrandName" ColumnName="BrandName" />
                 <ScalarProperty Name="Classid" ColumnName="Classid" />
                 <ScalarProperty Name="configid" ColumnName="configid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="card_registration">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.card_registration">
+              <MappingFragment StoreEntitySet="card_registration">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OneCardId" ColumnName="OneCardId" />
+                <ScalarProperty Name="calssId" ColumnName="calssId" />
+                <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cardlogs">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.cardlog">
+              <MappingFragment StoreEntitySet="cardlogs">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ActionTime" ColumnName="ActionTime" />
+                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+                <ScalarProperty Name="cardId" ColumnName="cardId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

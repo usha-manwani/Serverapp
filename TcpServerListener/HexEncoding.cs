@@ -67,6 +67,45 @@ namespace TcpServerListener
             }
             return bytes;
         }
+
+        public static byte[] GetBytesReverse(string hexString, out int discarded)
+        {
+            discarded = 0;
+            string newString = "";
+            char c;
+            // remove all none A-F, 0-9, characters
+            for (int i = 0; i < hexString.Length; i++)
+            {
+                c = hexString[i];
+                if (IsHexDigit(c))
+                    newString += c;
+                else
+                    discarded++;
+            }
+            // if odd number of characters, discard last character
+            if (newString.Length % 2 != 0)
+            {
+                discarded++;
+                newString = newString.Substring(0, newString.Length - 1);
+            }
+
+            int byteLength = newString.Length / 2;
+            byte[] bytes = new byte[byteLength];
+            string hex;
+            int j = 0;
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hex = new string(new char[] { newString[j], newString[j + 1] });
+                bytes[i] = HexToByte(hex);
+                j = j + 2;
+            }
+            byte[] bytes1 = new byte[byteLength];
+            for (int i = bytes.Length-1; i >=0 ; i--)
+            {
+                bytes1[bytes.Length - 1 - i] = bytes[i];
+            }
+            return bytes1;
+        }
         public static string ToStringfromHEx(byte[] bytes)
         {
             string hexString = "";

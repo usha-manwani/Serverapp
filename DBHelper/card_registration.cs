@@ -19,5 +19,8 @@ namespace DBHelper
         public int calssId { get; set; }
         public string OneCardId { get; set; }
         public string Status { get; set; }
+        public System.DateTime UpdateTime { get; set; }
+    
+        public virtual classdetail classdetail { get; set; }
     }
 }

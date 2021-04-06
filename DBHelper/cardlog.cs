@@ -16,7 +16,7 @@ namespace DBHelper
     {
         public int id { get; set; }
         public string cardId { get; set; }
-        public string MachineMac { get; set; }
+        public int ClassId { get; set; }
         public System.DateTime ActionTime { get; set; }
         public string Message { get; set; }
     }

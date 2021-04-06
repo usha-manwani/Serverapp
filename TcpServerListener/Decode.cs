@@ -71,7 +71,6 @@ namespace TcpServerListener
                             {
                                 case 1:
                                     statdata.Add("Type", "CardRegister");
-
                                     MessageArray[1] = "registered";
                                     MessageArray[2] = data[7].ToString();
                                     byte[] cardbytes = new byte[4];
@@ -79,10 +78,10 @@ namespace TcpServerListener
                                     for(int k=7; k< data.Length - 1;)
                                     {
                                         count += 1;
-                                        cardbytes[0] = data[k];
-                                        cardbytes[1] = data[k + 1];
-                                        cardbytes[2] = data[k + 2];
-                                        cardbytes[3] = data[k + 3];
+                                        cardbytes[0] = data[k + 3]; 
+                                        cardbytes[1] = data[k + 2]; 
+                                        cardbytes[2] = data[k + 1];
+                                        cardbytes[3] = data[k];
                                         objdata.Add("CardValue" + count, HexEncoding.ToStringfromHEx(cardbytes));
                                         k += 4;
                                     }
@@ -106,9 +105,9 @@ namespace TcpServerListener
                                     MessageArray[1] = "Toregister";
                                     MessageArray[2] = data[7].ToString();
                                     byte[] cardbytes1 = new byte[4];
-                                    for (int i = 7; i <= 10; i++)
+                                    for (int i = 10; i >= 7; i--)
                                     {
-                                        cardbytes1[i - 7] = data[i];
+                                        cardbytes1[10-i] = data[i];
                                         //MessageArray[2] = MessageArray[2] +" "+ data[i];
                                     }
                                     MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes1);
@@ -132,26 +131,26 @@ namespace TcpServerListener
                                     MessageArray[1] = "readerlog";
                                     MessageArray[2] = data[7].ToString();
                                     byte[] cardbytes3 = new byte[4];
-                                    for (int i = 7; i <= 10; i++)
+                                    for (int i = 10; i >= 7; i--)
                                     {
-                                        cardbytes3[i - 7] = data[i];
+                                        cardbytes3[10 - i] = data[i];
                                     }
-                                    MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes3);
-                                    objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes3));
-                                    statdata.Add("Log", "ReaderLogOn");
+                                    var tempcardid1 = HexEncoding.ToStringfromHEx(cardbytes3);
+                                    objdata.Add("CardValue", tempcardid1);
+                                    statdata.Add("Log", tempcardid1);
                                     break;
                                 case 12:
                                     statdata.Add("Type", "ReaderLogOff");
                                     MessageArray[1] = "readerlog";
                                     MessageArray[2] = data[7].ToString();
                                     byte[] cardbytes4 = new byte[4];
-                                    for (int i = 7; i <= 10; i++)
+                                    for (int i = 10; i >= 7; i--)
                                     {
-                                        cardbytes4[i - 7] = data[i];
+                                        cardbytes4[10 - i] = data[i];
                                     }
-                                    MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes4);
-                                    objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes4));
-                                    statdata.Add("Log", "ReaderLogOff");
+                                    var tempcardid = HexEncoding.ToStringfromHEx(cardbytes4);
+                                    objdata.Add("CardValue", tempcardid);
+                                    statdata.Add("Log", tempcardid);
                                     break;
                                 case 13:
                                     break;

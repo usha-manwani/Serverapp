@@ -21,6 +21,7 @@ namespace DBHelper
             this.temp_desktopevents = new HashSet<temp_desktopevents>();
             this.machineusagelogs_minute = new HashSet<machineusagelogs_minute>();
             this.projectorconfiginfoes = new HashSet<projectorconfiginfo>();
+            this.card_registration = new HashSet<card_registration>();
         }
     
         public int classID { get; set; }
@@ -54,5 +55,7 @@ namespace DBHelper
         public virtual ICollection<machineusagelogs_minute> machineusagelogs_minute { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<projectorconfiginfo> projectorconfiginfoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<card_registration> card_registration { get; set; }
     }
 }

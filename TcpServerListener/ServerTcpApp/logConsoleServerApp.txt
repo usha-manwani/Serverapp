@@ -26828,3 +26828,321 @@ Thursday, March 11, 2021 5:27:48 PM Message Received from: 08 06 00 66 69 64 mes
 Thursday, March 11, 2021 5:27:48 PM Message Received from: 08 06 00 66 69 64 message: {"Command":"ProjectorConfig","Type":"SetConfig","Log":"SetProjectorConfig","InstructionStatus":"Success","Data":{"SetBaudRate":"True"}}
 Thursday, March 11, 2021 5:28:00 PMStrategy Timer running at this time
 Thursday, March 11, 2021rows from strategy count: 0
+Saturday, March 13, 2021 2:05:00 PMStrategy Timer running at this time
+Saturday, March 13, 2021rows from strategy count: 0
+Saturday, March 13, 2021 2:06:00 PMStrategy Timer running at this time
+Saturday, March 13, 2021rows from strategy count: 0
+Saturday, March 13, 2021 2:06:36 PM172.168.11.5 connected
+Saturday, March 13, 2021 2:06:36 PMAdded new machine in AcceptCallBack: 
+Saturday, March 13, 2021 2:06:59 PM Message Received from: 08 06 00 66 00 35 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"C517CE10","CardValue2":"7C8F2548","CardValue3":"D2BF561E","CardValue4":"B2C62548","CardValue5":"DBF4653B","CardValue6":"07C82548","CardValue7":"2BF32548","CardValue8":"5DC72548","CardValue9":"3E972548","CardValue10":"1BA36B3B","CardValue11":"279D2548","CardValue12":"3ECD2548"}}
+Saturday, March 13, 2021 2:07:00 PMStrategy Timer running at this time
+Saturday, March 13, 2021rows from strategy count: 0
+Saturday, March 13, 2021 2:08:00 PMStrategy Timer running at this time
+Saturday, March 13, 2021rows from strategy count: 0
+Saturday, March 13, 2021 2:09:00 PMStrategy Timer running at this time
+Saturday, March 13, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 3:38:15 PM172.168.11.20 connected
+Tuesday, March 16, 2021 3:38:15 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 3:39:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 3:40:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 3:41:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:00:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:00:20 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:00:20 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:01:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:02:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:03:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:04:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:05:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:06:19 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:06:19 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:07:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:07:07 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"8452F8C7"}}
+Tuesday, March 16, 2021 4:07:10 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"01EC715C"}}
+Tuesday, March 16, 2021 4:08:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:08:28 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:08:28 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:10:07 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:10:07 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:10:17 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"8452F8C7"}}
+Tuesday, March 16, 2021 4:10:20 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"01EC715C"}}
+Tuesday, March 16, 2021 4:11:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:15:51 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:15:51 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:15:58 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"7C8F2548"}}
+Tuesday, March 16, 2021 4:16:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:16:00 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"C517CE10"}}
+Tuesday, March 16, 2021 4:17:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:18:24 PMStrategy Timer running at this time
+Tuesday, March 16, 2021 4:18:27 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:18:28 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:19:08 PMSocket error in ReadCallBack:    at System.Net.Sockets.Socket.BeginReceive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, AsyncCallback callback, Object state)
+   at TcpServerListener.AsyncTcpListener.ReadCallback(IAsyncResult ar) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 439
+Tuesday, March 16, 2021 4:19:08 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"C517CE10"}}
+Tuesday, March 16, 2021 4:19:29 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:19:29 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:19:39 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"48258F7C"}}
+Tuesday, March 16, 2021 4:19:41 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"10CE17C5"}}
+Tuesday, March 16, 2021 4:20:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:21:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:22:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:23:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:24:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:25:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:26:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:27:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:28:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:29:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:30:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:31:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:32:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:33:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:34:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:35:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:36:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:37:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:38:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:39:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:40:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:41:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:42:45 PM172.168.11.20 connected
+Tuesday, March 16, 2021 4:42:45 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 4:43:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:44:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:45:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:46:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:47:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:48:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:49:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:50:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:51:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 4:52:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:03:22 PM172.168.11.20 connected
+Tuesday, March 16, 2021 5:03:22 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:04:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:05:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:05:29 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:05:29 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:06:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:06:02 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"29F82A52"}}
+Tuesday, March 16, 2021 5:06:26 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:06:26 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:07:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:07:12 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"29F41F37"}}
+Tuesday, March 16, 2021 5:07:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:07:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:07:43 PM Message Received from:  message: {"Command":"Reader","InstructionStatus":"Success","Type":"NewCardRegister","Log":"NewCardRegister","Data":{"CardValue":"29F939CB"}}
+Tuesday, March 16, 2021 5:08:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:08:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:08:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:09:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:09:19 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"29F82A52"}}
+Tuesday, March 16, 2021 5:09:23 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"29F41F37"}}
+Tuesday, March 16, 2021 5:09:26 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"CardRegister","Log":"CardRegister","Data":{"CardValue1":"29F939CB"}}
+Tuesday, March 16, 2021 5:09:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:09:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:10:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:10:12 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"WorkStatus":"Open"},"Log":"SystemOn"}
+Tuesday, March 16, 2021 5:10:13 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"ReaderLogOn","Log":"29F939CB","Data":{"CardValue":"29F939CB"}}
+Tuesday, March 16, 2021 5:10:13 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"Volume":"0"},"Log":"Volume"}
+Tuesday, March 16, 2021 5:10:13 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"WiredMicVolume":"0"},"Log":"WiredMicVolume"}
+Tuesday, March 16, 2021 5:10:13 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"WirelessMicVolume":"0"},"Log":"WirelessMicVolume"}
+Tuesday, March 16, 2021 5:10:13 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"WirelessMicVolume":"1"},"Log":"WirelessMicVolume"}
+Tuesday, March 16, 2021 5:10:20 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"PcStatus":"On"},"Log":"ComputerOn"}
+Tuesday, March 16, 2021 5:10:20 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"PcStatus":"On"},"Log":"ComputerOn"}
+Tuesday, March 16, 2021 5:10:25 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"Reader","InstructionStatus":"Success","Type":"ReaderLogOff","Log":"29F82A52","Data":{"CardValue":"29F82A52"}}
+Tuesday, March 16, 2021 5:10:25 PM Message Received from: 08 06 00 66 00 44 message: {"Command":"PanelControl","InstructionStatus":"Success","Type":"Panel","Data":{"PcStatus":"On"},"Log":"ComputerOn"}
+Tuesday, March 16, 2021 5:10:25 PM Error in DecodeData from machine :    at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at TcpServerListener.AsyncTcpListener.DecodeData(Socket sock, Byte[] receiveBytes, Int32 length) in G:\source\repos\Cresij-Control-Manager\TcpServerListener\AsyncTcpListener.cs:line 622 data decoded: {"Command":"NetworkControl","Type":"Heartbeat","InstructionStatus":"Success","Data":{"ProjectorPowerStatus":"Off","ComputerPowerStatus":"Off","AmplifierPowerStatus":"Off","OtherPowerStatus":"Off","WorkStaus":"Closing","IsSystemLock":"False","IsClassLock":"True","IsPodiumLock":"True","PcStatus":"On","ProjectorStatus":"Off","LightStatus":"Off","Screen":"Up","Curtain":"Open","MediaSignal":"Desktop","Volume":"0","WiredMicVolume":"0","WirelessMicVolume":"0"},"Log":""}
+Tuesday, March 16, 2021 5:10:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:10:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:11:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:11:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:11:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:12:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:12:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:12:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:13:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:13:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:13:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:14:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:14:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:14:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:15:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:15:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:15:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:16:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Tuesday, March 16, 2021 5:16:27 PM172.168.10.120 connected
+Tuesday, March 16, 2021 5:16:27 PMAdded new machine in AcceptCallBack: 
+Tuesday, March 16, 2021 5:17:00 PMStrategy Timer running at this time
+Tuesday, March 16, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:42:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:43:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:44:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:45:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:46:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:47:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:48:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:49:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:50:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:50:49 PM172.168.10.185 connected
+Wednesday, March 24, 2021 5:50:49 PMAdded new machine in AcceptCallBack: 
+Wednesday, March 24, 2021 5:51:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:52:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:53:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:53:59 PM172.168.10.185 connected
+Wednesday, March 24, 2021 5:53:59 PMAdded new machine in AcceptCallBack: 
+Wednesday, March 24, 2021 5:54:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 5:55:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 6:02:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 6:03:00 PMStrategy Timer running at this time
+Wednesday, March 24, 2021rows from strategy count: 0
+Wednesday, March 24, 2021 6:03:33 PM172.168.10.123 connected
+Wednesday, March 24, 2021 6:03:33 PMAdded new machine in AcceptCallBack: 
+Wednesday, March 24, 2021 6:07:51 PM172.168.10.123 connected
+Wednesday, March 24, 2021 6:07:51 PMAdded new machine in AcceptCallBack: 
+Thursday, March 25, 2021 9:12:00 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:28:00 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:29:09 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:30:09 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:34:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:35:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:36:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:37:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:38:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:39:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:40:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:41:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:42:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:43:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:44:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:45:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:46:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:47:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:48:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:49:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:50:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:51:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:52:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:53:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:54:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:55:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:56:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:57:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:58:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 9:59:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 10:00:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 10:01:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 10:02:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 10:03:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
+Thursday, March 25, 2021 10:04:58 AMStrategy Timer running at this time
+Thursday, March 25, 2021rows from strategy count: 0
