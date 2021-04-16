@@ -176,6 +176,21 @@
           <Property Name="classid" Type="int" Nullable="false" />
           <Property Name="machineStatus" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <EntityType Name="userdetails">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LoginID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PersonType" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="PersonnelStatus" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Notes" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="startDate" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="expireDate" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
         <Association Name="fk_classbuildingname">
           <End Role="buildingdetails" Type="Self.buildingdetails" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -316,6 +331,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_GetStrategyScheduleTimer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="organisationdatabase">
+          <Parameter Name="timer" Type="varchar" Mode="In" />
+          <Parameter Name="sectionno" Type="int" Mode="Out" />
+          <Parameter Name="sectiontime" Type="varchar" Mode="Out" />
+        </Function>
         <EntityContainer Name="organisationdatabaseModelStoreContainer">
           <EntitySet Name="alarmmonitorlogs" EntityType="Self.alarmmonitorlogs" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="buildingdetails" EntityType="Self.buildingdetails" Schema="organisationdatabase" store:Type="Tables" />
@@ -332,6 +352,7 @@
           <EntitySet Name="strategymanagement" EntityType="Self.strategymanagement" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="temp_desktopevents" EntityType="Self.temp_desktopevents" Schema="organisationdatabase" store:Type="Tables" />
           <EntitySet Name="temp_machinestatus" EntityType="Self.temp_machinestatus" Schema="organisationdatabase" store:Type="Tables" />
+          <EntitySet Name="userdetails" EntityType="Self.userdetails" Schema="organisationdatabase" store:Type="Tables" />
           <AssociationSet Name="fk_classbuildingname" Association="Self.fk_classbuildingname">
             <End Role="buildingdetails" EntitySet="buildingdetails" />
             <End Role="classdetails" EntitySet="classdetails" />
@@ -649,6 +670,12 @@
             <End Role="card_registration" EntitySet="card_registration" />
           </AssociationSet>
           <EntitySet Name="cardlogs" EntityType="organisationdatabaseModel.cardlog" />
+          <FunctionImport Name="sp_GetStrategyScheduleTimer" ReturnType="Collection(organisationdatabaseModel.sp_GetStrategyScheduleTimer_Result)">
+            <Parameter Name="timer" Mode="In" Type="String" />
+            <Parameter Name="sectionno" Mode="Out" Type="Int32" />
+            <Parameter Name="sectiontime" Mode="Out" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="userdetails" EntityType="organisationdatabaseModel.userdetail" />
         </EntityContainer>
         <EntityType Name="temp_desktopevents">
           <Key>
@@ -764,6 +791,22 @@
           <Property Name="ClassId" Type="Int32" Nullable="false" />
           <Property Name="ActionTime" Type="DateTime" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_GetStrategyScheduleTimer_Result" />
+        <EntityType Name="userdetail">
+          <Key>
+            <PropertyRef Name="SerialNo" />
+          </Key>
+          <Property Name="SerialNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PersonType" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PersonnelStatus" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="startDate" Type="DateTime" Nullable="false" />
+          <Property Name="expireDate" Type="DateTime" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -954,6 +997,27 @@
                 <ScalarProperty Name="ClassId" ColumnName="ClassId" />
                 <ScalarProperty Name="cardId" ColumnName="cardId" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetStrategyScheduleTimer" FunctionName="organisationdatabaseModel.Store.sp_GetStrategyScheduleTimer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="organisationdatabaseModel.sp_GetStrategyScheduleTimer_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="userdetails">
+            <EntityTypeMapping TypeName="organisationdatabaseModel.userdetail">
+              <MappingFragment StoreEntitySet="userdetails">
+                <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PersonnelStatus" ColumnName="PersonnelStatus" />
+                <ScalarProperty Name="PersonType" ColumnName="PersonType" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+                <ScalarProperty Name="SerialNo" ColumnName="SerialNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

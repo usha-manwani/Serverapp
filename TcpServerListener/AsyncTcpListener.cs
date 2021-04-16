@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using DBHelper;
+using Microsoft.AspNet.SignalR.Client;
+using NLog;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -8,14 +11,13 @@ using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using DBHelper;
-using System.IO;
 
 namespace TcpServerListener
 {
     public class AsyncTcpListener
     {
-        static readonly string docPath = "logConsoleServerApp.txt";
+        private static Logger loggerFile = LogManager.GetCurrentClassLogger();
+
         protected Instructions inst = new Instructions();
         private static IHubProxy proxy;
         private static HubConnection con;
@@ -40,22 +42,24 @@ namespace TcpServerListener
                     StrategyLogs stlogs = new StrategyLogs();
                     if (temp.workSocket.Connected)
                     {
-                        Console.WriteLine("---------------------------- sent bytes  " +
+                        loggerFile.Debug("sent bytes  " +
                                          HexEncoding.ToStringfromHex(instruction1) +
-                                         "  Instruction to Mac: " + ccmac + " ----------------------------");
+                                         "  Instruction to Mac: " + ccmac + " ");
                         Send(temp.workSocket, instruction1);
                         await stlogs.SaveStrategyLogInfo(instruction, stid, "Pending", ccmac, equipid);
-                        File.AppendAllText(docPath, Environment.NewLine + "---------------------------- sent bytes  " +
-                                          HexEncoding.ToStringfromHex(instruction1) +
-                                          "  Instruction to Mac: " + ccmac + " ----------------------------");
+                        loggerFile.Debug(Environment.NewLine + " sent bytes  " +
+                                        HexEncoding.ToStringfromHex(instruction1) +
+                                        "  Instruction to Mac: " + ccmac + "");
                     }
                     else
+                    {
                         await stlogs.SaveStrategyLogInfo(instruction, stid, "Fail", ccmac, equipid);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "ReceiveMacFromDesktop : " + ex.StackTrace);
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "ReceiveMacFromDesktop : " + ex.StackTrace);
             }
 
         }
@@ -90,7 +94,7 @@ namespace TcpServerListener
                                 Decode dr = new Decode();
                                 Dictionary<string, object> result = dr.OfflineMessage();
                                 SendMessage(temp.MacAddress, result);
-                                Console.WriteLine("Offline message " + JsonSerializer.Serialize(result));
+                                loggerFile.Debug("Offline message " + JsonSerializer.Serialize(result));
                                 Machines.Remove(temp);
                                 connectedClient--;
                                 ClientWaitList.Remove(s);
@@ -105,7 +109,7 @@ namespace TcpServerListener
                     foreach (var s in AbsoleteSocket)
                     {
                         var sock = s.workSocket;
-                        Console.WriteLine("Removed Machine because of Empty MAc Address: " +
+                        loggerFile.Debug("Removed Machine because of Empty MAc Address: " +
                             ((IPEndPoint)s.workSocket.RemoteEndPoint).Address);
                         sock.Shutdown(SocketShutdown.Both);
                         Machines.Remove(s);
@@ -123,7 +127,7 @@ namespace TcpServerListener
 
                                 sock.Shutdown(SocketShutdown.Both);
                                 Machines.Remove(t);
-                                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
                                     DateTime.Now.ToLongTimeString() +
                                     "Removed machine because of same mac address : " + s.Mac);
                             }
@@ -133,10 +137,7 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                    DateTime.Now.ToLongTimeString() + " Error in Checkmachine : " + ex.StackTrace + " Error Message " +
-                    ex.Message);
-                Console.WriteLine(ex.Message);
+                loggerFile.Debug(ex.Message);
             }
         }
 
@@ -144,25 +145,25 @@ namespace TcpServerListener
         {
             try
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
                                 DateTime.Now.ToLongTimeString() + "Strategy Timer running at this time");
-                Machines.ForEach(x => Console.WriteLine("ip: " + ((IPEndPoint)x.workSocket.RemoteEndPoint).Address.ToString() + " Mac Address: " + x.MacAddress));
+                Machines.ForEach(x => loggerFile.Debug("ip: " + ((IPEndPoint)x.workSocket.RemoteEndPoint).Address.ToString() + " Mac Address: " + x.MacAddress));
                 StringBuilder record = new StringBuilder();
                 foreach (var s in Machines)
                 {
                     record.AppendLine(JsonSerializer.Serialize("Mac: " + s.MacAddress + " ip: " + ((IPEndPoint)s.workSocket.RemoteEndPoint).Address.ToString()));
                 }
-                //Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
+                //loggerFile.Debug(DateTime.Now.ToLongDateString() + " " +
                 //                    DateTime.Now.ToLongTimeString() + " Machines Connected {0}", record.ToString());
                 var tt = DateTime.Now.ToString("HH:mm") + ":00";
 
 
                 StrategyExec strategyExec = new StrategyExec();
-                //File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " Connected machines details:  " + record.ToString());
+                //loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " Connected machines details:  " + record.ToString());
 
                 var ff = strategyExec.GetData(tt);
 
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + "rows from strategy count: " + ff.Count);
+                loggerFile.Debug("rows from strategy count: " + ff.Count);
                 if (ff.Count > 0)
                 {
                     StrategyLogs strategyLogs = new StrategyLogs();
@@ -188,17 +189,12 @@ namespace TcpServerListener
                             {
                                 checksum = checksum + instruction[i];
                             }
-                            Console.WriteLine("checksum :{0}", checksum);
+                            //loggerFile.Debug("checksum :{0}", checksum);
                             instruction[9] = Convert.ToByte(checksum & 0xff);
 
-                            try
-                            {
-                                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " Instruction query  " + HexEncoding.ToStringfromHEx(instruction));
-                            }
-                            catch (Exception ex)
-                            {
 
-                            }
+                            loggerFile.Debug(" Instruction query  : " + HexEncoding.ToStringfromHEx(instruction));
+
 
                             if (f.Instruction == "CloseStrategy")
                             {
@@ -224,7 +220,7 @@ namespace TcpServerListener
 
                                             strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac, f.Equipmentid);
 
-                                            Console.WriteLine("---------------------------- sent bytes  " +
+                                            loggerFile.Debug("---------------------------- sent bytes  " +
                                                 HexEncoding.ToStringfromHex(instruction) +
                                                 "  Instruction to Mac: " + f.Ccmac + " ----------------------------");
 
@@ -263,7 +259,7 @@ namespace TcpServerListener
 
                                         strategyLogs.SaveStrategyLogInfo(f.Instruction, f.StrategyId, "Pending", f.Ccmac, f.Equipmentid);
 
-                                        Console.WriteLine("---------------------------- sent bytes  " +
+                                        loggerFile.Debug("---------------------------- sent bytes  " +
                                             HexEncoding.ToStringfromHex(instruction) +
                                             "  Instruction to Mac: " + f.Ccmac + " ----------------------------");
 
@@ -284,12 +280,7 @@ namespace TcpServerListener
                         }
                         catch (Exception ex)
                         {
-                            File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
-                                    " Strategy Command : " + DateTime.Now.ToLongTimeString() + f.Instruction
-                                    + " bytes " + HexEncoding.ToStringfromHEx(instruction));
-                            File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                DateTime.Now.ToLongTimeString() + " Error in RunStrategyTimer sending instruction to machine : "
-                                + ex.StackTrace + " inner exception " + ex.InnerException);
+                            loggerFile.Debug(ex + " " + f);
 
                         }
                     }
@@ -297,8 +288,8 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                //File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in RunStrategyTimer: " + ex.StackTrace);
-                Console.WriteLine(ex.Message);
+                //loggerFile.Debug(  Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in RunStrategyTimer: " + ex.StackTrace);
+                loggerFile.Debug(ex.Message);
             }
         }
 
@@ -336,7 +327,7 @@ namespace TcpServerListener
                     // Set the event to nonsignaled state.  
                     allDone.Reset();
                     // Start an asynchronous socket to listen for connections.  
-                    Console.WriteLine("Waiting for a Machine connection...");
+                    loggerFile.Debug("Waiting for a Machine connection...");
                     listener.BeginAccept(
                         new AsyncCallback(AcceptCallback),
                         listener);
@@ -347,10 +338,10 @@ namespace TcpServerListener
 
             catch (Exception e)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ".............Error in TCP Listerner start : " + e.StackTrace);
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ".............Error in TCP Listerner start : " + e.StackTrace);
                 Console.WriteLine(e.ToString());
             }
-            Console.WriteLine("\nPress ENTER to continue...");
+            loggerFile.Debug("\nPress ENTER to continue...");
             // Console.Read();
         }
         public static bool isClientConnected(Socket handler)
@@ -362,8 +353,7 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in is client conencted : " + ex.StackTrace);
-                Console.WriteLine("CLient Connection lost with exception message   " + ex.Message);
+                loggerFile.Debug(ex);
             }
             return status;
         }
@@ -385,14 +375,14 @@ namespace TcpServerListener
                 // Create the state object.  
                 StateObject state = new StateObject();
                 state.buffer = new byte[StateObject.BufferSize];
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ip + " connected");
-                Console.WriteLine(" Total Connected Machine client : " + connectedClient);
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + ip + " connected");
+                loggerFile.Debug(ip + " connected,  Total Connected Machine client : " + connectedClient);
                 state.workSocket = handler;
                 if (!Machines.Contains(state))
                 {
                     Machines.Add(state);
                 }
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Added new machine in AcceptCallBack: ");
+                loggerFile.Debug("Added new machine in AcceptCallBack: ");
                 handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
                     new AsyncCallback(ReadCallback), state);
                 Instructions inst = new Instructions();
@@ -402,8 +392,7 @@ namespace TcpServerListener
 
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in AcceptCallBack: " + ex.StackTrace);
-                Console.WriteLine(ex.Message);
+                loggerFile.Debug(ex);
             }
         }
 
@@ -421,17 +410,15 @@ namespace TcpServerListener
                 int bytesRead;
                 // Read data from the client socket.   
 
-                int i = 0;
+
                 //string ip = ((IPEndPoint)handler.RemoteEndPoint).Address.ToString();
                 if (handler != null && handler.Connected)
                 {
-                    //Console.WriteLine("ip   " + ip);
-
                     bytesRead = handler.EndReceive(ar);
                     byte[] bytes = new byte[bytesRead];
                     if (bytesRead > 0)
                     {
-                        for (i = 0; i < bytesRead; i++)
+                        for (int i = 0; i < bytesRead; i++)
                         {
                             bytes[i] = state.buffer[i];
                         }
@@ -452,30 +439,23 @@ namespace TcpServerListener
                     {
                         lock (Machines)
                         {
-                            Console.WriteLine("Client automatically disconnected");
+                            loggerFile.Debug("Client automatically disconnected");
                             Decode dr = new Decode();
                             Dictionary<string, object> result = dr.OfflineMessage();
                             SendMessage(temp.MacAddress, result);
 
-                            Console.WriteLine("Offline message " + JsonSerializer.Serialize(result));
+                            loggerFile.Debug("Offline message " + JsonSerializer.Serialize(result));
                             Machines.Remove(temp);
                             connectedClient--;
                             SendCounts();
                         }
                     }
                 }
-                try
-                {
-                    File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                       DateTime.Now.ToLongTimeString() + "Socket error in ReadCallBack: " + se.StackTrace);
-                }
-                catch (Exception ex)
-                { }
+                loggerFile.Debug(se);
             }
             catch (Exception ex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                    DateTime.Now.ToLongTimeString() + "Error in ReadCallback: " + ex.StackTrace);
+                loggerFile.Debug(ex);
             }
         }
 
@@ -487,10 +467,11 @@ namespace TcpServerListener
             var mac = "";
             try
             {
-                string[] status;
+                string[] status = new string[7];
 
                 for (int j = 0; j < length;)
                 {
+                    // 多组不定长度数据集合，确定分组标记
                     if (receiveBytes[j] == Convert.ToByte(0x8B) && receiveBytes[j + 1] == Convert.ToByte(0xB9))
                     {
                         int len = 4 + (256 * receiveBytes[j + 2]) + receiveBytes[j + 3];
@@ -503,14 +484,10 @@ namespace TcpServerListener
                         {
                             status[i] = "Off";
                         }
-                        //}
+
                         re = dd.Decoded("", datatoDecode, status);
 
-                        Console.WriteLine("------------------" + DateTime.Now.ToLongDateString() + " " +
-                               DateTime.Now.ToLongTimeString() + "bytes Received from: " + mac +
-                               " message: " + HexEncoding.ToStringfromHex(datatoDecode));
-                        Console.WriteLine();
-                        // dd = null;
+
                         if (re.Count == 2)
                         {
                             object obj = re["data"];
@@ -528,14 +505,20 @@ namespace TcpServerListener
                                 }
                             }
                             mac = Machines.Where(x => x.workSocket == sock).Select(x => x.MacAddress).FirstOrDefault();
+                            loggerFile.Debug("bytes Received from: " + mac +
+                               " message: " + HexEncoding.ToStringfromHex(datatoDecode));
                             if (mac != "" && mac != null)
                             {
                                 lock (ClientWaitList)
                                 {
                                     if (!ClientWaitList.ContainsKey(mac))
+                                    {
                                         ClientWaitList.Add(mac, DateTime.Now);
+                                    }
                                     else
+                                    {
                                         ClientWaitList[mac] = DateTime.Now;
+                                    }
                                 }
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
@@ -545,24 +528,20 @@ namespace TcpServerListener
                                     strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac,
                                     Convert.ToInt32(final["StrategyId"]), final["InstructionStatus"].ToString());
                                 }
-                                else if (final["Type"].ToString() == "CardRegister" && final["InstructionStatus"].ToString()=="Success")
+                                else if (final["Type"].ToString() == "CardRegister" && final["InstructionStatus"].ToString() == "Success")
                                 {
-                                    
-                                        var temp1 = final["Data"] as Dictionary<string, string>;
-                                        var macobj1 = new GetMacAddress();
-                                        var cardvalues = temp1.Where(x => x.Key.Contains("CardValue")).Select(x=>x.Value);
-                                        foreach(var s in cardvalues)
+
+                                    var temp1 = final["Data"] as Dictionary<string, string>;
+                                    var macobj1 = new GetMacAddress();
+                                    var cardvalues = temp1.Where(x => x.Key.Contains("CardValue")).Select(x => x.Value);
+                                    foreach (var s in cardvalues)
                                     {
                                         macobj1.UpdateStatCardReg("Registered", mac, s);
                                     }
-                                                                       
+
                                 }
                             }
-                            Console.WriteLine(DateTime.Now.ToLongDateString() + " " +
-                            DateTime.Now.ToLongTimeString() + "Decoded version of Message Received from: " + mac +
-                            " message: " + JsonSerializer.Serialize(final));
-                            Console.WriteLine("---------------------------");
-                            Console.WriteLine();
+
                             SendMessage(mac, final);
                             if (final["Type"].ToString() != "Heartbeat")
                             {
@@ -571,7 +550,7 @@ namespace TcpServerListener
                                 var type = final["Type"].ToString();
                                 if (final.ContainsKey("Log") && !string.IsNullOrEmpty(final["Log"].ToString()))
                                 {
-                                    StrategyLogs st = new StrategyLogs();                                    
+                                    StrategyLogs st = new StrategyLogs();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                                     st.SaveMachineLogs(type, final["Log"].ToString(), mac);
                                     if (final["Log"].ToString() == "SystemOn" || final["Log"].ToString() == "SystemOff")
@@ -581,36 +560,35 @@ namespace TcpServerListener
                                     else if (final["Type"].ToString().Contains("ReaderLog"))
                                     {
                                         var temp2 = final["Data"] as Dictionary<string, string>;
-                                        
+
                                         macobj2.SaveReaderLog(final["Type"].ToString(), mac, temp2["CardValue"]);
                                     }
 
                                     var temp3 = final["Data"] as Dictionary<string, string>;
-                                    if(temp3.ContainsKey("ProjectorOnCode") || temp3.ContainsKey("ProjectorOffCode") 
+                                    if (temp3.ContainsKey("ProjectorOnCode") || temp3.ContainsKey("ProjectorOffCode")
                                         || temp3.ContainsKey("SetBaudRate"))
                                     {
                                         var d = "False";
                                         if (temp3.ContainsKey("ProjectorOnCode"))
+                                        {
                                             d = temp3["ProjectorOnCode"];
+                                        }
                                         else if (temp3.ContainsKey("ProjectorOffCode"))
+                                        {
                                             d = temp3["ProjectorOffCode"];
+                                        }
                                         else if (temp3.ContainsKey("SetBaudRate"))
+                                        {
                                             d = temp3["SetBaudRate"];
+                                        }
+
                                         macobj2.UpdateProjectorConfig(mac, d);
                                     }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                                    try
-                                    {
-                                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                        DateTime.Now.ToLongTimeString() + " Message Received from: " + mac +
-                                        " message: " + JsonSerializer.Serialize(final));
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Console.WriteLine(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                                        DateTime.Now.ToLongTimeString() + "Error in writing the file: " + mac +
-                                        " message: " + JsonSerializer.Serialize(final));
-                                    }
+
+                                    loggerFile.Debug(" Message Received from: " + mac +
+                                     " message: " + JsonSerializer.Serialize(final));
+
                                 }
                             }
                             else if (final["Type"].ToString() == "Heartbeat")
@@ -647,13 +625,11 @@ namespace TcpServerListener
                                         error = 3;
                                         d.Add("ErrorCode", error);
                                     }
-
                                     else if (fnal["Volume"].ToString() == "0")
                                     {
                                         error = 4;
                                         d.Add("ErrorCode", error);
                                     }
-
                                 }
                                 if (error != 0)
                                 {
@@ -686,11 +662,7 @@ namespace TcpServerListener
             catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
-                    " " + DateTime.Now.ToLongTimeString() + " Error in DecodeData from machine : " + ex.StackTrace
-                    + " data decoded: " + JsonSerializer.Serialize(final));
-                Console.WriteLine(DateTime.Now.ToLongTimeString() + "  " + DateTime.Now.ToLongDateString() + "  exception in Handle message  " + ex.Message + " stack trace " + ex.StackTrace + " "
-                 + ex.GetError() + "from mac : " + mac);
+                loggerFile.Debug(ex + " from mac : " + mac);
                 //string msg = con.State.ToString();
             }
         }
@@ -699,15 +671,15 @@ namespace TcpServerListener
         {
             try
             {
-                Console.WriteLine("machine instruction sent to machine ip : " + ((IPEndPoint)handler.RemoteEndPoint).Address.ToString());
+                loggerFile.Debug("machine instruction sent to machine ip : " + ((IPEndPoint)handler.RemoteEndPoint).Address.ToString());
                 // Begin sending the data to the remote device.  
                 handler.BeginSend(byteData, 0, byteData.Length, 0,
                     new AsyncCallback(SendCallback), handler);
-                Console.WriteLine("instructions send : "+HexEncoding.ToStringfromHex(byteData));
+                loggerFile.Debug("instructions send : " + HexEncoding.ToStringfromHex(byteData));
             }
             catch (SocketException socex)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send: " + socex.StackTrace);
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send: " + socex.StackTrace);
             }
         }
 
@@ -719,11 +691,11 @@ namespace TcpServerListener
                 Socket handler = (Socket)ar.AsyncState;
                 // Complete sending the data to the remote device.  
                 int bytesSent = handler.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to client.", bytesSent);
+                loggerFile.Debug("Sent {0} bytes to client.", bytesSent);
             }
             catch (Exception e)
             {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() 
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString()
                     + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
             }
         }
@@ -791,7 +763,9 @@ namespace TcpServerListener
         {
             try
             {
-                con = new HubConnection("http://localhost/");
+                var proxyUrl = ConfigurationManager.AppSettings.Get("proxyUrl").ToString();
+                loggerFile.Debug("Proxy url: " + proxyUrl);
+                con = new HubConnection(proxyUrl);
                 // con.TraceLevel = TraceLevels.All;
                 // con.TraceWriter = Console.Out;
                 proxy = con.CreateHubProxy("myHub");
@@ -806,13 +780,13 @@ namespace TcpServerListener
                     catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
-                        // Console.WriteLine(ex.Message);
+                        // loggerFile.Debug(ex.Message);
                     }
                 });
                 proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration", (mac, data) =>
                 {
                     byte[] inst = ProjectorConfigInstruction(data);
-                    Console.WriteLine("bytes send " + HexEncoding.ToStringfromHex(inst));
+                    loggerFile.Debug("bytes send " + HexEncoding.ToStringfromHex(inst));
                     foreach (var m in mac)
                     {
                         if (Machines.Any(x => x.MacAddress == m))
@@ -827,9 +801,10 @@ namespace TcpServerListener
                 }
 
                 );
-                proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration1", (mac, data) => {                    
+                proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration1", (mac, data) =>
+                {
                     var ins = new Instructions();
-                    
+
                     if (data.ContainsKey("ProjectorOnCode"))
                     {
                         var temp = HexEncoding.GetBytes(data["ProjectorOnCode"], out int discard);
@@ -839,7 +814,7 @@ namespace TcpServerListener
                         var templen = length.ToString("X").PadLeft(4, '0');
                         var l1 = templen.Substring(0, 2);
                         var l2 = templen.Substring(2, 2);
-                        var v = "8B B9 00 " + l1+" "+l2 + " 03 11 " + data["ProjectorOnCode"];
+                        var v = "8B B9 " + l1 + " " + l2 + " 03 11 " + data["ProjectorOnCode"];
                         List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
                         int ch = 0;
                         for (int i = 2; i < b.Count; i++)
@@ -848,8 +823,8 @@ namespace TcpServerListener
                         }
                         b.Add(Convert.ToByte(ch & 0xff));
                         var instruction = b.ToArray();
-                        
-                        
+
+
                         foreach (var m in mac)
                         {
                             if (Machines.Any(x => x.MacAddress == m))
@@ -871,7 +846,7 @@ namespace TcpServerListener
                         var templen = length.ToString("X").PadLeft(4, '0');
                         var l1 = templen.Substring(0, 2);
                         var l2 = templen.Substring(2, 2);
-                        var v = "8B B9 00 "+ l1 + " " + l2 + " 03 12 " + data["ProjectorOffCode"];
+                        var v = "8B B9 " + l1 + " " + l2 + " 03 12 " + data["ProjectorOffCode"];
                         List<byte> b = HexEncoding.GetBytes(v, out int dis2).ToList();
                         int ch = 0;
                         for (int i = 2; i < b.Count; i++)
@@ -980,11 +955,10 @@ namespace TcpServerListener
                      try
                      {
 
-                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                            DateTime.Now.ToLongTimeString() + "---------------------------- from web client :  " +
-                                                  data +
-                                                  "  Instruction to Mac: " + mac + " ----------------------------");
-                         if (data.Contains("Volume"))
+                         loggerFile.Debug("from web client :  " +
+                                                   data +
+                                                   "  Instruction to Mac: " + mac);
+                         if (data.Contains("Volume") && !data.Contains("Mute"))
                          {
                              dd = CreateInstruction(data, Convert.ToInt32(value)).ToList();
                          }
@@ -999,22 +973,21 @@ namespace TcpServerListener
                              var sock = Machines.Where(x => x.MacAddress == mac).Select(x => x.workSocket).FirstOrDefault();
                              if (isClientConnected(sock))
                              {
-                                 Console.WriteLine("---------------------------- sent bytes  " +
+                                 loggerFile.Debug("sent bytes  " +
                                                   HexEncoding.ToStringfromHex(dd.ToArray()) +
-                                                  "  Instruction to Mac: " + mac + " ----------------------------");
+                                                  "  Instruction to Mac: " + mac);
                                  Send(sock, dd.ToArray());
                              }
                          }
                      }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
-                    catch (Exception ex)
+                     catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
-                    {
-                         File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                             DateTime.Now.ToLongTimeString() + "Error in SendControl to Machine : " +
-                             ex.StackTrace + " data from website " + data + " to mac: " + mac);
-                        // Console.WriteLine(ex.Message);
-                    }
+                     {
+                         loggerFile.Debug("Error in SendControl to Machine : " +
+                              ex.StackTrace + " data from website " + data + " to mac: " + mac);
+                         // loggerFile.Debug( ex.Message);
+                     }
                  });
                 proxy.On<List<string>, string>("RegisterCard", (macaddress, card) =>
                 {
@@ -1041,7 +1014,7 @@ namespace TcpServerListener
                     }
                     catch (Exception ex)
                     {
-
+                        loggerFile.Debug(ex);
                     }
                     //var ins = HexEncoding.GetBytes(v,out int d);
 
@@ -1051,7 +1024,7 @@ namespace TcpServerListener
                         {
                             if (s.MacAddress == mac)
                             {
-                                Console.WriteLine("instruc: " + HexEncoding.ToStringfromHex(inss));
+                                loggerFile.Debug("instruc: " + HexEncoding.ToStringfromHex(inss));
                                 Send(s.workSocket, inss);
                                 break;
                             }
@@ -1072,7 +1045,10 @@ namespace TcpServerListener
                          {
                              bytestoencode += cardids[c];
                          }
-                         else break;
+                         else
+                         {
+                             break;
+                         }
                      }
                      var temp = HexEncoding.GetBytesReverse(bytestoencode, out int dis);
                      cardbytes.AddRange(temp);
@@ -1097,11 +1073,13 @@ namespace TcpServerListener
                      var b = v.Split(' ');
                      try
                      {
-                         for (int i = 0; i < inss.Length-1; i++)
+                         for (int i = 0; i < inss.Length - 1; i++)
                          {
                              inss[i] = byte.Parse(b[i], System.Globalization.NumberStyles.HexNumber);
                              if (i > 1)
+                             {
                                  checksum += inss[i];
+                             }
                          }
                          //for(int j = 2; j < inss.Length; j++)
                          // {
@@ -1115,8 +1093,8 @@ namespace TcpServerListener
                              {
                                  if (s.MacAddress == mac)
                                  {
-                                     Console.WriteLine("instruc: " + HexEncoding.ToStringfromHex(inss));
-                                     //Console.WriteLine("bytes sending: " + HexEncoding.ToStringfromHex(inss));
+                                     loggerFile.Debug("instruc: " + HexEncoding.ToStringfromHex(inss));
+                                     //loggerFile.Debug("bytes sending: " + HexEncoding.ToStringfromHex(inss));
                                      Send(s.workSocket, inss);
                                      break;
                                  }
@@ -1126,7 +1104,7 @@ namespace TcpServerListener
                      }
                      catch (Exception ex)
                      {
-
+                         loggerFile.Debug(ex);
                      }
                      //a = a + 5;
                      // }
@@ -1142,12 +1120,13 @@ namespace TcpServerListener
                             try
                             {
                                 if (isClientConnected(m.workSocket))
+                                {
                                     Send(m.workSocket, b);
+                                }
                             }
                             catch (Exception ex)
                             {
-                                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                            DateTime.Now.ToLongTimeString() + "Error1 in Sending Status to Machine : ");
+                                loggerFile.Debug(ex);
                             }
                         }
                     }
@@ -1155,8 +1134,7 @@ namespace TcpServerListener
                     catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
                     {
-                        File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " +
-                            DateTime.Now.ToLongTimeString() + "Error2 in Sending Status to Machine : ");
+                        loggerFile.Debug(ex);
                     }
                 });
                 proxy.On<int>("CountsMachines", i =>
@@ -1167,14 +1145,14 @@ namespace TcpServerListener
                 {
                     if (task.IsFaulted)
                     {
-                        Console.WriteLine("There was an error opening the connection with WebClient");
+                        loggerFile.Debug("There was an error opening the connection with WebClient");
                     }
                     //else{MessageBox.Show("Connected to signalR");}
                 }).Wait();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("not connected to WebClient " + ex.Message);
+                loggerFile.Debug(" not connected to WebClient " + ex.Message);
                 con.StateChanged += Con_StateChanged;
             }
         }
@@ -1187,22 +1165,24 @@ namespace TcpServerListener
         {
             if (obj.OldState == ConnectionState.Disconnected)
             {
-                // Console.WriteLine("State changed inside");
+                // loggerFile.Debug("State changed inside");
                 var current = DateTime.Now.TimeOfDay;
                 SetTimer(current.Add(TimeSpan.FromSeconds(30)), TimeSpan.FromSeconds(10), StartCon);
-                // Console.WriteLine("State changed inside done");
+                // CloggerFile.Debug("State changed inside done");
             }
             else
             {
-                // Console.WriteLine("State changed else inside");
+                // loggerFile.Debug("State changed else inside");
                 if (_timer != null)
+                {
                     _timer.Dispose();
+                }
             }
         }
 
         private static void Con_Closed()
         {
-            //Console.WriteLine("connection closed");
+            //loggerFile.Debug("connection closed");
             con.Start().Wait();
         }
         public static void SendMessage(string sender, Dictionary<string, object> message)
@@ -1214,20 +1194,20 @@ namespace TcpServerListener
             {
                 if (con.State != ConnectionState.Connected)
                 {
-                    // Console.WriteLine("connecting to server");
+                    // loggerFile.Debug("connecting to server");
                     con.Start().Wait();
-                    // Console.WriteLine("connected");
+                    // loggerFile.Debug("connected");
                 }
                 proxy.Invoke("SendMessage", sender, d);
-                //Console.WriteLine("Sent to signalR server by" + sender);
+                //loggerFile.Debug("Sent to signalR server by" + sender);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //  Console.WriteLine("connecting to server");
+                loggerFile.Debug(ex.Message);
+                //  loggerFile.Debug("connecting to server");
                 con.Start().Wait();
-                // Console.WriteLine("connected");
+                // CloggerFile.Debug("connected");
             }
         }
         public static void SendDesktopEventToWebsocket(string sender, Dictionary<string, string> message)
@@ -1239,20 +1219,20 @@ namespace TcpServerListener
             {
                 if (con.State != ConnectionState.Connected)
                 {
-                    // Console.WriteLine("connecting to server");
+                    // loggerFile.Debug("connecting to server");
                     con.Start().Wait();
-                    // Console.WriteLine("connected");
+                    // loggerFile.Debug("connected");
                 }
                 proxy.Invoke("ReceiveDesktopEvent", sender, d);
-                //Console.WriteLine("Sent to signalR server by" + sender);
+                //loggerFile.Debug("Sent to signalR server by" + sender);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //  Console.WriteLine("connecting to server");
+                loggerFile.Debug(ex.Message);
+                //  loggerFile.Debug("connecting to server");
                 con.Start().Wait();
-                // Console.WriteLine("connected");
+                // loggerFile.Debug("connected");
             }
         }
 
@@ -1264,20 +1244,20 @@ namespace TcpServerListener
             {
                 if (con.State != ConnectionState.Connected)
                 {
-                    // Console.WriteLine("connecting to server");
+                    // loggerFile.Debug("connecting to server");
                     con.Start().Wait();
-                    // Console.WriteLine("connected");
+                    // loggerFile.Debug("connected");
                 }
                 proxy.Invoke("ReceiveMachineException", sender, d);
-                //Console.WriteLine("Sent to signalR server by" + sender);
+                //loggerFile.Debug("Sent to signalR server by" + sender);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //  Console.WriteLine("connecting to server");
+                loggerFile.Debug(ex.Message);
+                //  loggerFile.Debug("connecting to server");
                 con.Start().Wait();
-                // Console.WriteLine("connected");
+                // loggerFile.Debug("connected");
             }
         }
         private static void TriggerAlarm(string mac, string v)
@@ -1289,26 +1269,26 @@ namespace TcpServerListener
             {
                 if (con.State != ConnectionState.Connected)
                 {
-                    // Console.WriteLine("connecting to server");
+                    // loggerFile.Debug("connecting to server");
                     con.Start().Wait();
-                    // Console.WriteLine("connected");
+                    // loggerFile.Debug("connected");
                 }
                 proxy.Invoke("TriggerAlarm", mac, v);
-                //Console.WriteLine("Sent to signalR server by" + sender);
+                //loggerFile.Debug(Sent to signalR server by" + sender);
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                //  Console.WriteLine("connecting to server");
+                loggerFile.Debug(ex.Message);
+                //  loggerFile.Debug("connecting to server");
                 con.Start().Wait();
-                // Console.WriteLine("connected");
+                // loggerFile.Debug("connected");
             }
         }
         public static void SendCounts()
         {
             GetMacAddress getMac = new GetMacAddress();
-            int count= getMac.MachineCount( Machines.Select(x => x.MacAddress).ToList());
+            int count = getMac.MachineCount(Machines.Select(x => x.MacAddress).ToList());
             proxy.Invoke("CountMachines", count);
         }
         #endregion

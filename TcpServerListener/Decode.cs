@@ -1885,7 +1885,7 @@ namespace TcpServerListener
 
                                 }
                                 break;
-                            case 11:
+                            case 11:   //8B B9 00 0A 05 0B C4 A6 A1 0F 5A 5A 3C 24
                                 statdata.Add("Type", "Heartbeat");
                                 if (data[6] == Convert.ToByte(0xc4))
                                 {
@@ -1918,11 +1918,11 @@ namespace TcpServerListener
                                     else if (systembit == "10") objdata.Add("WorkStatus", "Open");
                                     else objdata.Add("WorkStaus", "Closing");
 
-                                    if (statbits[2] == '1') objdata.Add("IsSystemLock", "False");
-                                    else objdata.Add("IsSystemLock", "True");
+                                    if (statbits[2] == '1') objdata.Add("IsSystemLock", "True");
+                                    else objdata.Add("IsSystemLock", "False");
 
                                     //class lock status
-                                    if (statbits[3] == '0')
+                                    if (statbits[3] == '1')
                                     {
                                         objdata.Add("IsClassLock", "True");
 
@@ -1933,7 +1933,7 @@ namespace TcpServerListener
                                     }
 
                                     //podium lock status
-                                    if (statbits[4] == '0')
+                                    if (statbits[4] == '1')
                                     {
                                         objdata.Add("IsPodiumLock", "True");
                                     }

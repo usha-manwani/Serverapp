@@ -4,14 +4,16 @@ using System.Linq;
 using System.Data;
 using DBHelper;
 using System.Text;
-using System.IO;
+using NLog;
 using System.Text.Json;
+using System.Configuration;
 
 namespace TcpServerListener
 {
     class StrategyExec
     {
-        static string docPath = "logConsoleServerApp.txt";
+        private static Logger loggerFile = LogManager.GetCurrentClassLogger();
+        
         public List<FinalResult> GetData(string time)
         {
             List<FinalResult> ff = new List<FinalResult>();
@@ -143,7 +145,7 @@ namespace TcpServerListener
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message + " Debug " + ex.StackTrace);
+                loggerFile.Debug(ex.Message + " Debug " + ex.StackTrace);
             }            
             return ff;
         }
@@ -403,7 +405,7 @@ namespace TcpServerListener
             }
             return instruction;
         }
-        public List<FinalResult> GetStrategyBySchedule(string time)
+        public List<FinalResult> GetStrategyBySchedule(string time, string dbname)
         {
            
             var ff = new List<FinalResult>();
@@ -474,33 +476,14 @@ namespace TcpServerListener
             }
             catch(Exception ex)
             {
-                Console.WriteLine("strategy error: "+ex.StackTrace);
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: "+ ex.StackTrace);
+                
+                loggerFile.Debug( Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: "+ ex.StackTrace);
                 // Log("error in strategy exex : " + ex.StackTrace);
             }
             
             return ff;
         }
-        private  void Log(string logMessage)
-        {
-            StringBuilder sb = new StringBuilder(DateTime.Now.ToLongTimeString());
-            sb.AppendLine("  " + DateTime.Now.ToLongDateString());
-            sb.AppendLine(logMessage);
-            sb.AppendLine("---------------------------------------------");
-            string docPath = "logConsoleServerApp.txt";
-            try
-            {
-                using (var oStreamWriter = new StreamWriter(docPath, true))
-                {
-                    oStreamWriter.WriteLine(sb);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-        }
+        
         public List<FinalResult> GetStrategyBySection(int section, string sectiontime)
         {
             List<FinalResult> ff = new List<FinalResult>();
@@ -589,6 +572,29 @@ namespace TcpServerListener
                 }
             }
             return result;
+        }
+
+        public List<FinalResult> GetStrategyByDatabase(string time)
+        {
+            var ff = new List<FinalResult>();
+            List<string> dbnames = new List<string>();
+            try
+            {
+                foreach(ConnectionStringSettings n in ConfigurationManager.ConnectionStrings)
+                {
+                    var name = n.Name;
+                    if (!dbnames.Contains(name))
+                    {
+                        GetStrategyBySchedule(time, name);
+                    }                        
+                }
+            }
+            catch (Exception ex)
+            {
+                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: " + ex.StackTrace);
+                // Log("error in strategy exex : " + ex.StackTrace);
+            }
+            return ff;
         }
     }
     public class FinalResult

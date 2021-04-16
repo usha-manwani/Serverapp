@@ -230,10 +230,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBComm\DBAccess.csproj">
-      <Project>{2e26dd4f-0e72-42a7-b01f-8c4e9bc71d33}</Project>
-      <Name>DBAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DBHelper\DBHelper.csproj">
       <Project>{cb8649f9-8742-415c-902d-22539e17afd6}</Project>
       <Name>DBHelper</Name>

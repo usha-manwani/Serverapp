@@ -30,6 +30,7 @@
         <EntityTypeShape EntityType="organisationdatabaseModel.card_registration" Width="1.5" PointX="1" PointY="3" />
         <AssociationConnector Association="organisationdatabaseModel.fkCardClassid" />
         <EntityTypeShape EntityType="organisationdatabaseModel.cardlog" Width="1.5" PointX="9.375" PointY="7.75" />
+        <EntityTypeShape EntityType="organisationdatabaseModel.userdetail" Width="1.5" PointX="4.25" PointY="8.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

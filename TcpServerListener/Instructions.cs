@@ -52,16 +52,16 @@ namespace TcpServerListener
             Instruction.Add("WirelessMicVolumeWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07,08 });
             //Instruction.Add("GeneralVolumeDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x21, 0x2C });
             //Instruction.Add("GeneralVolumeUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x20, 0x2B });
-            //Instruction.Add("GeneralVolumeMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x22, 0x2D });
+            Instruction.Add("GeneralVolumeMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x22, 0x2D });
             //Instruction.Add("WiredMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x24, 0x2F });
             //Instruction.Add("WiredMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x23, 0x2E });
-            //Instruction.Add("WiredMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x25, 0x30 });
+            Instruction.Add("WiredMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x25, 0x30 });
             //Instruction.Add("WirelessMicDownWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x74, 0x7f });
             //Instruction.Add("WirelessMicUpWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x73, 0x7e });
-            //Instruction.Add("WirelessMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x75, 0x80 });
+            Instruction.Add("WirelessMicMuteWeb", new byte[] { 0x8B, 0xB9, 00, 04, 05, 02, 0x75, 0x80 });
 
             ///<summary>
-            ///Camera SOund COntrols
+            ///Camera Sound COntrols
             /// </summary>
             Instruction.Add("StudentAudioWeb", new byte[] { 0x8B, 0xB9 ,00, 05, 05, 07, 02, 07, 0x1A });
             Instruction.Add("TeacherAudioWeb", new byte[] { 0x8B, 0xB9, 00, 05, 05, 07, 02, 08, 0x1B });
@@ -145,6 +145,7 @@ namespace TcpServerListener
             #region Strategy Instruction
             /// <summary>
             /// Instruction set for Strategy
+            /// Instructions before protocol change
             /// </summary>   
 
             //Instruction.Add("SystemOnStrategy", new byte[] { 0X8B, 0xB9, 00, 04, 05, 09, 0xC0, 0xD2 });

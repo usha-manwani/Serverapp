@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
+using NLog;
 using System.Linq;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 
@@ -12,121 +9,168 @@ namespace DBHelper
 {
     public class StrategyLogs
     {
-        static string docPath = "logConsoleServerApp.txt";
+        private static Logger loggerFile = LogManager.GetCurrentClassLogger();
+        
         protected string constr = ConfigurationManager.ConnectionStrings["SchoolConnectionString"].ConnectionString;
-        public async Task SaveStrategyLogInfo(string instruction, int stid, string status, string machinemac,int equipid)
+        public async Task SaveStrategyLogInfo(string instruction, int stid, string status, string machinemac, int equipid)
         {
-            try
+            var found = false;
+            foreach (ConnectionStringSettings c in ConfigurationManager.ConnectionStrings)
             {
-                using (var context = new organisationdatabaseEntities())
+                if (!found)
                 {
-                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
-                    var newLog = new strategylog()
+                    try 
                     {
-                        StrategyDescId = stid,
-                        MachineMac = classid,
-                        ExecutionTime =Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm")),
-                        Instruction = instruction,
-                        Status = status,
-                        EquipmentId=equipid
-                    };
-                    context.strategylogs.Add(newLog);
-                    context.SaveChanges();
+                        using (var context = new organisationdatabaseEntities(c.Name))
+                        {                          
+                            var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
+                            if (classid != 0)
+                            {
+                                found = true;
+                                var newLog = new strategylog()
+                                {
+                                    StrategyDescId = stid,
+                                    MachineMac = classid,
+                                    ExecutionTime = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd HH:mm")),
+                                    Instruction = instruction,
+                                    Status = status,
+                                    EquipmentId = equipid
+                                };
+                                context.strategylogs.Add(newLog);
+                                await context.SaveChangesAsync();
+                            }
+
+                        }
+
+                    }
+
+                    catch (Exception ex)
+                    {
+                        loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString()
+                            + " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: "
+                            + ex.StackTrace + " error message " + ex.InnerException);
+
+                    }
+
                 }
+                else { break; }
             }
-            catch (Exception ex)
-            {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
-                    + " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: "
-                    + ex.StackTrace + " error message " + ex.InnerException);
-
-            }
-
         }
         public async Task<int> UpdateStrategyStatus(string instruction, string machinemac, int stid, string status)
         {
             int r = 0;
             var classid = 0;
-            try
+            var found = false;
+            foreach (ConnectionStringSettings c in ConfigurationManager.ConnectionStrings)
             {
-                using (var context = new organisationdatabaseEntities())
+                if (!found)
                 {
-                    classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
-                    if (context.strategylogs.Any(x => x.Instruction == instruction && x.MachineMac == classid
-                    && x.StrategyDescId == stid))
+                    try
                     {
-                        var log = context.strategylogs.Where(x => x.Instruction == instruction && x.MachineMac == classid && x.StrategyDescId == stid);
-                        foreach (var l in log)
+                        using (var context = new organisationdatabaseEntities(c.Name))
                         {
-                            if (DateTime.Now.Subtract(l.ExecutionTime).TotalSeconds < 180)
+                            classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
+                            if (context.strategylogs.Any(x => x.Instruction == instruction && x.MachineMac == classid
+                            && x.StrategyDescId == stid))
                             {
-                                l.Status = status;
-                                break;
+                                found = true;
+                                var log = context.strategylogs.Where(x => x.Instruction == instruction && x.MachineMac == classid && x.StrategyDescId == stid);
+                                foreach (var l in log)
+                                {
+                                    if (DateTime.Now.Subtract(l.ExecutionTime).TotalSeconds < 180)
+                                    {
+                                        l.Status = status;
+                                        break;
+                                    }
+                                }
                             }
+                            r = await context.SaveChangesAsync();
                         }
-                    }                   
-                    r = await context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() +
+                            " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: " +
+                            ex.InnerException + " error message " + ex.Message + " data: " +
+                            instruction + " " + machinemac + " " + stid + " " + status);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString() +
-                    " " + DateTime.Now.ToLongTimeString() + "exception in stratrgy logs: " +
-                    ex.InnerException + " error message " + ex.Message +" data: " +
-                    instruction +" " +machinemac+ " "+stid + " "+status);
+                else { break; }
             }
             return r;
         }
-        public async Task SaveMachineLogs(string type,string data, string machinemac)
-        {            
+        public async Task SaveMachineLogs(string type, string data, string machinemac)
+        {
             int r = 0;
-            try
+            var found = false;
+            foreach (ConnectionStringSettings c in ConfigurationManager.ConnectionStrings)
             {
-                using (var context = new organisationdatabaseEntities())
+                if (!found)
                 {
-                    var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
-                    if (classid != 0)
+                    try
                     {
-                        var machineop = new machineoperationlog()
+                        using (var context = new organisationdatabaseEntities(c.Name))
                         {
-                            Operation = data,                  //JsonSerializer.Serialize(data),
-                            Location = classid,
-                            Type=type,
-                            ExecutionTime = DateTime.Now
-                        };
-                        context.machineoperationlogs.Add(machineop);
+                            var classid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
+                            if (classid != 0)
+                            {
+                                found = true;
+                                var machineop = new machineoperationlog()
+                                {
+                                    Operation = data,      //JsonSerializer.Serialize(data),
+                                    Location = classid,
+                                    Type = type,
+                                    ExecutionTime = DateTime.Now
+                                };
+                                context.machineoperationlogs.Add(machineop);
+                            }
+                            r = await context.SaveChangesAsync();
+                        }
                     }
-                    r = await context.SaveChangesAsync();
+                    catch (Exception ex)
+                    {
+                        loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString()
+                            + " " + DateTime.Now.ToLongTimeString() + "exception in recording machine logs: "
+                            + ex.StackTrace + " error message " + ex.InnerException);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                File.AppendAllText(docPath, Environment.NewLine + DateTime.Now.ToLongDateString()
-                    + " " + DateTime.Now.ToLongTimeString() + "exception in recording machine logs: "
-                    + ex.StackTrace + " error message " + ex.InnerException);
+                else { break; }
             }
         }
 
         public async Task<int> UpdateMachineStatus(string machinemac, string status)
         {
             int r = 0;
-            using(var context = new organisationdatabaseEntities())
+            var found = false;
+            foreach (ConnectionStringSettings c in ConfigurationManager.ConnectionStrings)
             {
-                var cid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
-                if (context.temp_machinestatus.Any(x => x.classid == cid))
+                if (!found)
                 {
-                    var row = context.temp_machinestatus.Where(x => x.classid == cid).FirstOrDefault();
-                    row.machineStatus = status;
+                    using (var context = new organisationdatabaseEntities(c.Name))
+                    {
+                        var cid = context.classdetails.Where(x => x.ccmac == machinemac).Select(x => x.classID).FirstOrDefault();
+                        if (cid != 0)
+                        {
+                            found = true;
+                            if (context.temp_machinestatus.Any(x => x.classid == cid))
+                            {
+                                var row = context.temp_machinestatus.Where(x => x.classid == cid).FirstOrDefault();
+                                row.machineStatus = status;
+                            }
+                            else
+                            {
+                                var newrow = new temp_machinestatus { classid = cid, machineStatus = status };
+                                context.temp_machinestatus.Add(newrow);
+                            }
+                            r = await context.SaveChangesAsync();
+                        }
+                        
+                    }
                 }
-                else
-                {
-                    var newrow = new temp_machinestatus { classid = cid, machineStatus = status };
-                    context.temp_machinestatus.Add(newrow);
-                }
-               r= await context.SaveChangesAsync();
+                else { break; }
             }
             return r;
         }
     }
-     
+
 }

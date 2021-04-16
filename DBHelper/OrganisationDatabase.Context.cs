@@ -12,6 +12,8 @@ namespace DBHelper
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class organisationdatabaseEntities : DbContext
     {
@@ -19,7 +21,10 @@ namespace DBHelper
             : base("name=organisationdatabaseEntities")
         {
         }
-    
+        public organisationdatabaseEntities(string con)
+                : base("name="+con)
+        {
+        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -40,5 +45,15 @@ namespace DBHelper
         public virtual DbSet<projectorconfiginfo> projectorconfiginfoes { get; set; }
         public virtual DbSet<card_registration> card_registration { get; set; }
         public virtual DbSet<cardlog> cardlogs { get; set; }
+        public virtual DbSet<userdetail> userdetails { get; set; }
+    
+        public virtual ObjectResult<sp_GetStrategyScheduleTimer_Result> sp_GetStrategyScheduleTimer(string timer, ObjectParameter sectionno, ObjectParameter sectiontime)
+        {
+            var timerParameter = timer != null ?
+                new ObjectParameter("timer", timer) :
+                new ObjectParameter("timer", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetStrategyScheduleTimer_Result>("sp_GetStrategyScheduleTimer", timerParameter, sectionno, sectiontime);
+        }
     }
 }
