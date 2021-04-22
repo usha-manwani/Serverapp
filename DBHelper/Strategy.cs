@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,7 +11,7 @@ namespace DBHelper
     public class Strategy
     {
         protected string constr = ConfigurationManager.ConnectionStrings["OrganisationDatabase"].ConnectionString;
-
+        private static Logger loggerFile = LogManager.GetCurrentClassLogger();
         public Strategy()
         {
 
@@ -36,134 +37,135 @@ namespace DBHelper
                         }
                     }
                 }
-                catch (Exception)
-                { }
+                catch (Exception ex)
+                { loggerFile.Debug(Environment.NewLine + "error in method ExecuteCmd " + ex.Message); }
                 finally
                 { con.Close(); con.Dispose(); }
             }
             return dt;
         }
-        public List<StrategyDesc> GetData(string time)
+        public List<StrategyDesc> GetData(string time, string dbname)
         {
             List<StrategyDesc> st = new List<StrategyDesc>();
 
             var dayOfMonth = DateTime.Now.Day;
             var dayOfWeek = (int)DateTime.Now.DayOfWeek;
             var toDate = DateTime.Now.Date;
-            foreach (ConnectionStringSettings cn in ConfigurationManager.ConnectionStrings)
+            try
             {
-                if (cn.Name.Contains("Entities"))
+                using (var context = new organisationdatabaseEntities(dbname))
                 {
-                    using (var context = new organisationdatabaseEntities(cn.Name))
+                    try
                     {
-                        try
+                        var temp = (from p in context.strategydescriptions
+                                    join e in context.strategyequipments
+                                    on p.Equipmentid equals e.id
+                                    join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
+                                    where s.CurrentStatus != 0 && p.strategyTime == time
+                                    select new
+                                    {
+                                        StrategyDescId = p.id,
+                                        StrategyTimeFrame1 = p.StrategyTimeFrame1,
+                                        StrategyTimeFrame2 = p.StrategyTimeFrame2,
+                                        EquipmentId = e.id,
+                                        EquipmentName = e.EquipmentsNames,
+                                        ServiceConfig = p.Config ?? "",
+                                        StrategyTime = p.strategyTime.ToString(),
+                                        Location = s.StrategyLocation,
+                                        StrategyId = s.strategyId
+                                    }).AsEnumerable().Select(x => new StrategyDesc
+                                    {
+                                        StrategyDescId = x.StrategyDescId,
+                                        StrategyTimeFrame1 = x.StrategyTimeFrame1,
+                                        StrategyTimeFrame2 = x.StrategyTimeFrame2,
+                                        EquipmentId = x.EquipmentId,
+                                        EquipmentName = x.EquipmentName,
+                                        ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
+                                        StrategyTime = x.StrategyTime,
+                                        Location = x.Location,
+                                        StrategyId = x.StrategyId
+                                    }).ToList();
+                        if (temp.Count > 0)
                         {
-                            var temp = (from p in context.strategydescriptions
-                                        join e in context.strategyequipments
-                                        on p.Equipmentid equals e.id
-                                        join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
-                                        where s.CurrentStatus != 0 && p.strategyTime == time
-                                        select new
-                                        {
-                                            StrategyDescId = p.id,
-                                            StrategyTimeFrame1 = p.StrategyTimeFrame1,
-                                            StrategyTimeFrame2 = p.StrategyTimeFrame2,
-                                            EquipmentId = e.id,
-                                            EquipmentName = e.EquipmentsNames,
-                                            ServiceConfig = p.Config ?? "",
-                                            StrategyTime = p.strategyTime.ToString(),
-                                            Location = s.StrategyLocation,
-                                            StrategyId = s.strategyId
-                                        }).AsEnumerable().Select(x => new StrategyDesc
-                                        {
-                                            StrategyDescId = x.StrategyDescId,
-                                            StrategyTimeFrame1 = x.StrategyTimeFrame1,
-                                            StrategyTimeFrame2 = x.StrategyTimeFrame2,
-                                            EquipmentId = x.EquipmentId,
-                                            EquipmentName = x.EquipmentName,
-                                            ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, dynamic>>(x.ServiceConfig),
-                                            StrategyTime = x.StrategyTime,
-                                            Location = x.Location,
-                                            StrategyId = x.StrategyId
-                                        }).ToList();
-                            if (temp.Count > 0)
-                            {
-                                st.AddRange(temp);
-                            }
-                            // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
+                            st.AddRange(temp);
                         }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        finally
-                        {
-                            context.Dispose();
-                        }
+                        // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    finally
+                    {
+                        context.Dispose();
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                loggerFile.Debug(Environment.NewLine + "error in method GetData for strategy: " + ex.Message);
+            }
+
             return st;
         }
 
-        public List<StrategyDesc> GetTestTimeData(string time)
+        public List<StrategyDesc> GetTestTimeData(string time, string dbname)
         {
             List<StrategyDesc> st = new List<StrategyDesc>();
 
             var dayOfMonth = DateTime.Now.Day;
             var dayOfWeek = (int)DateTime.Now.DayOfWeek;
             var toDate = DateTime.Now.Date;
-            foreach (ConnectionStringSettings cn in ConfigurationManager.ConnectionStrings)
-            {
-                if (cn.Name.Contains("Entities"))
-                {
-                    using (var context = new organisationdatabaseEntities(cn.Name))
-                    {
-                        try
-                        {
-                            var temp = (from p in context.strategydescriptions
-                                        join e in context.strategyequipments
-                                        on p.Equipmentid equals e.id
-                                        join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
 
-                                        where s.CurrentStatus != 0 && p.strategyTime == time && p.Equipmentid == 1
-                                        && p.StrategyTimeFrame1 == "TestTime"
-                                        select new
-                                        {
-                                            StrategyDescId = p.id,
-                                            StrategyTimeFrame1 = p.StrategyTimeFrame1,
-                                            StrategyTimeFrame2 = p.StrategyTimeFrame2,
-                                            EquipmentId = e.id,
-                                            EquipmentName = e.EquipmentsNames,
-                                            ServiceConfig = p.Config ?? "",
-                                            StrategyTime = p.strategyTime.ToString(),
-                                            Location = s.StrategyLocation,
-                                            StrategyId = s.strategyId
-                                        }).AsEnumerable().Select(x => new StrategyDesc
-                                        {
-                                            StrategyDescId = x.StrategyDescId,
-                                            StrategyTimeFrame2 = x.StrategyTimeFrame2,
-                                            EquipmentId = x.EquipmentId,
-                                            EquipmentName = x.EquipmentName,
-                                            ServiceConfig = JsonConvert.DeserializeObject(x.ServiceConfig),
-                                            StrategyTime = x.StrategyTime,
-                                            Location = x.Location,
-                                            StrategyId = x.StrategyId
-                                        }).ToList();
-                            if (temp.Count > 0) st.AddRange(temp);
-                            // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        finally
-                        {
-                            context.Dispose();
-                        }
+            using (var context = new organisationdatabaseEntities(dbname))
+            {
+                try
+                {
+                    var temp = (from p in context.strategydescriptions
+                                join e in context.strategyequipments
+                                on p.Equipmentid equals e.id
+                                join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
+
+                                where s.CurrentStatus != 0 && p.strategyTime == time && p.Equipmentid == 1
+                                && p.StrategyTimeFrame1 == "TestTime"
+                                select new
+                                {
+                                    StrategyDescId = p.id,
+                                    StrategyTimeFrame1 = p.StrategyTimeFrame1,
+                                    StrategyTimeFrame2 = p.StrategyTimeFrame2,
+                                    EquipmentId = e.id,
+                                    EquipmentName = e.EquipmentsNames,
+                                    ServiceConfig = p.Config ?? "",
+                                    StrategyTime = p.strategyTime.ToString(),
+                                    Location = s.StrategyLocation,
+                                    StrategyId = s.strategyId
+                                }).AsEnumerable().Select(x => new StrategyDesc
+                                {
+                                    StrategyDescId = x.StrategyDescId,
+                                    StrategyTimeFrame2 = x.StrategyTimeFrame2,
+                                    EquipmentId = x.EquipmentId,
+                                    EquipmentName = x.EquipmentName,
+                                    ServiceConfig = JsonConvert.DeserializeObject(x.ServiceConfig),
+                                    StrategyTime = x.StrategyTime,
+                                    Location = x.Location,
+                                    StrategyId = x.StrategyId
+                                }).ToList();
+                    if (temp.Count > 0)
+                    {
+                        st.AddRange(temp);
                     }
+                    // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    context.Dispose();
                 }
             }
+
             return st;
         }
         public Dictionary<string, object> GetStrategyBySchedule(string time)
@@ -207,99 +209,83 @@ namespace DBHelper
             return result;
         }
 
-        public List<StrategyDesc> GetStrByScheduleorSection(string timeFrameType)
+        public List<StrategyDesc> GetStrByScheduleorSection(string timeFrameType, string dbname)
         {
             List<StrategyDesc> st = new List<StrategyDesc>();
-            foreach (ConnectionStringSettings cn in ConfigurationManager.ConnectionStrings)
+
+            using (var context = new organisationdatabaseEntities(dbname))
             {
-                if (cn.Name.Contains("Entities"))
+                var temp = (from p in context.strategydescriptions
+                            join e in context.strategyequipments
+                            on p.Equipmentid equals e.id
+                            join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
+                            where s.CurrentStatus != 0 && p.StrategyTimeFrame1 == timeFrameType
+                            select new
+                            {
+                                StrategyDescId = p.id,
+                                StrategyTimeFrame1 = p.StrategyTimeFrame1,
+                                StrategyTimeFrame2 = p.StrategyTimeFrame2,
+                                EquipmentId = e.id,
+                                EquipmentName = e.EquipmentsNames,
+                                ServiceConfig = p.Config ?? "",
+                                StrategyTime = p.strategyTime.ToString(),
+                                Location = s.StrategyLocation,
+                                StrategyId = s.strategyId
+                            }).AsEnumerable().Select(x => new StrategyDesc
+                            {
+                                StrategyDescId = x.StrategyDescId,
+                                StrategyTimeFrame1 = x.StrategyTimeFrame1,
+                                StrategyTimeFrame2 = x.StrategyTimeFrame2,
+                                EquipmentId = x.EquipmentId,
+                                EquipmentName = x.EquipmentName,
+                                ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(x.ServiceConfig),
+                                StrategyTime = x.StrategyTime,
+                                Location = x.Location,
+                                StrategyId = x.StrategyId
+
+                            }).ToList();
+                if (temp.Count > 0)
                 {
-                    using (var context = new organisationdatabaseEntities(cn.Name))
-                    {
-                        var temp = (from p in context.strategydescriptions
-                                    join e in context.strategyequipments
-                                    on p.Equipmentid equals e.id
-                                    join s in context.strategymanagements on p.StrategyRefId equals s.strategyId
-                                    where s.CurrentStatus != 0 && p.StrategyTimeFrame1 == timeFrameType
-                                    select new
-                                    {
-                                        StrategyDescId = p.id,
-                                        StrategyTimeFrame1 = p.StrategyTimeFrame1,
-                                        StrategyTimeFrame2 = p.StrategyTimeFrame2,
-                                        EquipmentId = e.id,
-                                        EquipmentName = e.EquipmentsNames,
-                                        ServiceConfig = p.Config ?? "",
-                                        StrategyTime = p.strategyTime.ToString(),
-                                        Location = s.StrategyLocation,
-                                        StrategyId = s.strategyId
-                                    }).AsEnumerable().Select(x => new StrategyDesc
-                                    {
-                                        StrategyDescId = x.StrategyDescId,
-                                        StrategyTimeFrame1 = x.StrategyTimeFrame1,
-                                        StrategyTimeFrame2 = x.StrategyTimeFrame2,
-                                        EquipmentId = x.EquipmentId,
-                                        EquipmentName = x.EquipmentName,
-                                        ServiceConfig = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, object>>(x.ServiceConfig),
-                                        StrategyTime = x.StrategyTime,
-                                        Location = x.Location,
-                                        StrategyId = x.StrategyId
-
-                                    }).ToList();
-                        if (temp.Count > 0)
-                        {
-                            st.AddRange(temp);
-                        }
-                        // var data = context.strategydescriptions.Where(x => x.strategyTime == time );
-
-                    }
+                    st.AddRange(temp);
                 }
+               
+
             }
 
             return st;
         }
 
-        public List<LocationsMac> GetLocationsMac(List<int> loc)
+        public List<LocationsMac> GetLocationsMac(List<int> loc, string dbname)
         {
             List<LocationsMac> cc = new List<LocationsMac>();
-            var found = false;
-            foreach (ConnectionStringSettings cn in ConfigurationManager.ConnectionStrings)
-            {
-                if (!found)
-                {
-                    if (cn.Name.Contains("Entities"))
-                    {
-                        using (var context = new organisationdatabaseEntities(cn.Name))
-                        {
-                            try
-                            {
-                                cc = (from c in context.classdetails
-                                      where loc.Contains(c.classID)
-                                      select new
-                                      {
-                                          cid = c.classID,
-                                          ccmac = c.ccmac,
-                                          deskmac = c.deskmac
-                                      }).AsEnumerable().Select(x => new LocationsMac
-                                      {
-                                          ClassId = x.cid,
-                                          CCMac = x.ccmac,
-                                          DeskMac = x.deskmac
-                                      }).ToList();
-                                if (cc.Count > 0)
-                                {
-                                    found = true;
-                                }
-                            }
-                            finally
-                            {
-                                context.Dispose();
-                            }
 
-                        }
-                    }
+            using (var context = new organisationdatabaseEntities(dbname))
+            {
+                try
+                {
+                    cc = (from c in context.classdetails
+                          where loc.Contains(c.classID)
+                          select new
+                          {
+                              cid = c.classID,
+                              ccmac = c.ccmac,
+                              deskmac = c.deskmac
+                          }).AsEnumerable().Select(x => new LocationsMac
+                          {
+                              ClassId = x.cid,
+                              CCMac = x.ccmac,
+                              DeskMac = x.deskmac
+                          }).ToList();
+                    
                 }
-                else { break; }
+                finally
+                {
+                    context.Dispose();
+                }
+
             }
+
+
             return cc;
         }
     }

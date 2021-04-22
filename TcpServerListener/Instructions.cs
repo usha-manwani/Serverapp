@@ -142,7 +142,7 @@ namespace TcpServerListener
             projectorConfig.Add("SystemAlarm", "00");
             #endregion
 
-            #region Strategy Instruction
+            #region  Not in use Strategy Instruction
             /// <summary>
             /// Instruction set for Strategy
             /// Instructions before protocol change

@@ -1,4 +1,17 @@
-﻿using DBHelper;
+﻿// ***********************************************************************
+// Assembly         : TcpServerListener
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-21-2021
+// ***********************************************************************
+// <copyright file="AsyncTcpListener.cs" company="">
+//     Copyright ©  2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using DBHelper;
 using Microsoft.AspNet.SignalR.Client;
 using NLog;
 using System;
@@ -14,24 +27,73 @@ using System.Threading.Tasks;
 
 namespace TcpServerListener
 {
+    /// <summary>
+    /// Class AsyncTcpListener.
+    /// </summary>
     public class AsyncTcpListener
     {
+        #region tcp server methods
+        /// <summary>
+        /// The logger file
+        /// </summary>
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
 
+        /// <summary>
+        /// The instructions object
+        /// </summary>
         protected Instructions inst = new Instructions();
+        /// <summary>
+        /// SignalR Hub Proxy
+        /// </summary>
         private static IHubProxy proxy;
+        /// <summary>
+        /// The Connection object for SignalR
+        /// </summary>
         private static HubConnection con;
 
+        /// <summary>
+        /// The list of connected machines state object
+        /// </summary>
         public static List<StateObject> Machines = new List<StateObject>();
+        /// <summary>
+        /// The count of connected client
+        /// </summary>
         public static int connectedClient = 0;
-        // private static int totalClients = 0;
+
+        /// <summary>
+        /// The timer
+        /// </summary>
         private static Timer _timer;
-        //private static Timer ValidMachines;
+
+        /// <summary>
+        /// The machinetimer
+        /// </summary>
         private static Timer Machinetimer;
+        /// <summary>
+        /// The strategy timer
+        /// </summary>
         private static Timer StrategyTimer;
+        /// <summary>
+        /// The client wait list
+        /// </summary>
         private static Dictionary<string, DateTime> ClientWaitList = new Dictionary<string, DateTime>();
         // Thread signal.  
+        /// <summary>
+        /// Reset event All done
+        /// </summary>
         public static ManualResetEvent allDone = new ManualResetEvent(false);
+        /// <summary>
+        /// this function is called from AsyncDesktopServer.cs class
+        /// this gives the response from desktop class after the message related to system shutdown is sent
+        /// to its connected desktop
+        /// After receiving this we send the shutdown instruction to client machine.
+        /// </summary>
+        /// <param name="ccmac">The ccmac.</param>
+        /// <param name="instruction">The instruction.</param>
+        /// <param name="stid">The stid.</param>
+        /// <param name="stdescid">The stdescid.</param>
+        /// <param name="instruction1">The instruction1.</param>
+        /// <param name="equipid">The equipid.</param>
         public static async Task ReceiveMacFromDesktop(string ccmac, string instruction, int stid, int stdescid, byte[] instruction1, int equipid)
         {
             try
@@ -63,17 +125,21 @@ namespace TcpServerListener
             }
 
         }
+        /// <summary>
+        /// this method is called to set the timer for checkmachine and strategy to run every minute
+        /// </summary>
         private static void StartTimer()
         {
             Machinetimer = new Timer(new TimerCallback(CheckMachine), null, 60000, 60000);
             int delayStart = (60 - DateTime.Now.Second) * 1000;
             StrategyTimer = new Timer(new TimerCallback(RunStrategyTimer), null, delayStart, 60000);
         }
-        private static void CheckTestModeStrategy()
-        {
-            var tt = DateTime.Now.ToString("HH:mm") + ":00";
 
-        }
+        /// <summary>
+        /// this is a function thats called through timer to check the clients in the machine list
+        /// if they are still connected or became obsolete and disconnect the obsolete one
+        /// </summary>
+        /// <param name="state">The state.</param>
         private static void CheckMachine(object state)
         {
             List<string> MachinetoDel = new List<string>();
@@ -105,8 +171,8 @@ namespace TcpServerListener
                 }
                 lock (Machines)
                 {
-                    var AbsoleteSocket = Machines.Where(x => x.MacAddress == "").ToList();
-                    foreach (var s in AbsoleteSocket)
+                    var ObsoleteSocket = Machines.Where(x => x.MacAddress == "").ToList();
+                    foreach (var s in ObsoleteSocket)
                     {
                         var sock = s.workSocket;
                         loggerFile.Debug("Removed Machine because of Empty MAc Address: " +
@@ -140,7 +206,11 @@ namespace TcpServerListener
                 loggerFile.Debug(ex.Message);
             }
         }
-
+        /// <summary>
+        /// this is the method that runs every minute to check for the strategy instructions
+        /// if needed to be executed
+        /// </summary>
+        /// <param name="state">The state.</param>
         private static void RunStrategyTimer(object state)
         {
             try
@@ -153,14 +223,11 @@ namespace TcpServerListener
                 {
                     record.AppendLine(JsonSerializer.Serialize("Mac: " + s.MacAddress + " ip: " + ((IPEndPoint)s.workSocket.RemoteEndPoint).Address.ToString()));
                 }
-                //loggerFile.Debug(DateTime.Now.ToLongDateString() + " " +
-                //                    DateTime.Now.ToLongTimeString() + " Machines Connected {0}", record.ToString());
+                
                 var tt = DateTime.Now.ToString("HH:mm") + ":00";
-
-
+                
                 StrategyExec strategyExec = new StrategyExec();
-                //loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " Connected machines details:  " + record.ToString());
-
+                
                 var ff = strategyExec.GetData(tt);
 
                 loggerFile.Debug("rows from strategy count: " + ff.Count);
@@ -171,6 +238,7 @@ namespace TcpServerListener
                     foreach (FinalResult f in ff)
                     {
                         var instruction = new byte[10];
+                        ///this here is to create the full instruction set because instruction needs the strategy id
                         try
                         {
                             var tempIns = inst.GetValues(f.Instruction);
@@ -191,11 +259,8 @@ namespace TcpServerListener
                             }
                             //loggerFile.Debug("checksum :{0}", checksum);
                             instruction[9] = Convert.ToByte(checksum & 0xff);
-
-
                             loggerFile.Debug(" Instruction query  : " + HexEncoding.ToStringfromHEx(instruction));
-
-
+                            
                             if (f.Instruction == "CloseStrategy")
                             {
                                 int r = AsyncDesktopServer.SendToDesktop(f.Ccmac, f.Deskmac, "Shutdown", f.StrategyDescId, f.StrategyId, instruction, f.Equipmentid);
@@ -292,7 +357,12 @@ namespace TcpServerListener
                 loggerFile.Debug(ex.Message);
             }
         }
-
+        /// <summary>
+        /// this timer is set to try connecting to web socket in case it gets disconnected
+        /// </summary>
+        /// <param name="starTime">The star time.</param>
+        /// <param name="every">time interval</param>
+        /// <param name="action">The action.</param>
         private static void SetTimer(TimeSpan starTime, TimeSpan every, Func<Task> action)
         {
             var current = DateTime.Now;
@@ -306,7 +376,9 @@ namespace TcpServerListener
                 action.Invoke();
             }, null, timeToGo, every);
         }
-
+        /// <summary>
+        /// This starts the tcp socket server to listen to incoming clients
+        /// </summary>
         public static void StartListening()
         {
             ConnectToHub();
@@ -327,7 +399,7 @@ namespace TcpServerListener
                     // Set the event to nonsignaled state.  
                     allDone.Reset();
                     // Start an asynchronous socket to listen for connections.  
-                    loggerFile.Debug("Waiting for a Machine connection...");
+                    Console.WriteLine("Waiting for a Machine connection...");
                     listener.BeginAccept(
                         new AsyncCallback(AcceptCallback),
                         listener);
@@ -344,6 +416,11 @@ namespace TcpServerListener
             loggerFile.Debug("\nPress ENTER to continue...");
             // Console.Read();
         }
+        /// <summary>
+        /// this is to check if a socket client is connected
+        /// </summary>
+        /// <param name="handler">socket object.</param>
+        /// <returns><c>true</c> if [is client connected] [the specified handler]; otherwise, <c>false</c>.</returns>
         public static bool isClientConnected(Socket handler)
         {
             bool status = false;
@@ -357,7 +434,10 @@ namespace TcpServerListener
             }
             return status;
         }
-
+        /// <summary>
+        /// this is to accept the new connections async
+        /// </summary>
+        /// <param name="ar">contains state of related object</param>
         public static void AcceptCallback(IAsyncResult ar)
         {
             Socket handler;
@@ -395,7 +475,10 @@ namespace TcpServerListener
                 loggerFile.Debug(ex);
             }
         }
-
+        /// <summary>
+        /// this is the call back function for reading the data from socket async
+        /// </summary>
+        /// <param name="ar">contains state of related object</param>
         public static void ReadCallback(IAsyncResult ar)
         {
             string content = string.Empty;
@@ -458,7 +541,13 @@ namespace TcpServerListener
                 loggerFile.Debug(ex);
             }
         }
-
+        /// <summary>
+        /// This method is used to call Decode.cs  to interpret the bytes response into readable form of list of
+        /// Dictionary
+        /// </summary>
+        /// <param name="sock">the socket object from where data is received</param>
+        /// <param name="receiveBytes">bytes received</param>
+        /// <param name="length">count of bytes received</param>
         private static void DecodeData(Socket sock, byte[] receiveBytes, int length)
         {
             Dictionary<string, object> re = new Dictionary<string, object>();
@@ -484,7 +573,7 @@ namespace TcpServerListener
                         {
                             status[i] = "Off";
                         }
-
+                        /// function call to get the bytes of response to a readable format
                         re = dd.Decoded("", datatoDecode, status);
 
 
@@ -666,7 +755,11 @@ namespace TcpServerListener
                 //string msg = con.State.ToString();
             }
         }
-
+        /// <summary>
+        /// this is to send the bytes to machine clients
+        /// </summary>
+        /// <param name="handler">socket object.</param>
+        /// <param name="byteData">The byte data to send to machine.</param>
         private static void Send(Socket handler, byte[] byteData)
         {
             try
@@ -682,7 +775,10 @@ namespace TcpServerListener
                 loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Error in Send: " + socex.StackTrace);
             }
         }
-
+        /// <summary>
+        /// call back function for sending the bytes to machine
+        /// </summary>
+        /// <param name="ar">contains state of related object</param>
         private static void SendCallback(IAsyncResult ar)
         {
             try
@@ -699,7 +795,12 @@ namespace TcpServerListener
                     + " " + DateTime.Now.ToLongTimeString() + "Error in SendCallBack: " + e.StackTrace);
             }
         }
-
+        /// <summary>
+        /// this method is to create the instruction set from the string keywords
+        /// </summary>
+        /// <param name="keyword">The keyword.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>instruction bytes</returns>
         private static byte[] CreateInstruction(string keyword, int value)
         {
             Instructions ins = new Instructions();
@@ -719,6 +820,11 @@ namespace TcpServerListener
             data[8] = Convert.ToByte(checksum & 0xff);
             return data;
         }
+        /// <summary>
+        /// this is to create the instruction set from the string keyword
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns>System.Byte[].</returns>
         private static byte[] ProjectorConfigInstruction(Dictionary<string, string> data)
         {
             StringBuilder bytes = new StringBuilder();
@@ -757,8 +863,12 @@ namespace TcpServerListener
             b.Add(Convert.ToByte(ch & 0xff));
             return b.ToArray();
         }
+        #endregion
         #region connection to website
         //connect to website
+        /// <summary>
+        /// Connects to SignalR hub.
+        /// </summary>
         public static void ConnectToHub()
         {
             try
@@ -770,19 +880,7 @@ namespace TcpServerListener
                 // con.TraceWriter = Console.Out;
                 proxy = con.CreateHubProxy("myHub");
                 // MessageBox.Show("create proxy hub called");
-                proxy.On<int>("SendToMachine", i =>
-                {
-                    try
-                    {
-
-                    }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
-                    catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
-                    {
-                        // loggerFile.Debug(ex.Message);
-                    }
-                });
+               
                 proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration", (mac, data) =>
                 {
                     byte[] inst = ProjectorConfigInstruction(data);
@@ -823,8 +921,6 @@ namespace TcpServerListener
                         }
                         b.Add(Convert.ToByte(ch & 0xff));
                         var instruction = b.ToArray();
-
-
                         foreach (var m in mac)
                         {
                             if (Machines.Any(x => x.MacAddress == m))
@@ -1157,10 +1253,17 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// Starts the con to the hub.
+        /// </summary>
         private static async Task StartCon()
         {
             await con.Start();
         }
+        /// <summary>
+        /// called when the connection state of signalR changed.
+        /// </summary>
+        /// <param name="obj">The object.</param>
         private static void Con_StateChanged(StateChange obj)
         {
             if (obj.OldState == ConnectionState.Disconnected)
@@ -1180,11 +1283,19 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// close the signalRconnection
+        /// </summary>
         private static void Con_Closed()
         {
             //loggerFile.Debug("connection closed");
             con.Start().Wait();
         }
+        /// <summary>
+        /// Sends the message to signalR.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="message">The message.</param>
         public static void SendMessage(string sender, Dictionary<string, object> message)
         {
             Dictionary<string, object> message1 = new Dictionary<string, object>();
@@ -1207,9 +1318,14 @@ namespace TcpServerListener
                 loggerFile.Debug(ex.Message);
                 //  loggerFile.Debug("connecting to server");
                 con.Start().Wait();
-                // CloggerFile.Debug("connected");
+                // loggerFile.Debug("connected");
             }
         }
+        /// <summary>
+        /// Sends the desktop event to web socket.
+        /// </summary>
+        /// <param name="sender">The Desktop mac.</param>
+        /// <param name="message">The message.</param>
         public static void SendDesktopEventToWebsocket(string sender, Dictionary<string, string> message)
         {
 
@@ -1236,6 +1352,11 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// Sends the machine exception to web socket.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="errorno">The errorno.</param>
         public static void SendMachineExceptionToWebsocket(int sender, Dictionary<string, object> errorno)
         {
 
@@ -1260,31 +1381,10 @@ namespace TcpServerListener
                 // loggerFile.Debug("connected");
             }
         }
-        private static void TriggerAlarm(string mac, string v)
-        {
-            Dictionary<string, object> message1 = new Dictionary<string, object>();
 
-            //message1.Add("test", "success");
-            try
-            {
-                if (con.State != ConnectionState.Connected)
-                {
-                    // loggerFile.Debug("connecting to server");
-                    con.Start().Wait();
-                    // loggerFile.Debug("connected");
-                }
-                proxy.Invoke("TriggerAlarm", mac, v);
-                //loggerFile.Debug(Sent to signalR server by" + sender);
-
-            }
-            catch (Exception ex)
-            {
-                loggerFile.Debug(ex.Message);
-                //  loggerFile.Debug("connecting to server");
-                con.Start().Wait();
-                // loggerFile.Debug("connected");
-            }
-        }
+        /// <summary>
+        /// Sends the counts of connected machine to signalR.
+        /// </summary>
         public static void SendCounts()
         {
             GetMacAddress getMac = new GetMacAddress();

@@ -41,10 +41,8 @@ namespace TcpServerListener
 
             if (Math.Abs(Math.Round(DateTime.Now.Date.Subtract(startdate).TotalDays)) >=90)
             {
-
-                Console.WriteLine("Application exeded the allowed time. Exiting operation!!");
-                Console.WriteLine("Application Closing!!!");
-                
+                Console.WriteLine("Application exceeded the allowed time. Exiting operation!!");
+                Console.WriteLine("Application Closing!!!");                
                 Thread.Sleep(3000);
                 Environment.Exit(0);
             }

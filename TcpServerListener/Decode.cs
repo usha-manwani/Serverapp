@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : TcpServerListener
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-14-2021
+// ***********************************************************************
+// <copyright file="Decode.cs" company="">
+//     Copyright ©  2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -10,41 +23,38 @@ using System.Configuration;
 
 namespace TcpServerListener
 {
+    /// <summary>
+    /// Class Decode.
+    /// </summary>
     class Decode
     {
-        //public static readonly string constr = ConfigurationManager.ConnectionStrings["CresijCamConnectionString"].ConnectionString;
-        //public static readonly string constr = "Integrated Security=SSPI;Persist Security Info=False;" +
-        //    "Data Source=WFJ-20190418TVO\\SQLEXPRESS;Initial Catalog=CresijCam";
-
-        List<int> time = new List<int>();
-#pragma warning disable CS0414 // The field 'Decode.projectorStatus' is assigned but its value is never used
-        string projectorStatus = "Closed";
-#pragma warning restore CS0414 // The field 'Decode.projectorStatus' is assigned but its value is never used
-#pragma warning disable CS0414 // The field 'Decode.computer' is assigned but its value is never used
-        static string computer = "Offline";
-#pragma warning restore CS0414 // The field 'Decode.computer' is assigned but its value is never used
-        // static string[] Status = new string[7];
-
+         /// <summary>
+        /// The key codes
+        /// </summary>
         Dictionary<byte, string> keyCodes = new Dictionary<byte, string>();
-        public Dictionary<string, object> Decoded(string ip, byte[] received, string[] Status)
+        /// <summary>
+        /// Decode the response bytes into string key value format
+        /// </summary>
+        /// <param name="macaddress">The mac address of machine.</param>
+        /// <param name="received">The received bytes.</param>
+        /// <param name="Status">The status of devices.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.
+        /// Response in form of key value pair string</returns>
+        public Dictionary<string, object> Decoded(string macaddress, byte[] received, string[] Status)
         {
             Dictionary<string, object> statdata = new Dictionary<string, object>();
             Dictionary<string, string> objdata = new Dictionary<string, string>();
             Dictionary<string, object> result = new Dictionary<string, object>();
             byte[] data = null;
-            string[] MessageArray = null;
+            
             string log = "";
             int length = 0;
             try
             {
+                ///this line is to confirm the data is in the correct format
                 if (received[0] == Convert.ToByte(0x8B) && received[1] == Convert.ToByte(0xB9))
                 {
-                    //Status[0] = ip;
-                    //for (int i = 1; i < 7; i++)
-                    //{
-                    //    Status[i] = "Off";
-                    //}
-
+                    
                     length = 4 + (256 * received[2]) + received[3];
                     data = new byte[length];
                     for (int i = 0; i < length; i++)
@@ -52,17 +62,13 @@ namespace TcpServerListener
                         data[i] = received[i];
                     }
 
-                    MessageArray = new string[data.Length - 1];
-                    for (int i = 0; i < MessageArray.Length; i++)
-                    {
-                        MessageArray[i] = "--";
-                    }
+                   
 
                     if (data[4] == Convert.ToByte(0x01))
                     {
                         statdata.Add("Command", "Reader");
 
-                        MessageArray[0] = "Reader";
+                       
                         if (data[6] == Convert.ToByte(0xc4))
                         {
                             
@@ -71,8 +77,7 @@ namespace TcpServerListener
                             {
                                 case 1:
                                     statdata.Add("Type", "CardRegister");
-                                    MessageArray[1] = "registered";
-                                    MessageArray[2] = data[7].ToString();
+                                   
                                     byte[] cardbytes = new byte[4];
                                     int count = 0;
                                     for(int k=7; k< data.Length - 1;)
@@ -92,7 +97,7 @@ namespace TcpServerListener
                                     //}
                                     //objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes));
                                     statdata.Add("Log", "CardRegister");
-                                    MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes);
+                                    
 
                                     break;
                                 case 2:
@@ -102,15 +107,14 @@ namespace TcpServerListener
                                 case 4:
                                     statdata.Add("Type", "NewCardRegister");
 
-                                    MessageArray[1] = "Toregister";
-                                    MessageArray[2] = data[7].ToString();
+                                   
                                     byte[] cardbytes1 = new byte[4];
                                     for (int i = 10; i >= 7; i--)
                                     {
                                         cardbytes1[10-i] = data[i];
                                         //MessageArray[2] = MessageArray[2] +" "+ data[i];
                                     }
-                                    MessageArray[2] = HexEncoding.ToStringfromHEx(cardbytes1);
+                                   
                                     objdata.Add("CardValue", HexEncoding.ToStringfromHEx(cardbytes1));
                                     statdata.Add("Log", "NewCardRegister");
                                     break;
@@ -128,8 +132,7 @@ namespace TcpServerListener
                                     break;
                                 case 11:
                                     statdata.Add("Type", "ReaderLogOn");
-                                    MessageArray[1] = "readerlog";
-                                    MessageArray[2] = data[7].ToString();
+                                  
                                     byte[] cardbytes3 = new byte[4];
                                     for (int i = 10; i >= 7; i--)
                                     {
@@ -141,8 +144,7 @@ namespace TcpServerListener
                                     break;
                                 case 12:
                                     statdata.Add("Type", "ReaderLogOff");
-                                    MessageArray[1] = "readerlog";
-                                    MessageArray[2] = data[7].ToString();
+                                   
                                     byte[] cardbytes4 = new byte[4];
                                     for (int i = 10; i >= 7; i--)
                                     {
@@ -168,14 +170,14 @@ namespace TcpServerListener
                         else
                         {
                             statdata.Add("InstructionStatus", "Fail");
-                            MessageArray[1] = "Unsuccessful";
+                            
                         }
                     }
                     else if (data[4] == Convert.ToByte(0x02))
                     {
 
                         statdata.Add("Command", "PanelControl");
-                        MessageArray[0] = "PanelControl";
+                        
                         if (data[6] == Convert.ToByte(0xc4))
                         {
                             statdata.Add("InstructionStatus", "Success");
@@ -215,341 +217,341 @@ namespace TcpServerListener
                                         case 192:
                                             objdata.Add("WorkStatus", "Open");
                                             log = "SystemOn";
-                                            MessageArray[2] = "SystemOn";
+                                            
                                             Status[5] = "On";
                                             break;
                                         case 193:
                                             objdata.Add("WorkStatus", "Close");
                                             log = "SystemOff";
-                                            MessageArray[2] = "SystemOff";
+                                           
                                             Status[5] = "Off";
                                             break;
 
                                         case 86:
                                             objdata.Add("Screen", "Down");
                                             log = "ScreenDown";
-                                            MessageArray[2] = "DSDown";
+                                           
                                             break;
                                         case 102:
                                             objdata.Add("Screen", "Stop");
                                             log = "ScreenStop";
-                                            MessageArray[2] = "DSStop";
+                                            
                                             break;
                                         case 118:
                                             objdata.Add("Screen", "Up");
                                             log = "ScreenRise";
-                                            MessageArray[2] = "DSUp";
+                                            
                                             break;
                                         case 44:
                                             objdata.Add("IsSystemLock", "True");
                                             log = "SystemLock";
-                                            MessageArray[2] = "syslock";
+                                           
                                             break;
                                         case 45:
                                             objdata.Add("IsSystemLock", "False");
                                             log = "SystemUnlock";
-                                            MessageArray[2] = "sysunlock";
+                                           
                                             break;
                                         case 46:
                                             objdata.Add("IsPodiumLock", "True");
                                             log = "PodiumLock";
-                                            MessageArray[2] = "podiumlock";
+                                            
                                             break;
                                         case 47:
                                             objdata.Add("IsPodiumLock", "False");
                                             log = "PodiumUnlock";
-                                            MessageArray[2] = "podiumunlock";
+                                            
                                             break;
                                         case 95:
                                             objdata.Add("IsClassLock", "True");
                                             log = "ClassLock";
-                                            MessageArray[2] = "classlock";
+                                           
                                             break;
                                         case 96:
                                             objdata.Add("IsClassLock", "False");
                                             log = "ClassUnlock";
-                                            MessageArray[2] = "classunlock";
+                                           
                                             break;
                                         case 32:
                                             objdata.Add("Volume", data[8].ToString());
                                             log = "Volume";
-                                            MessageArray[2] = "volplus";
+                                          
                                             break;
                                         case 33:
                                             objdata.Add("Volume", data[8].ToString());
                                             log = "Volume";
-                                            MessageArray[2] = "volminus";
+                                            
                                             break;
                                         case 34:
                                             objdata.Add("Volume", data[8].ToString());
                                             log = "Volume";
-                                            MessageArray[2] = "mute";
+                                            
                                             break;
                                         case 35:
                                             objdata.Add("WiredMicVolume", data[8].ToString());
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredvolplus";
+                                           
                                             break;
                                         case 36:
                                             objdata.Add("WiredMicVolume", data[8].ToString());
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredvolminus";
+                                            
                                             break;
                                         case 37:
                                             objdata.Add("WiredMicVolume", data[8].ToString());
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredmute";
+                                            
                                             break;
                                         case 115:
                                             objdata.Add("WirelessMicVolume", data[8].ToString());
                                             log = "WirelessMicVolume";
-                                            MessageArray[2] = "wirelessvolplus";
+                                           
                                             break;
                                         case 116:
                                             objdata.Add("WirelessMicVolume", data[8].ToString());
                                             log = "WirelessMicVolume";
-                                            MessageArray[2] = "wirelessvolminus";
+                                            
                                             break;
                                         case 117:
                                             objdata.Add("WirelessMicVolume", data[8].ToString());
                                             log = "WirelessMicVolume";
-                                            MessageArray[2] = "wirelessmute";
+                                            
                                             break;
                                         case 146:
                                             objdata.Add("Recording", "Start");
-                                            MessageArray[2] = "startrec";
+                                            
                                             break;
                                         case 147:
                                             objdata.Add("Recording", "Stop");
-                                            MessageArray[2] = "stoprec";
+                                            
                                             break;
                                         case 48:
                                             objdata.Add("DVD", "Play");
-                                            MessageArray[2] = "playdvd";
+                                           
                                             break;
                                         case 49:
                                             objdata.Add("DVD", "WareHouse");
-                                            MessageArray[2] = "warehousedvd";
+                                            
                                             break;
                                         case 54:
                                             objdata.Add("DVD", "Power");
-                                            MessageArray[2] = "powerdvd";
+                                            
                                             break;
                                         case 55:
                                             objdata.Add("DVD", "Pause");
-                                            MessageArray[2] = "pausedvd";
+                                          
                                             break;
                                         case 56:
                                             objdata.Add("DVD", "Stop");
-                                            MessageArray[2] = "stopdvd";
+                                           
                                             break;
                                         case 50:
                                             objdata.Add("DVD", "Forward");
-                                            MessageArray[2] = "forwarddvd";
+                                           
                                             break;
                                         case 64:
                                             objdata.Add("DVD", "Rewind");
-                                            MessageArray[2] = "rewinddvd";
+                                           
                                             break;
                                         case 65:
                                             objdata.Add("DVD", "Previous");
-                                            MessageArray[2] = "previousdvd";
+                                            
                                             break;
                                         case 66:
                                             objdata.Add("DVD", "Next");
-                                            MessageArray[2] = "nextdvd";
+                                            
                                             break;
                                         case 160:
                                             objdata.Add("TV", "Power");
-                                            MessageArray[2] = "powertv";
+                                           
                                             break;
                                         case 161:
                                             objdata.Add("TV", "");
-                                            MessageArray[2] = "tvsignal";
+                                            
                                             break;
                                         case 162:
                                             objdata.Add("TV", "ChannelPlus");
-                                            MessageArray[2] = "channelplustv";
+                                            
                                             break;
                                         case 163:
                                             objdata.Add("TV", "ChannelMinus");
-                                            MessageArray[2] = "channelminustv";
+                                            
                                             break;
                                         case 164:
                                             objdata.Add("TV", "VolumePlus");
-                                            MessageArray[2] = "volplustv";
+                                            
                                             break;
                                         case 165:
                                             objdata.Add("TV", "VolumeMinus");
-                                            MessageArray[2] = "volminustv";
+                                            
                                             break;
                                         case 166:
                                             objdata.Add("TV", "Menu");
-                                            MessageArray[2] = "menutv";
+                                           
                                             break;
                                         case 167:
                                             objdata.Add("TV", "Ok");
-                                            MessageArray[2] = "oktv";
+                                            
                                             break;
                                         case 168:
                                             objdata.Add("TV", "Exit");
-                                            MessageArray[2] = "exittv";
+                                           
                                             break;
                                         case 51:
                                             objdata.Add("ProjectorStatus", "On");
                                             log = "ProjectorOn";
-                                            MessageArray[2] = "projopen";
+                                            
                                             Status[1] = "On";
                                             break;
                                         case 67:
                                             objdata.Add("ProjectorStatus", "Off");
                                             log = "ProjectorOff";
-                                            MessageArray[2] = "projoff";
+                                            
                                             Status[1] = "Off";
                                             break;
                                         case 52:
                                             objdata.Add("Projector", "Hdmi");
                                             log = "ProjectorHDMI";
-                                            MessageArray[2] = "hdmi";
+                                            
                                             break;
                                         case 53:
                                             objdata.Add("Projector", "Video");
                                             log = "ProjectorVideo";
-                                            MessageArray[2] = "video";
+                                            
                                             break;
                                         case 68:
                                             objdata.Add("Projector", "Vga");
                                             log = "ProjectorVGA";
-                                            MessageArray[2] = "vga";
+                                            
                                             break;
                                         case 69:
                                             statdata.Add("Projector", "Sleep");
                                             log = "ProjectorSleep";
-                                            MessageArray[2] = "sleep";
+                                            
                                             break;
                                         case 119:
                                             objdata.Add("Curtain1", "Open");
                                             log = "CurtainOpen";
-                                            MessageArray[2] = "curtain1open";
+                                            
                                             break;
                                         case 87:
                                             objdata.Add("Curtain1", "Close");
                                             log = "CurtainClose";
-                                            MessageArray[2] = "curtain1close";
+                                            
                                             break;
                                         case 103:
                                             objdata.Add("Curtain1", "Stop");
                                             log = "CurtainStop";
-                                            MessageArray[2] = "curtain1stop";
+                                            
                                             break;
                                         case 99:
                                             objdata.Add("Curtain2", "Open");
-                                            MessageArray[2] = "curtain2open";
+                                            
                                             break;
                                         case 100:
                                             objdata.Add("Curtain2", "Close");
-                                            MessageArray[2] = "curtain2close";
+                                            
                                             break;
                                         case 101:
                                             objdata.Add("Curtain2", "Stop");
-                                            MessageArray[2] = "curtain2stop";
+                                            
                                             break;
                                         case 70:
                                             objdata.Add("Curtain3", "Open");
-                                            MessageArray[2] = "curtain3open";
+                                            
                                             break;
                                         case 71:
                                             objdata.Add("Curtain3", "Close");
-                                            MessageArray[2] = "curtain3close";
+                                            
                                             break;
                                         case 72:
                                             objdata.Add("Curtain3", "Stop");
-                                            MessageArray[2] = "curtain3stop";
+                                            
                                             break;
                                         case 73:
                                             objdata.Add("Curtain4", "Open");
-                                            MessageArray[2] = "curtain4open";
+                                            
                                             break;
                                         case 74:
                                             objdata.Add("Curtain4", "Close");
-                                            MessageArray[2] = "curtain4close";
+                                            
                                             break;
                                         case 75:
                                             objdata.Add("Curtain4", "Stop");
-                                            MessageArray[2] = "curtain4stop";
+                                            
                                             break;
                                         case 120:
                                             objdata.Add("Light", "light1");
-                                            MessageArray[2] = "light1";
+                                           
                                             break;
                                         case 104:
                                             objdata.Add("Light", "light2");
-                                            MessageArray[2] = "light2";
+                                            
                                             break;
                                         case 88:
                                             objdata.Add("Light", "light3");
-                                            MessageArray[2] = "light3";
+                                           
                                             break;
                                         case 83:
                                             objdata.Add("Light", "light4");
-                                            MessageArray[2] = "light4";
+                                            
                                             break;
                                         case 84:
                                             objdata.Add("Light", "light5");
-                                            MessageArray[2] = "light5";
+                                           
                                             break;
                                         case 85:
                                             objdata.Add("Light", "light6");
-                                            MessageArray[2] = "light6";
+                                            
                                             break;
                                         case 76:
                                             objdata.Add("Light", "light7");
-                                            MessageArray[2] = "light7";
+                                            
                                             break;
                                         case 77:
                                             objdata.Add("Light", "light8");
-                                            MessageArray[2] = "light8";
+                                            
                                             break;
                                         case 176:
                                             objdata.Add("BlueRayDVD", "Play");
-                                            MessageArray[2] = "playbludvd";
+                                            
                                             break;
                                         case 177:
                                             objdata.Add("BlueRayDVD", "Warehouse");
-                                            MessageArray[2] = "warehousebludvd";
+                                           
                                             break;
                                         case 178:
                                             objdata.Add("BlueRayDVD", "Power");
-                                            MessageArray[2] = "powerbludvd";
+                                           
                                             break;
                                         case 179:
                                             objdata.Add("BlueRayDVD", "Pause");
-                                            MessageArray[2] = "pausebludvd";
+                                            
                                             break;
                                         case 180:
                                             objdata.Add("BlueRayDVD", "Stop");
-                                            MessageArray[2] = "stopbludvd";
+                                           
                                             break;
                                         case 181:
                                             objdata.Add("BlueRayDVD", "Forward");
-                                            MessageArray[2] = "forwardbludvd";
+                                            
                                             break;
                                         case 182:
                                             objdata.Add("BlueRayDVD", "Rewind");
-                                            MessageArray[2] = "rewindbludvd";
+                                            
                                             break;
                                         case 183:
                                             objdata.Add("BlueRayDVD", "Previous");
-                                            MessageArray[2] = "previousbludvd";
+                                            
                                             break;
                                         case 184:
                                             objdata.Add("BlueRayDVD", "Next");
-                                            MessageArray[2] = "nextbludvd";
+                                           
                                             break;
 
                                         default:
                                             objdata.Add("NoData", "NoData");
-                                            MessageArray[2] = "Nochange";
+                                            
                                             break;
                                     }
                                     statdata.Add("Data", objdata);
@@ -558,38 +560,27 @@ namespace TcpServerListener
 
                                 case 05:
                                     statdata.Add("Type", "LedIndicator");
-
-                                    MessageArray[1] = "LEDIndicator";
-                                    // int result = 0;
                                     int re = -1;
-
-                                    //if (data[7] == Convert.ToByte(0x00))
-                                    //{
-                                    //    MessageArray[2] = "SystemSwitchOff";
-                                    //    //Status[1] = "Off";
-                                    //}
-                                    //else /*if (data[7] == Convert.ToByte(0x01))*/
-                                    //{
                                     int p = 256 * data[7] + data[8];
                                     if ((p & 256) == 256)
                                     {
                                         objdata.Add("WorkStatus", "Open");
-                                        MessageArray[2] = "SystemSwitchOn";
+                                        
                                     }
                                     else
                                     {
                                         objdata.Add("WorkStatus", "Closed");
-                                        MessageArray[2] = "SystemSwitchOff";
+                                        
                                     }
                                     if ((p & 128) == 128)
                                     {
                                         objdata.Add("PcStatus", "On");
-                                        MessageArray[4] = "Computer";
+                                       
                                     }
                                     else
                                     {
                                         objdata.Add("PcStatus", "Off");
-                                        MessageArray[4] = "ComputerOff";
+                                        
                                     }
                                     // int p = Convert.ToInt32(r); 
                                     int[] compare = new int[] { 1, 2, 4, 8, 16, 32, 64, 512, 1024, 2048,
@@ -599,62 +590,61 @@ namespace TcpServerListener
                                         re = p & compare[i];
                                         if (re == compare[i])
                                         {
-                                            // result = compare[i];
-                                            //break;
+                                          
                                             switch (re)
                                             {
                                                 case 1:
                                                     objdata.Add("MediaSignal", "Desktop");
-                                                    MessageArray[3] = "Desktop";
+                                                    
                                                     break;
                                                 case 2:
                                                     objdata.Add("MediaSignal", "Laptop");
-                                                    MessageArray[3] = "Laptop";
+                                                    
                                                     break;
                                                 case 4:
                                                     objdata.Add("MediaSignal", "DigitalBooth");
-                                                    MessageArray[3] = "DigitalCurtain";
+                                                    
                                                     break;
                                                 case 8:
                                                     objdata.Add("MediaSignal", "DigitalEquipment");
-                                                    MessageArray[3] = "DigitalScreen";
+                                                    
                                                     break;
                                                 case 16:
                                                     objdata.Add("MediaSignal", "DVD");
-                                                    MessageArray[3] = "DVD";
+                                                   
                                                     break;
                                                 case 32:
                                                     objdata.Add("MediaSignal", "TV");
-                                                    MessageArray[3] = "TV";
+                                                    
                                                     break;
                                                 case 64:
                                                     objdata.Add("MediaSignal", "VideoCamera");
-                                                    MessageArray[3] = "VideoCamera";
+                                                    
                                                     break;
 
                                                 case 512:
                                                     objdata.Add("MediaSignal", "RecordingSystem");
-                                                    MessageArray[3] = "RecordingSystem";
+                                                    
                                                     break;
                                                 case 1024:
                                                     objdata.Add("MediaSignal", "BluRayDVD");
-                                                    MessageArray[3] = "Blu-RayDVD";
+                                                    
                                                     break;
                                                 case 2048:
                                                     objdata.Add("MediaSignal", "ExternalHD");
-                                                    MessageArray[3] = "ExternalHD";
+                                                    
                                                     break;
                                                 case 4096:
                                                     objdata.Add("IsSystemLock", "");
-                                                    MessageArray[5] = "CentralLock";
+                                                   
                                                     break;
                                                 case 8192:
                                                     objdata.Add("IsPodiumLock", "");
-                                                    MessageArray[6] = "PodiumLock";
+                                                   
                                                     break;
                                                 case 16384:
                                                     objdata.Add("IsClassLock", "");
-                                                    MessageArray[7] = "ClassLock";
+                                                    
                                                     break;
                                             }
                                         }
@@ -662,35 +652,34 @@ namespace TcpServerListener
                                     if ((p & 4096) == 4096)
                                     {
                                         objdata.Add("IsSystemLock", "True");
-                                        MessageArray[5] = "CentralLock";
+                                       
                                     }
                                     else
                                     {
                                         objdata.Add("IsSystemLock", "False");
-                                        MessageArray[5] = "CentralLockoff";
+                                        
                                     }
                                     if ((p & 8192) == 8192)
                                     {
                                         objdata.Add("IsPodiumLock", "True");
-                                        MessageArray[6] = "PodiumLock";
+                                        
                                     }
                                     else
                                     {
                                         objdata.Add("IsPodiumLock", "False");
-                                        MessageArray[6] = "PodiumLockoff";
+                                        
                                     }
 
                                     if ((p & 16384) == 16384)
                                     {
                                         statdata.Add("IsClassLock", "True");
-                                        MessageArray[7] = "ClassLock";
+                                        
                                     }
                                     else
                                     {
                                         statdata.Add("IsClassLock", "False");
-                                        MessageArray[7] = "ClassLockoff";
+                                       
                                     }
-                                    //}
                                     statdata.Add("Data", objdata);
                                     break;
                                 default:
@@ -700,23 +689,13 @@ namespace TcpServerListener
                         else
                         {
                             statdata.Add("InstructionStatus", "Fail");
-                            MessageArray[1] = "Unsuccessful";
+                          
                         }
                     }
                     else if (data[4] == Convert.ToByte(0x03))
                     {
                         statdata.Add("Command", "ProjectorConfig");
-                        if (data[5] == 64)
-                        {
-                            if (data[6] == Convert.ToByte(0xc4))
-                                MessageArray[1] = "MacSuccess";
-                            else
-                            {
-                                MessageArray[1] = "MacFailure";
-                            }
-                        }
-
-                        MessageArray[0] = "config";
+                        
                         switch (data[5])
                         {
                             case 1:
@@ -936,66 +915,19 @@ namespace TcpServerListener
                     }
                     else if (data[4] == Convert.ToByte(0x04))
                     {
-                        MessageArray[0] = "Temp";
                         if (data[6] == Convert.ToByte(0xc9))
                         {
-                            MessageArray[1] = "Unsuccessful";
+                           
                         }
                         else
                         {
-                            switch (data[5])
-                            {
-                                case 1:
-                                    if (data[6] == Convert.ToByte(0x00))
-                                    {
-                                        MessageArray[1] = data[7] + "." + data[8].ToString("D2");
-                                    }
-                                    else
-                                    {
-                                        MessageArray[1] = "-" + data[7] + "." + data[8].ToString("D2");
-                                    }
-                                    MessageArray[2] = data[9] + "." + data[10].ToString("D2");
-                                    MessageArray[3] = (256 * data[11]) + data[12] + "." + data[13].ToString("D2");
-                                    MessageArray[4] = (256 * data[14]) + data[15] + "." + data[16].ToString("D2");
-
-                                    if (length > 18)
-                                    {
-                                        //voltage
-                                        MessageArray[5] = data[17].ToString();
-
-                                        //current
-                                        MessageArray[6] = ((256 * data[18]) + data[19]).ToString();
-                                        MessageArray[7] = ((256 * data[20]) + data[21]).ToString();
-                                        MessageArray[8] = ((256 * data[22]) + data[23]).ToString();
-                                        MessageArray[9] = ((256 * data[24]) + data[25]).ToString();
-                                        //co2
-                                        MessageArray[10] = ((256 * data[26]) + data[27]).ToString();
-                                        //formaldehyde
-                                        MessageArray[11] = data[28] + data[29] + "." + data[30].ToString("D2");
-                                        //volatile gases
-                                        MessageArray[12] = data[31] + data[32] + "." + data[33].ToString("D2");
-                                        //light intensity
-                                        MessageArray[13] = ((256 * data[34]) + data[35]).ToString();
-
-                                    }
-
-                                    break;
-                                case 2:
-
-                                    break;
-                                case 3:
-
-                                    break;
-
-                                default:
-                                    break;
-                            }
+                            
                         }
                     }
                     else if (data[4] == Convert.ToByte(0x05))
                     {
                         statdata.Add("Command", "NetworkControl");
-                        MessageArray[0] = "NetworkControl";
+                        
                         switch (data[5])
                         {
                             case 01:
@@ -1004,55 +936,52 @@ namespace TcpServerListener
                                 {
                                     statdata.Add("InstructionStatus", "Success");
                                     {
-                                        //machine status
-                                        MessageArray[2] = "在线";
+                                        
                                         //work status
                                         if (data[8] == Convert.ToByte(0x00))
                                         {
-                                            MessageArray[3] = "待机";//CLOSED
                                             objdata.Add("WorkStatus", "Closed");
                                             Status[5] = "Off";
                                         }
                                         else
                                         {
-                                            MessageArray[3] = "运行中";//OPEN
                                             objdata.Add("WorkStatus", "Open");
                                             Status[5] = "On";
                                         }
                                         //system lock status
                                         if (data[12] == Convert.ToByte(0x00))
                                         {
-                                            objdata.Add("IsSystemLock", "True");
-                                            MessageArray[12] = "解锁";//locked
+                                            objdata.Add("IsSystemLock", "True");//locked
+                                            
                                         }
                                         else
                                         {
                                             objdata.Add("IsSystemLock", "False");
-                                            MessageArray[12] = "锁定";//unlocked
+                                            //unlocked
                                         }
 
                                         //class lock status
                                         if (data[9] == Convert.ToByte(0x00))
                                         {
                                             objdata.Add("IsClassLock", "True");
-                                            MessageArray[13] = "解锁";//locked
+                                            //locked
                                         }
                                         else
                                         {
                                             objdata.Add("IsClassLock", "False");
-                                            MessageArray[13] = "锁定";//unlocked
+                                            //unlocked
                                         }
 
                                         //podium lock status
                                         if (data[10] == Convert.ToByte(0x00))
                                         {
                                             objdata.Add("IsPodiumLock", "True");
-                                            MessageArray[14] = "解锁";//locked
+                                            //locked
                                         }
                                         else
                                         {
                                             objdata.Add("IsPodiumLock", "False");
-                                            MessageArray[14] = "锁定";//unlocked
+                                            //unlocked
 
                                         }
 
@@ -1064,59 +993,46 @@ namespace TcpServerListener
                                         {
                                             case 1:
                                                 objdata.Add("MediaSignal", "Desktop");
-                                                // MessageArray[11] = "台式电脑";//desktop
+                                                
                                                 break;
                                             case 2:
                                                 objdata.Add("MediaSignal", "Laptop");
-                                                // MessageArray[11] = "手提电脑";//laptop
+                                               
                                                 break;
                                             case 3:
                                                 objdata.Add("MediaSignal", "DigitalBooth");
-                                                // MessageArray[11] = "数码展台";//digital booth(curtain)
                                                 break;
                                             case 4:
                                                 objdata.Add("MediaSignal", "DigitalEquipment");
-                                                // MessageArray[11] = "数码设备";//digital equipment(Screen)
                                                 break;
                                             case 5:
                                                 objdata.Add("MediaSignal", "Dvd");
-                                                // MessageArray[11] = "DVD";//dvd
                                                 break;
                                             case 6:
                                                 objdata.Add("MediaSignal", "BluRayDvd");
-                                                // MessageArray[11] = "蓝光DVD";//"Blu-Ray DVD"
                                                 break;
                                             case 7:
                                                 objdata.Add("MediaSignal", "Tv");
-                                                // MessageArray[11] = "电视机"; //TV
                                                 break;
                                             case 8:
                                                 objdata.Add("MediaSignal", "VideoCamera");
-                                                // MessageArray[11] = "摄像机";//Video Camera
                                                 break;
                                             case 9:
                                                 objdata.Add("MediaSignal", "RecordingSystem");
-                                                // MessageArray[11] = "录播"; //Recording System
                                                 break;
                                             default:
                                                 objdata.Add("MediaSignal", "None");
-                                                MessageArray[11] = "无信号"; //No system
                                                 break;
-                                        }
-
-
-                                        MessageArray[4] = "--";//timer service
+                                        }                                        
 
                                         //pc status
                                         if (data[7] == Convert.ToByte(0x00))
                                         {
-                                            MessageArray[5] = "已关机";//Off
                                             objdata.Add("PcStatus", "Off");
                                             Status[2] = "Off";
                                         }
                                         else
                                         {
-                                            MessageArray[5] = "已开机";//On
                                             objdata.Add("PcStatus", "On");
                                             Status[2] = "On";
                                         }
@@ -1124,30 +1040,28 @@ namespace TcpServerListener
                                         if (data[13] == Convert.ToByte(0x00))
                                         {
                                             objdata.Add("ProjectorStatus", "Off");
-                                            MessageArray[6] = "已关机";
                                             Status[1] = "Off";
                                         }
                                         else
                                         {
                                             objdata.Add("ProjectorStatus", "On");
-                                            MessageArray[6] = "已开机";
                                             Status[1] = "On";
                                         }
-                                        MessageArray[7] = "--";//projector hours
-                                                               //Curtain Status窗帘
+                                        
+                                        //Curtain Status窗帘
                                         switch (Convert.ToInt32(data[15]))
                                         {
                                             case 1:
-                                                MessageArray[8] = "开";//Open
+                                                //Open
                                                 objdata.Add("Curtain", "Open");
                                                 break;
                                             case 2:
                                                 objdata.Add("Curtain", "Close");
-                                                MessageArray[8] = "关";//Close
+                                                //Close
                                                 break;
                                             case 0:
                                                 objdata.Add("Curtain", "Stop");
-                                                MessageArray[8] = "停";//Stop
+                                                //Stop
                                                 break;
                                         }
                                         //Screen status屏幕
@@ -1155,17 +1069,17 @@ namespace TcpServerListener
                                         {
                                             case 1:
 
-                                                MessageArray[9] = "升";//Rise Up
+                                                //Rise Up
                                                 objdata.Add("Screen", "Up");
                                                 Status[6] = "Off";
                                                 break;
                                             case 2:
-                                                MessageArray[9] = "降";//Down
+                                                //Down
                                                 objdata.Add("Screen", "Down");
                                                 Status[6] = "On";
                                                 break;
                                             case 0:
-                                                MessageArray[9] = "停";//Stop
+                                               
                                                 objdata.Add("Screen", "Stop");
                                                 Status[6] = "Off";
                                                 break;
@@ -1174,12 +1088,12 @@ namespace TcpServerListener
                                         if (data[16] == Convert.ToByte(0x00))
                                         {
                                             objdata.Add("LightStatus", "Off");
-                                            MessageArray[10] = "关";//Off
+                                            
                                         }
                                         else
                                         {
                                             objdata.Add("LightStatus", "On");
-                                            MessageArray[10] = "开";//On 
+                                            
                                         }
 
                                         objdata.Add("Temperature", data[17].ToString());
@@ -1187,7 +1101,7 @@ namespace TcpServerListener
                                         objdata.Add("Humidity", data[18].ToString());
 
                                         objdata.Add("Voltage", data[22].ToString());
-                                        MessageArray[21] = (256 * data[24] + data[23]).ToString();
+                                        
                                         objdata.Add("Power", (256 * data[24] + data[23]).ToString());
 
                                         var tempbit = Convert.ToString(data[25], 2).PadLeft(4, '0');
@@ -1226,408 +1140,315 @@ namespace TcpServerListener
                                         case 16:
                                             objdata.Add("MediaSignal", "Desktop");
                                             log = "Desktop";
-                                            MessageArray[3] = "Desktop";
                                             break;
                                         case 17:
                                             objdata.Add("MediaSignal", "Laptop");
                                             log = "Laptop";
-                                            MessageArray[3] = "Laptop";
                                             break;
                                         case 18:
                                             //DigitalBooth = DigitalCurtain
                                             objdata.Add("MediaSignal", "DigitalBooth");
                                             log = "DigitalBooth";
-                                            MessageArray[3] = "DigitalCurtain";
                                             break;
                                         case 19:
                                             // DigitalEquipment=DigitalScreen
                                             objdata.Add("MediaSignal", "DigitalEquipment");
                                             log = "DigitalEquipment";
-                                            MessageArray[3] = "DigitalScreen";
                                             break;
                                         case 20:
                                             objdata.Add("MediaSignal", "DVD");
                                             log = "Dvd";
-                                            MessageArray[3] = "DVD";
                                             break;
                                         case 21:
                                             objdata.Add("MediaSignal", "TV");
                                             log = "TV";
-                                            MessageArray[3] = "TV";
                                             break;
                                         case 22:
                                             objdata.Add("MediaSignal", "VideoCamera");
                                             log = "VideoCamera";
-                                            MessageArray[3] = "VideoCamera";
                                             break;
 
                                         case 25:
                                             objdata.Add("MediaSignal", "RecordingSystem");
                                             log = "RecordingDevice";
-                                            MessageArray[3] = "RecordingSystem";
                                             break;
                                         case 26:
                                             objdata.Add("MediaSignal", "BluRayDVD");
                                             log = "BlurayDvd";
-                                            MessageArray[3] = "Blu-RayDVD";
                                             break;
-                                        //case 29:
-                                        //    objdata.Add("MediaSignal", "ExternalHD");
-                                        //    MessageArray[3] = "ExternalHD";
-                                        //    break;
+                                        
                                         case 192:
 
                                             objdata.Add("WorkStatus", "Open");
                                             log = "SystemOn";
-                                            MessageArray[2] = "SystemON";
-                                            // Status[5] = "On";
-
                                             break;
                                         case 193:
                                             objdata.Add("WorkStatus", "Closed");
                                             log = "SystemOff";
-                                            MessageArray[2] = "SystemOff";
                                             //Status[5] = "Off";
                                             break;
                                         case 29:
 
                                             objdata.Add("pcStatus", "On");
                                             log = "ComputerOn";
-                                            MessageArray[2] = "ComputerOn";
-
                                             break;
                                         case 30:
 
                                             objdata.Add("PcStatus", "Off");
                                             log = "ComputerOff";
-                                            MessageArray[2] = "ComputerOff";
-
+                                            
                                             //Status[5] = "Off";
                                             break;
                                         case 86:
                                             objdata.Add("Screen", "Down");
                                             log = "ScreenDown";
-                                            MessageArray[2] = "DSDown";
                                             break;
                                         case 102:
                                             objdata.Add("Screen", "Stop");
                                             log = "ScreenStop";
-                                            MessageArray[2] = "DSStop";
                                             break;
                                         case 118:
                                             objdata.Add("Screen", "Up");
                                             log = "ScreenRise";
-                                            MessageArray[2] = "DSUp";
                                             break;
                                         case 44:
                                             objdata.Add("IsSystemLock", "True");
                                             log = "SystemLock";
-                                            MessageArray[2] = "syslock";
                                             break;
                                         case 45:
                                             objdata.Add("IsSystemLock", "False");
                                             log = "SystemUnlock";
-                                            MessageArray[2] = "sysunlock";
                                             break;
                                         case 46:
                                             objdata.Add("IsPodiumLock", "True");
                                             log = "PodiumLock";
-                                            MessageArray[2] = "podiumlock";
                                             break;
                                         case 47:
                                             objdata.Add("IsPodiumLock", "False");
                                             log = "PodiumUnlock";
-                                            MessageArray[2] = "podiumunlock";
                                             break;
                                         case 95:
                                             objdata.Add("IsClassLock", "True");
                                             log = "ClassLock";
-                                            MessageArray[2] = "classlock";
                                             break;
                                         case 96:
                                             objdata.Add("IsClassLock", "False");
                                             log = "ClassUnlock";
-                                            MessageArray[2] = "classunlock";
                                             break;
                                         case 32:
                                             objdata.Add("Volume", "Increase");
                                             log = "Volume";
-                                            MessageArray[2] = "volplus";
                                             break;
                                         case 33:
                                             objdata.Add("Volume", "Decrease");
                                             log = "Volume";
-                                            MessageArray[2] = "volminus";
                                             break;
                                         case 34:
                                             objdata.Add("Volume", "Mute");
                                             log = "Volume";
-                                            MessageArray[2] = "mute";
                                             break;
                                         case 35:
                                             objdata.Add("WiredMicVolume", "Increase");
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredvolplus";
                                             break;
                                         case 36:
                                             objdata.Add("WiredMicVolume", "Decrease");
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredvolminus";
                                             break;
                                         case 37:
                                             objdata.Add("WiredMicVolume", "Mute");
                                             log = "WiredMicVolume";
-                                            MessageArray[2] = "wiredmute";
                                             break;
                                         case 115:
                                             objdata.Add("WirelessMicVolume", "Increase");
                                             log = "WirlessMicVolume";
-                                            MessageArray[2] = "wirelessvolplus";
                                             break;
                                         case 116:
                                             objdata.Add("WirelessMicVolume", "Decrease");
                                             log = "WirlessMicVolume";
-                                            MessageArray[2] = "wirelessvolminus";
                                             break;
                                         case 117:
                                             objdata.Add("WirelessMicVolume", "Mute");
                                             log = "WirlessMicVolume";
-                                            MessageArray[2] = "wirelessmute";
                                             break;
                                         case 146:
                                             objdata.Add("Recording", "Start");
-                                            MessageArray[2] = "startrec";
                                             break;
                                         case 147:
                                             objdata.Add("Recording", "Stop");
-                                            MessageArray[2] = "stoprec";
                                             break;
                                         case 48:
                                             objdata.Add("DVD", "Play");
-                                            MessageArray[2] = "playdvd";
                                             break;
                                         case 49:
                                             objdata.Add("DVD", "WareHouse");
-                                            MessageArray[2] = "warehousedvd";
                                             break;
                                         case 54:
                                             objdata.Add("DVD", "Power");
-                                            MessageArray[2] = "powerdvd";
                                             break;
                                         case 55:
                                             objdata.Add("DVD", "Pause");
-                                            MessageArray[2] = "pausedvd";
                                             break;
                                         case 56:
                                             objdata.Add("DVD", "Stop");
-                                            MessageArray[2] = "stopdvd";
                                             break;
                                         case 50:
                                             objdata.Add("DVD", "Forward");
-                                            MessageArray[2] = "forwarddvd";
                                             break;
                                         case 64:
                                             objdata.Add("DVD", "Rewind");
-                                            MessageArray[2] = "rewinddvd";
                                             break;
                                         case 65:
                                             objdata.Add("DVD", "Previous");
-                                            MessageArray[2] = "previousdvd";
                                             break;
                                         case 66:
                                             objdata.Add("DVD", "Next");
-                                            MessageArray[2] = "nextdvd";
                                             break;
                                         case 160:
                                             objdata.Add("TV", "Power");
-                                            MessageArray[2] = "powertv";
                                             break;
                                         case 161:
                                             objdata.Add("TV", "");
-                                            MessageArray[2] = "tvsignal";
                                             break;
                                         case 162:
                                             objdata.Add("TV", "ChannelPlus");
-                                            MessageArray[2] = "channelplustv";
                                             break;
                                         case 163:
                                             objdata.Add("TV", "ChannelMinus");
-                                            MessageArray[2] = "channelminustv";
-                                            break;
+                                           break;
                                         case 164:
                                             objdata.Add("TV", "VolumePlus");
-                                            MessageArray[2] = "volplustv";
                                             break;
                                         case 165:
                                             objdata.Add("TV", "VolumeMinus");
-                                            MessageArray[2] = "volminustv";
                                             break;
                                         case 166:
                                             objdata.Add("TV", "Menu");
-                                            MessageArray[2] = "menutv";
                                             break;
                                         case 167:
                                             objdata.Add("TV", "Ok");
-                                            MessageArray[2] = "oktv";
                                             break;
                                         case 168:
                                             objdata.Add("TV", "Exit");
-                                            MessageArray[2] = "exittv";
                                             break;
                                         case 51:
                                             objdata.Add("ProjectorStatus", "On");
                                             log = "ProjectorOn";
-                                            MessageArray[2] = "projopen";
                                             Status[1] = "On";
                                             break;
                                         case 67:
                                             objdata.Add("ProjectorStatus", "Off");
                                             log = "ProjectorOff";
-                                            MessageArray[2] = "projoff";
                                             Status[1] = "Off";
                                             break;
                                         case 52:
                                             objdata.Add("ProjectorStatus", "Hdmi");
                                             log = "ProjectorHDMI";
-                                            MessageArray[2] = "hdmi";
                                             break;
                                         case 53:
                                             objdata.Add("ProjectorStatus", "Video");
                                             log = "ProjectorVideo";
-                                            MessageArray[2] = "video";
                                             break;
                                         case 68:
                                             statdata.Add("ProjectorStatus", "Vga");
                                             log = "ProjectorVGA";
-                                            MessageArray[2] = "vga";
                                             break;
                                         case 69:
                                             objdata.Add("ProjectorStatus", "Sleep");
                                             log = "ProjectorSleep";
-                                            MessageArray[2] = "sleep";
                                             break;
                                         case 119:
                                             objdata.Add("Curtain1", "Open");
                                             log = "CurtainOpen";
-                                            MessageArray[2] = "curtain1open";
                                             break;
                                         case 87:
                                             objdata.Add("Curtain1", "Close");
                                             log = "CurtainClose";
-                                            MessageArray[2] = "curtain1close";
                                             break;
                                         case 103:
                                             objdata.Add("Curtain1", "Stop");
                                             log = "CurtainStop";
-                                            MessageArray[2] = "curtain1stop";
                                             break;
                                         case 99:
                                             objdata.Add("Curtain2", "Open");
-                                            MessageArray[2] = "curtain2open";
                                             break;
                                         case 100:
                                             objdata.Add("Curtain2", "Close");
-                                            MessageArray[2] = "curtain2close";
                                             break;
                                         case 101:
                                             objdata.Add("Curtain2", "Stop");
-                                            MessageArray[2] = "curtain2stop";
                                             break;
                                         case 70:
                                             objdata.Add("Curtain3", "Open");
-                                            MessageArray[2] = "curtain3open";
                                             break;
                                         case 71:
                                             objdata.Add("Curtain3", "Close");
-                                            MessageArray[2] = "curtain3close";
                                             break;
                                         case 72:
                                             objdata.Add("Curtain3", "Stop");
-                                            MessageArray[2] = "curtain3stop";
                                             break;
                                         case 73:
                                             objdata.Add("Curtain4", "Open");
-                                            MessageArray[2] = "curtain4open";
                                             break;
                                         case 74:
                                             objdata.Add("Curtain4", "Close");
-                                            MessageArray[2] = "curtain4close";
                                             break;
                                         case 75:
                                             objdata.Add("Curtain4", "Stop");
-                                            MessageArray[2] = "curtain4stop";
                                             break;
                                         case 120:
                                             objdata.Add("Light", "light1");
-                                            MessageArray[2] = "light1";
                                             break;
                                         case 104:
                                             objdata.Add("Light", "light2");
-                                            MessageArray[2] = "light2";
                                             break;
                                         case 88:
                                             objdata.Add("Light", "light3");
-                                            MessageArray[2] = "light3";
                                             break;
                                         case 83:
                                             objdata.Add("Light", "light4");
-                                            MessageArray[2] = "light4";
                                             break;
                                         case 84:
                                             statdata.Add("Light", "light5");
-                                            MessageArray[2] = "light5";
                                             break;
                                         case 85:
                                             objdata.Add("Light", "light6");
-                                            MessageArray[2] = "light6";
                                             break;
                                         case 76:
                                             objdata.Add("Light", "light7");
-                                            MessageArray[2] = "light7";
                                             break;
                                         case 77:
                                             objdata.Add("Light", "light8");
-                                            MessageArray[2] = "light8";
                                             break;
                                         case 176:
                                             objdata.Add("BlueRayDVD", "Play");
-                                            MessageArray[2] = "playbludvd";
                                             break;
                                         case 177:
                                             objdata.Add("BlueRayDVD", "Warehouse");
-                                            MessageArray[2] = "warehousebludvd";
                                             break;
                                         case 178:
                                             objdata.Add("BlueRayDVD", "Power");
-                                            MessageArray[2] = "powerbludvd";
                                             break;
                                         case 179:
                                             objdata.Add("BlueRayDVD", "Pause");
-                                            MessageArray[2] = "pausebludvd";
                                             break;
                                         case 180:
                                             objdata.Add("BlueRayDVD", "Stop");
-                                            MessageArray[2] = "stopbludvd";
                                             break;
                                         case 181:
                                             objdata.Add("BlueRayDVD", "Forward");
-                                            MessageArray[2] = "forwardbludvd";
                                             break;
                                         case 182:
                                             objdata.Add("BlueRayDVD", "Rewind");
-                                            MessageArray[2] = "rewindbludvd";
                                             break;
                                         case 183:
                                             objdata.Add("BlueRayDVD", "Previous");
-                                            MessageArray[2] = "previousbludvd";
                                             break;
                                         case 184:
                                             objdata.Add("BlueRayDVD", "Next");
-                                            MessageArray[2] = "nextbludvd";
                                             break;
                                         default:
                                             objdata.Add("NoData", "NoData");
-                                            MessageArray[2] = "Nochange";
                                             break;
                                     }
                                 }
@@ -1648,7 +1469,6 @@ namespace TcpServerListener
                                     switch (data[7])
                                     {
                                         case 01:
-                                            MessageArray[1] = "PowerSupply";
                                             switch (Convert.ToByte(data[8]))
                                             {
                                                 case 01:
@@ -1746,8 +1566,6 @@ namespace TcpServerListener
                             case 08:
                                 statdata.Add("Type", "MacAddress");
                                 string macadd = HexEncoding.ToStringfromHex(new byte[] { data[7], data[8], data[9], data[10], data[11], data[12] });
-                                //var temo =HexEncoding.GetBytes(macadd,out int discard);
-
                                 objdata.Add("MacAddress", macadd);
                                 break;
                             case 09:
@@ -1756,7 +1574,6 @@ namespace TcpServerListener
                                     statdata.Add("Type", "Strategy");
                                     int strategyID = (data[8] << 8) | data[9];
                                     statdata.Add("StrategyId", strategyID);
-                                    MessageArray[1] = "StrategyInstruction";
                                     if (data[6] == Convert.ToByte(0xc4))
                                     {
                                         statdata.Add("InstructionStatus", "Success");
@@ -1825,7 +1642,6 @@ namespace TcpServerListener
                                 {
                                     //8B B9 00 07 05 09 C4 02 00 4F 2A
                                     statdata.Add("Type", "Reservation");
-                                    MessageArray[1] = "ReserveInstruction";
                                     switch (Convert.ToByte(data[7]))
                                     {
                                         case 01:
@@ -1882,7 +1698,6 @@ namespace TcpServerListener
                                     }
                                     int reserveID = (data[8] << 8) | data[9];
                                     statdata.Add("ReserveId", reserveID);
-
                                 }
                                 break;
                             case 11:   //8B B9 00 0A 05 0B C4 A6 A1 0F 5A 5A 3C 24
@@ -1916,7 +1731,7 @@ namespace TcpServerListener
                                     else if (systembit == "01")
                                         objdata.Add("WorkStatus", "Opening");
                                     else if (systembit == "10") objdata.Add("WorkStatus", "Open");
-                                    else objdata.Add("WorkStaus", "Closing");
+                                    else objdata.Add("WorkStatus", "Closing");
 
                                     if (statbits[2] == '1') objdata.Add("IsSystemLock", "True");
                                     else objdata.Add("IsSystemLock", "False");
@@ -1962,43 +1777,33 @@ namespace TcpServerListener
                                     {
                                         case "0001":
                                             objdata.Add("MediaSignal", "Desktop");
-                                            // MessageArray[11] = "台式电脑";//desktop
                                             break;
                                         case "0010":
                                             objdata.Add("MediaSignal", "Laptop");
-                                            // MessageArray[11] = "手提电脑";//laptop
                                             break;
                                         case "0011":
                                             objdata.Add("MediaSignal", "DigitalBooth");
-                                            // MessageArray[11] = "数码展台";//digital booth(curtain)
                                             break;
                                         case "0100":
                                             objdata.Add("MediaSignal", "DigitalEquipment");
-                                            // MessageArray[11] = "数码设备";//digital equipment(Screen)
                                             break;
                                         case "0101":
                                             objdata.Add("MediaSignal", "Dvd");
-                                            // MessageArray[11] = "DVD";//dvd
                                             break;
                                         case "0110":
                                             objdata.Add("MediaSignal", "BluRayDvd");
-                                            // MessageArray[11] = "蓝光DVD";//"Blu-Ray DVD"
                                             break;
                                         case "0111":
                                             objdata.Add("MediaSignal", "Tv");
-                                            // MessageArray[11] = "电视机"; //TV
                                             break;
                                         case "1000":
                                             objdata.Add("MediaSignal", "VideoCamera");
-                                            // MessageArray[11] = "摄像机";//Video Camera
                                             break;
                                         case "1001":
                                             objdata.Add("MediaSignal", "RecordingSystem");
-                                            // MessageArray[11] = "录播"; //Recording System
                                             break;
                                         default:
                                             objdata.Add("MediaSignal", "None");
-                                            MessageArray[11] = "无信号"; //No system
                                             break;
                                     }
                                     objdata.Add("Volume", data[10].ToString());// main volume
@@ -2012,13 +1817,9 @@ namespace TcpServerListener
                                 break;
                             default:
                                 break;
-
-
-
                         }
                         statdata.Add("Data", objdata);
                         statdata.Add("Log", log);
-
                     }
                     else if (data[4] == Convert.ToByte(0x06))
                     {
@@ -2043,14 +1844,11 @@ namespace TcpServerListener
                                 default:
                                     break;
                             }
-
                         }
                         else
                         {
-                            statdata.Add("InstructionStatus", "Fail");
-                            MessageArray[1] = "Unsuccessful";
+                            statdata.Add("InstructionStatus", "Fail");  
                         }
-
                     }
                     else
                     {
@@ -2080,16 +1878,11 @@ namespace TcpServerListener
                         }
                         else
                         {
-                            statdata.Add("InstructionStatus", "Fail");
-                            MessageArray[1] = "Unsuccessful";
+                            statdata.Add("InstructionStatus", "Fail");                            
                         }
                     }
-
-
                 }
-                //}
-                //Console.WriteLine(" received byte " + received[8]);
-                //Console.WriteLine(" ");
+                
             }
             catch (Exception ex)
             {
@@ -2098,18 +1891,26 @@ namespace TcpServerListener
                 data.ToList().ForEach(x => Console.Write(" " + x));
                 Console.WriteLine(ex.StackTrace);
             }
-            //SaveStatus1(ip, MessageArray);
-            //  result.Add(MessageArray.ToList());
+            
             result.Add("data", statdata);
             result.Add("status", Status.ToList());
             return result;
         }
 
+        /// <summary>
+        /// Keys the value indicator.
+        /// </summary>
+        /// <param name="messageArray">The message array.</param>
+        /// <param name="data">The data.</param>
         private void KeyValueIndicator(string[] messageArray, byte[] data)
         {
             keyCodes.Add(10, "DeskTop");
         }
 
+        /// <summary>
+        /// Offlines the message.
+        /// </summary>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public Dictionary<string, object> OfflineMessage()
         {
 

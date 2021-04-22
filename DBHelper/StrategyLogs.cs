@@ -11,7 +11,6 @@ namespace DBHelper
     {
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
         
-        protected string constr = ConfigurationManager.ConnectionStrings["SchoolConnectionString"].ConnectionString;
         public async Task SaveStrategyLogInfo(string instruction, int stid, string status, string machinemac, int equipid)
         {
             var found = false;

@@ -1369,8 +1369,6 @@ namespace Cresij_Control_Manager
                                     objdata.Add("MacAddress", macadd);
                                     break;
                                 case 09:
-
-
                                     objdata.Add("Type", "Strategy");
                                     MessageArray[1] = "StrategyInstruction";
                                     switch (Convert.ToByte(data[7]))
@@ -1699,7 +1697,6 @@ namespace Cresij_Control_Manager
                                             MessageArray[2] = "Nochange";
                                             break;
                                     }
-
                                     break;
                                 default:
                                     break;

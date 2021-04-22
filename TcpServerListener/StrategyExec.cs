@@ -18,135 +18,165 @@ namespace TcpServerListener
         {
             List<FinalResult> ff = new List<FinalResult>();
             Strategy st = new Strategy();
-            var inscode = "";            
-            try
-            {
+            var inscode = "";
+            
                 var dayOfMonth = DateTime.Now.Day;
                 var dayOfWeek = (int)DateTime.Now.DayOfWeek;
                 var toDate = DateTime.Now.ToString("yyyy-MM-dd");
-                var db = st.GetData(time);
-                foreach (var s in db)
+                foreach (ConnectionStringSettings n in ConfigurationManager.ConnectionStrings)
                 {
-                    var numbers = s.Location.Split(',').Select(int.Parse).ToList();
-                    List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
-                    if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
-                    {
-                        switch (s.StrategyTimeFrame1)
-                        {
-                            case "Monthly":
-                                var day = s.StrategyTimeFrame2.Split(',').Select(int.Parse).ToList();
-                                if (day.Contains(dayOfMonth))
-                                {
+                try
+                {
+                    var dbname = n.Name;
 
-                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                    foreach (LocationsMac l in locationsmac)
-                                    {
-                                        ff.Add(new FinalResult { Instruction = inscode,
-                                            Ccmac = l.CCMac.ToUpper(),
-                                            Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId =s.StrategyDescId,StrategyId=s.StrategyId,
-                                            Equipmentid = s.EquipmentId
-                                        });
-                                    }
-                                }
-                                break;
-                            case "Weekly":
-                                var dayno = s.StrategyTimeFrame2.Split(',').Select(int.Parse).ToList();
-                                if (dayno.Contains(dayOfWeek))
+                    if (!dbname.Contains("Entities"))
+                    {
+                        var dbnameEntities = dbname + "Entities";
+                        var db = st.GetData(time, dbnameEntities);
+                        foreach (var s in db)
+                        {
+                            var numbers = s.Location.Split(',').Select(int.Parse).ToList();
+                            List<LocationsMac> locationsmac = st.GetLocationsMac(numbers, dbnameEntities);
+                            if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
+                            {
+                                switch (s.StrategyTimeFrame1)
                                 {
-                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                    foreach (LocationsMac l in locationsmac)
-                                    {
-                                        ff.Add(new FinalResult { Instruction = inscode,
-                                            Ccmac = l.CCMac.ToUpper(),
-                                            Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId,
-                                            Equipmentid = s.EquipmentId
-                                        });
-                                    }
+                                    case "Monthly":
+                                        var day = s.StrategyTimeFrame2.Split(',').Select(int.Parse).ToList();
+                                        if (day.Contains(dayOfMonth))
+                                        {
+
+                                            inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                            foreach (LocationsMac l in locationsmac)
+                                            {
+                                                ff.Add(new FinalResult
+                                                {
+                                                    Instruction = inscode,
+                                                    Ccmac = l.CCMac.ToUpper(),
+                                                    Deskmac = l.DeskMac.ToUpper(),
+                                                    StrategyDescId = s.StrategyDescId,
+                                                    StrategyId = s.StrategyId,
+                                                    Equipmentid = s.EquipmentId
+                                                });
+                                            }
+                                        }
+                                        break;
+                                    case "Weekly":
+                                        var dayno = s.StrategyTimeFrame2.Split(',').Select(int.Parse).ToList();
+                                        if (dayno.Contains(dayOfWeek))
+                                        {
+                                            inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                            foreach (LocationsMac l in locationsmac)
+                                            {
+                                                ff.Add(new FinalResult
+                                                {
+                                                    Instruction = inscode,
+                                                    Ccmac = l.CCMac.ToUpper(),
+                                                    Deskmac = l.DeskMac.ToUpper(),
+                                                    StrategyDescId = s.StrategyDescId,
+                                                    StrategyId = s.StrategyId,
+                                                    Equipmentid = s.EquipmentId
+                                                });
+                                            }
+                                        }
+                                        break;
+                                    case "Daily":
+                                        inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                        foreach (LocationsMac l in locationsmac)
+                                        {
+                                            ff.Add(new FinalResult
+                                            {
+                                                Instruction = inscode,
+                                                Ccmac = l.CCMac.ToUpper(),
+                                                Deskmac = l.DeskMac.ToUpper(),
+                                                StrategyDescId = s.StrategyDescId,
+                                                StrategyId = s.StrategyId,
+                                                Equipmentid = s.EquipmentId
+                                            });
+                                        }
+                                        break;
+                                    //case "Schedule":
+                                    //    GetStrategyBySchedule(s.EquipmentId, time, s.ServiceConfig, s.Location.Split(','));
+                                    //    break;
+                                    //case "Section":
+                                    //    CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                    //    break;
+                                    case "Date":
+                                        var tempdate = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
+                                        if (tempdate == toDate)
+                                        {
+                                            inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                            foreach (LocationsMac l in locationsmac)
+                                            {
+                                                ff.Add(new FinalResult
+                                                {
+                                                    Instruction = inscode,
+                                                    Ccmac = l.CCMac.ToUpper(),
+                                                    Deskmac = l.DeskMac.ToUpper(),
+                                                    StrategyDescId = s.StrategyDescId,
+                                                    StrategyId = s.StrategyId,
+                                                    Equipmentid = s.EquipmentId
+                                                });
+                                            }
+                                        }
+                                        break;
+                                    case "TestTime":
+                                        var tempdate1 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
+                                        if (tempdate1 == toDate)
+                                        {
+                                            inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                            foreach (LocationsMac l in locationsmac)
+                                            {
+                                                ff.Add(new FinalResult
+                                                {
+                                                    Instruction = inscode,
+                                                    Ccmac = l.CCMac.ToUpper(),
+                                                    Deskmac = l.DeskMac.ToUpper(),
+                                                    StrategyDescId = s.StrategyDescId,
+                                                    StrategyId = s.StrategyId,
+                                                    Equipmentid = s.EquipmentId
+                                                });
+                                            }
+                                        }
+                                        break;
+                                    case "CheckTime":
+                                        var tempdate2 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
+                                        if (tempdate2 == toDate)
+                                        {
+                                            inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
+                                            foreach (LocationsMac l in locationsmac)
+                                            {
+                                                ff.Add(new FinalResult
+                                                {
+                                                    Instruction = inscode,
+                                                    Ccmac = l.CCMac.ToUpper(),
+                                                    Deskmac = l.DeskMac.ToUpper(),
+                                                    StrategyDescId = s.StrategyDescId,
+                                                    StrategyId = s.StrategyId,
+                                                    Equipmentid = s.EquipmentId
+                                                });
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        Console.WriteLine("testc");
+                                        break;
                                 }
-                                break;
-                            case "Daily":
-                                inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                foreach (LocationsMac l in locationsmac)
-                                {
-                                    ff.Add(new FinalResult { Instruction = inscode,
-                                        Ccmac = l.CCMac.ToUpper(),
-                                        Deskmac = l.DeskMac.ToUpper(),
-                                        StrategyDescId = s.StrategyDescId,
-                                        StrategyId = s.StrategyId,
-                                        Equipmentid = s.EquipmentId
-                                    });
-                                }
-                                break;
-                            //case "Schedule":
-                            //    GetStrategyBySchedule(s.EquipmentId, time, s.ServiceConfig, s.Location.Split(','));
-                            //    break;
-                            //case "Section":
-                            //    CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                            //    break;
-                            case "Date":
-                                var tempdate = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
-                                if (tempdate == toDate)
-                                {
-                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                    foreach (LocationsMac l in locationsmac)
-                                    {
-                                        ff.Add(new FinalResult { Instruction = inscode,
-                                            Ccmac = l.CCMac.ToUpper(),
-                                            Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId,
-                                            Equipmentid = s.EquipmentId
-                                        });
-                                    }
-                                }
-                                break;
-                            case "TestTime":
-                                var tempdate1 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
-                                if (tempdate1 == toDate)
-                                {
-                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                    foreach (LocationsMac l in locationsmac)
-                                    {
-                                        ff.Add(new FinalResult { Instruction = inscode, Ccmac = l.CCMac.ToUpper(), Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId,
-                                            Equipmentid = s.EquipmentId
-                                        });
-                                    }
-                                }
-                                break;
-                            case "CheckTime":
-                                var tempdate2 = Convert.ToDateTime(s.StrategyTimeFrame2).ToString("yyyy-MM-dd");
-                                if (tempdate2 == toDate)
-                                {
-                                    inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
-                                    foreach (LocationsMac l in locationsmac)
-                                    {
-                                        ff.Add(new FinalResult { Instruction = inscode,
-                                            Ccmac = l.CCMac.ToUpper(),
-                                            Deskmac = l.DeskMac.ToUpper(),
-                                            StrategyDescId = s.StrategyDescId,
-                                            StrategyId = s.StrategyId,
-                                            Equipmentid = s.EquipmentId
-                                        });
-                                    }
-                                }
-                                break;
-                            default:
-                                Console.WriteLine("testc");
-                                break;
+                            }
                         }
+                        ff.AddRange(GetStrategyBySchedule(time, dbname));
                     }
                 }
-                ff.AddRange(GetStrategyBySchedule(time));
+                catch (Exception ex)
+                {
+                    loggerFile.Debug(ex.Message + " Debug " + ex.StackTrace);
+                }
+                ///this is called because of multiple database
+
+                ///this can be directly called for single database and change the method signature
+                //ff.AddRange(GetStrategyBySchedule(time));
             }
-            catch (Exception ex)
-            {
-                loggerFile.Debug(ex.Message + " Debug " + ex.StackTrace);
-            }            
+                     
             return ff;
         }
 
@@ -407,11 +437,12 @@ namespace TcpServerListener
         }
         public List<FinalResult> GetStrategyBySchedule(string time, string dbname)
         {
-           
+            string dbnameEntities = dbname + "Entities";
             var ff = new List<FinalResult>();
             try
             {
-                Strategy st = new Strategy();
+                
+                Strategy st = new Strategy(dbname);
                 Dictionary<string, string> output = new Dictionary<string, string>();
                 var ss = st.GetStrategyBySchedule(time);
                 var section = Convert.ToInt32(ss["section"]);
@@ -429,9 +460,9 @@ namespace TcpServerListener
                 }
                 if (section > 0)
                 {
-                    ff = GetStrategyBySection(section, sectiontime);
+                    ff = GetStrategyBySection(section, sectiontime,dbname);
 
-                    var data = st.GetStrByScheduleorSection("Schedule");
+                    var data = st.GetStrByScheduleorSection("Schedule",dbnameEntities);
                     if (dt.Rows.Count > 0)
                     {
                         foreach (StrategyDesc dec in data)
@@ -440,7 +471,7 @@ namespace TcpServerListener
                             if (dec.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
                             {
                                 var numbers = dec.Location.Split(',').Select(int.Parse).ToList();
-                                List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
+                                List<LocationsMac> locationsmac = st.GetLocationsMac(numbers,dbnameEntities);
                                 string instruction = CheckEquipmentCode(dec.EquipmentId, dec.ServiceConfig);
                                 var pp = (from x in temp
                                           join y in locationsmac on x.ClassId equals y.ClassId
@@ -478,17 +509,27 @@ namespace TcpServerListener
             {
                 
                 loggerFile.Debug( Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: "+ ex.StackTrace);
-                // Log("error in strategy exex : " + ex.StackTrace);
+                
             }
             
             return ff;
         }
-        
-        public List<FinalResult> GetStrategyBySection(int section, string sectiontime)
+
+        /// <summary>
+        /// Gets the strategy by section.
+        /// </summary>
+        /// <param name="section">The section.</param>
+        /// <param name="sectiontime">The sectiontime.</param>
+        /// <param name="dbname">The dbname.</param>
+        /// <returns>List&lt;FinalResult&gt;.</returns>
+        public List<FinalResult> GetStrategyBySection(int section, string sectiontime,string dbname)
         {
+            string dbnameEntities = dbname + "Entities";
             List<FinalResult> ff = new List<FinalResult>();
+           
             Strategy st = new Strategy();
-            var data = st.GetStrByScheduleorSection("Section");
+            ///GetStrByScheduleorSection used EF connection string
+            var data = st.GetStrByScheduleorSection("Section",dbnameEntities);
             if (data.Count > 0)
             {
                 foreach (StrategyDesc dec in data)
@@ -496,7 +537,8 @@ namespace TcpServerListener
                     if (dec.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
                     {
                         var numbers = dec.Location.Split(',').Select(int.Parse).ToList();
-                        List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
+                        ///GetLocationsMac uses EF connection string
+                        List<LocationsMac> locationsmac = st.GetLocationsMac(numbers,dbnameEntities);
                         string instruction = CheckEquipmentCode(dec.EquipmentId, dec.ServiceConfig);
                         foreach (LocationsMac l in locationsmac)
                         {
@@ -530,41 +572,52 @@ namespace TcpServerListener
             }
             return ff;
         }
+        /// <summary>
+        /// Gets the test time data.
+        /// </summary>
+        /// <returns>List&lt;TestTimes&gt;.</returns>
         public List<TestTimes> GetTestTimeData()
         {
             List<int> tempid = new List<int>();
             List<TestTimes> result = new List<TestTimes>();
             var t= DateTime.Now.AddMinutes(5).ToString("HH:mm:00");
             var starttime = DateTime.Now.AddMinutes(5).ToString("yyyy-MM-dd HH:mm:00");
-            Strategy st = new Strategy();
-            var a = st.GetTestTimeData(t);
-            foreach (var s in a)
+            foreach (ConnectionStringSettings n in ConfigurationManager.ConnectionStrings)
             {
-                var numbers = s.Location.Split(',').Select(int.Parse).ToList();
-                List<LocationsMac> locationsmac = st.GetLocationsMac(numbers);
-                if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
+                Strategy st = new Strategy();
+                var dbname = n.Name;
+                if (dbname.Contains("Entities"))
                 {
-                    if (!tempid.Contains(s.StrategyId))
-                    {                        
-                        if (s.ServiceConfig.ContainsKey("starttime"))
+                    var a = st.GetTestTimeData(t, dbname);
+                    foreach (var s in a)
+                    {
+                        var numbers = s.Location.Split(',').Select(int.Parse).ToList();
+                        List<LocationsMac> locationsmac = st.GetLocationsMac(numbers,dbname);
+                        if (s.ServiceConfig["isActive"].ToString().ToUpper() == "TRUE")
                         {
-                            tempid.Add(s.StrategyId);
-                            if (s.ServiceConfig["starttime"].ToString() == starttime)
+                            if (!tempid.Contains(s.StrategyId))
                             {
-                                foreach (var l in locationsmac)
+                                if (s.ServiceConfig.ContainsKey("starttime"))
                                 {
-                                    var testtime = new TestTimes()
+                                    tempid.Add(s.StrategyId);
+                                    if (s.ServiceConfig["starttime"].ToString() == starttime)
                                     {
-                                        EndTime = s.ServiceConfig["endtime"].ToString(),
-                                        StartTime = s.ServiceConfig["starttime"].ToString(),
-                                        PublishText = s.ServiceConfig["publishText"].ToObject<int[]>(),
-                                        PublishTitle = s.ServiceConfig["publishTitle"].ToObject<int[]>(),
-                                        CCmac = l.CCMac,
-                                        Deskmac = l.DeskMac,
-                                        Subject = s.ServiceConfig["subject"].ToString(),
-                                        Code = "TestStart"
-                                    };
-                                    result.Add(testtime);
+                                        foreach (var l in locationsmac)
+                                        {
+                                            var testtime = new TestTimes()
+                                            {
+                                                EndTime = s.ServiceConfig["endtime"].ToString(),
+                                                StartTime = s.ServiceConfig["starttime"].ToString(),
+                                                PublishText = s.ServiceConfig["publishText"].ToObject<int[]>(),
+                                                PublishTitle = s.ServiceConfig["publishTitle"].ToObject<int[]>(),
+                                                CCmac = l.CCMac,
+                                                Deskmac = l.DeskMac,
+                                                Subject = s.ServiceConfig["subject"].ToString(),
+                                                Code = "TestStart"
+                                            };
+                                            result.Add(testtime);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -574,28 +627,7 @@ namespace TcpServerListener
             return result;
         }
 
-        public List<FinalResult> GetStrategyByDatabase(string time)
-        {
-            var ff = new List<FinalResult>();
-            List<string> dbnames = new List<string>();
-            try
-            {
-                foreach(ConnectionStringSettings n in ConfigurationManager.ConnectionStrings)
-                {
-                    var name = n.Name;
-                    if (!dbnames.Contains(name))
-                    {
-                        GetStrategyBySchedule(time, name);
-                    }                        
-                }
-            }
-            catch (Exception ex)
-            {
-                loggerFile.Debug(Environment.NewLine + DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "strategy error: " + ex.StackTrace);
-                // Log("error in strategy exex : " + ex.StackTrace);
-            }
-            return ff;
-        }
+      
     }
     public class FinalResult
     {

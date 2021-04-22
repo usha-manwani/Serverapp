@@ -1,4 +1,17 @@
-﻿using DBHelper;
+﻿// ***********************************************************************
+// Assembly         : TcpServerListener
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-08-2021
+// ***********************************************************************
+// <copyright file="AsyncDesktopServer.cs" company="">
+//     Copyright ©  2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using DBHelper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,44 +27,123 @@ using NLog;
 
 namespace TcpServerListener
 {
+    /// <summary>
+    /// Class WaitListClass.
+    /// contains details of strategy and ccmac 
+    /// </summary>
     public class WaitListClass
     {
+        /// <summary>
+        /// Gets or sets the timeof execute.
+        /// </summary>
+        /// <value>The timeof execute.</value>
         public DateTime TimeofExec { get; set; }
+        /// <summary>
+        /// Gets or sets the strategyid.
+        /// </summary>
+        /// <value>The strategyid.</value>
         public int Strategyid { get; set; }
+        /// <summary>
+        /// Gets or sets the strategy desc identifier.
+        /// </summary>
+        /// <value>The strategy desc identifier.</value>
         public int StrategyDescId { get; set; }
+        /// <summary>
+        /// Gets or sets the command.
+        /// </summary>
+        /// <value>The command.</value>
         public string Command { get; set; }
+        /// <summary>
+        /// Gets or sets the ccmac.
+        /// </summary>
+        /// <value>The ccmac.</value>
         public string Ccmac { get; set; }
+        /// <summary>
+        /// Gets or sets the equipment identifier.
+        /// </summary>
+        /// <value>The equipment identifier.</value>
         public int EquipmentId { get; set; }
+        /// <summary>
+        /// Gets or sets the inst.
+        /// </summary>
+        /// <value>The inst.</value>
         public byte[] Inst { get; set; }
     }
+    /// <summary>
+    /// Class StateObject.
+    /// </summary>
     public class StateObject
     {
         // Client  socket.  
+        /// <summary>
+        /// The work socket
+        /// </summary>
         public Socket workSocket = null;
         // Size of receive buffer.  
+        /// <summary>
+        /// The buffer size
+        /// </summary>
         public const int BufferSize = 512;
         // Receive buffer.  
+        /// <summary>
+        /// The buffer
+        /// </summary>
         public byte[] buffer;
         // Received data string.  
+        /// <summary>
+        /// The sb
+        /// </summary>
         public StringBuilder sb = new StringBuilder();
+        /// <summary>
+        /// The mac address
+        /// </summary>
         public string MacAddress = "";
     }
-
+    /// <summary>
+    /// Class AsyncDesktopServer.
+    /// </summary>
     public class AsyncDesktopServer
     {
-        
+        /// <summary>
+        /// The logger file
+        /// </summary>
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
-        
-
+        /// <summary>
+        /// The dictionary of WaitListClass with key as central control machine mac(ccmac)
+        /// </summary>
         public static Dictionary<string, WaitListClass> WaitList = new Dictionary<string, WaitListClass>();
-        public static Dictionary<string, int> IPStatus = new Dictionary<string, int>();
+       
+        /// <summary>
+        /// The connected client
+        /// </summary>
         public static int connectedClient = 0;
+        /// <summary>
+        /// The list of desktop clients connected
+        /// </summary>
         public static Dictionary<Socket, StateObject> Clients = new Dictionary<Socket, StateObject>();
+        /// <summary>
+        /// The list of desktop mac as key and ccmac as value
+        /// </summary>
         public static Dictionary<string, string> DesktopList = new Dictionary<string, string>();
         //private static System.Timers.Timer IPStatusTimer;
+        /// <summary>
+        /// The total clients
+        /// </summary>
         private static int totalClients = 0;
+        /// <summary>
+        /// The test timer
+        /// </summary>
         private static Timer _testTimer;
+        /// <summary>
+        /// The timer
+        /// </summary>
         private static Timer _timer;
+        /// <summary>
+        /// Sets the timer.
+        /// </summary>
+        /// <param name="starTime">The star time.</param>
+        /// <param name="every">The every.</param>
+        /// <param name="action">The action.</param>
         private static void SetTimer(TimeSpan starTime, TimeSpan every, Func<Task> action)
         {
             var current = DateTime.Now;
@@ -65,12 +157,20 @@ namespace TcpServerListener
                 action.Invoke();
             }, null, timeToGo, every);
         }
+        /// <summary>
+        /// Starts the test timer.
+        /// </summary>
         private static void StartTestTimer()
         {
             int delayStart = (60 - DateTime.Now.Second) * 1000;
 
             _testTimer = new Timer(new TimerCallback(RunTestTimer), null, delayStart, 60000);
         }
+        /// <summary>
+        /// Runs the test timer.
+        /// THis timer is for strategymode='test'
+        /// </summary>
+        /// <param name="state">The state.</param>
         private static void RunTestTimer(object state)
         {
             StrategyExec se = new StrategyExec();
@@ -116,14 +216,14 @@ namespace TcpServerListener
             }
         }
         // Thread signal.  
+        /// <summary>
+        /// All done
+        /// </summary>
         public static ManualResetEvent allDone = new ManualResetEvent(false);
 
-        //public AsyncDesktopServer()
-        //{
-        //    var current = DateTime.Now.TimeOfDay;
-        //    SetTimer(current.Add(TimeSpan.FromSeconds(30)), TimeSpan.FromSeconds(10), CheckShutdownInstruction);
-        //}
-
+        /// <summary>
+        /// Starts the tcp server listener to listen to desktop clients.
+        /// </summary>
         public static void StartListening()
         {
             var current = DateTime.Now.TimeOfDay;
@@ -160,6 +260,10 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// Accepts new connections.
+        /// </summary>
+        /// <param name="ar">contains the state of socket</param>
         public static void AcceptCallback(IAsyncResult ar)
         {
             try
@@ -206,6 +310,10 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// Reads the bytes from socket
+        /// </summary>
+        /// <param name="ar">The ar.</param>
         public static void ReadCallback(IAsyncResult ar)
         {
             string content = string.Empty;
@@ -270,6 +378,13 @@ namespace TcpServerListener
                 }
             }
         }
+        /// <summary>
+        /// Decodes the data desktop.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="sock">The sock.</param>
+        /// please look into the method for data reference
+        /// <returns>System.Int32.</returns>
         private static async Task<int> DecodeDataDesktop(Dictionary<string, string> data, Socket sock)
         {
             GetMacAddress gt = new GetMacAddress();
@@ -406,6 +521,11 @@ namespace TcpServerListener
             }
             return 1;
         }
+        /// <summary>
+        /// Determines whether [is client connected] [the specified handler].
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        /// <returns><c>true</c> if [is client connected] [the specified handler]; otherwise, <c>false</c>.</returns>
         public static bool isClientConnected(Socket handler)
         {
             bool status = false;
@@ -421,6 +541,17 @@ namespace TcpServerListener
             return status;
         }
 
+        /// <summary>
+        /// Method to Send data to desktop.
+        /// </summary>
+        /// <param name="ccmac">The ccmac.</param>
+        /// <param name="deskmac">The deskmac.</param>
+        /// <param name="instruction">The instruction.</param>
+        /// <param name="strategyid">The strategyid.</param>
+        /// <param name="strategydeskid">The strategydeskid.</param>
+        /// <param name="inst">The inst.</param>
+        /// <param name="equipid">The equipid.</param>
+        /// <returns>System.Int32.</returns>
         public static int SendToDesktop(string ccmac, string deskmac, string instruction,int strategyid,int strategydeskid, byte[] inst, int equipid)
         {
             int result = 0;
@@ -477,6 +608,11 @@ namespace TcpServerListener
             }
             return result;
         }
+        /// <summary>
+        /// Sends the bytes to specified handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
+        /// <param name="byteData">The byte data.</param>
         private static void Send(Socket handler, byte[] byteData)
         {
             try
@@ -493,6 +629,10 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// call back function for sending the bytes to client
+        /// </summary>
+        /// <param name="ar">The ar.</param>
         private static void SendCallback(IAsyncResult ar)
         {
             try
@@ -519,6 +659,10 @@ namespace TcpServerListener
                 Console.WriteLine(e.Message);
             }
         }
+        /// <summary>
+        /// Disconnect the socket desktop client.
+        /// </summary>
+        /// <param name="sock">The sock.</param>
         private static void ClearSocketDesktop(Socket sock)
         {
             try
@@ -547,9 +691,11 @@ namespace TcpServerListener
             }
         }
 
+        /// <summary>
+        /// Checks if the shutdwon instruction is sent to desktop client or not
+        /// </summary>
         private static async Task CheckShutdownInstruction()
         {
-            //List<string> machineMacList = new List<string>();
             WaitListClass data = null;
             Dictionary<string, string> DatatoSend = new Dictionary<string, string>();
             try

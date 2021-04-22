@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : DBHelper
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-21-2021
+// ***********************************************************************
+// <copyright file="GetMacAddress.cs" company="Microsoft">
+//     Copyright © Microsoft 2019
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using NLog;
@@ -8,10 +21,21 @@ using System.Threading.Tasks;
 
 namespace DBHelper
 {
+    /// <summary>
+    /// Class GetMacAddress.
+    /// </summary>
     public class GetMacAddress
     {
+        /// <summary>
+        /// The logger file
+        /// </summary>
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
-      
+
+        /// <summary>
+        /// Gets the mac.
+        /// </summary>
+        /// <param name="mac">The array of desktop mac address .</param>
+        /// <returns>desktop mac and related central control machine mac(ccmac)</returns>
         public KeyValuePair<string, string> GetMac(string[] mac)
         {
             KeyValuePair<string, string> result = new KeyValuePair<string, string>();
@@ -51,6 +75,13 @@ namespace DBHelper
             return result;
         }
 
+        /// <summary>
+        /// save  desktop event or action as an asynchronous operation.
+        /// </summary>
+        /// <param name="deskmac">The deskmac.</param>
+        /// <param name="action">The action.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.
+        /// No. of updated rows</returns>
         public async Task<int> SaveInactiveDesktopAsync(string deskmac, string action)
         {
             var res = 0;
@@ -96,6 +127,11 @@ namespace DBHelper
             return res;
         }
 
+        /// <summary>
+        /// Gets the class identifier.
+        /// </summary>
+        /// <param name="mac">The ccmac.</param>
+        /// <returns>System.Int32. classid</returns>
         public int GetClassID(string mac)
         {
             int id = 0;
@@ -128,6 +164,13 @@ namespace DBHelper
             return id;
         }
 
+        /// <summary>
+        /// Updates the status of card reg.
+        /// </summary>
+        /// <param name="stat">The stat.</param>
+        /// <param name="mac">The mac.</param>
+        /// <param name="cid">The cid.</param>
+        /// <returns>System.Int32.</returns>
         public int UpdateStatCardReg(string stat, string mac, string cid)
         {
             int result = 0;
@@ -166,6 +209,13 @@ namespace DBHelper
             return result;
         }
 
+        /// <summary>
+        /// Saves the reader log.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="mac">The mac.</param>
+        /// <param name="cardid">The cardid.</param>
+        /// <returns>System.Int32.</returns>
         public int SaveReaderLog(string message, string mac, string cardid)
         {
             int result = 0;
@@ -209,6 +259,13 @@ namespace DBHelper
             return result;
         }
 
+        /// <summary>
+        /// Saves the power usage information.
+        /// </summary>
+        /// <param name="pow">The pow.</param>
+        /// <param name="mac">The mac.</param>
+        /// <param name="typ">The typ.</param>
+        /// <returns>System.Int32.</returns>
         public int SavePowerUsageInfo(int pow, string mac, string typ)
         {
             int r = 0;
@@ -251,6 +308,12 @@ namespace DBHelper
             }
             return r;
         }
+        /// <summary>
+        /// Gets the power usage information.
+        /// </summary>
+        /// <param name="mac">The mac.</param>
+        /// <param name="typ">The typ.</param>
+        /// <returns>System.String.</returns>
         public string GetPowerUsageInfo(string mac, string typ)
         {
             int r = 0;
@@ -266,7 +329,7 @@ namespace DBHelper
                         {
                             using (var context = new organisationdatabaseEntities(c.Name))
                             {
-                                var cid = context.classdetails.Where(x => x.ccmac == mac)
+                                var cid = context.classdetails.Where(x => x.ccmac == mac).OrderBy(x=>x.classID)
                                     .Select(x => x.classID).FirstOrDefault();
                                 if (cid > 0)
                                 {
@@ -292,6 +355,11 @@ namespace DBHelper
             return data;
         }
 
+        /// <summary>
+        /// count the occurence of a ccmac in classdetails.
+        /// </summary>
+        /// <param name="machinemac">The machinemac.</param>
+        /// <returns>System.Int32.</returns>
         public int MachineCount(List<string> machinemac)
         {
             int r = 0;
@@ -323,6 +391,12 @@ namespace DBHelper
             return r;
         }
 
+        /// <summary>
+        /// Updates the projector configuration.
+        /// </summary>
+        /// <param name="mac">The mac.</param>
+        /// <param name="val">The value.</param>
+        /// <returns>System.Int32.</returns>
         public int UpdateProjectorConfig(string mac, string val)
         {
             int r = 0; string stat = "";
