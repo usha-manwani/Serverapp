@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : TcpServerListener
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-22-2021
+// ***********************************************************************
+// <copyright file="StrategyExec.cs" company="">
+//     Copyright ©  2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
@@ -10,13 +23,25 @@ using System.Configuration;
 
 namespace TcpServerListener
 {
+    /// <summary>
+    /// Class StrategyExec.
+    /// </summary>
     class StrategyExec
     {
+        /// <summary>
+        /// The object of NLog to write the logs in file
+        /// </summary>
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
-        
-        public List<FinalResult> GetData(string time)
+
+        /// <summary>
+        /// This method is called by the strategy timer to get the instructions from
+        /// database
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>List of StrategyDetailExecStruct</returns>
+        public List<StrategyDetailExecStruct> GetData(string time)
         {
-            List<FinalResult> ff = new List<FinalResult>();
+            List<StrategyDetailExecStruct> ff = new List<StrategyDetailExecStruct>();
             Strategy st = new Strategy();
             var inscode = "";
             
@@ -49,7 +74,7 @@ namespace TcpServerListener
                                             inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                             foreach (LocationsMac l in locationsmac)
                                             {
-                                                ff.Add(new FinalResult
+                                                ff.Add(new StrategyDetailExecStruct
                                                 {
                                                     Instruction = inscode,
                                                     Ccmac = l.CCMac.ToUpper(),
@@ -68,7 +93,7 @@ namespace TcpServerListener
                                             inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                             foreach (LocationsMac l in locationsmac)
                                             {
-                                                ff.Add(new FinalResult
+                                                ff.Add(new StrategyDetailExecStruct
                                                 {
                                                     Instruction = inscode,
                                                     Ccmac = l.CCMac.ToUpper(),
@@ -84,7 +109,7 @@ namespace TcpServerListener
                                         inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                         foreach (LocationsMac l in locationsmac)
                                         {
-                                            ff.Add(new FinalResult
+                                            ff.Add(new StrategyDetailExecStruct
                                             {
                                                 Instruction = inscode,
                                                 Ccmac = l.CCMac.ToUpper(),
@@ -108,7 +133,7 @@ namespace TcpServerListener
                                             inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                             foreach (LocationsMac l in locationsmac)
                                             {
-                                                ff.Add(new FinalResult
+                                                ff.Add(new StrategyDetailExecStruct
                                                 {
                                                     Instruction = inscode,
                                                     Ccmac = l.CCMac.ToUpper(),
@@ -127,7 +152,7 @@ namespace TcpServerListener
                                             inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                             foreach (LocationsMac l in locationsmac)
                                             {
-                                                ff.Add(new FinalResult
+                                                ff.Add(new StrategyDetailExecStruct
                                                 {
                                                     Instruction = inscode,
                                                     Ccmac = l.CCMac.ToUpper(),
@@ -146,7 +171,7 @@ namespace TcpServerListener
                                             inscode = CheckEquipmentCode(s.EquipmentId, s.ServiceConfig);
                                             foreach (LocationsMac l in locationsmac)
                                             {
-                                                ff.Add(new FinalResult
+                                                ff.Add(new StrategyDetailExecStruct
                                                 {
                                                     Instruction = inscode,
                                                     Ccmac = l.CCMac.ToUpper(),
@@ -180,6 +205,13 @@ namespace TcpServerListener
             return ff;
         }
 
+        /// <summary>
+        /// this method is use to get the Instruction Keyword from Instructions.cs file
+        /// based on the configuration instructions from database
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>Instruction keyword</returns>
         public string CheckEquipmentCode(int id, Dictionary<string, object> c)
         {
             var instruction = "None";
@@ -309,136 +341,19 @@ namespace TcpServerListener
 
             return instruction;
         }
-        public string CheckEquipmentCode1(int id, Dictionary<string, object> c)
-        {
-            var instruction = "";
 
-
-            switch (id)
-            {
-                case 1:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "SystemOnStrategy";
-                    else
-                        instruction = "SystemOffStrategy";
-                    break;
-                case 2:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ProjectorOnStrategy";
-                    else
-                        instruction = "ProjectorOffStrategy";
-                    break;
-                case 3:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "CurtainOpenStrategy";
-                    else
-                        instruction = "CurtainCloseStrategy";
-                    break;
-                case 4:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ComputerOnStrategy";
-                    else
-                        instruction = "ComputerOffStrategy";
-                    break;
-                case 5:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "SystemLockStrategy";
-                    else
-                        instruction = "SystemUnlockStrategy";
-                    break;
-                case 6:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ProjectorPowerOnStrategy";
-                    else
-                        instruction = "ProjectorPowerOffStrategy";
-                    break;
-                case 7:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ComputerPowerOnStrategy";
-                    else
-                        instruction = "ComputerPowerOffStrategy";
-                    break;
-                case 8:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "AmplifierPowerOnStrategy";
-                    else
-                        instruction = "AmplifierPowerOffStrategy";
-                    break;
-                case 9:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "OtherPowerOnStrategy";
-                    else
-                        instruction = "OtherPowerOffStrategy";
-                    break;
-                case 10:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "PodiumLightOnStrategy";
-                    else
-                        instruction = "PodiumLightOffStrategy";
-                    break;
-                case 11:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ClassroomLightOnStrategy";
-                    else
-                        instruction = "ClassroomLightOffStrategy";
-                    break;
-                case 12:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "PodiumCurtainOnStrategy";
-                    else
-                        instruction = "PodiumCurtainOffStrategy";
-                    break;
-                case 13:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ClassroomCurtainOnStrategy";
-                    else
-                        instruction = "ClassroomCurtainOffStrategy";
-                    break;
-                case 14:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "ExhaustFanOnStrategy";
-                    else
-                        instruction = "ExhaustFanOffStrategy";
-                    break;
-                case 15:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "FreshAirSystemOnStrategy";
-                    else
-                        instruction = "FreshAirSystemOffStrategy";
-                    break;
-                case 16:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "Ac1OnStrategy";
-                    else
-                        instruction = "Ac1OffStrategy";
-                    break;
-                case 17:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "Ac2OnStrategy";
-                    else
-                        instruction = "Ac2OffStrategy";
-                    break;
-                case 18:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "Ac3OnStrategy";
-                    else
-                        instruction = "Ac3OffStrategy";
-                    break;
-                case 19:
-                    if (c["Stat"].ToString() == "On")
-                        instruction = "Ac4OnStrategy";
-                    else
-                        instruction = "Ac4OffStrategy";
-                    break;
-                default:
-                    break;
-            }
-            return instruction;
-        }
-        public List<FinalResult> GetStrategyBySchedule(string time, string dbname)
+        /// <summary>
+        ///this method is part of strategy timer and is called from GetData(time) method in this same class.
+        /// Gets the strategy by schedule.
+        /// Get the strategy details, configurations when the timeframe is selected as Schedule
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <param name="dbname">The dbname.</param>
+        /// <returns>List of StrategyDetailExecStruct.</returns>
+        public List<StrategyDetailExecStruct> GetStrategyBySchedule(string time, string dbname)
         {
             string dbnameEntities = dbname + "Entities";
-            var ff = new List<FinalResult>();
+            var ff = new List<StrategyDetailExecStruct>();
             try
             {
                 
@@ -481,7 +396,7 @@ namespace TcpServerListener
                                     if (sectiontime == "stop")
                                     {
                                         if (instruction.Contains("Off") || instruction.Contains("CloseStrategy"))
-                                            ff.Add(new FinalResult() { Ccmac = l.CCMac.ToUpper(),
+                                            ff.Add(new StrategyDetailExecStruct() { Ccmac = l.CCMac.ToUpper(),
                                                 Instruction = instruction,
                                                 Deskmac = l.DeskMac.ToUpper(),
                                                 StrategyDescId = dec.StrategyDescId,
@@ -492,7 +407,7 @@ namespace TcpServerListener
                                     else if (sectiontime == "start")
                                     {
                                         if (instruction.Contains("On"))
-                                            ff.Add(new FinalResult() { Ccmac = l.CCMac.ToUpper(), Instruction = instruction,
+                                            ff.Add(new StrategyDetailExecStruct() { Ccmac = l.CCMac.ToUpper(), Instruction = instruction,
                                                 Deskmac = l.DeskMac.ToUpper(),
                                                 StrategyDescId = dec.StrategyDescId,
                                                 StrategyId = dec.StrategyId,
@@ -516,16 +431,18 @@ namespace TcpServerListener
         }
 
         /// <summary>
-        /// Gets the strategy by section.
+        ///this method is part of strategy timer and is called from "GetStrategyBySchedule(param1,param2)" method in this same class.
+        /// Gets the strategy by Section.
+        /// Get the strategy details, configurations when the timeframe is selected as Section
         /// </summary>
         /// <param name="section">The section.</param>
         /// <param name="sectiontime">The sectiontime.</param>
         /// <param name="dbname">The dbname.</param>
-        /// <returns>List&lt;FinalResult&gt;.</returns>
-        public List<FinalResult> GetStrategyBySection(int section, string sectiontime,string dbname)
+        /// <returns>List&lt;StrategyDetailExecStruct&gt;.</returns>
+        public List<StrategyDetailExecStruct> GetStrategyBySection(int section, string sectiontime,string dbname)
         {
             string dbnameEntities = dbname + "Entities";
-            List<FinalResult> ff = new List<FinalResult>();
+            List<StrategyDetailExecStruct> ff = new List<StrategyDetailExecStruct>();
            
             Strategy st = new Strategy();
             ///GetStrByScheduleorSection used EF connection string
@@ -545,7 +462,7 @@ namespace TcpServerListener
                             if (sectiontime == "stop")
                             {
                                 if(instruction.Contains("Off")|| instruction.Contains("CloseStrategy"))
-                                    ff.Add(new FinalResult() {
+                                    ff.Add(new StrategyDetailExecStruct() {
                                         Ccmac = l.CCMac.ToUpper(),
                                         Instruction = instruction,
                                         Deskmac = l.DeskMac.ToUpper(),
@@ -557,7 +474,7 @@ namespace TcpServerListener
                             else if (sectiontime == "start")
                             {
                                 if (instruction.Contains("On"))
-                                    ff.Add(new FinalResult() {
+                                    ff.Add(new StrategyDetailExecStruct() {
                                         Ccmac = l.CCMac.ToUpper(),
                                         Instruction = instruction,
                                         Deskmac = l.DeskMac.ToUpper(),
@@ -573,7 +490,8 @@ namespace TcpServerListener
             return ff;
         }
         /// <summary>
-        /// Gets the test time data.
+        /// This method is called from AsyncDesktopServer.cs to find the strategy that has a time frame for
+        /// test so that a desktop client can be informed 5 minutes prior to test
         /// </summary>
         /// <returns>List&lt;TestTimes&gt;.</returns>
         public List<TestTimes> GetTestTimeData()
@@ -629,25 +547,88 @@ namespace TcpServerListener
 
       
     }
-    public class FinalResult
+
+    /// <summary>
+    /// Class StrategyDetailExecStruct.
+    /// </summary>
+    public class StrategyDetailExecStruct
     {
+        /// <summary>
+        /// Gets or sets the instruction.
+        /// </summary>
+        /// <value>The instruction.</value>
         public string Instruction { get; set; }
+        /// <summary>
+        /// Gets or sets the ccmac.
+        /// </summary>
+        /// <value>The ccmac.</value>
         public string Ccmac { get; set; }
+        /// <summary>
+        /// Gets or sets the deskmac.
+        /// </summary>
+        /// <value>The deskmac.</value>
         public string Deskmac { get; set; }
+        /// <summary>
+        /// Gets or sets the strategy identifier.
+        /// </summary>
+        /// <value>The strategy identifier.</value>
         public int StrategyId { get; set; }
+        /// <summary>
+        /// Gets or sets the strategy desc identifier.
+        /// </summary>
+        /// <value>The strategy desc identifier.</value>
         public int StrategyDescId { get; set; }
+        /// <summary>
+        /// Gets or sets the equipmentid.
+        /// </summary>
+        /// <value>The equipmentid.</value>
         public int Equipmentid { get; set; }
     }
 
+    /// <summary>
+    /// Class TestTimes.
+    /// </summary>
     public class TestTimes
     {
+        /// <summary>
+        /// Gets or sets the end time.
+        /// </summary>
+        /// <value>The end time.</value>
         public string EndTime { get; set; }
+        /// <summary>
+        /// Gets or sets the start time.
+        /// </summary>
+        /// <value>The start time.</value>
         public string StartTime { get; set; }
+        /// <summary>
+        /// Gets or sets the publish title.
+        /// </summary>
+        /// <value>The publish title.</value>
         public int[] PublishTitle { get; set; }
+        /// <summary>
+        /// Gets or sets the c cmac.
+        /// </summary>
+        /// <value>The c cmac.</value>
         public string CCmac { get; set; }
+        /// <summary>
+        /// Gets or sets the code.
+        /// </summary>
+        /// <value>The code.</value>
         public string Code { get; set; }
-        public int[] PublishText { get; set; }        
+        /// <summary>
+        /// Gets or sets the publish text.
+        /// </summary>
+        /// <value>The publish text.</value>
+        public int[] PublishText { get; set; }
+        /// <summary>
+        /// Gets or sets the subject.
+        /// </summary>
+        /// <value>The subject.</value>
         public string Subject { get; set; }
+        /// <summary>
+        /// Gets or sets the deskmac.
+        /// </summary>
+        /// <value>The deskmac.</value>
         public string Deskmac { get; set; }
     }
 }

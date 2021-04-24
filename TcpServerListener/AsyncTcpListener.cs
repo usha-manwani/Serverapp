@@ -235,7 +235,7 @@ namespace TcpServerListener
                 {
                     StrategyLogs strategyLogs = new StrategyLogs();
                     Instructions inst = new Instructions();
-                    foreach (FinalResult f in ff)
+                    foreach (StrategyDetailExecStruct f in ff)
                     {
                         var instruction = new byte[10];
                         ///this here is to create the full instruction set because instruction needs the strategy id
@@ -576,11 +576,12 @@ namespace TcpServerListener
                         /// function call to get the bytes of response to a readable format
                         re = dd.Decoded("", datatoDecode, status);
 
-
                         if (re.Count == 2)
                         {
+                            /// response bytes that were converted into string and readable format
                             object obj = re["data"];
                             final = obj as Dictionary<string, object>;
+                            ///"Type" contains the AskType of the response bytes
                             if (final.ContainsKey("Type"))
                             {
                                 if (final["Type"].ToString() == "MacAddress")
@@ -610,13 +611,14 @@ namespace TcpServerListener
                                     }
                                 }
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
+                                ///Checks if type is strategy and save the status of it in database
                                 if (final["Type"].ToString() == "Strategy")
                                 {
                                     StrategyLogs strategyLogs = new StrategyLogs();
                                     strategyLogs.UpdateStrategyStatus(final["Device"].ToString(), mac,
                                     Convert.ToInt32(final["StrategyId"]), final["InstructionStatus"].ToString());
                                 }
+                                ///if type = cardRegister save the status in database
                                 else if (final["Type"].ToString() == "CardRegister" && final["InstructionStatus"].ToString() == "Success")
                                 {
 
@@ -630,22 +632,26 @@ namespace TcpServerListener
 
                                 }
                             }
-
+                            ///call method to send the bytes to web socket
                             SendMessage(mac, final);
                             if (final["Type"].ToString() != "Heartbeat")
                             {
                                 var macobj2 = new GetMacAddress();
                                 //var t = final["Log"].ToString();
                                 var type = final["Type"].ToString();
+                               
                                 if (final.ContainsKey("Log") && !string.IsNullOrEmpty(final["Log"].ToString()))
                                 {
                                     StrategyLogs st = new StrategyLogs();
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                                    ///If there is Log key in the response then store it in the logs table.
                                     st.SaveMachineLogs(type, final["Log"].ToString(), mac);
                                     if (final["Log"].ToString() == "SystemOn" || final["Log"].ToString() == "SystemOff")
                                     {
+                                        ///If Log has System status then update the temporary system status in the table
                                         st.UpdateMachineStatus(mac, final["Log"].ToString());
                                     }
+                                    ///If type is ReaderLog then save the reader log in cardlogs table
                                     else if (final["Type"].ToString().Contains("ReaderLog"))
                                     {
                                         var temp2 = final["Data"] as Dictionary<string, string>;
@@ -654,6 +660,7 @@ namespace TcpServerListener
                                     }
 
                                     var temp3 = final["Data"] as Dictionary<string, string>;
+                                    ///if the response is from Projector config save the status in database
                                     if (temp3.ContainsKey("ProjectorOnCode") || temp3.ContainsKey("ProjectorOffCode")
                                         || temp3.ContainsKey("SetBaudRate"))
                                     {
@@ -680,6 +687,8 @@ namespace TcpServerListener
 
                                 }
                             }
+                            /// there are 2 different type of heartbeats and so this is use to 
+                            /// find the exception and send it to web application  
                             else if (final["Type"].ToString() == "Heartbeat")
                             {
                                 int error = 0;
@@ -875,12 +884,8 @@ namespace TcpServerListener
             {
                 var proxyUrl = ConfigurationManager.AppSettings.Get("proxyUrl").ToString();
                 loggerFile.Debug("Proxy url: " + proxyUrl);
-                con = new HubConnection(proxyUrl);
-                // con.TraceLevel = TraceLevels.All;
-                // con.TraceWriter = Console.Out;
-                proxy = con.CreateHubProxy("myHub");
-                // MessageBox.Show("create proxy hub called");
-               
+                con = new HubConnection(proxyUrl);              
+                proxy = con.CreateHubProxy("myHub");                
                 proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration", (mac, data) =>
                 {
                     byte[] inst = ProjectorConfigInstruction(data);
@@ -896,9 +901,7 @@ namespace TcpServerListener
                             }
                         }
                     }
-                }
-
-                );
+                });
                 proxy.On<List<string>, Dictionary<string, string>>("SetProjectorConfiguration1", (mac, data) =>
                 {
                     var ins = new Instructions();
@@ -1243,7 +1246,7 @@ namespace TcpServerListener
                     {
                         loggerFile.Debug("There was an error opening the connection with WebClient");
                     }
-                    //else{MessageBox.Show("Connected to signalR");}
+                    
                 }).Wait();
             }
             catch (Exception ex)
@@ -1284,7 +1287,7 @@ namespace TcpServerListener
         }
 
         /// <summary>
-        /// close the signalRconnection
+        /// If signalR connection disconnects , then this event is called and try to reconnect again
         /// </summary>
         private static void Con_Closed()
         {
@@ -1392,6 +1395,5 @@ namespace TcpServerListener
             proxy.Invoke("CountMachines", count);
         }
         #endregion
-
     }
 }

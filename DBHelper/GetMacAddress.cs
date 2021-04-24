@@ -11,12 +11,11 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using NLog;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DBHelper
@@ -53,9 +52,9 @@ namespace DBHelper
                                 foreach (string m in mac)
                                 {
                                     var temp = m.Replace(':', ' ').ToUpper();
-                                    if (context.classdetails.Any(x => x.deskmac.ToUpper() == temp))
+                                    var d = context.classdetails.Where(x => x.deskmac.ToUpper() == temp).Select(y => y.ccmac).SingleOrDefault();
+                                    if (d != null)
                                     {
-                                        var d = context.classdetails.Where(x => x.deskmac.ToUpper() == temp).Select(y => y.ccmac).SingleOrDefault();
                                         found = true;
                                         result = new KeyValuePair<string, string>(temp, d.ToUpper());
                                         break;
@@ -68,7 +67,7 @@ namespace DBHelper
                             }
                         }
                     }
-                    
+
                 }
                 else { break; }
             }
@@ -148,7 +147,10 @@ namespace DBHelper
                             {
                                 id = context.classdetails.Where(x => x.ccmac.ToUpper() == mac.ToUpper())
                                                     .Select(x => x.classID).FirstOrDefault();
-                                if (id > 0) found = true;
+                                if (id > 0)
+                                {
+                                    found = true;
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -248,7 +250,7 @@ namespace DBHelper
 
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
 
                         }
@@ -329,7 +331,7 @@ namespace DBHelper
                         {
                             using (var context = new organisationdatabaseEntities(c.Name))
                             {
-                                var cid = context.classdetails.Where(x => x.ccmac == mac).OrderBy(x=>x.classID)
+                                var cid = context.classdetails.Where(x => x.ccmac == mac).OrderBy(x => x.classID)
                                     .Select(x => x.classID).FirstOrDefault();
                                 if (cid > 0)
                                 {
@@ -363,7 +365,6 @@ namespace DBHelper
         public int MachineCount(List<string> machinemac)
         {
             int r = 0;
-            var data = "";
             var found = false;
             foreach (ConnectionStringSettings c in ConfigurationManager.ConnectionStrings)
             {
@@ -376,7 +377,10 @@ namespace DBHelper
                             using (var context = new organisationdatabaseEntities(c.Name))
                             {
                                 r = context.classdetails.Where(x => machinemac.Contains(x.ccmac)).Count();
-                                if (r > 0) found = true;
+                                if (r > 0)
+                                {
+                                    found = true;
+                                }
                             }
                         }
                         catch (Exception ex)
@@ -411,7 +415,11 @@ namespace DBHelper
                         {
                             stat = "Registered";
                         }
-                        else stat = "Pending";
+                        else
+                        {
+                            stat = "Pending";
+                        }
+
                         using (var context = new organisationdatabaseEntities(c.Name))
                         {
                             var classid = context.classdetails.Where(x => x.ccmac == mac).Select(x => x.classID).FirstOrDefault();

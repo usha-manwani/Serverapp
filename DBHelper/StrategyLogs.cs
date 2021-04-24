@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : DBHelper
+// Author           : admin
+// Created          : 04-02-2021
+//
+// Last Modified By : admin
+// Last Modified On : 04-22-2021
+// ***********************************************************************
+// <copyright file="StrategyLogs.cs" company="Microsoft">
+//     Copyright © Microsoft 2019
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Configuration;
 using NLog;
 using System.Linq;
@@ -7,10 +20,25 @@ using System.Threading.Tasks;
 
 namespace DBHelper
 {
+    /// <summary>
+    /// Class StrategyLogs.
+    /// Use to save strategy logs in database
+    /// </summary>
     public class StrategyLogs
     {
+        /// <summary>
+        /// The object of Nlog to write the logs in file
+        /// </summary>
         private static Logger loggerFile = LogManager.GetCurrentClassLogger();
-        
+
+        /// <summary>
+        /// Saves the strategy log information.
+        /// </summary>
+        /// <param name="instruction">The instruction.</param>
+        /// <param name="stid">The stid.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="machinemac">The machinemac.</param>
+        /// <param name="equipid">The equipid.</param>
         public async Task SaveStrategyLogInfo(string instruction, int stid, string status, string machinemac, int equipid)
         {
             var found = false;
@@ -55,6 +83,14 @@ namespace DBHelper
                 else { break; }
             }
         }
+        /// <summary>
+        /// Updates the strategy status.
+        /// </summary>
+        /// <param name="instruction">The instruction.</param>
+        /// <param name="machinemac">The machinemac.</param>
+        /// <param name="stid">The stid.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>System.Int32.</returns>
         public async Task<int> UpdateStrategyStatus(string instruction, string machinemac, int stid, string status)
         {
             int r = 0;
@@ -98,6 +134,12 @@ namespace DBHelper
             }
             return r;
         }
+        /// <summary>
+        /// Saves the machine logs.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="machinemac">The machinemac.</param>
         public async Task SaveMachineLogs(string type, string data, string machinemac)
         {
             int r = 0;
@@ -137,6 +179,14 @@ namespace DBHelper
             }
         }
 
+        /// <summary>
+        /// Updates the machine status.
+        /// this is used to save the status of machine On/Off
+        /// the table temp_machinestatus will be used in future purposes
+        /// </summary>
+        /// <param name="machinemac">The machinemac.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>System.Int32.</returns>
         public async Task<int> UpdateMachineStatus(string machinemac, string status)
         {
             int r = 0;

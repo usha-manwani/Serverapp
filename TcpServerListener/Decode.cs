@@ -1897,15 +1897,7 @@ namespace TcpServerListener
             return result;
         }
 
-        /// <summary>
-        /// Keys the value indicator.
-        /// </summary>
-        /// <param name="messageArray">The message array.</param>
-        /// <param name="data">The data.</param>
-        private void KeyValueIndicator(string[] messageArray, byte[] data)
-        {
-            keyCodes.Add(10, "DeskTop");
-        }
+        
 
         /// <summary>
         /// Offlines the message.
